@@ -7,6 +7,7 @@ import json
 import re
 import zipfile
 from xml.etree import ElementTree as ET
+from collections import Counter
 import requests
 URL="https://www.rivm.nl/sites/default/files/2026-05/Kopie-van-Lijst-van-waterpijptabak-RIVM-2026_0.xlsx"
 NS="{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
@@ -27,6 +28,9 @@ for path in data.namelist():
     seen_gtins=0
     cols=set()
     cell_count=0
+    code_types=Counter()
+    eligible=[]
+    data_rows=0
     for row in root.iter(NS+"row"):
         values={}
         for cell in row.findall(NS+"c"):
@@ -46,5 +50,15 @@ for path in data.namelist():
                 seen_gtins+=1
         if len(rows)<7:
             rows.append(values)
-    tables.append({"sheet":path,"firstRows":rows,"numCells":cell_count,"gtinLikeCells":seen_gtins})
+        if values.get("A")=="NL":
+            data_rows+=1
+            code_types[str(values.get("M", ""))]+=1
+            barcode=str(values.get("N", ""))
+            if re.fullmatch(r"\d{8}|\d{12,14}",barcode):
+                accum=0;factor=3
+                for char in barcode[-2::-1]:
+                    accum+=int(char)*factor;factor=1 if factor==3 else 3
+                if (10-accum%10)%10==int(barcode[-1]):
+                    eligible.append({"brand":values.get("G"),"subbrand":values.get("H"),"weight":values.get("L"),"type":values.get("M"),"ean":barcode})
+    tables.append({"sheet":path,"firstRows":rows,"numCells":cell_count,"dataRows":data_rows,"productNumberTypes":dict(code_types),"gtinLikeCells":seen_gtins,"gtinValidProductNumberRows":len(eligible),"validExamples":eligible[:15]})
 print(json.dumps({"resource":URL,"bytes":len(response.content),"sheets":tables},ensure_ascii=False))
