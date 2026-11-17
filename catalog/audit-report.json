@@ -1,0 +1,23 @@
+{
+  "summary": {
+    "ean_records": 524,
+    "distinct_gtins": 524,
+    "brands_or_lines": 59,
+    "tobacco_base_unknown": 156,
+    "flavor_missing": 495,
+    "families_multiple_gtins": 64,
+    "source_counts": {
+      "Shisha-Nil": 319,
+      "Turaah": 124,
+      "Shisharia": 78,
+      "Invictus Shisha": 1,
+      "Da-Shisha": 1,
+      "Bullet Shop Berlin": 1
+    },
+    "fatal_issues": 0,
+    "warnings": 0
+  },
+  "fatal": [],
+  "warnings": [],
+  "note": "GTIN checksum and source-URL syntax cannot prove the barcode exists on the physical pack. External supplier data is not independently verified."
+}

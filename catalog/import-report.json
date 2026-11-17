@@ -1,78 +1,21 @@
 {
-  "timestamp_utc": "2026-11-17T18:35:27.339932+00:00",
-  "before": 399,
-  "after": 424,
-  "added": 25,
+  "timestamp_utc": "2026-11-17T18:48:59.274789+00:00",
+  "before": 424,
+  "after": 524,
+  "added": 100,
   "sources": [
-    {
-      "name": "Datakick CC0",
-      "new": 0,
-      "eligible_products": 0
-    },
-    {
-      "name": "Shisha-Nil",
-      "robots": "allowed",
-      "new": 1,
-      "requests": 60,
-      "discovered": 274,
-      "inspected": 41,
-      "reasons": {
-        "no_clear_product_title": 30,
-        "no_gtin": 2,
-        "already_catalogued": 8
-      }
-    },
-    {
-      "name": "Shisharia",
-      "robots": "allowed",
-      "new": 0,
-      "requests": 87,
-      "discovered": 78,
-      "inspected": 72,
-      "reasons": {
-        "no_clear_product_title": 11,
-        "no_gtin": 61
-      }
-    },
     {
       "name": "Turaah",
       "robots": "allowed",
-      "new": 24,
-      "requests": 33,
-      "discovered": 26,
-      "inspected": 26,
+      "new": 100,
+      "requests": 161,
+      "discovered": 173,
+      "inspected": 149,
       "reasons": {
-        "already_catalogued": 2
-      }
-    },
-    {
-      "name": "Blubberhaus",
-      "robots": "allowed",
-      "new": 0,
-      "requests": 32,
-      "discovered": 25,
-      "inspected": 25,
-      "reasons": {
-        "no_clear_product_title": 25
-      }
-    },
-    {
-      "name": "Shisha-Shop.de",
-      "robots": "allowed",
-      "new": 0,
-      "requests": 32,
-      "discovered": 25,
-      "inspected": 25,
-      "reasons": {
-        "no_clear_product_title": 25
+        "no_gtin": 1,
+        "already_catalogued": 42,
+        "no_clear_product_title": 6
       }
     }
-  ],
-  "review": {
-    "reviewed_at_utc": "2026-11-17",
-    "accepted_products": 25,
-    "total_products": 424,
-    "brand_aliases_normalized": 21,
-    "notes": "Automatic GTIN validity and unique-code tests passed. Source URLs preserved. Same variety can have historical GTIN revisions; cross-source conflicts require future independent validation."
-  }
+  ]
 }
