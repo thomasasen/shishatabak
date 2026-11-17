@@ -32,5 +32,12 @@
         "no_gtin": 44
       }
     }
-  ]
+  ],
+  "review": {
+    "reviewed_at_utc": "2026-11-17",
+    "rejected_records": 1,
+    "rejection_reason": "Product name was generic ('Shisha Tabak') rather than a distinguishable variety",
+    "normalized": "Brand aliases and one promotional subtitle removed",
+    "published_after_review": 280
+  }
 }
