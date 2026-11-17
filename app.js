@@ -145,14 +145,38 @@
     } catch (e) { storageError="Gespeicherte Daten konnten nicht gelesen werden.";toast(storageError+" Vorhandene Websitedaten nicht löschen.",true); }
   }
   function normalizeBase(base) { return ["Virginia","Dark Blend","Unbekannt"].includes(base)?base:"Unbekannt"; }
+  function normalizeBarcode(value) {
+    const raw=String(value??"").trim().replace(/[\s-]/g,"");
+    if(!/^(?:\d{8}|\d{12}|\d{13}|\d{14})$/.test(raw))return null;
+    let sum=0,weight=3;
+    for(let i=raw.length-2;i>=0;i--){sum+=Number(raw[i])*weight;weight=weight===3?1:3;}
+    if((10-sum%10)%10!==Number(raw.at(-1)))return null;
+    return raw.length===12?"0"+raw:raw;
+  }
+  function parseBarcodes(values) {
+    const arr=Array.isArray(values)?values:String(values||"").split(/[,;\s]+/);
+    const result=[];
+    for(const val of arr){
+      if(!String(val||"").trim())continue;
+      const barcode=normalizeBarcode(val);
+      if(!barcode)throw new Error("Ungültige EAN/UPC: "+String(val).slice(0,30));
+      if(!result.includes(barcode))result.push(barcode);
+    }
+    if(result.length>30)throw new Error("Maximal 30 EANs pro Tabak.");
+    return result;
+  }
   function validate(raw) {
     if(!raw||raw.app!==APP_ID||raw.version!==VERSION||!Array.isArray(raw.tobaccos)||!Array.isArray(raw.sessions))throw new Error("Nicht unterstütztes Backup-Format oder Version.");
     if(raw.tobaccos.length>5000||raw.sessions.length>50000)throw new Error("Datei überschreitet die zulässige Anzahl von Einträgen.");
-    const ids=new Set(),tobaccos=[];
+    const ids=new Set(),allBarcodes=new Set(),tobaccos=[];
     for(const t of raw.tobaccos) {
       if(!t||typeof t.id!=="string"||!(/^[\w-]{1,80}$/).test(t.id)||ids.has(t.id)||!plain(t.brand,120)||!plain(t.name,160))throw new Error("Ungültige oder doppelte Tabakdaten.");
       ids.add(t.id);
-      const barcodes=Array.isArray(t.barcodes)?Array.from(new Set(t.barcodes.filter(code=>typeof code==="string"&&/^\d{8,14}$/.test(code)))).slice(0,30):[];
+      const barcodes=parseBarcodes(t.barcodes||[]);
+      for(const code of barcodes){
+        if(allBarcodes.has(code))throw new Error("EAN/UPC ist mehreren Tabaken zugeordnet: "+code);
+        allBarcodes.add(code);
+      }
       tobaccos.push({id:t.id,barcodes,brand:plain(t.brand,120),name:plain(t.name,160),base:normalizeBase(t.base),flavor:plain(t.flavor,200),notes:plain(t.notes,1000),createdAt:plain(t.createdAt,40)});
     }
     const sessionIds=new Set(),sessions=[];
@@ -181,7 +205,8 @@
       '<div class="catalog-results" id="catalogResults"></div>'+
       '<div class="field-row"><div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+["Unbekannt","Virginia","Dark Blend"].map(b=>'<option '+((p?p.base:"Unbekannt")===b?"selected ":"")+'value="'+b+'">'+b+'</option>').join("")+'</select></div>'+
       input("flavor","Geschmacksprofil",p&&p.flavor,"z. B. Traube, Minze",false,"text",'maxlength="200"')+'</div>'+
-      '<div class="field"><label>Zugeordnete EANs</label><p class="smallprint">'+escapeHTML((p?.barcodes||[]).join(", ")||"Noch keine EAN zugeordnet. Bitte oben „Barcode scannen“ verwenden.")+'</p></div>'+
+      input("barcodes","EANs / UPCs bearbeiten",p?.barcodes?.join(", ")||"","Bei Bedarf per Komma trennen",false,"text",'maxlength="550"')+
+      '<span class="field-help">Falsche EAN einfach entfernen oder korrigieren. Tabak und Sessions bleiben erhalten. Prüfziffern werden validiert.</span>'+
       '<div class="field"><label for="f-notes">Eigene Notizen</label><textarea id="f-notes" maxlength="1000" name="notes" placeholder="Optional">'+escapeHTML(p&&p.notes)+'</textarea></div>'+
       '<div class="hint">Die Vorschläge stammen aus dem recherchierten lokalen Produktkatalog. Du kannst auch Produkte eingeben, die hier noch nicht vorkommen.</div></div>'+
       '<div class="dialog-actions">'+(p?'<button type="button" class="btn btn-danger" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Löschen</button>':'')+
@@ -223,8 +248,13 @@
     if(!brand||!name){toast("Hersteller und Sorte sind Pflichtfelder.",true);return;}
     const duplicate=state.tobaccos.find(p=>p.id!==id&&key(p.brand)===key(brand)&&key(p.name)===key(name));
     if(duplicate){toast("Diese Kombination aus Hersteller und Sorte ist bereits vorhanden.",true);return;}
+    let barcodes;
+    try{barcodes=parseBarcodes(fd.get("barcodes"));}
+    catch(error){toast(error.message,true);return;}
+    const conflict=state.tobaccos.find(p=>p.id!==id&&(p.barcodes||[]).some(raw=>barcodes.includes(normalizeBarcode(raw))));
+    if(conflict){toast("EAN/UPC gehört bereits zu "+pName(conflict)+".",true);return;}
     const existing=state.tobaccos.find(p=>p.id===id);
-    const p={id:existing?existing.id:uid(),barcodes:existing?.barcodes||[],brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
+    const p={id:existing?existing.id:uid(),barcodes,brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,tobaccos:existing?state.tobaccos.map(x=>x.id===p.id?p:x):[...state.tobaccos,p]};
     if(persist(next)){closeDialog();toast(existing?"Tabak aktualisiert.":"Tabak hinzugefügt.");}
   }

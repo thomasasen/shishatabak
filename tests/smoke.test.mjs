@@ -113,3 +113,35 @@ test("merge import reuses products instead of duplicating them", async () => {
   assert.equal(app.saved().sessions.length,1);
   assert.equal(app.saved().sessions[0].tobaccoId,app.saved().tobaccos[0].id);
 });
+
+test("wrong scanned EAN can be corrected without losing tobacco or sessions",()=>{
+  const app=runApp();
+  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"ORNG MNT",base:"Virginia",barcodes:"0000674441833"});
+  const id=app.saved().tobaccos[0].id;
+  app.submit("session-form",{id:"",tobaccoId:id,date:"2026-11-17",severity:"1",taste:"3",duration:"30",temperature:"200",bowl:"NOCCA",notes:""});
+  assert.equal(app.saved().sessions.length,1);
+  app.submit("tobacco-form",{id,brand:"Argileh",name:"ORNG MNT",base:"Virginia",barcodes:"4260623441833"});
+  assert.deepEqual(app.saved().tobaccos[0].barcodes,["4260623441833"]);
+  assert.equal(app.saved().tobaccos[0].id,id);
+  assert.equal(app.saved().sessions[0].tobaccoId,id);
+});
+test("invalid barcodes are not silently persisted",()=>{
+  const app=runApp();
+  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"Test",base:"Virginia",barcodes:"4260623441834"});
+  assert.equal(app.sharedStorage.size,0);
+  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"Test",base:"Virginia",barcodes:"4260623441833"});
+  assert.equal(app.saved().tobaccos.length,1);
+  app.submit("tobacco-form",{id:"",brand:"Other",name:"Other",base:"Virginia",barcodes:"4260623441833"});
+  assert.equal(app.saved().tobaccos.length,1);
+});
+test("import rejects two products claiming the same EAN and preserves local storage",async()=>{
+  const app=runApp();
+  app.submit("tobacco-form",{id:"",brand:"Existing",name:"Existing",base:"Virginia"});
+  const before=JSON.stringify(app.saved());
+  const data={app:"tabakjournal",version:1,tobaccos:[
+    {id:"product-one",brand:"A",name:"One",base:"Virginia",barcodes:["4260623441833"]},
+    {id:"product-two",brand:"B",name:"Two",base:"Virginia",barcodes:["4260623441833"]}
+  ],sessions:[],settings:{bowl:""}};
+  await app.import(data);
+  assert.equal(JSON.stringify(app.saved()),before);
+});

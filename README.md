@@ -108,3 +108,7 @@ Maßnahmen:
 - Es wird kein ungeklärter Barcode automatisch zu Argileh ORNG MNT hinzugefügt. Quellenbelege bleiben die Voraussetzung für den öffentlichen Katalog.
 
 Grenzen: Die Prüfung der Formate kann ohne Metadaten beim Fotoimport nur anhand der Länge erfolgen. Ein wiederholt falsch gelesener EAN-13-Code ist weiterhin möglich; der Abgleich mit den Verpackungsziffern ist die verlässliche Kontrolle.
+
+### EAN-Korrektur ohne Datenverlust
+
+Im Tabak-Editor lassen sich die zugeordneten Barcodes jetzt direkt bearbeiten (Komma-getrennt). Ein falscher Scan kann entfernt oder korrigiert werden, **ohne den Tabak oder dessen Sessions zu löschen**. Auch der JSON-Import prüft nun die GTIN-Prüfziffer und blockiert doppelte EAN-Zuordnungen über verschiedene Tabake hinweg. 12-stellige UPC-A-Codes werden auf ihre 13-stellige EAN-Entsprechung normalisiert.
