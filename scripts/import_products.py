@@ -27,6 +27,7 @@ SITES=[
   ("Turaah","https://turaah.de",["/Shisha-Tabak"]),
   ("Blubberhaus","https://www.blubberhaus.de",["/Shisha-Tabak"]),
   ("Shisha-Shop.de","https://shisha-shop.de",["/Shisha-Tabak"]),
+  ("SUN-VI","https://www.sunvi.de",["/Shisha-Tabak-Wasserpfeifentabak"]),
 ]
 GTIN_RE=re.compile(r"(?:GTIN(?:/EAN)?|EAN)\s*[:：]?\s*(?:\|\s*)?(\d{8}|\d{12,14})\b",re.I)
 TITLE_RE=re.compile(r"^(.+?)\s+(?:Shisha[- ]?Tabak|Tobacco|Tabak)\s+(?:(?:Core|Line|Strong|Standard|Premium|Red Series)\s+)?(\d{2,4})\s*g\s*[-–:]\s*(.+)$",re.I)
@@ -168,17 +169,25 @@ def discover(source,roots):
             if not source.allowed(link):continue
             if index:queue.append(link)
             elif is_product_url(link):result.add(link)
-    # Independent fallbacks when sitemap endpoints are absent or incomplete.
+    # JTL uses _s2/_s3 for real pagination. ?p=2 repeats page 1 on some sites.
     for root in roots:
-        for page in range(1,5):
-            url=source.base+root+("?" if "?" not in root else "&")+"p="+str(page)
+        no_growth=0
+        for number in range(1,33):
+            if source.count>=source.limit:break
+            url=source.base+root+(("_s"+str(number)) if number>1 else "")
             html=source.get(url)
-            if not html:continue
+            if not html:
+                no_growth+=1
+                if no_growth>=2:break
+                continue
             soup=BeautifulSoup(html,"html.parser")
+            count_before=len(result)
             for anchor in soup.select("a[href]"):
                 link=urllib.parse.urldefrag(urllib.parse.urljoin(url,anchor["href"]))[0]
                 if source.allowed(link) and is_product_url(link):
                     result.add(link)
+            no_growth=0 if len(result)>count_before else no_growth+1
+            if no_growth>=2:break
     return sorted(result)
 
 def collect_store(name,base,roots,current,max_requests,max_products,delay):
@@ -238,15 +247,20 @@ def main():
     cli.add_argument("--max-requests",type=int,default=370)
     cli.add_argument("--max-products",type=int,default=300)
     cli.add_argument("--delay",type=float,default=1.0)
+    cli.add_argument("--only-source",type=str,default=None,help="Run one named retailer source, omitting Datakick")
     options=cli.parse_args()
     if not (10<=options.max_requests<=450 and 5<=options.max_products<=350 and options.delay>=0.8):
         cli.error("out-of-range limits")
     data=json.loads(DB.read_text(encoding="utf-8"))
     products={p["ean"]:p for p in data["products"]}
     before=len(products)
-    reports=[from_datakick(products)]
-    caps={"Shisha-Nil":300,"Shisharia":95,"Turaah":230,"Blubberhaus":190,"Shisha-Shop.de":190}
+    names={name for name,_,_ in SITES}
+    if options.only_source and options.only_source not in names:
+        cli.error("Unknown source; expected one of: "+", ".join(sorted(names)))
+    reports=[] if options.only_source else [from_datakick(products)]
+    caps={"Shisha-Nil":300,"Shisharia":95,"Turaah":230,"Blubberhaus":190,"Shisha-Shop.de":190,"SUN-VI":200}
     for name,base,roots in SITES:
+        if options.only_source and name!=options.only_source:continue
         cap=min(options.max_products,caps[name])
         requests=min(options.max_requests,cap+80)
         report=collect_store(name,base,roots,products,requests,cap,options.delay)

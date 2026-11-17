@@ -31,6 +31,29 @@ class ImportTests(unittest.TestCase):
         p,r=parse_product(html,"https://turaah.de/187-Shisha-Tabak-200g-040-HAMBURG","Turaah")
         self.assertEqual(r,"ok")
         self.assertEqual(p["ean"],"4251822810834")
+    def test_jtl_pagination_semantics(self):
+        # JTL category pages typically use _s2, unlike query parameter ?p=2.
+        from scripts.import_products import discover
+        class Fake:
+            base="https://example-shop.de"
+            count=0
+            limit=15
+            def allowed(self,url):return url.startswith(self.base+"/")
+            def get(self,url):
+                self.count+=1
+                if "/sitemap" in url:return None
+                if "Shisha-Tabak_s2" in url:
+                    return '<a href="/Hookain-Shisha-Tabak-200g-White-Caek">Hookain</a>'
+                if "Shisha-Tabak_s3" in url:
+                    return '<a href="/Holster-Shisha-Tabak-200g-Booster">Holster</a>'
+                if "Shisha-Tabak" in url:
+                    return '<a href="/187-Shisha-Tabak-200g-New-Flash">187</a>'
+                return None
+        obj=Fake()
+        found=discover(obj,["/Shisha-Tabak"])
+        self.assertTrue(any("Hookain" in x for x in found))
+        self.assertTrue(any("Holster" in x for x in found))
+        self.assertEqual(len(found),3)
     def test_ambiguous(self):
         p,r=parse_product("<h1>Holster Tobacco 200g - Bono</h1><p>GTIN/EAN: 4255799709528 EAN: 4260623441833</p>","https://www.shisha-nil.de/holster-tobacco-200g-bono","Shisha-Nil")
         self.assertEqual(r,"ambiguous_gtin")
