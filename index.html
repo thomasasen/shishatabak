@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a25">
+  <meta name="description" content="Privates Shisha-Tabakjournal mit Verträglichkeitsprotokoll. Lokal im Browser gespeichert.">
+  <title>Tabakjournal · Meine Shisha-Sammlung</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Hauptnavigation">
+      <div class="brand"><span class="brand-mark">T<span>.</span></span><span><strong>Tabakjournal</strong><small>DEIN SHISHA-ARCHIV</small></span></div>
+      <div class="side-caption">WORKSPACE</div>
+      <nav class="nav" aria-label="Bereiche">
+        <button class="nav-item is-active" data-view="overview"><span class="nav-icon">◫</span>Übersicht</button>
+        <button class="nav-item" data-view="collection"><span class="nav-icon">▤</span>Meine Tabake</button>
+        <button class="nav-item" data-view="sessions"><span class="nav-icon">◷</span>Sessions</button>
+        <button class="nav-item" data-view="insights"><span class="nav-icon">▥</span>Auswertung</button>
+        <button class="nav-item" data-view="data"><span class="nav-icon">⇄</span>Daten & Backup</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="setup-chip"><span class="live-dot"></span><span><strong>Dein Setup</strong><small>NOCCA eHMD · ohne Kohle</small></span></div>
+        <p>Privat. Lokal. Ohne Benutzerkonto.</p>
+      </div>
+    </aside>
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-left"><span class="eyebrow">PERSONAL JOURNAL</span><span class="topbar-divider"></span><span id="currentSection">Übersicht</span></div>
+        <div class="topbar-actions"><span class="save-state" id="saveStatus">● Lokal gespeichert</span><button class="btn btn-primary btn-sm" data-action="add-tobacco"><span>＋</span> Tabak hinzufügen</button></div>
+      </header>
+      <main id="screen" class="content" aria-live="polite"></main>
+      <footer class="footer">Tabakjournal Pilot v0.1 · Daten bleiben auf diesem Gerät und in diesem Browser · Kein Shop, keine Werbung</footer>
+    </div>
+  </div>
+  <dialog id="editorDialog" class="editor-dialog" aria-labelledby="dialogTitle"><div id="dialogContent"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
