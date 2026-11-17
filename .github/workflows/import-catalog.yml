@@ -11,6 +11,8 @@ on:
       - 'scripts/import_listings.py'
       - 'scripts/test_import_products.py'
       - 'scripts/test_import_listings.py'
+      - 'scripts/audit_catalog.py'
+      - 'scripts/test_audit_catalog.py'
       - '.github/workflows/import-catalog.yml'
 
 permissions:
@@ -49,9 +51,12 @@ jobs:
           path: |
             catalog/import-report.json
             catalog/listing-import-report.json
+            catalog/audit-report.json
           retention-days: 30
       - name: Generate browser catalog and validate GTINs
         run: |
+          python -m unittest discover -s scripts -p test_audit_catalog.py -v
+          python -m scripts.audit_catalog
           node scripts/build-catalog.mjs
           node scripts/build-catalog.mjs --check
           node --test tests/*.test.mjs
@@ -61,7 +66,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog/products.json catalog.js catalog/import-report.json catalog/listing-import-report.json
+          git add catalog/products.json catalog.js catalog/import-report.json catalog/listing-import-report.json catalog/audit-report.json
           if git diff --cached --quiet; then
             echo "Nothing to change"
             exit 0
