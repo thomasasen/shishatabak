@@ -24,6 +24,9 @@ AGENT="TabakjournalCatalogBot/0.3 (+https://github.com/thomasasen/shishatabak)"
 SITES=[
   ("Shisha-Nil","https://www.shisha-nil.de",["/tabak/shisha-tabak/200g-tabak/","/tabak/shisha-tabak/25g-tabak/","/tabak/shisha-tabak/100g-tabak/","/tabak/shisha-tabak/alle-tabake/"]),
   ("Shisharia","https://shisharia.de",["/shisha-tabak-200g","/shisha-tabak-25g","/shisha-tabak-100g"]),
+  ("Turaah","https://turaah.de",["/Shisha-Tabak"]),
+  ("Blubberhaus","https://www.blubberhaus.de",["/Shisha-Tabak"]),
+  ("Shisha-Shop.de","https://shisha-shop.de",["/Shisha-Tabak"]),
 ]
 GTIN_RE=re.compile(r"(?:GTIN(?:/EAN)?|EAN)\s*[:：]?\s*(?:\|\s*)?(\d{8}|\d{12,14})\b",re.I)
 TITLE_RE=re.compile(r"^(.+?)\s+(?:Shisha[- ]?Tabak|Tobacco|Tabak)\s+(?:(?:Core|Line|Strong|Standard|Premium|Red Series)\s+)?(\d{2,4})\s*g\s*[-–:]\s*(.+)$",re.I)
@@ -124,7 +127,7 @@ def discover(source,roots):
     # Bounded sitemap discovery, including sitemap indexes.
     queue=[source.base+"/sitemap.xml",source.base+"/sitemap_index.xml"]
     seen=set()
-    while queue and len(seen)<7:
+    while queue and len(seen)<45:
         url=queue.pop(0)
         if url in seen:continue
         seen.add(url)
@@ -216,10 +219,13 @@ def main():
     products={p["ean"]:p for p in data["products"]}
     before=len(products)
     reports=[from_datakick(products)]
+    caps={"Shisha-Nil":300,"Shisharia":95,"Turaah":230,"Blubberhaus":190,"Shisha-Shop.de":190}
     for name,base,roots in SITES:
-        cap=300 if name=="Shisha-Nil" else 95
-        requests=options.max_requests if name=="Shisha-Nil" else 155
-        reports.append(collect_store(name,base,roots,products,requests,min(options.max_products,cap),options.delay))
+        cap=min(options.max_products,caps[name])
+        requests=min(options.max_requests,cap+80)
+        report=collect_store(name,base,roots,products,requests,cap,options.delay)
+        reports.append(report)
+        print(json.dumps(report,ensure_ascii=False),flush=True)
     updated=sorted(products.values(),key=lambda p:(p["brand"].casefold(),p["name"].casefold(),p["quantity_g"],p["ean"]))
     assert all(valid_gtin(p["ean"]) for p in updated)
     if len(products)>before:

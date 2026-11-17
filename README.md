@@ -129,3 +129,7 @@ Technische Grundlagen: [html5-qrcode CameraCapabilities](https://scanapp.org/htm
 ## Breiter Quellenimport (November 2026)
 
 Zusätzlich zum Einzelproduktimport verarbeitet `scripts/import_listings.py` öffentliche **Produktübersichtsseiten** von Blubberhaus, Shisha-Shop.de, Mall of Shisha und SUN-VI. Die GTIN wird nur übernommen, wenn sie zusammen mit einem eindeutig benannten Produkt in derselben Produktkarte steht. Wenn mehrere Produktkarten oder Barcodes vermischt sind, wird der Treffer verworfen. `robots.txt`, Abrufgrenzen und Wartezeiten bleiben aktiviert. Der automatisierte Shisha-Nil-Import ist von 55 auf maximal 300 geprüfte Einzelproduktseiten je Lauf erweitert. Ergebnisse jeder Quelle stehen getrennt unter `catalog/import-report.json` und `catalog/listing-import-report.json`. Die Aufnahme neuer Datensätze erfolgt weiterhin erst nach Prüfung des Import-Branches.
+
+### Erweiterung auf weitere Einzelproduktkataloge
+
+Der Einzelprodukt-Importer liest jetzt außerdem **Turaah, Blubberhaus und Shisha-Shop.de** über öffentliche Detailseiten aus, sofern der jeweilige Zugriff durch robots.txt erlaubt ist. Für Turaah sind bis zu 230, für Blubberhaus und Shisha-Shop.de jeweils bis zu 190 geprüfte Produktseiten pro Lauf vorgesehen. Produktseiten mit widersprüchlichen oder mehreren nicht zuordenbaren GTINs werden weiterhin ausgeschlossen. Die Sitemap-Auswertung wurde erweitert. Die Begrenzungen verhindern unkontrolliertes Voll-Crawling.
