@@ -40,7 +40,8 @@ def valid_gtin(s):
 
 def parsed_title(s):
     s=" ".join(s.split())
-    m=TITLE_RE.match(s) or FALLBACK_RE.match(s)
+    # Require an explicit tobacco product heading; size alone is not enough.
+    m=TITLE_RE.match(s)
     if not m:return None
     brand,size,name=m.groups()
     brand=brand.strip(" -");name=name.strip(" -")
