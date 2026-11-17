@@ -5,7 +5,7 @@
   const APP_ID = "tabakjournal";
   const VERSION = 1;
   // Curated product facts; personal records remain separate in browser storage.
-  const CATALOG = [...new Map((window.TabakCatalog?.products||[]).map(p=>[(p.brand+"|"+p.name).toLocaleLowerCase("de"),[p.brand,p.name,p.base||"Unbekannt",p.flavor||""]])).values()];
+  const CATALOG = [...new Map((window.TabakCatalog?.products||[]).map(p=>[(p.brand+"|"+p.name).toLocaleLowerCase("de"),[p.brand,p.name,p.base||"Unbekannt",p.flavor||"",p.aliases||[]]])).values()];
   const BRANDS = Array.from(new Set(CATALOG.map(x => x[0]).concat([
     "Al Massiva", "Blackburn", "Darkside", "Kismet", "Must H", "True Passion",
     "Maridan", "Chaos", "Brohood", "Bad und Mad", "Start Now", "Ocean Hookah",
@@ -194,7 +194,7 @@
     const update=()=>{
       const b=key(brand.value),n=key(name.value);
       if(!b&&!n){results.innerHTML="";return;}
-      const matches=CATALOG.filter(x=>(!b||key(x[0]).includes(b))&&(!n||key(x[1]).includes(n))).slice(0,6);
+      const matches=CATALOG.filter(x=>(!b||key(x[0]).includes(b))&&(!n||[x[1],...(x[4]||[])].some(label=>key(label).includes(n)))).slice(0,6);
       results.innerHTML=matches.map((x,i)=>'<button class="catalog-result" type="button" data-action="choose-suggestion" data-index="'+CATALOG.indexOf(x)+'"><span><strong>'+escapeHTML(x[0])+'</strong> · '+escapeHTML(x[1])+'</span><small>Übernehmen +</small></button>').join("");
     };
     brand.addEventListener("input",update);name.addEventListener("input",update);

@@ -79,3 +79,12 @@ Die Erkennung verwendet **html5-qrcode 2.3.8**, das erst bei Kamera- oder Fotoer
 Die App prüft neue Scans in dieser Reihenfolge: **(1) eigene Sammlung, (2) versionierter Katalog, (3) Online-Namenssuche bei EAN-Suche.net**, danach manuelle Zuordnung. Erst wenn eine EAN weder lokal noch im Katalog vorhanden ist, wird sie an `https://ean-suche.net/api/produkt/{ean}` gesendet. Bei einem Treffer wird der Name **nur als bearbeitbarer Vorschlag** übernommen; Hersteller, Tabaksorte und Packungsgröße müssen anhand der Dose überprüft werden. Bei 404, 429, Netzwerk- oder CORS-Fehlern bleibt die lokale Erfassung möglich. Der Dienst nennt 60 Anfragen/Stunde/IP und verlangt bei öffentlicher Nutzung eine Quellenangabe; die App zeigt den Quelllink im Footer und Scan-Dialog.
 
 Andere recherchierte Quellen für zukünftige Integrationen: OpenGTINDB (API-Bedingungen beachten), UPCitemdb (kostenloses Trial-Kontingent), Datakick/GTINSearch (offene API), Verified by GS1 (max. 30 kostenlose Abfragen/Tag für Nutzer), professionelle EAN-Suche.de (kostenpflichtig) sowie Hersteller-/Großhandels-Feeds. Händler-Kataloge und Community-Listen wie SmokeDex, ShishaTobaccos und Dölid eignen sich zur Qualitätsanreicherung, dürfen aber nicht ohne passende Rechte vollumfänglich kopiert werden.
+
+## Korrektur: Argileh ORNG MNT (17.11.2026)
+
+Die 200-g-Sorte **Argileh ORNG MNT** (Orange/Minze, Virginia) wird auch unter **OG&M** und **OMI** angeboten. Zwei unabhängig belegte EANs sind nun auf denselben kanonischen Produktnamen gemappt:
+
+- `4260623442977` – [Shisha-Nil](https://www.shisha-nil.de/argileh-tobacco-200g-og-m)
+- `4260623441833` – [Shisharia](https://shisharia.de/Argileh-Shisha-Tabak-200g-Orng-Mnt)
+
+Suche und Barcodezuordnung berücksichtigen die alternativen Namen. Bereits lokal als OG&M angelegte Tabake können dem neuen Code zugeordnet werden, statt doppelt angelegt zu werden. Bei anderen EANs oder Herstellern muss die konkrete Dose separat überprüft werden.

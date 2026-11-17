@@ -7,6 +7,11 @@
   const dialog=$("barcodeDialog");
   const escape=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const norm=s=>String(s??"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+  const sameProduct=(t,p)=>{
+    const cleanBrand=b=>norm(b).replace(/(tobacco|tabak)$/,"");
+    return cleanBrand(t.brand)===cleanBrand(p.brand)
+      && [p.name,...(p.aliases||[])].some(label=>norm(label)===norm(t.name));
+  };
   function normalizeCode(input) {
     let s=String(input??"").replace(/[\s-]/g,"");
     if(!/^\d+$/.test(s)||![8,12,13,14].includes(s.length))return null;
@@ -152,7 +157,7 @@
       return;
     }
     if(entry){
-      const exists=s.tobaccos.find(t=>norm(t.brand)===norm(entry.brand)&&norm(t.name)===norm(entry.name));
+      const exists=s.tobaccos.find(t=>sameProduct(t,entry));
       shell(title,"EAN aus dem recherchierten Produktkatalog",
         '<div class="scan-result good"><strong>Produkt gefunden</strong><h3>'+escape(entry.brand+" · "+entry.name)+'</h3>'+escape(entry.quantity_g+" g · "+entry.base)+'</div>'+
         '<p class="smallprint">Quelle: <a href="'+escape(entry.source_url)+'" target="_blank" rel="noopener noreferrer">'+escape(entry.source)+'</a>. Bitte Aufdruck und Packungsgröße mit dem Ergebnis vergleichen.</p>'+
@@ -179,7 +184,8 @@
         stored.barcodes=[...new Set([...(stored.barcodes||[]),code])];
       }else{
         if(!product.brand||!product.name)throw Error("Hersteller und Sorte eingeben.");
-        const exists=s.tobaccos.find(t=>norm(t.brand)===norm(product.brand)&&norm(t.name)===norm(product.name));
+        const entry=DB.find(p=>normalizeCode(p.ean)===code);
+        const exists=s.tobaccos.find(t=>entry?sameProduct(t,entry):(norm(t.brand)===norm(product.brand)&&norm(t.name)===norm(product.name)));
         if(exists)throw Error("Diese Sorte gibt es bereits. Nutze die Zuordnung zum vorhandenen Tabak.");
         s.tobaccos.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2),brand:product.brand.slice(0,120),name:product.name.slice(0,160),base:product.base||"Unbekannt",flavor:(product.flavor||"").slice(0,200),notes:"",barcodes:[code],createdAt:new Date().toISOString()});
       }
@@ -199,7 +205,7 @@
     if(!b||!n||!box)return;
     const brand=norm(b.value),name=norm(n.value);
     if(!brand&&!name)return;
-    const matches=DB.filter(p=>(!brand||norm(p.brand).includes(brand))&&(!name||norm(p.name).includes(name))).slice(0,9);
+    const matches=DB.filter(p=>(!brand||norm(p.brand).includes(brand))&&(!name||[p.name,...(p.aliases||[])].some(label=>norm(label).includes(name)))).slice(0,9);
     box.innerHTML=matches.map((p)=>'<button class="catalog-result" type="button" data-scan-action="suggest" data-code="'+escape(p.ean)+'"><span><strong>'+escape(p.brand)+'</strong> · '+escape(p.name)+'</span><small>'+escape(p.quantity_g)+' g</small></button>').join("");
   });
   document.addEventListener("click",event=>{
@@ -240,5 +246,5 @@
   dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
   window.addEventListener("pagehide",()=>{void stop();});
   // Unprivileged diagnostic API for automated checks; no personal records exposed.
-  window.TabakBarcode={normalizeCode,catalogCount:DB.length};
+  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct};
 })();

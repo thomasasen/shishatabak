@@ -48,3 +48,22 @@ test("GitHub Pages scripts load catalog before app and scanner",()=>{
   assert.ok(html.indexOf(names[0])<html.indexOf(names[1]));
   assert.ok(html.indexOf(names[1])<html.indexOf(names[2]));
 });
+
+test("Argileh ORNG MNT variants share a canonical name and aliases",()=>{
+  const hits=products.filter(p=>p.brand==="Argileh"&&["4260623442977","4260623441833"].includes(p.ean));
+  assert.equal(hits.length,2);
+  for(const p of hits){
+    assert.equal(p.name,"ORNG MNT");
+    assert.equal(p.quantity_g,200);
+    assert.ok(p.aliases.includes("OG&M"));
+    assert.ok(p.aliases.includes("OMI"));
+  }
+  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?{addEventListener(){}}:null;},addEventListener(){}},console};
+  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
+  const matches=ctx.window.TabakBarcode.sameProduct;
+  const entry=hits[0];
+  assert.ok(matches({brand:"Argileh",name:"OG&M"},entry));
+  assert.ok(matches({brand:"Argileh Tobacco",name:"OMI"},entry));
+  assert.ok(matches({brand:"Argileh",name:"ORNG MNT"},entry));
+  assert.ok(!matches({brand:"Dschinni",name:"ORNG MNT"},entry));
+});

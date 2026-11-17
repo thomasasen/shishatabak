@@ -1414,13 +1414,21 @@
     {
       "ean": "4260623442977",
       "brand": "Argileh",
-      "name": "OG&M",
+      "name": "ORNG MNT",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Orange, Minze",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/argileh-tobacco-200g-og-m",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "OG&M",
+        "OG & M",
+        "OMI",
+        "Orange Mint",
+        "Orange Minze",
+        "Orng Mnt"
+      ]
     },
     {
       "ean": "4260623440096",
@@ -2190,6 +2198,25 @@
       "flavor": "",
       "source": "Bullet Shop Berlin",
       "source_url": "https://bulletshopberlin.de/musthave-grp-mnt-shisha-tabak-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260623441833",
+      "brand": "Argileh",
+      "name": "ORNG MNT",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "Orange, Minze",
+      "aliases": [
+        "OG&M",
+        "OG & M",
+        "OMI",
+        "Orange Mint",
+        "Orange Minze",
+        "Orng Mnt"
+      ],
+      "source": "Shisharia",
+      "source_url": "https://shisharia.de/Argileh-Shisha-Tabak-200g-Orng-Mnt",
       "verified_at": "2026-11-17"
     }
   ]
