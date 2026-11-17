@@ -89,3 +89,22 @@ test("camera scanning requires three matching decodes rather than one lucky chec
   assert.equal(noisy("4260623442977",540).accepted,true);
   assert.equal(noisy("4260623442976",650).accepted,false); // invalid check digit
 });
+
+test("standard scanner only accepts EAN-13 and rejects UPC-A fallback",()=>{
+  const dialog={addEventListener(){}};
+  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?dialog:null;},addEventListener(){}},console};
+  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
+  const {validForScanMode,normalizeCode,decodedFormat}=ctx.window.TabakBarcode;
+  const ean={result:{format:{formatName:"EAN_13"}}};
+  const upc={result:{format:{formatName:"UPC_A"}}};
+  const ean8={result:{format:{formatName:"EAN_8"}}};
+  assert.equal(validForScanMode("4260623441833",ean,false),true);
+  assert.equal(validForScanMode("0000674441833",upc,false),false);
+  assert.equal(validForScanMode("0000674441833",ean,false),true); // mathematically valid; print must still be checked
+  assert.equal(validForScanMode("050674441883",upc,false),false);
+  assert.equal(validForScanMode("050674441883",upc,true),true);
+  assert.equal(validForScanMode("4260623441833",ean,true),true);
+  assert.equal(validForScanMode("4260623441833",{result:{format:{formatName:"UPC_E"}}},true),false);
+  assert.equal(normalizeCode("050674441883"),"0050674441883");
+  assert.equal(decodedFormat(upc),"UPC_A");
+});

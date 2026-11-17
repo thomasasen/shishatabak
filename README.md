@@ -94,3 +94,17 @@ Suche und Barcodezuordnung berücksichtigen die alternativen Namen. Bereits loka
 Ein Beispielscan einer Argileh-ORNG-MNT-Dose ergab `0050674441883`. Diese Nummer ist formal eine gültige EAN-13 beziehungsweise UPC-A `050674441883`, wird jedoch bislang durch keine Produktquelle Argileh zugeordnet. Die beiden belegten 200-g-EANs sind `4260623442977` und `4260623441833`.
 
 Die Scannerkamera verlangt deshalb nun **drei zeitlich getrennte übereinstimmende Decodes**, statt das erste prüfziffergültige Ergebnis sofort anzunehmen. Im Ergebnisdialog zu unbekannten Codes wird auf den Vergleich mit der unter dem Strichcode gedruckten Nummer hingewiesen. Damit werden zufällige Fehllesungen reduziert; drei übereinstimmende Reads beweisen allerdings noch keine Herstellerzuordnung. Ohne Nachweis wird der fragliche Code nicht in die gemeinsame Produktdatenbank aufgenommen.
+
+### Red-Team Barcode-Decoder (17.11.2026)
+
+Ausgangslage: Verschiedene formal gültige Codes mit auffällig vielen führenden Nullen wurden beim Scan einer Argileh-Dose erkannt, ohne dass die Produktidentität belegt war.
+
+Maßnahmen:
+- **Standardmodus nur EAN-13.** UPC-A und EAN-8 sind über einen bewusst aktivierbaren Zusatzmodus erhältlich; UPC-E ist ausgeschlossen, solange die saubere Expansion auf GTIN nicht implementiert wurde.
+- Bei Kamerascans werden gemeldete Barcodeformate vor der Annahme überprüft. Drei übereinstimmende Bilder bleiben notwendig.
+- Ein unbekannter Barcode kann jetzt durch Eingabe der gedruckten Ziffern erneut geprüft werden, ohne die Kamera neu zu starten.
+- Unbekannte Codes dürfen erst nach Bestätigung des physischen Aufdrucks dauerhaft gespeichert werden. Ein technisch gültiger Code allein beweist keine Identität.
+- Codes mit besonders auffälligem Null-Präfix lösen nicht sofort eine externe API-Abfrage aus. Diese erfolgt erst nach Bestätigung.
+- Es wird kein ungeklärter Barcode automatisch zu Argileh ORNG MNT hinzugefügt. Quellenbelege bleiben die Voraussetzung für den öffentlichen Katalog.
+
+Grenzen: Die Prüfung der Formate kann ohne Metadaten beim Fotoimport nur anhand der Länge erfolgen. Ein wiederholt falsch gelesener EAN-13-Code ist weiterhin möglich; der Abgleich mit den Verpackungsziffern ist die verlässliche Kontrolle.

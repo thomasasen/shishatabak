@@ -53,7 +53,27 @@
     if(!dialog.open)dialog.showModal();
   }
   let html5=null,started=false,starting=false,stopWhenReady=false,locked=false,scriptPromise=null;
-  let consensus=createScanConsensus();
+  let consensus=createScanConsensus(),activeAltFormats=false;
+  // Some decoders report UPC-A when an EAN-13 starts with 0. The captured
+  // format still matters: never silently normalize all UPC/EAN variants.
+  function decodedFormat(info) {
+    const name=info?.result?.format?.formatName;
+    return typeof name==="string"?name.toUpperCase():null;
+  }
+  function validForScanMode(raw,info,allowAlt=false){
+    const format=decodedFormat(info);
+    const code=normalizeCode(raw);
+    if(!code)return false;
+    if(format && !["EAN_13","EAN_8","UPC_A"].includes(format))return false;
+    if(!allowAlt){
+      // When format metadata is absent (file decoding), require 13 digits
+      // exactly; with metadata insist on the actual EAN-13 symbology.
+      return String(raw).replace(/[\s-]/g,"").length===13 && (!format||format==="EAN_13");
+    }
+    if(format==="EAN_8")return String(raw).replace(/[\s-]/g,"").length===8;
+    if(format==="UPC_A")return String(raw).replace(/[\s-]/g,"").length===12;
+    return !format||format==="EAN_13";
+  }
   function close(){ if(dialog.open)dialog.close();void stop(); }
   function openScanner(){
     close();locked=false;consensus=createScanConsensus();
@@ -61,6 +81,7 @@
       '<div class="hint">Die EAN wird lokal auf deinem Smartphone ausgelesen. Bei einem bekannten Code erscheint direkt der Tabak.</div>'+
       '<div id="scanCamera" class="scan-area"><div class="empty-preview">▥<p>Kamera noch nicht gestartet</p></div></div>'+
       '<div class="scan-status" id="scanStatus" role="status">Barcode gut beleuchten, gerade halten und vollständig ins Bild bringen.</div>'+
+      '<div class="field" style="margin-top:10px"><label><input id="scanAltFormats" type="checkbox"> Auch EAN-8 und UPC-A scannen (für Sonderfälle)</label><span class="field-help">Standard: ausschließlich EAN-13. Bei Änderung wird die Kamera neu gestartet.</span></div>'+
       '<div class="btn-row" style="margin-top:12px"><button type="button" class="btn btn-primary" data-scan-action="start">Kamera starten</button><button type="button" class="btn btn-secondary" data-scan-action="stop">Kamera stoppen</button></div>'+
       '<div class="scan-divider">ALTERNATIVEN</div>'+
       '<div class="field"><label for="scanPhoto">Foto des Barcodes auswählen</label><input type="file" id="scanPhoto" accept="image/*"></div>'+
@@ -79,9 +100,9 @@
     }).catch(e=>{scriptPromise=null;throw e;});
     await scriptPromise;
   }
-  function formats(){
+  function formats(allowAlt=false){
     const x=window.Html5QrcodeSupportedFormats;
-    return {formatsToSupport:[x.EAN_13,x.EAN_8,x.UPC_A,x.UPC_E],verbose:false};
+    return {formatsToSupport:allowAlt?[x.EAN_13,x.EAN_8,x.UPC_A]:[x.EAN_13],verbose:false};
   }
   async function stop(){
     if(starting){stopWhenReady=true;return;}
@@ -98,15 +119,17 @@
       await library();
       if(!dialog.open||!$("scanCamera"))return;
       await stop();
-      html5=new window.Html5Qrcode("scanCamera",formats());
+      activeAltFormats=Boolean($("scanAltFormats")?.checked);
+      html5=new window.Html5Qrcode("scanCamera",formats(activeAltFormats));
       starting=true;stopWhenReady=false;locked=false;consensus=createScanConsensus();
       const current=html5;
-      await current.start({facingMode:"environment"},{fps:10,qrbox:(w,h)=>({width:Math.max(130,Math.min(w-20,300)),height:Math.max(70,Math.min(h-20,140))})},decoded=>{
+      await current.start({facingMode:"environment"},{fps:10,qrbox:(w,h)=>({width:Math.max(130,Math.min(w-20,300)),height:Math.max(70,Math.min(h-20,140))})},(decoded,info)=>{
         if(locked)return;
+        if(!validForScanMode(decoded,info,activeAltFormats))return;
         const result=consensus(decoded);
         if(!result.code)return;
         if(!result.accepted){
-          status("Barcode erkannt: "+result.code+" – bestätige mit ruhiger Kamera ("+result.count+"/3).");
+          status("Barcode "+(decodedFormat(info)||"EAN")+" gelesen: "+result.code+" – bitte ruhig halten ("+result.count+"/3).");
           return;
         }
         locked=true;
@@ -127,9 +150,14 @@
     try{
       await library();await stop();
       if(!dialog.open||!$("scanCamera"))return;
-      html5=new window.Html5Qrcode("scanCamera",formats());
+      const allowAlt=Boolean($("scanAltFormats")?.checked);
+      html5=new window.Html5Qrcode("scanCamera",formats(allowAlt));
       const decoded=await html5.scanFile(file,true);
       await stop();
+      if(!validForScanMode(decoded,null,allowAlt)){
+        status("Ergebnis passt nicht zum gewählten Barcodeformat. EAN-13 verwenden oder Zusatzformate aktivieren.");
+        return;
+      }
       lookup(decoded);
     }catch(e){await stop();status("Kein lesbarer Barcode gefunden. Foto gerade und scharf aufnehmen oder Code eingeben.");}
   }
@@ -186,16 +214,26 @@
     }
     const choices=s.tobaccos.length?'<div class="scan-choice"><div class="field"><label for="scanProduct">Oder vorhandenen Tabak zuordnen</label><select id="scanProduct">'+s.tobaccos.map(t=>'<option value="'+escape(t.id)+'">'+escape(t.brand+" · "+t.name)+'</option>').join("")+'</select></div>'+btn("link-selected","Zuordnen",{code})+'</div>':"";
     shell(title,"Code lesbar, Produktzuordnung noch unbekannt",
-      '<div class="scan-result warn">Die Nummer hat eine gültige Prüfziffer, ist aber keinem Produkt zugeordnet. <strong>Vergleiche die erkannten Ziffern mit dem Aufdruck direkt unter dem Barcode auf deiner Dose</strong>, bevor du sie speicherst. Falls die Zahlen abweichen: Foto erneut scannen oder EAN manuell eingeben.</div>'+
+      '<div class="scan-result warn">Die Nummer hat eine gültige Prüfziffer, ist aber keinem Produkt zugeordnet. <strong>Vergleiche die erkannten Ziffern mit dem Aufdruck direkt unter dem Barcode auf deiner Dose.</strong> Wiederholte Kameratreffer sind kein Nachweis für die richtige Zahl.</div>'+
+      '<div class="field"><label for="scanPrintedCode">Gedruckte Ziffern auf der Dose (falls abweichend)</label><div class="btn-row"><input id="scanPrintedCode" type="text" inputmode="numeric" maxlength="20" placeholder="Hier die richtige EAN eintippen" style="flex:1;min-width:160px"><button type="button" class="btn btn-secondary" data-scan-action="check-printed">Erneut prüfen</button></div></div>'+
+      '<div class="field" style="margin:14px 0"><label><input id="scanVerified" type="checkbox"> Ich habe die angezeigte EAN mit den Ziffern auf der Verpackung abgeglichen.</label></div>'+
       '<form id="scanNewProduct" class="fields"><div class="field-row"><div class="field"><label for="scanBrand">Hersteller *</label><input id="scanBrand" name="brand" maxlength="120" required placeholder="Hersteller"></div><div class="field"><label for="scanName">Sorte *</label><input id="scanName" name="name" maxlength="160" required placeholder="Sortenname"></div></div>'+
       '<div class="field"><label for="scanBase">Grundtabak</label><select id="scanBase" name="base"><option>Unbekannt</option><option>Virginia</option><option>Dark Blend</option></select></div>'+
       '<input type="hidden" name="code" value="'+escape(code)+'"><button class="btn btn-primary" type="submit">Tabak mit Barcode speichern</button></form>'+
       choices+'<div class="scan-status" id="remoteLookup" data-code="'+escape(code)+'">Öffentliche Produktdatenbank wird abgefragt …</div><p class="smallprint">Externe Quelle: <a href="https://ean-suche.net" target="_blank" rel="noopener noreferrer">EAN-Suche.net</a> (60 Abfragen/Stunde/IP laut Anbieter). Die App überträgt ausschließlich die EAN an den Dienst. Es wird keine Produktzuordnung geraten. Deine lokale EAN-Zuordnung bleibt Teil des JSON-Backups.</p>');
-    void queryExternal(code);
+    // Leading-zero unknowns are especially easy to confuse with truncated UPC reads.
+    // Avoid wasting third-party queries before the physical print is verified.
+    if(!/^0{3}/.test(code))void queryExternal(code);
+    else {
+      const remote=$("remoteLookup");
+      if(remote)remote.textContent="Auffälliger Null-Präfix: Bitte zuerst die gedruckten Ziffern vergleichen. Eine Online-Abfrage kann nach Bestätigung gestartet werden.";
+    }
   }
   function persistBarcode(code,product){
     try{
       const s=state();
+      if(!DB.some(p=>normalizeCode(p.ean)===code) && !$("scanVerified")?.checked)
+        throw Error("Bitte zunächst die EAN unter dem Barcode auf der Dose abgleichen und bestätigen.");
       const current=s.tobaccos.find(t=>(t.barcodes||[]).some(x=>normalizeCode(x)===code));
       if(current)throw Error("Diese EAN ist bereits "+current.brand+" · "+current.name+" zugeordnet.");
       if(product.id){
@@ -236,6 +274,14 @@
     if(cmd==="close")close();
     if(cmd==="start")void start();
     if(cmd==="stop"){void stop();status("Kamera gestoppt.");}
+    if(cmd==="check-printed"){
+      const printed=String($("scanPrintedCode")?.value||"");
+      const value=normalizeCode(printed);
+      if(!value){
+        const n=$("scanPrintedCode");if(n)n.setCustomValidity("Ungültige EAN/UPC (Länge oder Prüfziffer).");
+        if(n){n.reportValidity();n.setCustomValidity("");}
+      }else void lookup(value);
+    }
     if(cmd==="session")openSession(el.dataset.id);
     if(cmd==="add"){
       const p=DB.find(p=>normalizeCode(p.ean)===code);if(p)persistBarcode(code,{brand:p.brand,name:p.name,base:p.base,flavor:p.flavor});
@@ -261,10 +307,16 @@
   });
   document.addEventListener("change",event=>{
     if(event.target.id==="scanPhoto"){const photo=event.target.files?.[0];void scanPhoto(photo);event.target.value="";}
+    if(event.target.id==="scanAltFormats" && (started||starting)){
+      void (async()=>{await stop();status("Barcodeformat geändert. Kamera bitte erneut starten.");})();
+    }
+    if(event.target.id==="scanVerified" && event.target.checked && $("remoteLookup")?.dataset.code?.startsWith("000")){
+      void queryExternal($("remoteLookup").dataset.code);
+    }
   });
   dialog.addEventListener("cancel",()=>{void stop();});
   dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
   window.addEventListener("pagehide",()=>{void stop();});
   // Unprivileged diagnostic API for automated checks; no personal records exposed.
-  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct,createScanConsensus};
+  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct,createScanConsensus,validForScanMode,decodedFormat};
 })();
