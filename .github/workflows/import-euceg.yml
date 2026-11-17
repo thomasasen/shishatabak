@@ -1,0 +1,50 @@
+name: EU-CEG Wasserpfeifentabak EAN-Import
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/import_euceg.py','scripts/test_import_euceg.py','.github/workflows/import-euceg.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: euceg-public-ean
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: python -m pip install 'requests>=2.32,<3'
+      - name: Test official EAN-only parsing
+        run: python -m unittest discover -s scripts -p test_import_euceg.py -v
+      - name: Download and parse RIVM EU-CEG public registry
+        run: python -m scripts.import_euceg
+      - name: Red-team checks and browser catalog
+        run: |
+          python -m scripts.audit_catalog
+          node scripts/build-catalog.mjs
+          node scripts/build-catalog.mjs --check
+          node --test tests/*.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-euceg-ean-report
+          path: |
+            catalog/euceg-import-report.json
+            catalog/audit-report.json
+          retention-days: 30
+      - name: Push review branch only
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog/products.json catalog.js catalog/euceg-import-report.json catalog/audit-report.json
+          if git diff --cached --quiet; then exit 0; fi
+          git checkout -b "data/euceg-$RUN_ID"
+          git commit -m "data: source-attributed EU-CEG EANs $RUN_ID"
+          git push origin "HEAD:refs/heads/data/euceg-$RUN_ID"
