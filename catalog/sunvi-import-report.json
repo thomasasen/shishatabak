@@ -1,0 +1,199 @@
+{
+  "shop": "SUN-VI",
+  "date": "2026-11-17",
+  "source_category": "https://www.sunvi.de/Shisha-Tabak-Wasserpfeifentabak",
+  "supplied_export": {
+    "checked_urls": 200,
+    "distinct_gtins": 199,
+    "review_count": 1,
+    "http_requests": 208
+  },
+  "reconciliation": {
+    "before": 655,
+    "candidates": 199,
+    "existing_gtins": 95,
+    "new_gtins": 104,
+    "existing_flavors_filled": 90,
+    "after": 759,
+    "brands_or_lines": 58,
+    "existing_identity_preserved": true,
+    "existing_tobacco_base_preserved": true,
+    "existing_nonempty_flavor_preserved": true
+  },
+  "brand_alias_normalization": {
+    "O's Tobacco": "O's",
+    "Adalya Tabak": "Adalya",
+    "Al Fakher Tabak": "Al Fakher",
+    "True Passion Tobacco": "True Passion",
+    "Maridan Tobacco": "Maridan",
+    "187tobacco": "187 Tobacco",
+    "Chaos Tobacco": "Chaos"
+  },
+  "conflict_review": [
+    {
+      "ean": "8681511384401",
+      "product": "Adalya Love 66 (66)",
+      "existing_flavor": "Honigmelone, Maracuja, Minze, Wassermelone",
+      "sunvi_flavor": "Geheime Zutat, Honigmelone, Maracuja, Wassermelone",
+      "handling": "existing_kept"
+    },
+    {
+      "ean": "4255799700938",
+      "product": "Holster Winter Edition",
+      "existing_flavor": "Keks",
+      "sunvi_flavor": "Butterkeks",
+      "handling": "existing_kept"
+    }
+  ],
+  "different_gtins_same_exact_brand_name_weight": [
+    {
+      "new_ean": "8681655740521",
+      "product": "Adalya Blue Dragon",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260587793863"
+      ]
+    },
+    {
+      "new_ean": "8681511380854",
+      "product": "Adalya Love 66",
+      "quantity_g": 1000,
+      "other_existing_eans": [
+        "4260587791456"
+      ]
+    },
+    {
+      "new_ean": "5905930232086",
+      "product": "Al Fakher White Pods",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "5905930237548"
+      ]
+    },
+    {
+      "new_ean": "5905930232130",
+      "product": "Al Fakher Yellow",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "5905930237579"
+      ]
+    },
+    {
+      "new_ean": "4255799701027",
+      "product": "Holster Lamoretto",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4255799709634"
+      ]
+    },
+    {
+      "new_ean": "4255799709603",
+      "product": "Holster Mr. John",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4255799700990"
+      ]
+    },
+    {
+      "new_ean": "4255799709511",
+      "product": "Holster Peery Punch",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4255799718421"
+      ]
+    },
+    {
+      "new_ean": "4260453517371",
+      "product": "Maridan ALPINE RUSH",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517111"
+      ]
+    },
+    {
+      "new_ean": "4260453517333",
+      "product": "Maridan JOOZY",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517067"
+      ]
+    },
+    {
+      "new_ean": "4260453517210",
+      "product": "Maridan TINGLE TANGLE",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517012"
+      ]
+    },
+    {
+      "new_ean": "4260453517234",
+      "product": "Maridan TINGLE TANGLE BREEZE",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517029"
+      ]
+    },
+    {
+      "new_ean": "4260453517258",
+      "product": "Maridan TINGLE TANGLE PURPLE",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517036"
+      ]
+    },
+    {
+      "new_ean": "4260453517272",
+      "product": "Maridan TINGLE TANGLE TROPICAL",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260453517197"
+      ]
+    },
+    {
+      "new_ean": "5907479354106",
+      "product": "Nameless #40 Black Nana",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4251862400019"
+      ]
+    },
+    {
+      "new_ean": "4260585678483",
+      "product": "O's African Queen",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260585678476"
+      ]
+    },
+    {
+      "new_ean": "4260585676755",
+      "product": "O's Queen of the Desert",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4260585677769"
+      ]
+    },
+    {
+      "new_ean": "4250859825163",
+      "product": "True Passion Le Chill",
+      "quantity_g": 200,
+      "other_existing_eans": [
+        "4250859822773"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "product": "Electro Smog Tobacco NASTY GIRL 200g",
+      "problem": "GTIN fehlt/mehrdeutig im Produktbereich",
+      "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-NASTY-GIRL-Erdbeere-Wassermelone-200g"
+    }
+  ],
+  "limitations": [
+    "EAN/GTIN checksum validates digit structure, not the printed packaging",
+    "Export provenance: SUN-VI product detail pages as stated by exporter; not all pages independently rechecked",
+    "Different GTINs for same brand, variety and weight retained as possible packaging/product revisions",
+    "Existing flavor-source URLs stored as flavor_source_url when completing missing descriptions"
+  ]
+}
