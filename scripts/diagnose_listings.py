@@ -2,7 +2,7 @@ from scripts.import_products import Source
 from bs4 import BeautifulSoup
 from scripts.import_listings import product_title,GTIN,STORES
 import json
-for name,base,root,_ in STORES:
+for name,base,root,_ in STORES + [("Turaah","https://turaah.de","/Shisha-Tabak",8)]:
     s=Source(base,3,0.8)
     page=s.get(base+root)
     if page is None:
