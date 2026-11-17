@@ -4,6 +4,116 @@
   "description": "Curated public product facts. Every EAN references a concrete online product listing. No automated third-party site scraping.",
   "products": [
     {
+      "ean": "710535471465",
+      "brand": "030",
+      "name": "Backpfeife",
+      "quantity_g": 180,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/030-tabak-180g-backpfeife",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262509150457",
+      "brand": "030",
+      "name": "Luftschloss",
+      "quantity_g": 180,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/030-tabak-180g-luftschloss",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9505268812897",
+      "brand": "030",
+      "name": "Zugzwang",
+      "quantity_g": 180,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/030-tabak-180g-zugzwang",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822802389",
+      "brand": "187",
+      "name": "040 Hamburg",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-25g-040-hamburg",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822814863",
+      "brand": "187",
+      "name": "040 Hamburg",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-040-hamburg",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822814832",
+      "brand": "187",
+      "name": "Beach Vibez",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-beach-vibez",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822815525",
+      "brand": "187",
+      "name": "Blue Devil",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-blue-devil",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822814924",
+      "brand": "187",
+      "name": "I Love Hamburg",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-i-love-hamburg",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822815310",
+      "brand": "187",
+      "name": "Sparkling Ize -T",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-sparkling-ize-t",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822815259",
+      "brand": "187",
+      "name": "Wild Beast",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-wild-beast",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251822813378",
       "brand": "187 Tobacco",
       "name": "Beach Vibez",
@@ -136,6 +246,61 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "740813533790",
+      "brand": "27er Original",
+      "name": "Blue Dragon",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/27er-original-tabak-200g-blue-dragon",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "740813533813",
+      "brand": "27er Original",
+      "name": "Dark Ice",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/27er-original-tabak-200g-dark-ice",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "740813533752",
+      "brand": "27er Original",
+      "name": "KIGA",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/27er-original-tabak-200g-kiga",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "740813533851",
+      "brand": "27er Original",
+      "name": "Mixed",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/27er-original-tabak-200g-mixed",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "740813533837",
+      "brand": "27er Original",
+      "name": "Rouge One",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/27er-original-tabak-200g-rouge-one",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5902605450318",
       "brand": "7Days",
       "name": "Cold Blue",
@@ -224,6 +389,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655745144",
+      "brand": "Adalya",
+      "name": "Berlin Nights (1)",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-berlin-nights-1",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384098",
+      "brand": "Adalya",
+      "name": "Blue Ice (2)",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-blue-ice-2",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681655740378",
       "brand": "Adalya",
       "name": "Cindy's (14)",
@@ -268,6 +455,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681511384326",
+      "brand": "Adalya",
+      "name": "Hawaii (10)",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-hawaii-10",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681655745717",
       "brand": "Adalya",
       "name": "Ice Kaktü (72)",
@@ -276,6 +474,39 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-ice-kaktue-72",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655789032",
+      "brand": "Adalya",
+      "name": "Lady Killer (69)",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-25g-lady-killer-69",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384364",
+      "brand": "Adalya",
+      "name": "Lady Killer (69)",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-lady-killer-69",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655755112",
+      "brand": "Adalya",
+      "name": "Love 66 (66)",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-25g-love-66-66",
       "verified_at": "2026-11-17"
     },
     {
@@ -309,6 +540,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-sheik-money",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655745304",
+      "brand": "Adalya",
+      "name": "Skyfall (51)",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-skyfall-51",
       "verified_at": "2026-11-17"
     },
     {
@@ -353,6 +595,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-waterlon-59",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647505489",
+      "brand": "AINO",
+      "name": "Bad Rule White",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-bad-rule-white",
       "verified_at": "2026-11-17"
     },
     {
@@ -411,6 +664,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647505533",
+      "brand": "AINO",
+      "name": "Lady Mammalade",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-lady-mammalade",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647518410",
       "brand": "AINO",
       "name": "Mamacita",
@@ -441,6 +705,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-the-great-raspy",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647511145",
+      "brand": "AINO Dark",
+      "name": "Lapina",
+      "quantity_g": 25,
+      "base": "Dark Blend",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/aino-dark-tobacco-25g-lapina",
       "verified_at": "2026-11-17"
     },
     {
@@ -488,6 +763,105 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647508619",
+      "brand": "Aino Tobacco",
+      "name": "Shisha Tabak",
+      "quantity_g": 20,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisharia",
+      "source_url": "https://shisharia.de/aino-tobacco-shisha-tabak-tang-20g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5907479353703",
+      "brand": "Al Fakher",
+      "name": "Big Blue",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-big-blue",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5904323463137",
+      "brand": "Al Fakher",
+      "name": "Crystal Double Crunch",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-double-crunch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237555",
+      "brand": "Al Fakher",
+      "name": "Crystal Double Crunch",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-double-crunch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5904323463120",
+      "brand": "Al Fakher",
+      "name": "Crystal Grapio",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237531",
+      "brand": "Al Fakher",
+      "name": "Crystal Grapio",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5904323463144",
+      "brand": "Al Fakher",
+      "name": "Crystal Yellow",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-yellow",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5907479352959",
+      "brand": "Al Fakher",
+      "name": "Crystal Yellow",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-yellow",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5904323463113",
+      "brand": "Al Fakher",
+      "name": "Grapio",
+      "quantity_g": 25,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930232093",
       "brand": "Al Fakher",
       "name": "Grapio",
@@ -499,6 +873,50 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5905930237623",
+      "brand": "Al Fakher",
+      "name": "Grapio",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237609",
+      "brand": "Al Fakher",
+      "name": "Grapio Night",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-grapio-night",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237562",
+      "brand": "Al Fakher",
+      "name": "Magic Love",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-magic-love",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237593",
+      "brand": "Al Fakher",
+      "name": "Red Smash",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-red-smash",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5904323463106",
       "brand": "Al Fakher",
       "name": "The Double Crunch",
@@ -507,6 +925,61 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-the-double-crunch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237586",
+      "brand": "Al Fakher",
+      "name": "The Double Crunch",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-the-double-crunch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237548",
+      "brand": "Al Fakher",
+      "name": "White Pods",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-white-pods",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930237579",
+      "brand": "Al Fakher",
+      "name": "Yellow",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-yellow",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930235087",
+      "brand": "Al Fakher X Snoop Dogg",
+      "name": "Cloud 92",
+      "quantity_g": 180,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-x-snoop-dogg-tabak-180g-cloud-92",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930235070",
+      "brand": "Al Fakher X Snoop Dogg",
+      "name": "Purple Passion",
+      "quantity_g": 180,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/al-fakher-x-snoop-dogg-tabak-180g-purple-passion",
       "verified_at": "2026-11-17"
     },
     {
@@ -683,6 +1156,61 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-waha-200g-org",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776106007",
+      "brand": "ALMASSIVA",
+      "name": "5 Palm",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-5-palm",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776105987",
+      "brand": "ALMASSIVA",
+      "name": "Black Lebanese",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-black-lebanese",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776105840",
+      "brand": "ALMASSIVA",
+      "name": "Blaulicht",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-blaulicht",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776105888",
+      "brand": "ALMASSIVA",
+      "name": "Blue Beast",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-blue-beast",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776105802",
+      "brand": "ALMASSIVA",
+      "name": "Exotic Sun",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-exotic-sun",
       "verified_at": "2026-11-17"
     },
     {
@@ -2569,6 +3097,17 @@
       "flavor": "",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Tumbaki-Tobacco-Shisha-Tabak-200g-Double-App",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260719552245",
+      "brand": "Xracher Tobacco",
+      "name": "MLNBRRY: Fruchtige Explosion mit Honigmelone, Beerenmix und Waldbeeren",
+      "quantity_g": 20,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisharia",
+      "source_url": "https://shisharia.de/Xracher-Tobacco-Shisha-Tabak-20g-MLNBRRY",
       "verified_at": "2026-11-17"
     }
   ]

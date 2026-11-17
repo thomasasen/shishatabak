@@ -1,0 +1,36 @@
+{
+  "timestamp_utc": "2026-11-17T18:03:10.581106+00:00",
+  "before": 232,
+  "after": 281,
+  "added": 49,
+  "sources": [
+    {
+      "name": "Datakick CC0",
+      "new": 0,
+      "eligible_products": 0
+    },
+    {
+      "name": "Shisha-Nil",
+      "robots": "allowed",
+      "new": 47,
+      "requests": 66,
+      "discovered": 273,
+      "inspected": 55,
+      "reasons": {
+        "no_clear_product_title": 8
+      }
+    },
+    {
+      "name": "Shisharia",
+      "robots": "allowed",
+      "new": 2,
+      "requests": 70,
+      "discovered": 75,
+      "inspected": 55,
+      "reasons": {
+        "no_clear_product_title": 9,
+        "no_gtin": 44
+      }
+    }
+  ]
+}
