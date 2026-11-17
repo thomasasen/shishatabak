@@ -1,24 +1,31 @@
 {
   "summary": {
-    "ean_records": 524,
-    "distinct_gtins": 524,
-    "brands_or_lines": 59,
-    "tobacco_base_unknown": 156,
-    "flavor_missing": 495,
-    "families_multiple_gtins": 64,
+    "ean_records": 655,
+    "distinct_gtins": 655,
+    "brands_or_lines": 57,
+    "tobacco_base_unknown": 287,
+    "flavor_missing": 626,
+    "families_multiple_gtins": 66,
     "source_counts": {
       "Shisha-Nil": 319,
       "Turaah": 124,
       "Shisharia": 78,
+      "RIVM EU-CEG": 131,
       "Invictus Shisha": 1,
       "Da-Shisha": 1,
       "Bullet Shop Berlin": 1
     },
     "fatal_issues": 0,
-    "warnings": 0
+    "warnings": 1
   },
   "fatal": [],
-  "warnings": [],
+  "warnings": [
+    {
+      "issue": "multiple_gtins_same_detail_url",
+      "source_url": "https://www.rivm.nl/documenten/lijst-van-waterpijptabak-rivm-2026",
+      "count": 131
+    }
+  ],
   "note": "GTIN checksum and source-URL syntax cannot prove the barcode exists on the physical pack. External supplier data is not independently verified.",
-  "review_note": "Review normalized non-semantic brand aliases only; checksum and provenance tested in CI."
+  "review_note": "Single shared public register URL for 131 distinct EANs, each accompanied by ProductID in source_reference; expected bulk-source warning."
 }

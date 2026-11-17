@@ -1,0 +1,22 @@
+{
+  "source": "https://www.rivm.nl/documenten/lijst-van-waterpijptabak-rivm-2026",
+  "retrieved_at_utc": "2026-11-17T18:53:36.126390+00:00",
+  "source_candidates": 131,
+  "imported": 131,
+  "existing_total": 524,
+  "after_total": 655,
+  "rejected": {
+    "not_ean_number_type": 382,
+    "missing_brand_or_variety": 15,
+    "invalid_ean": 4,
+    "duplicate_ean_presentation": 1,
+    "unsupported_weight": 12
+  },
+  "cross_source_conflicts": [],
+  "rules": "Only type=Waterpipe tobacco, ProductNumberType=EAN, mod-10 valid and known pack weight. Internal ProductIDs and SUBMITTER numbers never counted as EAN.",
+  "review": {
+    "reviewed_at_utc": "2026-11-17",
+    "accepted": 131,
+    "interpretation": "Manufacturer-submitted NL waterpipe tobacco EU-CEG registrations; no claim about German market availability or physical barcode scans"
+  }
+}
