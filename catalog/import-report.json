@@ -1,8 +1,8 @@
 {
-  "timestamp_utc": "2026-11-17T18:03:10.581106+00:00",
-  "before": 232,
-  "after": 281,
-  "added": 49,
+  "timestamp_utc": "2026-11-17T18:18:56.234275+00:00",
+  "before": 280,
+  "after": 399,
+  "added": 119,
   "sources": [
     {
       "name": "Datakick CC0",
@@ -12,32 +12,28 @@
     {
       "name": "Shisha-Nil",
       "robots": "allowed",
-      "new": 47,
-      "requests": 66,
-      "discovered": 273,
-      "inspected": 55,
+      "new": 119,
+      "requests": 179,
+      "discovered": 274,
+      "inspected": 159,
       "reasons": {
-        "no_clear_product_title": 8
+        "no_clear_product_title": 30,
+        "no_gtin": 2,
+        "already_catalogued": 8,
+        "not_retrieved": 1
       }
     },
     {
       "name": "Shisharia",
       "robots": "allowed",
-      "new": 2,
-      "requests": 70,
-      "discovered": 75,
-      "inspected": 55,
+      "new": 0,
+      "requests": 87,
+      "discovered": 78,
+      "inspected": 72,
       "reasons": {
-        "no_clear_product_title": 9,
-        "no_gtin": 44
+        "no_clear_product_title": 11,
+        "no_gtin": 61
       }
     }
-  ],
-  "review": {
-    "reviewed_at_utc": "2026-11-17",
-    "rejected_records": 1,
-    "rejection_reason": "Product name was generic ('Shisha Tabak') rather than a distinguishable variety",
-    "normalized": "Brand aliases and one promotional subtitle removed",
-    "published_after_review": 280
-  }
+  ]
 }
