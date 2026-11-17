@@ -44,6 +44,17 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 
 Der lokale Schlüssel lautet \`tabakjournal:v1\`. JSON-Backups verwenden \`{ "app": "tabakjournal", "version": 1, "tobaccos": [], "sessions": [], "settings": {} }\`.
 
+## Verbesserter lokaler Shop-Exporter (JTL-Varianten)
+
+Die Python-Skripte [scripts/shisha_ean_export.py](scripts/shisha_ean_export.py) und [scripts/check_shisha_export.py](scripts/check_shisha_export.py) untersuchen Blubberhaus, Shisha-Shop.de und SUN-VI. Sammelartikel werden nur über tatsächliche Unterseiten einzelner Sorten aufgelöst, **nicht** durch das Erraten einer EAN. Ein konservativer EAN-Abgleich verhindert die doppelte Aufnahme bereits vorhandener GTINs. [Befehle und Grenzen](docs/shisha-ean-export.md).
+
+```powershell
+py -3 -m pip install requests beautifulsoup4
+py -3 .\\scripts\\shisha_ean_export.py --site blubberhaus --max-pages 1 --max-products 20
+py -3 .\\scripts\\shisha_ean_export.py --site shisha-shop --max-pages 1 --max-products 20
+py -3 .\\scripts\\check_shisha_export.py --catalog .\\catalog\\products.json --input .\\shisha-export\\blubberhaus_catalog_candidates.json .\\shisha-export\\shisha-shop_catalog_candidates.json
+```
+
 ## Entwicklungsstart
 
 Zum lokalen Test mit Webserver (empfohlen, statt \`file://\`):
