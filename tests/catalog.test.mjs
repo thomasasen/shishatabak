@@ -16,7 +16,7 @@ test("catalog has 100+ source-traceable, checkdigit-valid unique codes",()=>{
   for(const p of products){
     assert.ok(validEAN(p.ean),p.brand+" "+p.name+" "+p.ean);
     assert.match(p.source_url,/^https:\/\//);
-    assert.ok([25,100,200,500].includes(p.quantity_g),p.quantity_g);
+    assert.ok([20,25,50,100,150,180,200,250,500,1000].includes(p.quantity_g),p.quantity_g);
   }
   assert.equal(new Set(products.map(p=>p.ean)).size,products.length);
 });

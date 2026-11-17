@@ -36,17 +36,17 @@ jobs:
         run: python -m unittest discover -s scripts -p test_import_products.py -v
       - name: Collect CC0 and permitted public product facts
         run: python scripts/import_products.py --max-requests 105 --max-products 55 --delay 1.2
-      - name: Generate browser catalog and validate GTINs
-        run: |
-          node scripts/build-catalog.mjs
-          node scripts/build-catalog.mjs --check
-          node --test tests/*.test.mjs
       - name: Archive source-by-source audit report
         uses: actions/upload-artifact@v4
         with:
           name: tabak-import-report
           path: catalog/import-report.json
           retention-days: 30
+      - name: Generate browser catalog and validate GTINs
+        run: |
+          node scripts/build-catalog.mjs
+          node scripts/build-catalog.mjs --check
+          node --test tests/*.test.mjs
       - name: Push import changes to a separate review branch
         env:
           RUN_ID: ${{ github.run_id }}
