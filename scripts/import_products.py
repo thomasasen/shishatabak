@@ -22,7 +22,7 @@ REPORT=ROOT/"catalog/import-report.json"
 DAY=datetime.date.today().isoformat()
 AGENT="TabakjournalCatalogBot/0.3 (+https://github.com/thomasasen/shishatabak)"
 SITES=[
-  ("Shisha-Nil","https://www.shisha-nil.de",["/tabak/shisha-tabak/200g-tabak/","/tabak/shisha-tabak/25g-tabak/"]),
+  ("Shisha-Nil","https://www.shisha-nil.de",["/tabak/shisha-tabak/200g-tabak/","/tabak/shisha-tabak/25g-tabak/","/tabak/shisha-tabak/100g-tabak/","/tabak/shisha-tabak/alle-tabake/"]),
   ("Shisharia","https://shisharia.de",["/shisha-tabak-200g","/shisha-tabak-25g","/shisha-tabak-100g"]),
 ]
 GTIN_RE=re.compile(r"(?:GTIN(?:/EAN)?|EAN)\s*[:：]?\s*(?:\|\s*)?(\d{8}|\d{12,14})\b",re.I)
@@ -206,18 +206,20 @@ def from_datakick(current):
 
 def main():
     cli=argparse.ArgumentParser()
-    cli.add_argument("--max-requests",type=int,default=105)
-    cli.add_argument("--max-products",type=int,default=55)
-    cli.add_argument("--delay",type=float,default=1.2)
+    cli.add_argument("--max-requests",type=int,default=370)
+    cli.add_argument("--max-products",type=int,default=300)
+    cli.add_argument("--delay",type=float,default=1.0)
     options=cli.parse_args()
-    if not (10<=options.max_requests<=250 and 5<=options.max_products<=200 and options.delay>=0.8):
+    if not (10<=options.max_requests<=450 and 5<=options.max_products<=350 and options.delay>=0.8):
         cli.error("out-of-range limits")
     data=json.loads(DB.read_text(encoding="utf-8"))
     products={p["ean"]:p for p in data["products"]}
     before=len(products)
     reports=[from_datakick(products)]
     for name,base,roots in SITES:
-        reports.append(collect_store(name,base,roots,products,options.max_requests,options.max_products,options.delay))
+        cap=300 if name=="Shisha-Nil" else 95
+        requests=options.max_requests if name=="Shisha-Nil" else 155
+        reports.append(collect_store(name,base,roots,products,requests,min(options.max_products,cap),options.delay))
     updated=sorted(products.values(),key=lambda p:(p["brand"].casefold(),p["name"].casefold(),p["quantity_g"],p["ean"]))
     assert all(valid_gtin(p["ean"]) for p in updated)
     if len(products)>before:

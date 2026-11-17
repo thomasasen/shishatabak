@@ -125,3 +125,7 @@ Nach dem Start der Handykamera prüft der Scanner deren tatsächlich gemeldete F
 Nicht jeder Browser erlaubt diese Einstellungen, besonders bei iOS unterscheiden sich die verfügbaren Funktionen. Ist keine Funktion verfügbar, erscheint nur ein erklärender Hinweis. Start, Stop, Schließen und Seitenwechsel setzen die Regler zurück und geben den Kamerastream frei. Das Licht wird mit dem Stoppen des Streams ausgeschaltet. Es wird kein Kamerabild übertragen.
 
 Technische Grundlagen: [html5-qrcode CameraCapabilities](https://scanapp.org/html5-qrcode-docs/docs/apis/classes/Html5Qrcode), [MDN MediaStreamTrack.getCapabilities](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getCapabilities).
+
+## Breiter Quellenimport (November 2026)
+
+Zusätzlich zum Einzelproduktimport verarbeitet `scripts/import_listings.py` öffentliche **Produktübersichtsseiten** von Blubberhaus, Shisha-Shop.de, Mall of Shisha und SUN-VI. Die GTIN wird nur übernommen, wenn sie zusammen mit einem eindeutig benannten Produkt in derselben Produktkarte steht. Wenn mehrere Produktkarten oder Barcodes vermischt sind, wird der Treffer verworfen. `robots.txt`, Abrufgrenzen und Wartezeiten bleiben aktiviert. Der automatisierte Shisha-Nil-Import ist von 55 auf maximal 300 geprüfte Einzelproduktseiten je Lauf erweitert. Ergebnisse jeder Quelle stehen getrennt unter `catalog/import-report.json` und `catalog/listing-import-report.json`. Die Aufnahme neuer Datensätze erfolgt weiterhin erst nach Prüfung des Import-Branches.
