@@ -38,7 +38,7 @@
     },
     {
       "ean": "4251822802389",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "040 Hamburg",
       "quantity_g": 25,
       "base": "Virginia",
@@ -49,7 +49,7 @@
     },
     {
       "ean": "4251822814863",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "040 Hamburg",
       "quantity_g": 200,
       "base": "Virginia",
@@ -60,7 +60,7 @@
     },
     {
       "ean": "4251822814832",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "Beach Vibez",
       "quantity_g": 200,
       "base": "Virginia",
@@ -71,7 +71,7 @@
     },
     {
       "ean": "4251822815525",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "Blue Devil",
       "quantity_g": 200,
       "base": "Virginia",
@@ -82,7 +82,7 @@
     },
     {
       "ean": "4251822814924",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "I Love Hamburg",
       "quantity_g": 200,
       "base": "Virginia",
@@ -93,7 +93,7 @@
     },
     {
       "ean": "4251822815310",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "Sparkling Ize -T",
       "quantity_g": 200,
       "base": "Virginia",
@@ -104,7 +104,7 @@
     },
     {
       "ean": "4251822815259",
-      "brand": "187",
+      "brand": "187 Tobacco",
       "name": "Wild Beast",
       "quantity_g": 200,
       "base": "Virginia",
@@ -763,17 +763,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251647508619",
-      "brand": "Aino Tobacco",
-      "name": "Shisha Tabak",
-      "quantity_g": 20,
-      "base": "Unbekannt",
-      "flavor": "",
-      "source": "Shisharia",
-      "source_url": "https://shisharia.de/aino-tobacco-shisha-tabak-tang-20g",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "5907479353703",
       "brand": "Al Fakher",
       "name": "Big Blue",
@@ -1160,7 +1149,7 @@
     },
     {
       "ean": "4251776106007",
-      "brand": "ALMASSIVA",
+      "brand": "Al Massiva",
       "name": "5 Palm",
       "quantity_g": 200,
       "base": "Virginia",
@@ -1171,7 +1160,7 @@
     },
     {
       "ean": "4251776105987",
-      "brand": "ALMASSIVA",
+      "brand": "Al Massiva",
       "name": "Black Lebanese",
       "quantity_g": 200,
       "base": "Virginia",
@@ -1182,7 +1171,7 @@
     },
     {
       "ean": "4251776105840",
-      "brand": "ALMASSIVA",
+      "brand": "Al Massiva",
       "name": "Blaulicht",
       "quantity_g": 200,
       "base": "Virginia",
@@ -1193,7 +1182,7 @@
     },
     {
       "ean": "4251776105888",
-      "brand": "ALMASSIVA",
+      "brand": "Al Massiva",
       "name": "Blue Beast",
       "quantity_g": 200,
       "base": "Virginia",
@@ -1204,7 +1193,7 @@
     },
     {
       "ean": "4251776105802",
-      "brand": "ALMASSIVA",
+      "brand": "Al Massiva",
       "name": "Exotic Sun",
       "quantity_g": 200,
       "base": "Virginia",
@@ -3102,7 +3091,7 @@
     {
       "ean": "4260719552245",
       "brand": "Xracher Tobacco",
-      "name": "MLNBRRY: Fruchtige Explosion mit Honigmelone, Beerenmix und Waldbeeren",
+      "name": "MLNBRRY",
       "quantity_g": 20,
       "base": "Unbekannt",
       "flavor": "",

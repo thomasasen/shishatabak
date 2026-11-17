@@ -10,6 +10,8 @@ class ImportTests(unittest.TestCase):
         self.assertEqual(parsed_title("Shades Shisha Tabak 200g - Ananazz"),("Shades","Ananazz",200))
         self.assertEqual(parsed_title("Darkside Shisha Tabak Core 100g - Astro T"),("Darkside","Astro T",100))
         self.assertIsNone(parsed_title("USB Adapter 200g - Black"))
+        self.assertIsNone(parsed_title("Aino Tobacco Shisha Tabak 20g - Shisha Tabak"))
+        self.assertEqual(parsed_title("Xracher Tobacco Shisha Tabak 20g - MLNBRRY: Fruchtige Explosion mit Honigmelone, Beerenmix und Waldbeeren"),("Xracher Tobacco","MLNBRRY",20))
     def test_html(self):
         p,r=parse_product("<h1>Holster Tobacco 200g - Bono</h1><div>GTIN/EAN: 4255799709528 Tabakart: Virginia</div>","https://www.shisha-nil.de/holster-tobacco-200g-bono","Shisha-Nil")
         self.assertEqual(r,"ok")

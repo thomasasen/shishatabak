@@ -45,6 +45,9 @@ def parsed_title(s):
     if not m:return None
     brand,size,name=m.groups()
     brand=brand.strip(" -");name=name.strip(" -")
+    # Exclude placeholder headings (missing variety) and trim marketing subheadlines.
+    if name.lower() in ("shisha tabak","tabak","tobacco","shisha tobacco"):return None
+    if ": " in name and len(name)>45:name=name.split(": ",1)[0].strip()
     if not 2<=len(brand)<=90 or not 2<=len(name)<=130 or int(size) not in SIZE_SET:return None
     if any(x in s.lower() for x in ("tabakersatz","aroma shot","molasse","dampfstein")):return None
     return brand,name,int(size)
