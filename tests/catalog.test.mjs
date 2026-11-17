@@ -67,3 +67,25 @@ test("Argileh ORNG MNT variants share a canonical name and aliases",()=>{
   assert.ok(matches({brand:"Argileh",name:"ORNG MNT"},entry));
   assert.ok(!matches({brand:"Dschinni",name:"ORNG MNT"},entry));
 });
+
+test("camera scanning requires three matching decodes rather than one lucky checksum",()=>{
+  const root={addEventListener() {}};
+  const context={
+    window:{TabakCatalog:{products},addEventListener() {}},
+    document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},
+    console
+  };
+  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),context);
+  const consensus=context.window.TabakBarcode.createScanConsensus(3,70,4000);
+  assert.equal(consensus("0050674441883",100).accepted,false);
+  assert.equal(consensus("0050674441883",125).count,1); // too soon for a new frame
+  assert.equal(consensus("0050674441883",210).count,2);
+  assert.equal(consensus("0050674441883",340).accepted,true);
+  const noisy=context.window.TabakBarcode.createScanConsensus(3,70,4000);
+  noisy("4260623442977",100);
+  noisy("0050674441883",200);
+  assert.equal(noisy("4260623442977",300).count,1);
+  assert.equal(noisy("4260623442977",420).count,2);
+  assert.equal(noisy("4260623442977",540).accepted,true);
+  assert.equal(noisy("4260623442976",650).accepted,false); // invalid check digit
+});

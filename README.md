@@ -88,3 +88,9 @@ Die 200-g-Sorte **Argileh ORNG MNT** (Orange/Minze, Virginia) wird auch unter **
 - `4260623441833` – [Shisharia](https://shisharia.de/Argileh-Shisha-Tabak-200g-Orng-Mnt)
 
 Suche und Barcodezuordnung berücksichtigen die alternativen Namen. Bereits lokal als OG&M angelegte Tabake können dem neuen Code zugeordnet werden, statt doppelt angelegt zu werden. Bei anderen EANs oder Herstellern muss die konkrete Dose separat überprüft werden.
+
+## Kamera-Zuverlässigkeit (17.11.2026)
+
+Ein Beispielscan einer Argileh-ORNG-MNT-Dose ergab `0050674441883`. Diese Nummer ist formal eine gültige EAN-13 beziehungsweise UPC-A `050674441883`, wird jedoch bislang durch keine Produktquelle Argileh zugeordnet. Die beiden belegten 200-g-EANs sind `4260623442977` und `4260623441833`.
+
+Die Scannerkamera verlangt deshalb nun **drei zeitlich getrennte übereinstimmende Decodes**, statt das erste prüfziffergültige Ergebnis sofort anzunehmen. Im Ergebnisdialog zu unbekannten Codes wird auf den Vergleich mit der unter dem Strichcode gedruckten Nummer hingewiesen. Damit werden zufällige Fehllesungen reduziert; drei übereinstimmende Reads beweisen allerdings noch keine Herstellerzuordnung. Ohne Nachweis wird der fragliche Code nicht in die gemeinsame Produktdatenbank aufgenommen.

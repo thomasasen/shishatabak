@@ -21,6 +21,21 @@
     if(s.length===12)s="0"+s; // UPC-A and EAN-13 with leading zero are equivalent.
     return s;
   }
+  // Validate multiple independent camera frames before treating a decodable barcode as real.
+  // A valid GTIN check digit is not proof that the camera read the label correctly.
+  function createScanConsensus(required=3, minGapMs=70, timeoutMs=4000) {
+    let previous=null, count=0, lastAt=-Infinity;
+    return (raw, at=Date.now()) => {
+      const code=normalizeCode(raw);
+      if(!code)return {code:null,count:0,accepted:false};
+      if(code!==previous||at-lastAt>timeoutMs){
+        previous=code;count=1;lastAt=at;
+      }else if(at-lastAt>=minGapMs){
+        count++;lastAt=at;
+      }
+      return {code,count,accepted:count>=required};
+    };
+  }
   function state(){
     const raw=localStorage.getItem(STORAGE);
     const s=raw?JSON.parse(raw):{app:"tabakjournal",version:1,tobaccos:[],sessions:[],settings:{bowl:""}};
@@ -38,9 +53,10 @@
     if(!dialog.open)dialog.showModal();
   }
   let html5=null,started=false,starting=false,stopWhenReady=false,locked=false,scriptPromise=null;
+  let consensus=createScanConsensus();
   function close(){ if(dialog.open)dialog.close();void stop(); }
   function openScanner(){
-    close();locked=false;
+    close();locked=false;consensus=createScanConsensus();
     shell("Barcode scannen","Kamera auf den Barcode deiner Tabakdose richten",
       '<div class="hint">Die EAN wird lokal auf deinem Smartphone ausgelesen. Bei einem bekannten Code erscheint direkt der Tabak.</div>'+
       '<div id="scanCamera" class="scan-area"><div class="empty-preview">▥<p>Kamera noch nicht gestartet</p></div></div>'+
@@ -83,14 +99,18 @@
       if(!dialog.open||!$("scanCamera"))return;
       await stop();
       html5=new window.Html5Qrcode("scanCamera",formats());
-      starting=true;stopWhenReady=false;locked=false;
+      starting=true;stopWhenReady=false;locked=false;consensus=createScanConsensus();
       const current=html5;
       await current.start({facingMode:"environment"},{fps:10,qrbox:(w,h)=>({width:Math.max(130,Math.min(w-20,300)),height:Math.max(70,Math.min(h-20,140))})},decoded=>{
         if(locked)return;
-        const valid=normalizeCode(decoded);
-        if(!valid)return;
+        const result=consensus(decoded);
+        if(!result.code)return;
+        if(!result.accepted){
+          status("Barcode erkannt: "+result.code+" – bestätige mit ruhiger Kamera ("+result.count+"/3).");
+          return;
+        }
         locked=true;
-        void (async()=>{await stop();lookup(valid);})();
+        void (async()=>{await stop();lookup(result.code);})();
       },()=>{});
       starting=false;started=true;
       if(stopWhenReady||!dialog.open||current!==html5)await stop();
@@ -166,7 +186,7 @@
     }
     const choices=s.tobaccos.length?'<div class="scan-choice"><div class="field"><label for="scanProduct">Oder vorhandenen Tabak zuordnen</label><select id="scanProduct">'+s.tobaccos.map(t=>'<option value="'+escape(t.id)+'">'+escape(t.brand+" · "+t.name)+'</option>').join("")+'</select></div>'+btn("link-selected","Zuordnen",{code})+'</div>':"";
     shell(title,"Code lesbar, Produktzuordnung noch unbekannt",
-      '<div class="scan-result warn">Diese EAN steht noch nicht in der Produktdatenbank. Du kannst sie jetzt einem Tabak zuordnen. Beim nächsten Scan wird sie wiedererkannt.</div>'+
+      '<div class="scan-result warn">Die Nummer hat eine gültige Prüfziffer, ist aber keinem Produkt zugeordnet. <strong>Vergleiche die erkannten Ziffern mit dem Aufdruck direkt unter dem Barcode auf deiner Dose</strong>, bevor du sie speicherst. Falls die Zahlen abweichen: Foto erneut scannen oder EAN manuell eingeben.</div>'+
       '<form id="scanNewProduct" class="fields"><div class="field-row"><div class="field"><label for="scanBrand">Hersteller *</label><input id="scanBrand" name="brand" maxlength="120" required placeholder="Hersteller"></div><div class="field"><label for="scanName">Sorte *</label><input id="scanName" name="name" maxlength="160" required placeholder="Sortenname"></div></div>'+
       '<div class="field"><label for="scanBase">Grundtabak</label><select id="scanBase" name="base"><option>Unbekannt</option><option>Virginia</option><option>Dark Blend</option></select></div>'+
       '<input type="hidden" name="code" value="'+escape(code)+'"><button class="btn btn-primary" type="submit">Tabak mit Barcode speichern</button></form>'+
@@ -246,5 +266,5 @@
   dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
   window.addEventListener("pagehide",()=>{void stop();});
   // Unprivileged diagnostic API for automated checks; no personal records exposed.
-  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct};
+  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct,createScanConsensus};
 })();
