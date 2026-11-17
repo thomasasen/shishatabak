@@ -1,0 +1,54 @@
+{
+  "timestamp_utc": "2026-11-17T18:19:41.266052+00:00",
+  "before": 399,
+  "after": 399,
+  "added": 0,
+  "sources": [
+    {
+      "source": "Blubberhaus",
+      "robots": "allowed",
+      "pages": 3,
+      "candidates": 0,
+      "new_eans": 0,
+      "existing_eans": 0,
+      "conflicts": 0,
+      "rejections": {},
+      "requests": 3
+    },
+    {
+      "source": "Shisha-Shop.de",
+      "robots": "allowed",
+      "pages": 3,
+      "candidates": 0,
+      "new_eans": 0,
+      "existing_eans": 0,
+      "conflicts": 0,
+      "rejections": {},
+      "requests": 3
+    },
+    {
+      "source": "Mall of Shisha",
+      "robots": "allowed",
+      "pages": 8,
+      "candidates": 0,
+      "new_eans": 0,
+      "existing_eans": 0,
+      "conflicts": 0,
+      "rejections": {
+        "gtin_not_on_card": 21
+      },
+      "requests": 8
+    },
+    {
+      "source": "SUN-VI",
+      "robots": "allowed",
+      "pages": 3,
+      "candidates": 0,
+      "new_eans": 0,
+      "existing_eans": 0,
+      "conflicts": 0,
+      "rejections": {},
+      "requests": 3
+    }
+  ]
+}
