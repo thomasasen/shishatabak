@@ -133,3 +133,7 @@ Zusätzlich zum Einzelproduktimport verarbeitet `scripts/import_listings.py` öf
 ### Erweiterung auf weitere Einzelproduktkataloge
 
 Der Einzelprodukt-Importer liest jetzt außerdem **Turaah, Blubberhaus und Shisha-Shop.de** über öffentliche Detailseiten aus, sofern der jeweilige Zugriff durch robots.txt erlaubt ist. Für Turaah sind bis zu 230, für Blubberhaus und Shisha-Shop.de jeweils bis zu 190 geprüfte Produktseiten pro Lauf vorgesehen. Produktseiten mit widersprüchlichen oder mehreren nicht zuordenbaren GTINs werden weiterhin ausgeschlossen. Die Sitemap-Auswertung wurde erweitert. Die Begrenzungen verhindern unkontrolliertes Voll-Crawling.
+
+## Aktueller EAN-Katalog (17.11.2026)
+
+**655 eindeutige, quellverknüpfte EAN/GTIN-Einträge**; zusätzliche Daten stammen insbesondere aus Turaah und dem offiziellen niederländischen RIVM-EU-CEG-Produktregister. Die Registrierungsdaten für NL sind nicht automatisch ein Nachweis deutscher Marktverfügbarkeit. Die EAN-Red-Team-Prüfung und ihre Grenzen sind im [Qualitätsbericht](docs/red-team-2026-11-17.md) dokumentiert. Fehlende Sorten- und Geschmacksinformationen werden nicht erfunden.
