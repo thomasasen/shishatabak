@@ -79,7 +79,9 @@ def parsed_title(s):
     brand=brand.strip(" -");name=name.strip(" -")
     canonical={"almassiva":"Al Massiva","aqua mentha premium":"Aqua Mentha","savu premium":"Savu",
                "187":"187 Tobacco","187 strassenbande":"187 Tobacco",
-               "os tobacco":"O's","o's tobacco":"O's"}
+               "os tobacco":"O's","o's tobacco":"O's",
+               "7 days classic":"7Days","darkside core darkblend":"Darkside",
+               "nameless":"Nameless","aino dark":"AINO Dark","aino strong":"AINO Strong"}
     brand=canonical.get(brand.casefold(),brand)
     if name.casefold() in ("shisha tabak","tabak","tobacco","shisha tobacco","standard","alle sorten"):return None
     if ": " in name and len(name)>45:name=name.split(": ",1)[0].strip()
