@@ -77,6 +77,10 @@ def parsed_title(s):
     size_norm=size.lower().replace(" ","")
     grams=1000 if size_norm=="1kg" else int(size_norm.removesuffix("g"))
     brand=brand.strip(" -");name=name.strip(" -")
+    canonical={"almassiva":"Al Massiva","aqua mentha premium":"Aqua Mentha","savu premium":"Savu",
+               "187":"187 Tobacco","187 strassenbande":"187 Tobacco",
+               "os tobacco":"O's","o's tobacco":"O's"}
+    brand=canonical.get(brand.casefold(),brand)
     if name.casefold() in ("shisha tabak","tabak","tobacco","shisha tobacco","standard","alle sorten"):return None
     if ": " in name and len(name)>45:name=name.split(": ",1)[0].strip()
     if not 2<=len(brand)<=90 or not 2<=len(name)<=130 or grams not in SIZE_SET:return None
