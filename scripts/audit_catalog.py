@@ -81,8 +81,11 @@ def check(products):
             # original product ID for every EAN and all rows are explicitly EAN typed.
             registry=[p for p in products if p.get("source_url","").split("?")[0]==url and p.get("source")=="RIVM EU-CEG"]
             refs=[p.get("source_reference") for p in registry]
-            official=len(registry)==len(codes) and len(set(refs))==len(refs) and all(
-                ref and p.get("evidence_type")=="EU-CEG ProductNumberType=EAN" and p.get("market")=="NL"
+            # EU-CEG ProductID identifies a product; the same ProductID can appear
+            # in multiple official presentations with distinct EANs and pack weights.
+            official=len(registry)==len(codes) and all(
+                ref and re.fullmatch(r"\d{5}-\d{2}-\d{5}",ref) and
+                p.get("evidence_type")=="EU-CEG ProductNumberType=EAN" and p.get("market")=="NL"
                 for ref,p in zip(refs,registry))
             if not official:
                 warn.append({"issue":"multiple_gtins_same_detail_url","source_url":url,"count":len(codes)})

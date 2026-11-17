@@ -28,8 +28,11 @@ class AuditTests(unittest.TestCase):
         b=product("4260623442977","Al Fakher","Apple")
         for i,p in enumerate((a,b)):
             p.update(source="RIVM EU-CEG",source_url="https://www.rivm.nl/documenten/lijst-van-waterpijptabak-rivm-2026",
-                     market="NL",source_reference="product-"+str(i),evidence_type="EU-CEG ProductNumberType=EAN")
+                     market="NL",source_reference=f"00273-16-{73003+i:05d}",evidence_type="EU-CEG ProductNumberType=EAN")
         self.assertEqual(check([a,b])["summary"]["warnings"],0)
-        b["source_reference"]=a["source_reference"]
+        b["source_reference"]=a["source_reference"]  # two packaging variations share ProductID
+        a["source_reference"]=b["source_reference"]="00273-16-73003"
+        self.assertEqual(check([a,b])["summary"]["warnings"],0)
+        b["source_reference"]=""
         self.assertIn("multiple_gtins_same_detail_url",[x["issue"] for x in check([a,b])["warnings"]])
 if __name__=="__main__":unittest.main()
