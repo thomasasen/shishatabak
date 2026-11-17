@@ -14,7 +14,7 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 
 ## Was der Pilot bereits kann
 
-- Hersteller-/Sorten-Autovervollständigung aus einem **kleinen lokalen Starterkatalog** mit exemplarischen, öffentlich dokumentierten Produkten; zusätzlich Herstellervorschläge und freie Eingabe.
+- Hersteller-/Sorten-Autovervollständigung aus einem **recherchierten lokalen Produktkatalog** mit exemplarischen, öffentlich dokumentierten Produkten; zusätzlich Herstellervorschläge und freie Eingabe.
 - Tabake anlegen, bearbeiten und löschen (Hersteller, Sorte, Grundtabak, Geschmack, Notizen).
 - Sessions erfassen, bearbeiten und löschen: Datum, Tabak, Geschmack (1–5), Beschwerden (0–3), Symptome, Dauer, NOCCA-Temperatur und Kopf.
 - Übersicht und Auswertungen nach Grundtabak und Hersteller mit sichtbarer Fallzahl.
@@ -24,7 +24,7 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 
 ## Wichtige Grenzen
 
-- **Keine vollständige Shisha-Datenbank:** Die Vorschläge sind ein kleiner Offline-Starterkatalog, keine laufend synchronisierte Händler-/Hersteller-API. Produktattribute können sich ändern und sollten überprüft werden.
+- **Keine vollständige Shisha-Datenbank:** Die Vorschläge sind ein kuratierter Offline-Produktkatalog, keine laufend synchronisierte Händler-/Hersteller-API. Produktattribute können sich ändern und sollten überprüft werden.
 - **Keine Geräte-Synchronisation.** Jeder Browser hat seine eigene lokale Sammlung. Daten können durch Löschen der Websitedaten, privaten Modus oder Browser-Bereinigung verloren gehen. Regelmäßig ein JSON-Backup herunterladen.
 - **Keine medizinische Diagnose.** Beschwerden wie Schwindel oder Übelkeit sind auch bei elektrischer Beheizung möglich. Die App dokumentiert nur individuelle Beobachtungen und weist keine Ursache nach.
 - Keine Anmeldung, kein Server, keine Cloud-Datenbank, keine Tracking-Skripte, keine Tabakwerbung.
@@ -61,3 +61,15 @@ Einige Produktnamen und Geschmacksprofile wurden anhand der öffentlich sichtbar
 ## Geplante Erweiterungen
 
 Freigegebene Produktfeeds und Katalogimporte, Barcode-Scan, lokale Bild-/OCR-Erkennung, CSV-Export, nutzerdefinierte Stichwörter und genauere temperaturbezogene Auswertungen.
+
+## Recherchebasierte EAN-Datenbank und Scanner (v0.2)
+
+Die Datenbank befindet sich unter [catalog/products.json](catalog/products.json). Sie enthält **107 recherchierte Produktvarianten** aus **18 Marken bzw. Produktlinien** mit EAN/GTIN, Packungsgröße, Quellenlink und Prüfdatum. Die Datei [catalog.js](catalog.js) wird daraus für die statische Webapp erzeugt. Prüfskript: `node scripts/build-catalog.mjs --check`.
+
+Oben **Barcode scannen** wählen und die Handykamera auf den Strichcode richten. Alternativ Foto oder manuelle EAN-Eingabe. Der Scanner erkennt EAN-13, EAN-8 und UPC-A. Ein gefundener Tabak lässt sich direkt der Sammlung hinzufügen. Unbekannte EANs können einmalig einem neuen oder vorhandenen Tabak zugeordnet werden. Diese Zuordnungen bleiben lokal gespeichert und werden mit dem bestehenden JSON-Backup exportiert/importiert.
+
+**Transparenz und Grenzen:** Der Katalog ist keine vollständige Liste aller erhältlichen Tabake. Er wird aus Einzelnachweisen unterschiedlicher Shops gepflegt; die Quelle steht bei jedem Produkt. Es gibt keinen unautorisierten automatischen Shop-Crawler. Manche Quellen führen verschiedene Packungsgrößen unter abweichenden EANs; die Angaben der gescannten Dose sind maßgeblich.
+
+**Influencer:** [Doelid](https://doelid.de/mix/) dokumentiert über 250 Mixe. [Shisha WG](https://www.youtube.com/@ShishaWG) veröffentlicht Reviews und Ranglisten. Diese Quellen helfen bei Produktnamen und Aromaprofilen, liefern jedoch keine systematische Zuordnung von EAN zu konkreter Packungsgröße. Es werden keine fremden Bewertungslisten kopiert.
+
+Die Erkennung verwendet **html5-qrcode 2.3.8**, das erst bei Kamera- oder Fotoerkennung über jsDelivr geladen wird. Bilder werden zur Erkennung lokal verarbeitet und nicht an einen Produkterkennungsdienst hochgeladen. Die Seite benötigt HTTPS und eine Freigabe für die Kamera.

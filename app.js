@@ -4,35 +4,8 @@
   const STORAGE_KEY = "tabakjournal:v1";
   const APP_ID = "tabakjournal";
   const VERSION = 1;
-  const CATALOG = [
-    ["Holster", "Grp 2.0", "Virginia", "Traube, Minze"],
-    ["Holster", "TwentyFive", "Virginia", "Doppelapfel"],
-    ["Nameless", "Black Nana", "Virginia", "Traube, Minze"],
-    ["Nameless", "Black Pearl", "Virginia", "Traube"],
-    ["Nameless", "Kiwick", "Virginia", "Kiwi"],
-    ["Nameless", "Grüner Marokanner", "Virginia", "Minze"],
-    ["Nameless", "Red Arctic", "Virginia", "Menthol"],
-    ["Hookain", "White Caek", "Virginia", "Kuchen"],
-    ["Hookain", "Green Lean", "Virginia", "Limette, Zitrone, Menthol"],
-    ["Hookain", "Bubblenciaga", "Virginia", "Kaugummi"],
-    ["Hookain", "Lemenciaga", "Virginia", "Minze, Zitrone"],
-    ["Hookain", "Purple Lean", "Virginia", "Traube, Minze"],
-    ["Aqua Mentha", "Golden Anna", "Virginia", "Ananas"],
-    ["Aqua Mentha", "Aqua Pynapl", "Virginia", "Ananas, Minze"],
-    ["Aqua Mentha", "Green Leo", "Virginia", "Limette, Menthol"],
-    ["Aqua Mentha", "Black Box", "Virginia", "Acai, Minze"],
-    ["Aqua Mentha", "Typ Java", "Virginia", "Guave"],
-    ["Al Fakher", "The Double Crunch", "Virginia", "Doppelapfel, Anis"],
-    ["Al Fakher", "Crystal Grapio", "Virginia", "Traube, Menthol"],
-    ["Al Fakher", "Twiwi", "Virginia", "Kiwi"],
-    ["Adalya", "Love 66", "Virginia", "Maracuja, Minze, Honigmelone"],
-    ["Adalya", "The Two App", "Virginia", "Doppelapfel"],
-    ["Social Smoke", "Lemon Chill", "Virginia", "Zitrone, Minze"],
-    ["Social Smoke", "Pear Chill", "Virginia", "Birne, Minze"],
-    ["OS", "African Queen", "Virginia", "Fruchtmix"],
-    ["Nakhla", "Double Apple", "Unbekannt", "Doppelapfel"],
-    ["187 Strassenbande", "Oldschool Bang", "Virginia", "Doppelapfel"]
-  ];
+  // Curated product facts; personal records remain separate in browser storage.
+  const CATALOG = (window.TabakCatalog?.products||[]).map(p=>[p.brand,p.name,p.base||"Unbekannt",p.flavor||""]);
   const BRANDS = Array.from(new Set(CATALOG.map(x => x[0]).concat([
     "Al Massiva", "Blackburn", "Darkside", "Kismet", "Must H", "True Passion",
     "Maridan", "Chaos", "Brohood", "Bad und Mad", "Start Now", "Ocean Hookah",
@@ -179,7 +152,8 @@
     for(const t of raw.tobaccos) {
       if(!t||typeof t.id!=="string"||!(/^[\w-]{1,80}$/).test(t.id)||ids.has(t.id)||!plain(t.brand,120)||!plain(t.name,160))throw new Error("Ungültige oder doppelte Tabakdaten.");
       ids.add(t.id);
-      tobaccos.push({id:t.id,brand:plain(t.brand,120),name:plain(t.name,160),base:normalizeBase(t.base),flavor:plain(t.flavor,200),notes:plain(t.notes,1000),createdAt:plain(t.createdAt,40)});
+      const barcodes=Array.isArray(t.barcodes)?Array.from(new Set(t.barcodes.filter(code=>typeof code==="string"&&/^\d{8,14}$/.test(code)))).slice(0,30):[];
+      tobaccos.push({id:t.id,barcodes,brand:plain(t.brand,120),name:plain(t.name,160),base:normalizeBase(t.base),flavor:plain(t.flavor,200),notes:plain(t.notes,1000),createdAt:plain(t.createdAt,40)});
     }
     const sessionIds=new Set(),sessions=[];
     for(const s of raw.sessions) {
@@ -207,8 +181,9 @@
       '<div class="catalog-results" id="catalogResults"></div>'+
       '<div class="field-row"><div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+["Unbekannt","Virginia","Dark Blend"].map(b=>'<option '+((p?p.base:"Unbekannt")===b?"selected ":"")+'value="'+b+'">'+b+'</option>').join("")+'</select></div>'+
       input("flavor","Geschmacksprofil",p&&p.flavor,"z. B. Traube, Minze",false,"text",'maxlength="200"')+'</div>'+
+      '<div class="field"><label>Zugeordnete EANs</label><p class="smallprint">'+escapeHTML((p?.barcodes||[]).join(", ")||"Noch keine EAN zugeordnet. Bitte oben „Barcode scannen“ verwenden.")+'</p></div>'+
       '<div class="field"><label for="f-notes">Eigene Notizen</label><textarea id="f-notes" maxlength="1000" name="notes" placeholder="Optional">'+escapeHTML(p&&p.notes)+'</textarea></div>'+
-      '<div class="hint">Die Vorschläge sind ein kleiner, lokaler Starterkatalog. Du kannst auch Produkte eingeben, die hier noch nicht vorkommen.</div></div>'+
+      '<div class="hint">Die Vorschläge stammen aus dem recherchierten lokalen Produktkatalog. Du kannst auch Produkte eingeben, die hier noch nicht vorkommen.</div></div>'+
       '<div class="dialog-actions">'+(p?'<button type="button" class="btn btn-danger" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Löschen</button>':'')+
       '<button type="button" class="btn btn-secondary" data-action="close-dialog">Abbrechen</button><button class="btn btn-primary" type="submit">'+(p?"Änderungen speichern":"Tabak speichern")+'</button></div><input name="id" type="hidden" value="'+escapeHTML(id||"")+'"></form>');
     initAutocomplete();
@@ -249,7 +224,7 @@
     const duplicate=state.tobaccos.find(p=>p.id!==id&&key(p.brand)===key(brand)&&key(p.name)===key(name));
     if(duplicate){toast("Diese Kombination aus Hersteller und Sorte ist bereits vorhanden.",true);return;}
     const existing=state.tobaccos.find(p=>p.id===id);
-    const p={id:existing?existing.id:uid(),brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
+    const p={id:existing?existing.id:uid(),barcodes:existing?.barcodes||[],brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,tobaccos:existing?state.tobaccos.map(x=>x.id===p.id?p:x):[...state.tobaccos,p]};
     if(persist(next)){closeDialog();toast(existing?"Tabak aktualisiert.":"Tabak hinzugefügt.");}
   }
@@ -290,8 +265,8 @@
       const productKey=key(p.brand)+"|"+key(p.name);
       const byId=products.findIndex(x=>x.id===p.id);
       const matched=productMap.get(productKey);
-      if(byId>=0){products[byId]=p;rekey[p.id]=p.id;productMap.set(productKey,p.id);}
-      else if(matched){rekey[p.id]=matched;}
+      if(byId>=0){products[byId]={...p,barcodes:[...new Set([...(products[byId].barcodes||[]),...(p.barcodes||[])])]};rekey[p.id]=p.id;productMap.set(productKey,p.id);}
+      else if(matched){rekey[p.id]=matched;const i=products.findIndex(x=>x.id===matched);products[i]={...products[i],barcodes:[...new Set([...(products[i].barcodes||[]),...(p.barcodes||[])])]};}
       else {products.push(p);productMap.set(productKey,p.id);rekey[p.id]=p.id;}
     }
     const oldSessions=new Map(state.sessions.map(s=>[s.id,s]));

@@ -19,5 +19,7 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: node --check app.js
+      - name: Validate GTIN catalog and generated browser data
+        run: node scripts/build-catalog.mjs --check
       - name: Run smoke tests
         run: node --test tests/*.test.mjs
