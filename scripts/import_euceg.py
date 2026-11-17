@@ -82,6 +82,9 @@ def parse_registry(content):
         }
         if code in found:
             old=found[code]
+            if old is None:
+                errors["additional_conflicting_ean_in_registry"]+=1
+                continue
             if (old["brand"].casefold(),old["name"].casefold(),old["quantity_g"])!=(brand.casefold(),name.casefold(),int(grams)):
                 errors["conflicting_ean_in_registry"]+=1
                 found[code]=None

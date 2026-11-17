@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths: ['scripts/import_euceg.py','scripts/test_import_euceg.py','.github/workflows/import-euceg.yml']
   workflow_dispatch:
+  schedule:
+    - cron: '33 6 1 * *'
 permissions:
   contents: write
 concurrency:
@@ -43,8 +45,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- catalog/products.json; then
+            echo "No new EANs - report remains available as a workflow artifact"
+            exit 0
+          fi
           git add catalog/products.json catalog.js catalog/euceg-import-report.json catalog/audit-report.json
-          if git diff --cached --quiet; then exit 0; fi
           git checkout -b "data/euceg-$RUN_ID"
           git commit -m "data: source-attributed EU-CEG EANs $RUN_ID"
           git push origin "HEAD:refs/heads/data/euceg-$RUN_ID"

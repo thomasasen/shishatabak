@@ -76,7 +76,16 @@ def check(products):
         families[family].append(str(code))
     for url,codes in by_url.items():
         if len(codes)>1:
-            warn.append({"issue":"multiple_gtins_same_detail_url","source_url":url,"count":len(codes)})
+            # A published regulatory register contains many products under one URL.
+            # Only waive the detail-page collision when there is a distinct, nonempty
+            # original product ID for every EAN and all rows are explicitly EAN typed.
+            registry=[p for p in products if p.get("source_url","").split("?")[0]==url and p.get("source")=="RIVM EU-CEG"]
+            refs=[p.get("source_reference") for p in registry]
+            official=len(registry)==len(codes) and len(set(refs))==len(refs) and all(
+                ref and p.get("evidence_type")=="EU-CEG ProductNumberType=EAN" and p.get("market")=="NL"
+                for ref,p in zip(refs,registry))
+            if not official:
+                warn.append({"issue":"multiple_gtins_same_detail_url","source_url":url,"count":len(codes)})
     multi=sum(1 for codes in families.values() if len(codes)>1)
     return {
       "summary":{
