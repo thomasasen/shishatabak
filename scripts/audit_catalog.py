@@ -10,7 +10,16 @@ import re
 from collections import Counter,defaultdict
 from pathlib import Path
 from urllib.parse import urlparse
-from scripts.import_products import valid_gtin, ROOT
+ROOT=Path(__file__).resolve().parents[1]
+def valid_gtin(s):
+    if not isinstance(s,str) or not re.fullmatch(r"\d{8}|\d{12,14}",s):
+        return False
+    total=0
+    weight=3
+    for digit in reversed(s[:-1]):
+        total+=int(digit)*weight
+        weight=1 if weight==3 else 3
+    return (10-total%10)%10==int(s[-1])
 
 VALID_BASE={"Virginia","Dark Blend","Unbekannt"}
 VALID_SIZES={20,25,50,100,125,150,180,200,250,500,1000}
