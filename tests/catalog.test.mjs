@@ -159,3 +159,21 @@ test("unsupported camera has no callable torch/focus and clamps manual controls"
   await api.applyZoom(camera,features,999);
   assert.equal(JSON.stringify(calls),JSON.stringify([{advanced:[{zoom:3}]}]));
 });
+
+
+test("SUN-VI reconciliation adds verified-format GTINs without overwriting old identities",()=>{
+  assert.ok(products.length>=759);
+  const nameless=products.find(p=>p.ean==="4260711891496");
+  assert.equal(nameless.brand,"Nameless");
+  assert.equal(nameless.name,"#40 Black Nana");
+  assert.equal(nameless.quantity_g,25);
+  assert.equal(nameless.source,"SUN-VI");
+  const prior=products.find(p=>p.ean==="4251776106656");
+  assert.equal(prior.source,"Shisha-Nil");
+  assert.equal(prior.base,"Virginia");
+  assert.equal(prior.flavor,"Himbeere, Wassermelonen, Zitronen");
+  assert.match(prior.flavor_source_url,/^https:\/\/www\.sunvi\.de\//);
+  const love=products.find(p=>p.ean==="8681511384401");
+  assert.equal(love.flavor,"Honigmelone, Maracuja, Minze, Wassermelone");
+  assert.ok(!products.some(p=>p.source_url.includes("NASTY-GIRL-Erdbeere-Wassermelone-200g")));
+});

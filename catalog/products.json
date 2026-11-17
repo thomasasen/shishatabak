@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "updated_at": "2026-11-17",
-  "description": "Curated public product facts. Every EAN references a concrete online product listing. No automated third-party site scraping.",
+  "description": "Curated public Shisha tobacco product facts with per-record source links. Valid GTIN check digits and shop listings do not prove the barcode on a physical package.",
   "products": [
     {
       "ean": "710535471465",
@@ -53,9 +53,21 @@
       "name": "040 Hamburg",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/187-tobacco-25g-040-hamburg",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/187tobacco-040-Hamburg-Beerenmix-25g"
+    },
+    {
+      "ean": "4251822810834",
+      "brand": "187 Tobacco",
+      "name": "040 HAMBURG",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Turaah",
+      "source_url": "https://turaah.de/187-Shisha-Tabak-200g-040-HAMBURG",
       "verified_at": "2026-11-17"
     },
     {
@@ -70,17 +82,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251822810834",
-      "brand": "187 Tobacco",
-      "name": "040 HAMBURG",
-      "quantity_g": 200,
-      "base": "Unbekannt",
-      "flavor": "",
-      "source": "Turaah",
-      "source_url": "https://turaah.de/187-Shisha-Tabak-200g-040-HAMBURG",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4251822812852",
       "brand": "187 Tobacco",
       "name": "040 HAMBURG",
@@ -89,6 +90,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/187-Shisha-Tabak-1Kg-040-HAMBURG",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822810827",
+      "brand": "187 Tobacco",
+      "name": "BEACH VIBEZ",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Turaah",
+      "source_url": "https://turaah.de/187-Shisha-Tabak-200g-BEACH-VIBEZ",
       "verified_at": "2026-11-17"
     },
     {
@@ -111,17 +123,6 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/187-tobacco-200g-beach-vibez",
-      "verified_at": "2026-11-17"
-    },
-    {
-      "ean": "4251822810827",
-      "brand": "187 Tobacco",
-      "name": "BEACH VIBEZ",
-      "quantity_g": 200,
-      "base": "Unbekannt",
-      "flavor": "",
-      "source": "Turaah",
-      "source_url": "https://turaah.de/187-Shisha-Tabak-200g-BEACH-VIBEZ",
       "verified_at": "2026-11-17"
     },
     {
@@ -202,17 +203,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251822812876",
-      "brand": "187 Tobacco",
-      "name": "I love Hamburg",
-      "quantity_g": 1000,
-      "base": "Unbekannt",
-      "flavor": "",
-      "source": "Turaah",
-      "source_url": "https://turaah.de/187-Shisha-Tabak-1Kg-I-love-Hamburg",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4251822814924",
       "brand": "187 Tobacco",
       "name": "I Love Hamburg",
@@ -224,15 +214,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251822812876",
+      "brand": "187 Tobacco",
+      "name": "I love Hamburg",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Turaah",
+      "source_url": "https://turaah.de/187-Shisha-Tabak-1Kg-I-love-Hamburg",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251822810919",
       "brand": "187 Tobacco",
       "name": "i Scream Pistacio",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Pistazie, Vanille Eiscreme",
       "source": "Turaah",
       "source_url": "https://turaah.de/187-Shisha-Tabak-200g-i-Scream-Pistacio",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/187tobacco-I-Scream-Pistacio-Pistazie-Vanille-Eiscreme-200g"
     },
     {
       "ean": "4251822810872",
@@ -301,17 +303,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251822814986",
-      "brand": "187 Tobacco",
-      "name": "New Flash",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-new-flash",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4251822810926",
       "brand": "187 Tobacco",
       "name": "NEW FLASH",
@@ -320,6 +311,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/187-Shisha-Tabak-200g-NEW-FLASH",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822814986",
+      "brand": "187 Tobacco",
+      "name": "New Flash",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-new-flash",
       "verified_at": "2026-11-17"
     },
     {
@@ -345,17 +347,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251822815044",
-      "brand": "187 Tobacco",
-      "name": "Pink Mellow",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-pink-mellow",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4251822810865",
       "brand": "187 Tobacco",
       "name": "PINK MELLOW",
@@ -364,6 +355,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/187-Shisha-Tabak-200g-PINK-MELLOW",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822815044",
+      "brand": "187 Tobacco",
+      "name": "Pink Mellow",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-pink-mellow",
       "verified_at": "2026-11-17"
     },
     {
@@ -422,17 +424,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4251822815075",
-      "brand": "187 Tobacco",
-      "name": "Siwlez",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-siwlez",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4251822810902",
       "brand": "187 Tobacco",
       "name": "SIWLEZ",
@@ -441,6 +432,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/187-Shisha-Tabak-200g-SIWLEZ",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251822815075",
+      "brand": "187 Tobacco",
+      "name": "Siwlez",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/187-tobacco-200g-siwlez",
       "verified_at": "2026-11-17"
     },
     {
@@ -609,6 +611,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5902605451506",
+      "brand": "7Days",
+      "name": "C. Brry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/7Days-C-Brry-Beerenmix-Ice-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5902605450332",
+      "brand": "7Days",
+      "name": "C. Lime",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Limette, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/7Days-C-Lime-Limette-Ice-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5908249511019",
       "brand": "7Days",
       "name": "C. Peah",
@@ -620,15 +644,38 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5902605450295",
+      "brand": "7Days",
+      "name": "C. Pine Cdy",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Ananas, Bonbon, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/7Days-C-Pine-Cdy-Ananas-Bonbon-Ice-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5902605451605",
+      "brand": "7Days",
+      "name": "CCLB",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix, Limette, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/7Days-CCLB-Beerenmix-Limette-Minze-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5902605450318",
       "brand": "7Days",
       "name": "Cold Blue",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Blaubeere, Ice",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-cold-blue-200g",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-C-Blue-Blaubeere-Ice-200g"
     },
     {
       "ean": "5902605450301",
@@ -636,10 +683,11 @@
       "name": "Cold Cherry",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Kirsche, Ice",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-cold-cherry-200g",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-C-Cherr-Kirsche-Ice-200g"
     },
     {
       "ean": "5902605450325",
@@ -647,10 +695,11 @@
       "name": "Cold Death",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Minze, Ice",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-cold-death-200g",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-C-Death-Minze-Ice-200g"
     },
     {
       "ean": "5902605450271",
@@ -658,10 +707,11 @@
       "name": "Cold Melo",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Melone, Menthol",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-200g-cold-melo",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-Cold-Melo-Melone-Menthol-200g"
     },
     {
       "ean": "5902605450264",
@@ -669,10 +719,11 @@
       "name": "Cold Peah",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Pfirsich, Menthol",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-200g-cold-peah",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-Cold-Peah-Pfirsich-Menthol-200g"
     },
     {
       "ean": "5902605451407",
@@ -680,10 +731,11 @@
       "name": "Green Slip",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Minze",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-green-slip-200g",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-Green-Slip-Minze-200g"
     },
     {
       "ean": "5902605450370",
@@ -691,10 +743,11 @@
       "name": "Passion on Ice",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Passionsfrucht, Menthol",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-passion-on-ice-200g",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-Passion-On-I-Passionsfrucht-Menthol-200g"
     },
     {
       "ean": "5902605450516",
@@ -702,9 +755,32 @@
       "name": "Vanilla Cream",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Vanille",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-vanilla-cream-200g",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/7Days-Vanilla-Cream-Vanille-200g"
+    },
+    {
+      "ean": "8681511383541",
+      "brand": "Adalya",
+      "name": "Berlin Nights",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Berlin-Nights-Pfirsich-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511380106",
+      "brand": "Adalya",
+      "name": "Berlin Nights",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Berlin-Nights-Pfirsich-1000g",
       "verified_at": "2026-11-17"
     },
     {
@@ -713,10 +789,11 @@
       "name": "Berlin Nights (1)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Pfirsich",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-berlin-nights-1",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Berlin-Night-Pfirsich-200g"
     },
     {
       "ean": "4260587793719",
@@ -727,6 +804,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Adalya-Tabak-200g-Berlin-Nights-1",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655740439",
+      "brand": "Adalya",
+      "name": "Blue Dragon",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere, Drachenfrucht",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Blue-Dragon-Blaubeere-Drachenfrucht-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -741,15 +829,38 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655740521",
+      "brand": "Adalya",
+      "name": "Blue Dragon",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Drachenfrucht, Blaubeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Blue-Dragon-Drachenfrucht-Blaubeere-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655743676",
+      "brand": "Adalya",
+      "name": "Blue Ice",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Blue-Ice-Blaubeere-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681511384098",
       "brand": "Adalya",
       "name": "Blue Ice (2)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere, Ice",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-blue-ice-2",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Blue-Ice-Blaubeere-Ice-200g"
     },
     {
       "ean": "4260587793757",
@@ -768,9 +879,43 @@
       "name": "Cindy's (14)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Honigmelone, Mango, Maracuja, Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-cindy-s-14",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Cindys-Beerenmix-Honigmelone-Mango-Maracuja-Wassermelone-200g"
+    },
+    {
+      "ean": "8681655740767",
+      "brand": "Adalya",
+      "name": "Cindys",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix, Honigmelone, Mango, Maracuja, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Cindys-Beerenmix-Honigmelone-Mango-Maracuja-Wassermelone-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655740873",
+      "brand": "Adalya",
+      "name": "Code Dragon",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Cola, Energy",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Code-Dragon-Cola-Energy-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384166",
+      "brand": "Adalya",
+      "name": "Code Dragon",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Cola, Energy",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Code-Dragon-Cola-Energy-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -785,15 +930,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655743690",
+      "brand": "Adalya",
+      "name": "Double Yellow",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Honigmelone, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Double-Yellow-Honigmelone-Wassermelone-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681511384241",
       "brand": "Adalya",
       "name": "Double Yellow (24)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Honig- und Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-double-yellow-24",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Double-Yellow-Honig-und-Wassermelone-200g"
     },
     {
       "ean": "4260587793801",
@@ -812,9 +969,32 @@
       "name": "English Lord",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Himbeere, Mango, Pfirsich",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-english-lord",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-English-Lord-Himbeere-Mango-Pfirsich-200g"
+    },
+    {
+      "ean": "8681655766132",
+      "brand": "Adalya",
+      "name": "Grayp Cool",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Traube, Eis",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Grayp-Cool-Traube-Eis-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655766163",
+      "brand": "Adalya",
+      "name": "Green Leon Cool",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Ice, Limette, Zitrone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Green-Leon-Cool-Ice-Limette-Zitrone-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -834,9 +1014,32 @@
       "name": "Grn Lie Co@l",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Limette, Zitrone, Ice",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-grn-lie-coatl",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Green-Leon-Cool-Limette-Zitrone-Ice-200g"
+    },
+    {
+      "ean": "8681655789025",
+      "brand": "Adalya",
+      "name": "Hawaii",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Mango, Ananas, Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Hawaii-Mango-Ananas-Pfirsich-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511380656",
+      "brand": "Adalya",
+      "name": "Hawaii",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Mango, Ananas",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Hawaii-Mango-Ananas-1000g",
       "verified_at": "2026-11-17"
     },
     {
@@ -845,10 +1048,11 @@
       "name": "Hawaii (10)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Mango, Ananas",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-hawaii-10",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Hawai-Mango-Ananas-200g"
     },
     {
       "ean": "4260587793726",
@@ -859,6 +1063,28 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Adalya-Tabak-200g-Hawaii-10",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655743706",
+      "brand": "Adalya",
+      "name": "Ice Boni",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Icebonbon",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Boni-Icebonbon-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384340",
+      "brand": "Adalya",
+      "name": "Ice Boni",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Ice, Bonbon",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Boni-Ice-Bonbon-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -884,14 +1110,81 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655766170",
+      "brand": "Adalya",
+      "name": "Ice Kaktü",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Ice, Kaktus",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Kaktue-Ice-Kaktus-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681655745717",
       "brand": "Adalya",
       "name": "Ice Kaktü (72)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Ice, Kaktusfeige",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-ice-kaktue-72",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Kaktue-Ice-Kaktusfeige-200g"
+    },
+    {
+      "ean": "8681655766187",
+      "brand": "Adalya",
+      "name": "Ice Lie on the Rocks",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Ice, Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Lie-on-the-Rocks-Ice-Limette-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260587793870",
+      "brand": "Adalya",
+      "name": "Ice Lie on the Rocks",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Ice, Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Lie-on-the-Rocks-Ice-Limette-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655766194",
+      "brand": "Adalya",
+      "name": "Ice Pyc",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Ice, Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Pyc-Ice-Pfirsich-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655739303",
+      "brand": "Adalya",
+      "name": "Ice Pyc",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Ice, Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Ice-Pyc-Ice-Pfirsich-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511380809",
+      "brand": "Adalya",
+      "name": "Lady Killer",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix, Honigmelone, Mango",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Lady-Killer-Beerenmix-Honigmelone-Mango-1000g",
       "verified_at": "2026-11-17"
     },
     {
@@ -900,10 +1193,11 @@
       "name": "Lady Killer (69)",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Honigmelone, Mango",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-25g-lady-killer-69",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Lady-Killer-Beerenmix-Honigmelone-Mango-25g"
     },
     {
       "ean": "8681511384364",
@@ -911,10 +1205,11 @@
       "name": "Lady Killer (69)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Honigmelone, Mango",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-lady-killer-69",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Lady-Killer-Beerenmix-Honigmelone-Mango-200g"
     },
     {
       "ean": "4260587793733",
@@ -936,6 +1231,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Adalya-Tabak-1Kg-Lady-Killer-69",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655789049",
+      "brand": "Adalya",
+      "name": "Love 66",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Geheime Zutat, Honigmelone, Maracuja, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Love-66-Geheime-Zutat-Honigmelone-Maracuja-Wassermelone-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -961,6 +1267,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681511380854",
+      "brand": "Adalya",
+      "name": "Love 66",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Geheime Zutat, Honigmelone, Maracuja, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Love-66-Geheime-Zutat-Honigmelone-Maracuja-Wassermelone-1000g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681655755112",
       "brand": "Adalya",
       "name": "Love 66 (66)",
@@ -983,6 +1300,39 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655743669",
+      "brand": "Adalya",
+      "name": "MN Tango",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Mango, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-MN-Tango-Mango-Maracuja-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384432",
+      "brand": "Adalya",
+      "name": "Mn Tango",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Mango, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Mn-Tango-Mango-Maracuja-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260587791500",
+      "brand": "Adalya",
+      "name": "MN Tango",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Mango, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-MN-Tango-Mango-Maracuja-1000g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260587793764",
       "brand": "Adalya",
       "name": "MN Tango 32",
@@ -991,6 +1341,28 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Adalya-Tabak-200g-MN-Tango-32",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655743645",
+      "brand": "Adalya",
+      "name": "MN Tango Ice",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Mango, Maracuja, Eis",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-MN-Tango-Ice-Mango-Maracuja-Eis-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384449",
+      "brand": "Adalya",
+      "name": "Mn Tango Ice",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Mango, Maracuja, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Mn-Tango-Ice-Mango-Maracuja-Ice-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1005,15 +1377,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655743652",
+      "brand": "Adalya",
+      "name": "Punk Man",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Roter Beerenmix, Erdbeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Punk-Man-Roter-Beerenmix-Erdbeere-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681655745779",
       "brand": "Adalya",
       "name": "Punk Man (86)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Roter Beerenmix, Erdbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-punk-man-86",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Punk-Man-Roter-Beerenmix-Erdbeere-200g"
     },
     {
       "ean": "4260587793771",
@@ -1032,9 +1416,32 @@
       "name": "Sheik Money",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Ananas, Banane",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-sheik-money",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Sheik-Money-Ananas-Banane-200g"
+    },
+    {
+      "ean": "8681655789056",
+      "brand": "Adalya",
+      "name": "Sky Fall",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Sky-Fall-Pfirsich-Wassermelone-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511383923",
+      "brand": "Adalya",
+      "name": "Sky Fall",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich, Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Sky-Fall-Pfirsich-Wassermelone-1000g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1043,9 +1450,21 @@
       "name": "Skyfall (51)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Pfirsich, Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-skyfall-51",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Sky-Fall-Pfirsich-Wassermelone-200g"
+    },
+    {
+      "ean": "8681655766200",
+      "brand": "Adalya",
+      "name": "Straw Bana Ice",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Banane, Erdbeere, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Straw-Bana-Ice-Banane-Erdbeere-Ice-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1054,9 +1473,21 @@
       "name": "Straw Bana Ice (22)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Banane, Erdbeere, Ice",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-straw-bana-ice-22",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Straw-Bana-Ice-Banane-Erdbeere-Ice-200g"
+    },
+    {
+      "ean": "8681655743638",
+      "brand": "Adalya",
+      "name": "The two app",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Doppelapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-The-two-app-Doppelapfel-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1071,15 +1502,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681511381417",
+      "brand": "Adalya",
+      "name": "The Two App",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "Anis, Doppelapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-The-Two-App-Anis-Doppelapfel-1000g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681511384630",
       "brand": "Adalya",
       "name": "The Two App (50)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Anis, Doppelapfel",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-the-two-app-50",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-The-Two-App-Anis-Doppelapfel-200g"
     },
     {
       "ean": "4260587791630",
@@ -1093,14 +1536,37 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8681655766217",
+      "brand": "Adalya",
+      "name": "Tynky Wynky",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Grapefruit, Limette, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Tynky-Wynky-Grapefruit-Limette-Maracuja-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "8681511386009",
       "brand": "Adalya",
       "name": "Tynky Wynky (57)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Grapefrucht, Limette, Maracuja",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-tynky-wynky-57",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Tynky-Wynky-Grapefrucht-Limette-Maracuja-200g"
+    },
+    {
+      "ean": "8681655743683",
+      "brand": "Adalya",
+      "name": "Waterlon",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Wassermelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Waterlon-Wassermelone-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1109,10 +1575,11 @@
       "name": "Waterlon (59)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/adalya-tabak-200g-waterlon-59",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Adalya-Tabak-Waterlon-Wassermelone-200g"
     },
     {
       "ean": "4260587793795",
@@ -1134,6 +1601,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Adalya-Tabak-1Kg-Waterlon-59",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681511384678",
+      "brand": "Adalya",
+      "name": "Waterlon Cool",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Wassermelone; Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Adalya-Tabak-Waterlon-Cool-Wassermelone-Minze-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -1844,10 +2322,11 @@
       "name": "Big Blue",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-big-blue",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Big-Blue-Blaubeere-200g"
     },
     {
       "ean": "6291100737345",
@@ -2051,10 +2530,11 @@
       "name": "Crystal Double Crunch",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Doppelapfel, Menthol",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-double-crunch",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Double-Crunch-Doppelapfel-Menthol-25g"
     },
     {
       "ean": "5905930237555",
@@ -2062,10 +2542,11 @@
       "name": "Crystal Double Crunch",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Doppelapfel, Menthol",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-double-crunch",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Double-Crunch-Doppelapfel-Menthol-200g"
     },
     {
       "ean": "5905930235186",
@@ -2087,10 +2568,11 @@
       "name": "Crystal Grapio",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Minze, Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-grapio",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Grapio-Minze-Traube-25g"
     },
     {
       "ean": "5905930237531",
@@ -2098,10 +2580,11 @@
       "name": "Crystal Grapio",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Minze, Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-grapio",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Grapio-Minze-Traube-200g"
     },
     {
       "ean": "5904323463144",
@@ -2109,10 +2592,11 @@
       "name": "Crystal Yellow",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Minze, Zitrone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-crystal-yellow",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Yellow-Minze-Zitrone-25g"
     },
     {
       "ean": "5907479352959",
@@ -2120,9 +2604,32 @@
       "name": "Crystal Yellow",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Minze, Zitrone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-yellow",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Yellow-Minze-Zitrone-200g"
+    },
+    {
+      "ean": "5904323463212",
+      "brand": "Al Fakher",
+      "name": "Double Kick",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Doppelapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Double-Kick-Doppelapfel-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930233663",
+      "brand": "Al Fakher",
+      "name": "Double Kick",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Doppelapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Double-Kick-Doppelapfel-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -2154,6 +2661,17 @@
       "evidence_type": "EU-CEG ProductNumberType=EAN"
     },
     {
+      "ean": "5905930232079",
+      "brand": "Al Fakher",
+      "name": "Fushsia",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Himbeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Fushsia-Himbeere-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "6291100732821",
       "brand": "Al Fakher",
       "name": "Goova",
@@ -2173,10 +2691,11 @@
       "name": "Grapio",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-25g-grapio",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Grapio-Traube-25g"
     },
     {
       "ean": "5905930232093",
@@ -2195,10 +2714,11 @@
       "name": "Grapio",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-grapio",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Grapio-Traube-200g"
     },
     {
       "ean": "6291100732340",
@@ -2285,15 +2805,27 @@
       "evidence_type": "EU-CEG ProductNumberType=EAN"
     },
     {
+      "ean": "5904323465209",
+      "brand": "Al Fakher",
+      "name": "Grapio Night",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "schwarze Traube",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Grapio-Night-schwarze-Traube-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930237609",
       "brand": "Al Fakher",
       "name": "Grapio Night",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Schwarze Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-grapio-night",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Grapio-Night-Schwarze-Traube-200g"
     },
     {
       "ean": "5908224722478",
@@ -2385,10 +2917,11 @@
       "name": "Magic Love",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Fruchtmix",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-magic-love",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Magic-Love-Fruchtmix-200g"
     },
     {
       "ean": "6291100732364",
@@ -2536,10 +3069,11 @@
       "name": "Red Smash",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-red-smash",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Red-Smash-Wassermelone-200g"
     },
     {
       "ean": "6291100732616",
@@ -2712,10 +3246,11 @@
       "name": "The Double Crunch",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Doppelapfel mit Anis",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-the-double-crunch",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-The-Double-Crunch-Doppelapfel-mit-Anis-200g"
     },
     {
       "ean": "6291100732395",
@@ -2830,6 +3365,17 @@
       "evidence_type": "EU-CEG ProductNumberType=EAN"
     },
     {
+      "ean": "5905930232086",
+      "brand": "Al Fakher",
+      "name": "White Pods",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Vanille",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-White-Pods-Vanille-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930237548",
       "brand": "Al Fakher",
       "name": "White Pods",
@@ -2867,6 +3413,17 @@
       "market": "NL",
       "source_reference": "00273-16-73227",
       "evidence_type": "EU-CEG ProductNumberType=EAN"
+    },
+    {
+      "ean": "5905930232130",
+      "brand": "Al Fakher",
+      "name": "Yellow",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Zitrone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Yellow-Zitrone-200g",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "5905930237579",
@@ -2986,14 +3543,37 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776101309",
+      "brand": "Al Massiva",
+      "name": "4B",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Zitrone, Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-4B-Zitrone-Limette-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251776106069",
       "brand": "Al Massiva",
       "name": "4B",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Zitrone, Limette",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-4b",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-4B-Zitrone-Limette-200g"
+    },
+    {
+      "ean": "4251776102924",
+      "brand": "Al Massiva",
+      "name": "5 Palm",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere, Maracuja, Mango, Erdbeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-5-Palm-Blaubeere-Maracuja-Mango-Erdbeere-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -3002,10 +3582,11 @@
       "name": "5 Palm",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere, Maracuja, Mango, Erdbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-5-palm",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-5-Palm-Blaubeere-Maracuja-Mango-Erdbeere-200g"
     },
     {
       "ean": "4251776104201",
@@ -3013,10 +3594,11 @@
       "name": "Big M",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Pfirsich, Menthol",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-big-m",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Big-M-Pfirsich-Menthol-200g"
     },
     {
       "ean": "4251776105987",
@@ -3024,10 +3606,11 @@
       "name": "Black Lebanese",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Minze, Traube",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-black-lebanese",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Black-Lebanese-Minze-Traube-200g"
     },
     {
       "ean": "4251776101316",
@@ -3035,10 +3618,11 @@
       "name": "Blaulicht",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-blaulicht",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blaulicht-Blaubeere-25g"
     },
     {
       "ean": "4251776105840",
@@ -3046,10 +3630,11 @@
       "name": "Blaulicht",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-blaulicht",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blaulicht-Blaubeere-200g"
     },
     {
       "ean": "4251776105888",
@@ -3057,9 +3642,32 @@
       "name": "Blue Beast",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere, Ananas. Brombeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-blue-beast",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blue-Beast-Blaubeere-Ananas-Brombeere-200g"
+    },
+    {
+      "ean": "4251776101323",
+      "brand": "Al Massiva",
+      "name": "Blut gegen Blut",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Zitrone, Drachenfrucht",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blut-gegen-Blut-Zitrone-Drachenfrucht-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776106083",
+      "brand": "Al Massiva",
+      "name": "Blut gegen Blut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Zitrone, Drachenfrucht",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blut-gegen-Blut-Zitrone-Drachenfrucht-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -3068,10 +3676,11 @@
       "name": "Bruderherz",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Drachenfrucht",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-bruderherz",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Bruderherz-Drachenfrucht-25g"
     },
     {
       "ean": "4251776105826",
@@ -3079,10 +3688,11 @@
       "name": "Bruderherz",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Drachenfrucht",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-bruderherz",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Bruderherz-Drachenfrucht-200g"
     },
     {
       "ean": "4251776106021",
@@ -3090,10 +3700,11 @@
       "name": "Cabrio In Marbella",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Wassermelone, Honigmelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-cabrio-in-marbella",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Cabrio-in-Marbella-Wassermelone-Honigmelone-200g"
     },
     {
       "ean": "4251776105802",
@@ -3101,9 +3712,21 @@
       "name": "Exotic Sun",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Mango",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-exotic-sun",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/al-massiva-tobacco-exotic-sun-mango-200g"
+    },
+    {
+      "ean": "4251776101347",
+      "brand": "Al Massiva",
+      "name": "Ghettolied",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Orange, Blutorange",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Ghettolied-Orange-Blutorange-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -3112,10 +3735,11 @@
       "name": "Handgemacht & Illegal",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Kiwi, Ananas",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-handgemacht-illegal",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Handgemacht-und-Illegal-Kiwi-Ananas-200g"
     },
     {
       "ean": "4251776106687",
@@ -3123,10 +3747,11 @@
       "name": "Löwenherz",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Drachenfrucht, Pfirsich, Himbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-loewenherz",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Loewenherz-Drachenfrucht-Pfirsich-Himbeere-25g"
     },
     {
       "ean": "4251776105949",
@@ -3134,10 +3759,11 @@
       "name": "Löwenherz",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Drachenfrucht, Pfirsich, Himbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-loewenherz",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Loewenherz-Drachenfrucht-Pfirsich-Himbeere-200g"
     },
     {
       "ean": "4251776101361",
@@ -3151,15 +3777,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776106779",
+      "brand": "Al Massiva",
+      "name": "Miami White",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Erdbeere. Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/al-massiva-tobacco-miami-white-erdbeere-pfirsich-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251776106298",
       "brand": "Al Massiva",
       "name": "Nightkiller",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Maulbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-nightkiller",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Nightkiller-Beerenmix-Maulbeere-25g"
     },
     {
       "ean": "4251776106045",
@@ -3167,10 +3805,11 @@
       "name": "Nightkiller",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Maulbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-nightkiller",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Nightkiller-Beerenmix-Maulbeere-200g"
     },
     {
       "ean": "4251776105864",
@@ -3178,10 +3817,11 @@
       "name": "Pink King",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Himbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-pink-king",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Pink-King-Himbeere-200g"
     },
     {
       "ean": "4251776106755",
@@ -3189,9 +3829,21 @@
       "name": "Red Rider",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Pflaume, Kirsche",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-red-rider",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Red-Rider-Pflaume-Kirsche-200g"
+    },
+    {
+      "ean": "4251776105239",
+      "brand": "Al Massiva",
+      "name": "Skyline",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Grapefruit, Limette, Zitrone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Skyline-Grapefruit-Limette-Zitrone-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -3200,10 +3852,11 @@
       "name": "Sommer in Beirut",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Himbeere, Wassermelonen, Zitronen",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-sommer-in-beirut",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Sommer-in-Beirut-Himbeere-Wassermelonen-Zitronen-25g"
     },
     {
       "ean": "4251776105925",
@@ -3211,10 +3864,11 @@
       "name": "Sommer in Beirut",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Himbeere, Wassermelonen, Zitronen",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-sommer-in-beirut",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Sommer-in-Beirut-Himbeere-Wassermelonen-Zitronen-200g"
     },
     {
       "ean": "4251425777282",
@@ -3857,10 +4511,11 @@
       "name": "Falim",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Falim, Kaugummi",
       "source": "Invictus Shisha",
       "source_url": "https://invictus-shisha.de/Chaos-Shisha-Tabak-200g-Falim",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Chaos-Tobacco-FALIM-Falim-Kaugummi-200g"
     },
     {
       "ean": "4251595326310",
@@ -3890,10 +4545,11 @@
       "name": "Falim Red",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Falim-Kaugummi mit Waldbeeren",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/chaos-tobacco-200g-falim-red",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Chaos-Tobacco-FALIM-RED-Falim-Kaugummi-mit-Waldbeeren-200g"
     },
     {
       "ean": "4260673312329",
@@ -4292,6 +4948,50 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "602343054254",
+      "brand": "Electro Smog Tobacco",
+      "name": "BLUE MAGIC",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere, Traube",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-BLUE-MAGIC-Blaubeere-Traube-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9505438577557",
+      "brand": "Electro Smog Tobacco",
+      "name": "BOOTY CALL",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich, Kiwi",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-BOOTY-CALL-Pfirsich-Kiwi-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "602343054216",
+      "brand": "Electro Smog Tobacco",
+      "name": "MAGIC",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-MAGIC-Beerenmix-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9505928476315",
+      "brand": "Electro Smog Tobacco",
+      "name": "VIBE",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Cola, Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-VIBE-Cola-Limette-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "022099552574",
       "brand": "Fumari",
       "name": "Aloha Sunset",
@@ -4556,15 +5256,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260626348573",
+      "brand": "Holster",
+      "name": "Grp 2.0",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Weiße Traube",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-Grp-20-Weisse-Traube-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799709504",
       "brand": "Holster",
       "name": "Grp 2.0",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Weiße Traube",
       "source": "Da-Shisha",
       "source_url": "https://www.da-shisha.de/tabak/holster-tobacco-grp-2-0-200g-tt",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Grp-20-Weisse-Traube-200g"
     },
     {
       "ean": "4255799718414",
@@ -4622,17 +5334,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4255799718476",
-      "brand": "Holster",
-      "name": "Ice Finger",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "Limette, Orange, Himbeere, Ice",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-ice-finger",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4255799700952",
       "brand": "Holster",
       "name": "ICE Finger",
@@ -4644,15 +5345,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4255799718476",
+      "brand": "Holster",
+      "name": "Ice Finger",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "Limette, Orange, Himbeere, Ice",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-ice-finger",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799713150",
       "brand": "Holster",
       "name": "Ice Kaktuz",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Kaktus, Ice",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-25g-ice-kaktuz",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-CE-Kaktuz-Kaktus-Ice-25g"
     },
     {
       "ean": "4255799700822",
@@ -4685,6 +5398,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-lady-peggy",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799701027",
+      "brand": "Holster",
+      "name": "Lamoretto",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Zitrone, Mandel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-Lamoretto-Zitrone-Mandel-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -4743,15 +5467,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260626348580",
+      "brand": "Holster",
+      "name": "Mr. C",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Zimt",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-Mr-C-Zimt-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260626348559",
       "brand": "Holster",
       "name": "Mr. John",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Ananas, Pfirsich, Zitrone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-25g-mr.-john",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Mr-John-Ananas-Pfirsich-Zitrone-25g"
     },
     {
       "ean": "4255799700990",
@@ -4762,6 +5498,28 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Holster-Shisha-Tabak-200g-Mr-John",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799709603",
+      "brand": "Holster",
+      "name": "Mr. John",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Ananas, Pfirsich, Zitrone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-Mr-John-Ananas-Pfirsich-Zitrone-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799709511",
+      "brand": "Holster",
+      "name": "Peery Punch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Birne",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-Peery-Punch-Birne-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -4792,10 +5550,11 @@
       "name": "Quwi Punch",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Kiwi",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-25g-quwi-punch",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Quwi-Punch-Kiwi-25g"
     },
     {
       "ean": "4255799700839",
@@ -4831,15 +5590,27 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4255799701010",
+      "brand": "Holster",
+      "name": "TwentyFive",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Doppleapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Holster-TwentyFive-Doppleapfel-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799709610",
       "brand": "Holster",
       "name": "Viva La Fiesta",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Früchtemix",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-viva-la-fiesta-27-90",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Viva-La-Fiesta-Fruechtemix-200g"
     },
     {
       "ean": "4255799713181",
@@ -4847,10 +5618,11 @@
       "name": "Watermill Punch",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Wassermelone",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-25g-watermill-punch",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Watermill-Punch-Wassermelone-25g"
     },
     {
       "ean": "4255799700860",
@@ -4902,10 +5674,11 @@
       "name": "Wild Punch (27,90€)",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Blaubeere, Brombeere, Himbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-wild-punch-27-90",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Holster-Wild-Punch-Blaubeere-Brombeere-Himbeere-200g"
     },
     {
       "ean": "4255799700938",
@@ -5007,17 +5780,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4262499422961",
-      "brand": "Hookain",
-      "name": "Bubblenciaga",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-bubblenciaga",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4260656321928",
       "brand": "Hookain",
       "name": "BUBBLENCIAGA",
@@ -5026,6 +5788,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Hookain-Shisha-Tabak-200g-BUBBLENCIAGA",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262499422961",
+      "brand": "Hookain",
+      "name": "Bubblenciaga",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-bubblenciaga",
       "verified_at": "2026-11-17"
     },
     {
@@ -5117,17 +5890,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4262499423012",
-      "brand": "Hookain",
-      "name": "Green Lean",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-green-lean",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4260656329009",
       "brand": "Hookain",
       "name": "GREEN LEAN",
@@ -5136,6 +5898,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Hookain-Shisha-Tabak-200g-GREEN-LEAN",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262499423012",
+      "brand": "Hookain",
+      "name": "Green Lean",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-green-lean",
       "verified_at": "2026-11-17"
     },
     {
@@ -5150,17 +5923,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4262499423029",
-      "brand": "Hookain",
-      "name": "Kaffa Yayo",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-kaffa-yayo",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4260656329023",
       "brand": "Hookain",
       "name": "KAFFA YAYO",
@@ -5169,6 +5931,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Hookain-Shisha-Tabak-200g-KAFFA-YAYO",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262499423029",
+      "brand": "Hookain",
+      "name": "Kaffa Yayo",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-kaffa-yayo",
       "verified_at": "2026-11-17"
     },
     {
@@ -5205,17 +5978,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4262499423050",
-      "brand": "Hookain",
-      "name": "Punani",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-punani",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4260656329078",
       "brand": "Hookain",
       "name": "PUNANI",
@@ -5224,6 +5986,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Hookain-Shisha-Tabak-200g-PUNANI",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262499423050",
+      "brand": "Hookain",
+      "name": "Punani",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-punani",
       "verified_at": "2026-11-17"
     },
     {
@@ -5326,17 +6099,6 @@
       "verified_at": "2026-11-17"
     },
     {
-      "ean": "4262499423111",
-      "brand": "Hookain",
-      "name": "Wiwi",
-      "quantity_g": 200,
-      "base": "Virginia",
-      "flavor": "",
-      "source": "Shisha-Nil",
-      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-wiwi",
-      "verified_at": "2026-11-17"
-    },
-    {
       "ean": "4260656323168",
       "brand": "Hookain",
       "name": "WIWI",
@@ -5345,6 +6107,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Hookain-Shisha-Tabak-200g-WIWI",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4262499423111",
+      "brand": "Hookain",
+      "name": "Wiwi",
+      "quantity_g": 200,
+      "base": "Virginia",
+      "flavor": "",
+      "source": "Shisha-Nil",
+      "source_url": "https://www.shisha-nil.de/hookain-tobacco-200g-wiwi",
       "verified_at": "2026-11-17"
     },
     {
@@ -5579,6 +6352,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260453517371",
+      "brand": "Maridan",
+      "name": "ALPINE RUSH",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Gurke, Honigmelone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-ALPINE-RUSH-Gurke-Honigmelone-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260453517456",
+      "brand": "Maridan",
+      "name": "BEACHY",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich, Eistee",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-BEACHY-Pfirsich-Eistee-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260453512437",
       "brand": "Maridan",
       "name": "Beachy Ice Tea",
@@ -5623,6 +6418,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260453517333",
+      "brand": "Maridan",
+      "name": "JOOZY",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blutorange",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-JOOZY-Blutorange-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260453517128",
       "brand": "Maridan",
       "name": "Kauzi",
@@ -5639,10 +6445,11 @@
       "name": "Kauzi",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Kaugummi, Zimt",
       "source": "Turaah",
       "source_url": "https://turaah.de/Maridan-Tobacco-200g-Kauzi",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Maridan-Tobacco-KAUZI-Kaugummi-Zimt-200g"
     },
     {
       "ean": "4260453518187",
@@ -5672,10 +6479,11 @@
       "name": "Kola",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Cola",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Maridan-Shisha-Tabak-200g-Kola",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Maridan-Tobacco-KOLA-Cola-200g"
     },
     {
       "ean": "4260453518125",
@@ -5694,10 +6502,11 @@
       "name": "Rosy Cheeks",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Minze, Rose",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Maridan-Shisha-Tabak-200g-Rosy-Cheeks",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Maridan-Tobacco-ROSY-CHEEKS-Minze-Rose-200g"
     },
     {
       "ean": "4260453512284",
@@ -5705,10 +6514,11 @@
       "name": "Springbreak",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Limette, Minze, Orange, Zitrone",
       "source": "Turaah",
       "source_url": "https://turaah.de/Maridan-Tobacco-200g-Springbreak",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Maridan-Tobacco-SPRING-BREAK-Limette-Minze-Orange-Zitrone-200g"
     },
     {
       "ean": "4260453517173",
@@ -5727,10 +6537,11 @@
       "name": "Taube Mieze",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Traube, Menthol",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/maridan-tobacco-200g-taube-mieze",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Maridan-Tobacco-TAUBE-MIEZE-Traube-Menthol-200g"
     },
     {
       "ean": "4260453518002",
@@ -5752,6 +6563,17 @@
       "flavor": "",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Maridan-Shisha-Tabak-200g-Tingle-Tangle",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260453517210",
+      "brand": "Maridan",
+      "name": "TINGLE TANGLE",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Grapefruit, Limette, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-TINGLE-TANGLE-Grapefruit-Limette-Maracuja-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -5788,6 +6610,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260453517234",
+      "brand": "Maridan",
+      "name": "TINGLE TANGLE BREEZE",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Grapefruit, Limette, Maracuja, Ice",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-TINGLE-TANGLE-BREEZE-Grapefruit-Limette-Maracuja-Ice-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260453517036",
       "brand": "Maridan",
       "name": "Tingle Tangle Purple",
@@ -5796,6 +6629,17 @@
       "flavor": "",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Maridan-Shisha-Tabak-200g-Tingle-Tangle-Purple",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260453517258",
+      "brand": "Maridan",
+      "name": "TINGLE TANGLE PURPLE",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Grapefruit, Limette, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-TINGLE-TANGLE-PURPLE-Grapefruit-Limette-Maracuja-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -5818,6 +6662,17 @@
       "flavor": "",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/Maridan-Shisha-Tabak-200g-Tingle-Tangle-Tropical",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260453517272",
+      "brand": "Maridan",
+      "name": "TINGLE TANGLE TROPICAL",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Früchtemix, Grapefruit, Limette, Maracuja",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Maridan-Tobacco-TINGLE-TANGLE-TROPICAL-Fruechtemix-Grapefruit-Limette-Maracuja-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -5854,6 +6709,20 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260711891496",
+      "brand": "Nameless",
+      "name": "#40 Black Nana",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "schw. Traube, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/NameLess-Tobacco-BLACK-NANA-schw-Traube-Minze-40-25g",
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "BLACK NANA #40"
+      ]
+    },
+    {
       "ean": "4251862400019",
       "brand": "Nameless",
       "name": "#40 Black Nana",
@@ -5865,15 +6734,30 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5907479354106",
+      "brand": "Nameless",
+      "name": "#40 Black Nana",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "schw. Traube, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/NameLess-Tobacco-BLACK-NANA-schw-Traube-Minze-40-200g",
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "BLACK NANA #40"
+      ]
+    },
+    {
       "ean": "4260620118172",
       "brand": "Nameless",
       "name": "#40 Black Nana",
       "quantity_g": 1000,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "schw. Traube, Minze",
       "source": "Turaah",
       "source_url": "https://turaah.de/NameLess-Shisha-Tabak-1Kg-40-Black-Nana",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/NameLess-Tobacco-BLACK-NANA-schw-Traube-Minze-40-1kg"
     },
     {
       "ean": "4260630340327",
@@ -5909,14 +6793,37 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260585672481",
+      "brand": "O's",
+      "name": "African King",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Fruchtmix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-African-King-Fruchtmix-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260585678490",
       "brand": "O's",
       "name": "African King",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Fruchtmix",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/os-tobacco-200g-african-king",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Os-Tobacco-African-King-Fruchtmix-200g"
+    },
+    {
+      "ean": "4260585678865",
+      "brand": "O's",
+      "name": "African Queen",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "süßer Früchtemix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-African-Queen-suesser-Fruechtemix-25g",
       "verified_at": "2026-11-17"
     },
     {
@@ -5931,14 +6838,114 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260585678483",
+      "brand": "O's",
+      "name": "African Queen",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "süßer Früchtemix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-African-Queen-suesser-Fruechtemix-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260585677707",
       "brand": "O's",
       "name": "Bonnie & Clyde",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Eis, Apfel",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/os-tobacco-200g-bonnie-clyde",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Os-Tobacco-Bonny-n-Clyde-Eis-Apfel-200g"
+    },
+    {
+      "ean": "4260585672566",
+      "brand": "O's",
+      "name": "Bonny n Clyde",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Eis, Apfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Bonny-n-Clyde-Eis-Apfel-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677776",
+      "brand": "O's",
+      "name": "Casanova",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blaub., Himb., Honigm., Waldb., Wasserm.",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Casanova-Blaub-Himb-Honigm-Waldb-Wasserm-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672498",
+      "brand": "O's",
+      "name": "Disco",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Disco-Pfirsich-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677721",
+      "brand": "O's",
+      "name": "Disco",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Pfirsich",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Disco-Pfirsich-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677899",
+      "brand": "O's",
+      "name": "Kaktus King",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Kaktus",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Kaktus-King-Kaktus-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672542",
+      "brand": "O's",
+      "name": "Lucifero",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Apfel, Erdbeer",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Lucifero-Apfel-Erdbeer-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677745",
+      "brand": "O's",
+      "name": "Lucifero",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Apfel, Erdbeer",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Lucifero-Apfel-Erdbeer-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585676755",
+      "brand": "O's",
+      "name": "Queen of the Desert",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Kaktus und Kokosnuss",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Queen-of-the-Desert-Kaktus-und-Kokosnuss-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -5950,6 +6957,83 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/os-tobacco-200g-queen-of-the-desert",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672535",
+      "brand": "O's",
+      "name": "Red Lagoon",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Früchtemix. Kaktusfeige",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Red-Lagoon-Fruechtemix-Kaktusfeige-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672504",
+      "brand": "O's",
+      "name": "Studio 54",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Wassermelone, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Studio-54-Wassermelone-Minze-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677738",
+      "brand": "O's",
+      "name": "Studio 54",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Wassermelone, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Studio-54-Wassermelone-Minze-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672573",
+      "brand": "O's",
+      "name": "TNT",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-TNT-Beerenmix-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585677783",
+      "brand": "O's",
+      "name": "TNT",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-TNT-Beerenmix-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585672559",
+      "brand": "O's",
+      "name": "Unknown",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Unknown-Limette-25g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260585671453",
+      "brand": "O's",
+      "name": "Unknown",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Limette",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Os-Tobacco-Unknown-Limette-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -6046,10 +7130,11 @@
       "name": "2ana",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Anis, Doppelapfel, Lakritz",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-2ana",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-2-ana-Anis-Doppelapfel-Lakritz-200g"
     },
     {
       "ean": "4260553829664",
@@ -6060,6 +7145,17 @@
       "flavor": "Banane, Milchshake",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-bananoz",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820098",
+      "brand": "Savu",
+      "name": "Bero Mind",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Beerenmix, Traube, Waldbeeren",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Bero-Mind-Beerenmix-Traube-Waldbeeren-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -6090,10 +7186,11 @@
       "name": "Dutty",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Beerenmix, Waldbeeren",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-dutty",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Dutty-Beerenmix-Waldbeeren-200g"
     },
     {
       "ean": "4260553821026",
@@ -6112,10 +7209,11 @@
       "name": "Green Bear",
       "quantity_g": 25,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Birne",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-25g-green-bear",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Green-Bear-Birne-200g"
     },
     {
       "ean": "4260553820159",
@@ -6134,10 +7232,11 @@
       "name": "Ice One One",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Icebonbon",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-ice-one-one",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Ice-One-One-Icebonbon-200g"
     },
     {
       "ean": "4260553820388",
@@ -6145,10 +7244,11 @@
       "name": "Kaktoss",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Kaktus",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-kaktoss",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Kaktoss-Kaktus-200g"
     },
     {
       "ean": "4260553820333",
@@ -6156,10 +7256,11 @@
       "name": "Kimi",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Kiwi",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-kimi",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Kimi-Kiwi-200g"
     },
     {
       "ean": "4260553820265",
@@ -6170,6 +7271,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-25g-kyoto",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553821040",
+      "brand": "Savu",
+      "name": "Kyoto",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Kirsche",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Kyoto-Kirsche-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -6184,6 +7296,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820968",
+      "brand": "Savu",
+      "name": "Leafy",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Kaugummi, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Leafy-Kaugummi-Minze-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820661",
       "brand": "Savu",
       "name": "Lim2",
@@ -6192,6 +7315,17 @@
       "flavor": "Zitrone, Orange, Limette, Minze",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-lim2",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820708",
+      "brand": "Savu",
+      "name": "Mama Luma",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Orange, Candy",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Mama-Luma-Orange-Candy-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -6228,6 +7362,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820289",
+      "brand": "Savu",
+      "name": "Speedy",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Kaugummi, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Speedy-Kaugummi-Minze-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820029",
       "brand": "Savu",
       "name": "Strawbelly",
@@ -6244,9 +7389,21 @@
       "name": "Strawbelly",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Erdbeere",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-strawbelly",
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Savu-Strawbelly-Erdbeere-200g"
+    },
+    {
+      "ean": "4260553829640",
+      "brand": "Savu",
+      "name": "Yoggo",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Creme, Joghurt, Süße",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/Savu-Yoggo-Creme-Joghurt-Suesse-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -7029,10 +8186,11 @@
       "name": "Green Mind Fresh",
       "quantity_g": 200,
       "base": "Unbekannt",
-      "flavor": "",
+      "flavor": "Minze",
       "source": "Turaah",
       "source_url": "https://turaah.de/Start-Now-Gold-Shisha-Tabak-200g-Green-Mind-Fresh",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/Start-Now-Gold-Green-Mind-Fresh-Minze-200g"
     },
     {
       "ean": "4251822813132",
@@ -7326,10 +8484,11 @@
       "name": "Artic Line",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Limette",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-artic-line",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Artic-Line-Limette-200g"
     },
     {
       "ean": "4250859824975",
@@ -7370,10 +8529,11 @@
       "name": "Cinderella",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Honig-u. Wassernelone, Maracuja",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-cinderella",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Cinderella-Honig-u-Wassernelone-Maracuja-200g"
     },
     {
       "ean": "4250859822766",
@@ -7395,6 +8555,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-co-crush",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859823817",
+      "brand": "True Passion",
+      "name": "Double App",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Anis, Doppelapfel",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Double-App-Anis-Doppelapfel-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -7431,6 +8602,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825163",
+      "brand": "True Passion",
+      "name": "Le Chill",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Zitrone",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Le-Chill-Zitrone-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859825170",
+      "brand": "True Passion",
+      "name": "Love Story",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Honig- u. Wassermelone, Kaugummi",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Love-Story-Honig-u-Wassermelone-Kaugummi-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859825224",
       "brand": "True Passion",
       "name": "oKaKola",
@@ -7439,6 +8632,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-okakola",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859824814",
+      "brand": "True Passion",
+      "name": "Okolom Blue",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere, Acai, Holunder, Limette, Minze",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Okolom-Blue-Blaubeere-Acai-Holunder-Limette-Minze-200g",
       "verified_at": "2026-11-17"
     },
     {
@@ -7480,10 +8684,11 @@
       "name": "Okolom Classic",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Cola, Holunder, Limette",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-okolom-classic",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Okolom-Classic-Cola-Holunder-Limette-200g"
     },
     {
       "ean": "4250859825262",
@@ -7513,10 +8718,11 @@
       "name": "Okolom Red",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Limette, Erdbeere, Drachenfrucht, Holunder",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-okolom-red",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Okolom-Red-Limette-Erdbeere-Drachenfrucht-Holunder-200g"
     },
     {
       "ean": "4250859823176",
@@ -7568,10 +8774,11 @@
       "name": "Ringle Rangle",
       "quantity_g": 200,
       "base": "Virginia",
-      "flavor": "",
+      "flavor": "Grapefrucht, Limette, Maracuja",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-ringle-rangle",
-      "verified_at": "2026-11-17"
+      "verified_at": "2026-11-17",
+      "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Ringle-Rangle-Grapefrucht-Limette-Maracuja-200g"
     },
     {
       "ean": "4250859823435",
@@ -7585,6 +8792,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825514",
+      "brand": "True Passion",
+      "name": "Vaja Blue",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blaubeere, Traube",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Vaja-Blue-Blaubeere-Traube-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859825507",
+      "brand": "True Passion",
+      "name": "Vampire Night",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Blutorange, Grapefrucht",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Vampire-Night-Blutorange-Grapefrucht-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859822841",
       "brand": "True Passion",
       "name": "Vampire Nights",
@@ -7593,6 +8822,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/True-Passion-Shisha-Tabak-200g-Vampire-Nights",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859822872",
+      "brand": "True Passion",
+      "name": "Zuuu Wild",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "Brombeere, Erdbeere, Himbeere",
+      "source": "SUN-VI",
+      "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Zuuu-Wild-Brombeere-Erdbeere-Himbeere-200g",
       "verified_at": "2026-11-17"
     },
     {
