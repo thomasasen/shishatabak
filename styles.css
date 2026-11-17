@@ -15,3 +15,15 @@
 #barcodeDialog .editor-form{max-height:calc(90vh - 83px);overflow-y:auto}
 #barcodeDialog .field input,#barcodeDialog .field select{min-width:0}
 @media(max-width:760px){.topbar-actions .btn-secondary{padding:9px 8px;font-size:10px}.scan-choice{grid-template-columns:1fr}.scan-area{min-height:150px}}
+
+
+/* Optional device controls for mobile barcode scanning. */
+[hidden]{display:none!important}
+.scan-camera-controls{background:#f5f9fa;border:1px solid #dbe9e9;border-radius:11px;padding:13px;margin:10px 0;display:grid;gap:12px}
+.scan-camera-controls .btn-row{gap:8px}
+.scan-camera-controls button[aria-pressed="true"]{color:#126d61;background:#d7f5e8;border-color:#91d7bd}
+.scan-range{display:grid;gap:6px;color:#476471;font-size:12px;font-weight:650}
+.scan-range>span{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.scan-range output{font-variant-numeric:tabular-nums;color:#218a8b}
+.scan-range input{width:100%;min-height:29px;accent-color:#218a8b;cursor:pointer}
+.scan-feature-hint{font-size:11px;line-height:1.5;color:#8295a0;margin:4px 0}

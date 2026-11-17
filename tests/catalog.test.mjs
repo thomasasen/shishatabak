@@ -108,3 +108,54 @@ test("standard scanner only accepts EAN-13 and rejects UPC-A fallback",()=>{
   assert.equal(normalizeCode("050674441883"),"0050674441883");
   assert.equal(decodedFormat(upc),"UPC_A");
 });
+
+test("camera controls detect capabilities and use supported video track settings",async()=>{
+  const root={addEventListener(){}};
+  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},console};
+  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
+  const api=ctx.window.TabakBarcode;
+  const applied=[],lit=[];
+  const camera={
+    getRunningTrackCapabilities:()=>({torch:true,focusMode:["continuous","manual"],focusDistance:{min:0.1,max:3,step:0.1},zoom:{min:1,max:5,step:0.2}}),
+    getRunningTrackCameraCapabilities:()=>({torchFeature:()=>({isSupported:()=>true,apply:async value=>lit.push(value)})}),
+    applyVideoConstraints:async options=>applied.push(options)
+  };
+  const caps=api.cameraFeatures(camera);
+  assert.equal(caps.torch,true);
+  assert.equal(caps.autofocus,true);
+  assert.equal(caps.focusMode,"continuous");
+  assert.equal(caps.manualFocus.min,0.1);
+  assert.equal(caps.zoom.max,5);
+  await api.applyTorch(camera,caps,true);
+  await api.applyTorch(camera,caps,false);
+  assert.deepEqual(lit,[true,false]);
+  await api.applyAutoFocus(camera,caps);
+  await api.applyManualFocus(camera,caps,1.8);
+  await api.applyZoom(camera,caps,4.5);
+  assert.equal(JSON.stringify(applied),JSON.stringify([
+    {advanced:[{focusMode:"continuous"}]},
+    {advanced:[{focusMode:"manual",focusDistance:1.8}]},
+    {advanced:[{zoom:4.5}]}
+  ]));
+});
+test("unsupported camera has no callable torch/focus and clamps manual controls",async()=>{
+  const root={addEventListener(){}};
+  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},console};
+  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
+  const api=ctx.window.TabakBarcode;
+  const unsupported=api.cameraFeatures({getRunningTrackCapabilities(){return {};}});
+  assert.equal(unsupported.torch,false);
+  assert.equal(unsupported.autofocus,false);
+  assert.equal(unsupported.manualFocus,null);
+  assert.equal(unsupported.zoom,null);
+  await assert.rejects(api.applyTorch(null,unsupported,true),/nicht verfügbar/);
+  await assert.rejects(api.applyAutoFocus(null,unsupported),/nicht unterstützt/);
+  const calls=[];
+  const camera={
+    getRunningTrackCapabilities:()=>({zoom:{min:1,max:3,step:1}}),
+    applyVideoConstraints:async c=>calls.push(c)
+  };
+  const features=api.cameraFeatures(camera);
+  await api.applyZoom(camera,features,999);
+  assert.equal(JSON.stringify(calls),JSON.stringify([{advanced:[{zoom:3}]}]));
+});

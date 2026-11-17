@@ -36,6 +36,58 @@
       return {code,count,accepted:count>=required};
     };
   }
+  // html5-qrcode exposes torch/zoom helpers and browser MediaTrackCapabilities.
+  // All controls are optional: mobile browsers differ considerably.
+  function cameraFeatures(camera) {
+    let media={};
+    try{media=camera?.getRunningTrackCapabilities?.()||{};}catch{/* unsupported */}
+    let torchFeature=null;
+    try{torchFeature=camera?.getRunningTrackCameraCapabilities?.()?.torchFeature?.()||null;}catch{/* unsupported */}
+    const torch=Boolean(
+      (typeof torchFeature?.isSupported==="function"&&torchFeature.isSupported()) ||
+      media.torch===true || (Array.isArray(media.torch)&&media.torch.includes(true))
+    );
+    const focusModes=Array.isArray(media.focusMode)?media.focusMode.filter(x=>typeof x==="string"):[];
+    const range=(value)=>{
+      if(!value||!Number.isFinite(Number(value.min))||!Number.isFinite(Number(value.max))||Number(value.max)<=Number(value.min))return null;
+      return {min:Number(value.min),max:Number(value.max),step:Number(value.step)>0?Number(value.step):0.1};
+    };
+    return {
+      torch,torchFeature,
+      autofocus:focusModes.includes("continuous")||focusModes.includes("single-shot"),
+      focusMode:focusModes.includes("continuous")?"continuous":focusModes.includes("single-shot")?"single-shot":null,
+      manualFocus:focusModes.includes("manual")?range(media.focusDistance):null,
+      zoom:range(media.zoom)
+    };
+  }
+  async function applyAutoFocus(camera,features){
+    if(!camera||!features?.autofocus)throw Error("Autofokus wird von dieser Kamera nicht unterstützt.");
+    await camera.applyVideoConstraints({advanced:[{focusMode:features.focusMode}]});
+  }
+  async function applyManualFocus(camera,features,value){
+    if(!camera||!features?.manualFocus)throw Error("Manuelle Fokussteuerung ist nicht verfügbar.");
+    const r=features.manualFocus;
+    const distance=Math.min(r.max,Math.max(r.min,Number(value)));
+    if(!Number.isFinite(distance))throw Error("Ungültiger Fokuswert.");
+    await camera.applyVideoConstraints({advanced:[{focusMode:"manual",focusDistance:distance}]});
+    return distance;
+  }
+  async function applyZoom(camera,features,value){
+    if(!camera||!features?.zoom)throw Error("Kamerazoom ist nicht verfügbar.");
+    const r=features.zoom;
+    const level=Math.min(r.max,Math.max(r.min,Number(value)));
+    if(!Number.isFinite(level))throw Error("Ungültiger Zoomwert.");
+    await camera.applyVideoConstraints({advanced:[{zoom:level}]});
+    return level;
+  }
+  async function applyTorch(camera,features,enabled){
+    if(!camera||!features?.torch)throw Error("Kameralicht ist nicht verfügbar.");
+    if(features.torchFeature?.isSupported?.()&&typeof features.torchFeature.apply==="function"){
+      await features.torchFeature.apply(Boolean(enabled));
+    }else{
+      await camera.applyVideoConstraints({advanced:[{torch:Boolean(enabled)}]});
+    }
+  }
   function state(){
     const raw=localStorage.getItem(STORAGE);
     const s=raw?JSON.parse(raw):{app:"tabakjournal",version:1,tobaccos:[],sessions:[],settings:{bowl:""}};
@@ -54,6 +106,85 @@
   }
   let html5=null,started=false,starting=false,stopWhenReady=false,locked=false,scriptPromise=null;
   let consensus=createScanConsensus(),activeAltFormats=false;
+  let activeFeatures=null,torchOn=false,controlsBusy=false,focusTimer=null,zoomTimer=null;
+  function resetCameraControls(){
+    activeFeatures=null;torchOn=false;controlsBusy=false;
+    clearTimeout(focusTimer);clearTimeout(zoomTimer);
+    const panel=$("scanCameraControls");
+    if(panel)panel.hidden=true;
+  }
+  function displayCameraControls(camera){
+    const panel=$("scanCameraControls");
+    if(!panel||!camera)return;
+    const features=cameraFeatures(camera);
+    activeFeatures=features;
+    const light=$("scanLightButton"),auto=$("scanFocusButton");
+    const focus=$("scanFocusControl"),zoom=$("scanZoomControl");
+    const hint=$("scanCameraFeatureHint");
+    if(light){light.hidden=!features.torch;light.disabled=!features.torch;light.textContent="◉ Licht einschalten";light.setAttribute("aria-pressed","false");}
+    if(auto){auto.hidden=!features.autofocus;auto.disabled=!features.autofocus;}
+    const configureRange=(container,id,range,labelId)=>{
+      if(!container)return;
+      container.hidden=!range;
+      if(!range)return;
+      const input=$(id);
+      if(!input)return;
+      input.min=String(range.min);input.max=String(range.max);input.step=String(range.step);
+      const current=(()=>{try{return camera.getRunningTrackSettings?.()||{};}catch{return {};}})();
+      const name=id==="scanManualFocus"?"focusDistance":"zoom";
+      const initial=Number.isFinite(Number(current[name]))?Number(current[name]):range.min;
+      input.value=String(Math.min(range.max,Math.max(range.min,initial)));
+      const valueLabel=$(labelId);if(valueLabel)valueLabel.textContent=Number(input.value).toFixed(1);
+    };
+    configureRange(focus,"scanManualFocus",features.manualFocus,"scanFocusValue");
+    configureRange(zoom,"scanZoom",features.zoom,"scanZoomValue");
+    const hasControls=features.torch||features.autofocus||features.manualFocus||features.zoom;
+    panel.hidden=!hasControls;
+    if(hint)hint.textContent=hasControls?
+      "Die verfügbaren Regler werden direkt von deiner Kamera gesteuert.":
+      "Dieser Browser bietet für die ausgewählte Kamera keine steuerbaren Fokus-, Licht- oder Zoomfunktionen. Mehr Abstand und gute Raumbeleuchtung helfen.";
+  }
+  async function runCameraControl(callback,successText){
+    if(!started||starting||!html5||!dialog.open){status("Bitte zuerst die Kamera starten.");return;}
+    if(controlsBusy)return;
+    const camera=html5;
+    controlsBusy=true;
+    try{
+      await callback(camera);
+      if(html5===camera&&started)status(successText);
+    }catch(error){
+      if(html5===camera&&started)status("Kamerasteuerung fehlgeschlagen: "+String(error?.message||error));
+    }finally{controlsBusy=false;}
+  }
+  async function toggleCameraLight(){
+    const next=!torchOn;
+    await runCameraControl(async camera=>{
+      await applyTorch(camera,activeFeatures,next);
+      if(camera!==html5||!started)return;
+      torchOn=next;
+      const button=$("scanLightButton");
+      if(button){button.textContent=next?"◉ Licht ausschalten":"◉ Licht einschalten";button.setAttribute("aria-pressed",String(next));}
+    },next?"Kameralicht eingeschaltet.":"Kameralicht ausgeschaltet.");
+  }
+  async function requestFocus(){
+    await runCameraControl(async camera=>{
+      await applyAutoFocus(camera,activeFeatures);
+      consensus=createScanConsensus();
+    },"Autofokus angefordert. Halte den Barcode ruhig ins Bild.");
+  }
+  async function changeCameraRange(kind,raw){
+    const number=Number(raw);
+    if(!Number.isFinite(number))return;
+    const isFocus=kind==="focus";
+    await runCameraControl(async camera=>{
+      const applied=isFocus?
+        await applyManualFocus(camera,activeFeatures,number):
+        await applyZoom(camera,activeFeatures,number);
+      const output=$(isFocus?"scanFocusValue":"scanZoomValue");
+      if(output&&camera===html5)output.textContent=Number(applied).toFixed(1);
+      if(isFocus)consensus=createScanConsensus();
+    },isFocus?"Manueller Fokus eingestellt.":"Zoom angepasst.");
+  }
   // Some decoders report UPC-A when an EAN-13 starts with 0. The captured
   // format still matters: never silently normalize all UPC/EAN variants.
   function decodedFormat(info) {
@@ -80,6 +211,10 @@
     shell("Barcode scannen","Kamera auf den Barcode deiner Tabakdose richten",
       '<div class="hint">Die EAN wird lokal auf deinem Smartphone ausgelesen. Bei einem bekannten Code erscheint direkt der Tabak.</div>'+
       '<div id="scanCamera" class="scan-area"><div class="empty-preview">▥<p>Kamera noch nicht gestartet</p></div></div>'+
+      '<div id="scanCameraControls" class="scan-camera-controls" hidden><div class="btn-row"><button type="button" id="scanLightButton" class="btn btn-secondary btn-sm" data-scan-action="torch" aria-pressed="false" hidden>◉ Licht einschalten</button><button type="button" id="scanFocusButton" class="btn btn-secondary btn-sm" data-scan-action="autofocus" hidden>◎ Scharfstellen</button></div>'+
+      '<label id="scanFocusControl" class="scan-range" hidden><span>Manueller Fokus <output id="scanFocusValue"></output></span><input id="scanManualFocus" type="range" aria-label="Manueller Fokus"></label>'+
+      '<label id="scanZoomControl" class="scan-range" hidden><span>Kamerazoom <output id="scanZoomValue"></output></span><input id="scanZoom" type="range" aria-label="Kamerazoom"></label></div>'+
+      '<p id="scanCameraFeatureHint" class="scan-feature-hint">Kamerafunktionen werden nach dem Start geprüft.</p>'+
       '<div class="scan-status" id="scanStatus" role="status">Barcode gut beleuchten, gerade halten und vollständig ins Bild bringen.</div>'+
       '<div class="field" style="margin-top:10px"><label><input id="scanAltFormats" type="checkbox"> Auch EAN-8 und UPC-A scannen (für Sonderfälle)</label><span class="field-help">Standard: ausschließlich EAN-13. Bei Änderung wird die Kamera neu gestartet.</span></div>'+
       '<div class="btn-row" style="margin-top:12px"><button type="button" class="btn btn-primary" data-scan-action="start">Kamera starten</button><button type="button" class="btn btn-secondary" data-scan-action="stop">Kamera stoppen</button></div>'+
@@ -107,8 +242,10 @@
   async function stop(){
     if(starting){stopWhenReady=true;return;}
     const current=html5;html5=null;
+    const wasStarted=started;started=false;
+    resetCameraControls();
     if(!current)return;
-    if(started){started=false;try{await current.stop();}catch{/* stopped by browser */}}
+    if(wasStarted){try{await current.stop();}catch{/* stopped by browser */}}
     try{current.clear();}catch{/* already cleared */}
   }
   async function start(){
@@ -137,7 +274,10 @@
       },()=>{});
       starting=false;started=true;
       if(stopWhenReady||!dialog.open||current!==html5)await stop();
-      else status("Kamera aktiv. Die EAN wird automatisch erkannt.");
+      else {
+        displayCameraControls(current);
+        status("Kamera aktiv. Die EAN wird automatisch erkannt.");
+      }
     }catch(e){
       starting=false;await stop();
       status("Kamera nicht verfügbar: "+(e?.name==="NotAllowedError"?"Zugriff verweigert":String(e?.message||e))+". Du kannst ein Foto auswählen oder die EAN eintippen.");
@@ -258,6 +398,20 @@
   }
   // The global catalog powers autocomplete in the original tobacco editor without duplicating its data model.
   document.addEventListener("input",event=>{
+    if(event.target?.id==="scanManualFocus"){
+      clearTimeout(focusTimer);
+      const value=event.target.value;
+      const label=$("scanFocusValue");if(label)label.textContent=Number(value).toFixed(1);
+      focusTimer=setTimeout(()=>void changeCameraRange("focus",value),180);
+      return;
+    }
+    if(event.target?.id==="scanZoom"){
+      clearTimeout(zoomTimer);
+      const value=event.target.value;
+      const label=$("scanZoomValue");if(label)label.textContent=Number(value).toFixed(1);
+      zoomTimer=setTimeout(()=>void changeCameraRange("zoom",value),180);
+      return;
+    }
     if(!["f-brand","f-name"].includes(event.target?.id))return;
     const b=$("f-brand"),n=$("f-name"),box=$("catalogResults");
     if(!b||!n||!box)return;
@@ -274,6 +428,8 @@
     if(cmd==="close")close();
     if(cmd==="start")void start();
     if(cmd==="stop"){void stop();status("Kamera gestoppt.");}
+    if(cmd==="torch")void toggleCameraLight();
+    if(cmd==="autofocus")void requestFocus();
     if(cmd==="check-printed"){
       const printed=String($("scanPrintedCode")?.value||"");
       const value=normalizeCode(printed);
@@ -318,5 +474,5 @@
   dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
   window.addEventListener("pagehide",()=>{void stop();});
   // Unprivileged diagnostic API for automated checks; no personal records exposed.
-  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct,createScanConsensus,validForScanMode,decodedFormat};
+  window.TabakBarcode={normalizeCode,catalogCount:DB.length,sameProduct,createScanConsensus,validForScanMode,decodedFormat,cameraFeatures,applyAutoFocus,applyManualFocus,applyZoom,applyTorch};
 })();

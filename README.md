@@ -112,3 +112,16 @@ Grenzen: Die Prüfung der Formate kann ohne Metadaten beim Fotoimport nur anhand
 ### EAN-Korrektur ohne Datenverlust
 
 Im Tabak-Editor lassen sich die zugeordneten Barcodes jetzt direkt bearbeiten (Komma-getrennt). Ein falscher Scan kann entfernt oder korrigiert werden, **ohne den Tabak oder dessen Sessions zu löschen**. Auch der JSON-Import prüft nun die GTIN-Prüfziffer und blockiert doppelte EAN-Zuordnungen über verschiedene Tabake hinweg. 12-stellige UPC-A-Codes werden auf ihre 13-stellige EAN-Entsprechung normalisiert.
+
+## Kameralicht, Scharfstellen und Zoom
+
+Nach dem Start der Handykamera prüft der Scanner deren tatsächlich gemeldete Funktionen. Nur unterstützte Bedienelemente werden angezeigt:
+
+- **Licht ein/aus:** Steuerung der rückseitigen LED über `torchFeature()`, alternativ `applyVideoConstraints()`.
+- **Scharfstellen:** Autofokus-Anforderung über `focusMode: "continuous"` oder `"single-shot"`, sofern vom Kameratreiber gemeldet.
+- **Manueller Fokus:** Entfernungsschieberegler, wenn `focusMode: "manual"` zusammen mit `focusDistance` verfügbar ist.
+- **Kamerazoom:** Stufenloser Regler innerhalb des vom Gerät gemeldeten Bereichs.
+
+Nicht jeder Browser erlaubt diese Einstellungen, besonders bei iOS unterscheiden sich die verfügbaren Funktionen. Ist keine Funktion verfügbar, erscheint nur ein erklärender Hinweis. Start, Stop, Schließen und Seitenwechsel setzen die Regler zurück und geben den Kamerastream frei. Das Licht wird mit dem Stoppen des Streams ausgeschaltet. Es wird kein Kamerabild übertragen.
+
+Technische Grundlagen: [html5-qrcode CameraCapabilities](https://scanapp.org/html5-qrcode-docs/docs/apis/classes/Html5Qrcode), [MDN MediaStreamTrack.getCapabilities](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/getCapabilities).
