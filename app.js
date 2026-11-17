@@ -5,7 +5,7 @@
   const APP_ID = "tabakjournal";
   const VERSION = 1;
   // Curated product facts; personal records remain separate in browser storage.
-  const CATALOG = (window.TabakCatalog?.products||[]).map(p=>[p.brand,p.name,p.base||"Unbekannt",p.flavor||""]);
+  const CATALOG = [...new Map((window.TabakCatalog?.products||[]).map(p=>[(p.brand+"|"+p.name).toLocaleLowerCase("de"),[p.brand,p.name,p.base||"Unbekannt",p.flavor||""]])).values()];
   const BRANDS = Array.from(new Set(CATALOG.map(x => x[0]).concat([
     "Al Massiva", "Blackburn", "Darkside", "Kismet", "Must H", "True Passion",
     "Maridan", "Chaos", "Brohood", "Bad und Mad", "Start Now", "Ocean Hookah",

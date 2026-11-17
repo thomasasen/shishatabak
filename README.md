@@ -73,3 +73,9 @@ Oben **Barcode scannen** wählen und die Handykamera auf den Strichcode richten.
 **Influencer:** [Doelid](https://doelid.de/mix/) dokumentiert über 250 Mixe. [Shisha WG](https://www.youtube.com/@ShishaWG) veröffentlicht Reviews und Ranglisten. Diese Quellen helfen bei Produktnamen und Aromaprofilen, liefern jedoch keine systematische Zuordnung von EAN zu konkreter Packungsgröße. Es werden keine fremden Bewertungslisten kopiert.
 
 Die Erkennung verwendet **html5-qrcode 2.3.8**, das erst bei Kamera- oder Fotoerkennung über jsDelivr geladen wird. Bilder werden zur Erkennung lokal verarbeitet und nicht an einen Produkterkennungsdienst hochgeladen. Die Seite benötigt HTTPS und eine Freigabe für die Kamera.
+
+### Online-Nachschlagen für unbekannte EANs
+
+Die App prüft neue Scans in dieser Reihenfolge: **(1) eigene Sammlung, (2) versionierter Katalog, (3) Online-Namenssuche bei EAN-Suche.net**, danach manuelle Zuordnung. Erst wenn eine EAN weder lokal noch im Katalog vorhanden ist, wird sie an `https://ean-suche.net/api/produkt/{ean}` gesendet. Bei einem Treffer wird der Name **nur als bearbeitbarer Vorschlag** übernommen; Hersteller, Tabaksorte und Packungsgröße müssen anhand der Dose überprüft werden. Bei 404, 429, Netzwerk- oder CORS-Fehlern bleibt die lokale Erfassung möglich. Der Dienst nennt 60 Anfragen/Stunde/IP und verlangt bei öffentlicher Nutzung eine Quellenangabe; die App zeigt den Quelllink im Footer und Scan-Dialog.
+
+Andere recherchierte Quellen für zukünftige Integrationen: OpenGTINDB (API-Bedingungen beachten), UPCitemdb (kostenloses Trial-Kontingent), Datakick/GTINSearch (offene API), Verified by GS1 (max. 30 kostenlose Abfragen/Tag für Nutzer), professionelle EAN-Suche.de (kostenpflichtig) sowie Hersteller-/Großhandels-Feeds. Händler-Kataloge und Community-Listen wie SmokeDex, ShishaTobaccos und Dölid eignen sich zur Qualitätsanreicherung, dürfen aber nicht ohne passende Rechte vollumfänglich kopiert werden.

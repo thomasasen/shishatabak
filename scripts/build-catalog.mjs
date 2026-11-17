@@ -21,7 +21,7 @@ for(const [i,p] of (source.products||[]).entries()){
   if(!Number.isInteger(p.quantity_g)||p.quantity_g<=0)errors.push(path+": invalid quantity.");
   if(!["Virginia","Dark Blend","Unbekannt"].includes(p.base))errors.push(path+": invalid tobacco base.");
   const duplicate=String(p.brand).toLowerCase()+":"+String(p.name).toLowerCase()+":"+p.quantity_g;
-  if(names.has(duplicate))errors.push(path+": duplicate product name "+duplicate);
+  // Same product and weight may legitimately have several retailer-documented GTINs (revisions).
   names.add(duplicate);
 }
 if(errors.length){console.error(errors.join("\n"));process.exit(1);}

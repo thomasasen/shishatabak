@@ -111,7 +111,33 @@
   function btn(action,label,{code="",id="",primary=false}={}){
     return '<button type="button" class="btn '+(primary?"btn-primary":"btn-secondary")+'" data-scan-action="'+escape(action)+'" data-code="'+escape(code)+'" data-id="'+escape(id)+'">'+escape(label)+'</button>';
   }
-  function lookup(value){
+  async function queryExternal(code) {
+    // Optional public product-name fallback. No credentials; only the scanned EAN is sent.
+    const target=$("remoteLookup");
+    if(!target)return;
+    target.textContent="Prüfe die EAN zusätzlich in einer öffentlichen Produktdatenbank …";
+    try{
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),6500);
+      let response;
+      try{response=await fetch("https://ean-suche.net/api/produkt/"+encodeURIComponent(code),{method:"GET",mode:"cors",cache:"no-store",signal:controller.signal});}
+      finally{clearTimeout(timer);}
+      if(!$("remoteLookup")||$("remoteLookup").dataset.code!==code)return;
+      if(response.status===404){target.textContent="Auch online kein Produkt gefunden. Bitte einmalig selbst zuordnen.";return;}
+      if(!response.ok)throw Error(response.status===429?"Anfragelimit erreicht.":"Anfrage nicht möglich.");
+      const payload=await response.json();
+      if(!payload||payload.found!==true||typeof payload.product_name!=="string"||!payload.product_name.trim()){
+        target.textContent="Online keine eindeutig benannte Ware gefunden. Bitte selbst zuordnen.";return;
+      }
+      const title=payload.product_name.trim().slice(0,180);
+      target.innerHTML='<div class="scan-result good"><strong>Online-Treffer als Vorschlag</strong><h3>'+escape(title)+'</h3>Bitte vor dem Speichern Hersteller, Sorte und Packung auf deiner Dose prüfen. Ein generischer EAN-Treffer ist noch kein bestätigtes Tabakprodukt.</div>';
+      const field=$("scanName");
+      if(field&&!field.value.trim())field.value=title.slice(0,160);
+    }catch(error){
+      if($("remoteLookup")?.dataset.code===code)target.textContent="Online-Suche momentan nicht verfügbar. Die manuelle Zuordnung funktioniert weiterhin.";
+    }
+  }
+  async function lookup(value){
     const code=normalizeCode(value);
     if(!code){status("EAN/UPC ist ungültig (Länge oder Prüfziffer).");return;}
     void stop();
@@ -139,7 +165,8 @@
       '<form id="scanNewProduct" class="fields"><div class="field-row"><div class="field"><label for="scanBrand">Hersteller *</label><input id="scanBrand" name="brand" maxlength="120" required placeholder="Hersteller"></div><div class="field"><label for="scanName">Sorte *</label><input id="scanName" name="name" maxlength="160" required placeholder="Sortenname"></div></div>'+
       '<div class="field"><label for="scanBase">Grundtabak</label><select id="scanBase" name="base"><option>Unbekannt</option><option>Virginia</option><option>Dark Blend</option></select></div>'+
       '<input type="hidden" name="code" value="'+escape(code)+'"><button class="btn btn-primary" type="submit">Tabak mit Barcode speichern</button></form>'+
-      choices+'<p class="smallprint">Es wird keine Produktzuordnung geraten. Deine lokale EAN-Zuordnung ist Bestandteil des JSON-Backups.</p>');
+      choices+'<div class="scan-status" id="remoteLookup" data-code="'+escape(code)+'">Öffentliche Produktdatenbank wird abgefragt …</div><p class="smallprint">Externe Quelle: <a href="https://ean-suche.net" target="_blank" rel="noopener noreferrer">EAN-Suche.net</a> (60 Abfragen/Stunde/IP laut Anbieter). Die App überträgt ausschließlich die EAN an den Dienst. Es wird keine Produktzuordnung geraten. Deine lokale EAN-Zuordnung bleibt Teil des JSON-Backups.</p>');
+    void queryExternal(code);
   }
   function persistBarcode(code,product){
     try{
