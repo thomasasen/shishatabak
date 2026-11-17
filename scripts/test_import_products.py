@@ -12,6 +12,13 @@ class ImportTests(unittest.TestCase):
         self.assertIsNone(parsed_title("USB Adapter 200g - Black"))
         self.assertEqual(parsed_title("187 Shisha Tabak 200g - 040 HAMBURG"),("187","040 HAMBURG",200))
         self.assertEqual(parsed_title("Cloud Smoke Shisha Tabak 200g - Modus"),("Cloud Smoke","Modus",200))
+        self.assertEqual(parsed_title("187 Shisha Tabak 1Kg - 040 HAMBURG"),("187","040 HAMBURG",1000))
+        self.assertEqual(parsed_title("BANGER - KUCK KUCK - Shisha Tabak 200g"),("BANGER","KUCK KUCK",200))
+        self.assertEqual(parsed_title("Social Smoke - Twisted - Shisha Tabak 200g"),("Social Smoke","Twisted",200))
+        self.assertEqual(parsed_title("AINO 200g Shisha Tabak - Smash"),("AINO","Smash",200))
+        self.assertEqual(parsed_title("ALMASSIVA Skylines Shisha Tabak 200g"),("Almassiva","Skylines",200))
+        self.assertIsNone(parsed_title("Shisha Tabak 200g"))
+        self.assertIsNone(parsed_title("E-Shisha Vape Pod Shisha Tabak 200g - Test"))
         self.assertIsNone(parsed_title("Aino Tobacco Shisha Tabak 20g - Shisha Tabak"))
         self.assertEqual(parsed_title("Xracher Tobacco Shisha Tabak 20g - MLNBRRY: Fruchtige Explosion mit Honigmelone, Beerenmix und Waldbeeren"),("Xracher Tobacco","MLNBRRY",20))
     def test_html(self):

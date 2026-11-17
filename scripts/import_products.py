@@ -31,8 +31,8 @@ SITES=[
 GTIN_RE=re.compile(r"(?:GTIN(?:/EAN)?|EAN)\s*[:：]?\s*(?:\|\s*)?(\d{8}|\d{12,14})\b",re.I)
 TITLE_RE=re.compile(r"^(.+?)\s+(?:Shisha[- ]?Tabak|Tobacco|Tabak)\s+(?:(?:Core|Line|Strong|Standard|Premium|Red Series)\s+)?(\d{2,4})\s*g\s*[-–:]\s*(.+)$",re.I)
 FALLBACK_RE=re.compile(r"^(.+?)\s+(\d{2,4})\s*g\s*[-–:]\s*(.+)$",re.I)
-PRODUCT_RE=re.compile(r"(?:shisha|tobacco|tabak).*(?:20|25|50|100|150|180|200|250|500|1000)-?g\b",re.I)
-SIZE_SET={20,25,50,100,150,180,200,250,500,1000}
+PRODUCT_RE=re.compile(r"(?:shisha|tobacco|tabak).*(?:(?:20|25|50|100|125|150|180|200|250|500|1000)-?g|1-?kg)\b",re.I)
+SIZE_SET={20,25,50,100,125,150,180,200,250,500,1000}
 
 def valid_gtin(s):
     if not isinstance(s,str) or not re.fullmatch(r"\d{8}|\d{12,14}",s):return False
@@ -41,19 +41,45 @@ def valid_gtin(s):
         v+=int(d)*w;w=1 if w==3 else 3
     return (10-v%10)%10==int(s[-1])
 
+# Supplier titles vary considerably; a product must still explicitly say Tabak/Tobacco.
+SIZE_PATTERN=r"(?:20|25|50|100|125|150|180|200|250|500|1000)\s*g|1\s*kg"
+TYPE_PATTERN=r"(?:Shisha[- ]?Tabak|Tobacco|Tabak)"
+TITLE_PATTERNS=[
+    re.compile(rf"^(?P<brand>.+?)\s+{TYPE_PATTERN}\s+(?:(?:Core|Line|Strong|Standard|Premium|Red Series)\s+)?(?P<size>{SIZE_PATTERN})\s*[-–:]\s*(?P<name>.+)$",re.I),
+    re.compile(rf"^(?P<brand>.+?)\s*[-–]\s*(?P<name>.+?)\s*[-–]\s*{TYPE_PATTERN}\s+(?P<size>{SIZE_PATTERN})$",re.I),
+    re.compile(rf"^(?P<brand>.+?)\s+(?P<size>{SIZE_PATTERN})\s+{TYPE_PATTERN}\s*[-–:]\s*(?P<name>.+)$",re.I),
+]
+# For product title: "ALMASSIVA Skylines Shisha Tabak 200g".
+BRAND_HINTS=sorted({
+    "Al Massiva","Almassiva","ALMASSIVA","Aqua Mentha","187 Strassenbande",
+    "187 Tobacco","Social Smoke","True Passion","Darkside","Sebero","Shades",
+    "Holster","Hookain","Savu","Adalya","AINO","Maridan","Jookah","Fumari",
+    "Banger","Stral","Kismet","7Days","Nameless","Argileh","Odinson",
+    "Al Waha","Blackburn","Dschinni","Xracher","O's","MustH","Revoshi"
+},key=len,reverse=True)
+
 def parsed_title(s):
     s=" ".join(s.split())
-    # Require an explicit tobacco product heading; size alone is not enough.
-    m=TITLE_RE.match(s)
-    if not m:return None
-    brand,size,name=m.groups()
+    if any(x in s.casefold() for x in ("tabakersatz","aroma shot","molasse","dampfstein","nicotine pouch","vape pod","e-zigarette")):
+        return None
+    m=next((p.match(s) for p in TITLE_PATTERNS if p.match(s)),None)
+    if m:
+        brand,size,name=m.group("brand"),m.group("size"),m.group("name")
+    else:
+        # Explicit tobacco marker and an independently recognizable brand prefix.
+        suffix=re.match(rf"^(?P<head>.+?)\s+{TYPE_PATTERN}\s+(?P<size>{SIZE_PATTERN})$",s,re.I)
+        if not suffix:return None
+        head=suffix.group("head").strip()
+        match=next((b for b in BRAND_HINTS if head.casefold().startswith(b.casefold()+" ")),None)
+        if not match:return None
+        brand,name,size=match,head[len(match):].strip(" -"),suffix.group("size")
+    size_norm=size.lower().replace(" ","")
+    grams=1000 if size_norm=="1kg" else int(size_norm.removesuffix("g"))
     brand=brand.strip(" -");name=name.strip(" -")
-    # Exclude placeholder headings (missing variety) and trim marketing subheadlines.
-    if name.lower() in ("shisha tabak","tabak","tobacco","shisha tobacco"):return None
+    if name.casefold() in ("shisha tabak","tabak","tobacco","shisha tobacco","standard","alle sorten"):return None
     if ": " in name and len(name)>45:name=name.split(": ",1)[0].strip()
-    if not 2<=len(brand)<=90 or not 2<=len(name)<=130 or int(size) not in SIZE_SET:return None
-    if any(x in s.lower() for x in ("tabakersatz","aroma shot","molasse","dampfstein")):return None
-    return brand,name,int(size)
+    if not 2<=len(brand)<=90 or not 2<=len(name)<=130 or grams not in SIZE_SET:return None
+    return brand,name,grams
 
 def parse_product(html,url,source):
     soup=BeautifulSoup(html,"html.parser")
