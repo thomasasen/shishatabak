@@ -1,8 +1,8 @@
 {
-  "timestamp_utc": "2026-11-17T18:18:56.234275+00:00",
-  "before": 280,
-  "after": 399,
-  "added": 119,
+  "timestamp_utc": "2026-11-17T18:35:27.339932+00:00",
+  "before": 399,
+  "after": 424,
+  "added": 25,
   "sources": [
     {
       "name": "Datakick CC0",
@@ -12,15 +12,14 @@
     {
       "name": "Shisha-Nil",
       "robots": "allowed",
-      "new": 119,
-      "requests": 179,
+      "new": 1,
+      "requests": 60,
       "discovered": 274,
-      "inspected": 159,
+      "inspected": 41,
       "reasons": {
         "no_clear_product_title": 30,
         "no_gtin": 2,
-        "already_catalogued": 8,
-        "not_retrieved": 1
+        "already_catalogued": 8
       }
     },
     {
@@ -34,13 +33,39 @@
         "no_clear_product_title": 11,
         "no_gtin": 61
       }
+    },
+    {
+      "name": "Turaah",
+      "robots": "allowed",
+      "new": 24,
+      "requests": 33,
+      "discovered": 26,
+      "inspected": 26,
+      "reasons": {
+        "already_catalogued": 2
+      }
+    },
+    {
+      "name": "Blubberhaus",
+      "robots": "allowed",
+      "new": 0,
+      "requests": 32,
+      "discovered": 25,
+      "inspected": 25,
+      "reasons": {
+        "no_clear_product_title": 25
+      }
+    },
+    {
+      "name": "Shisha-Shop.de",
+      "robots": "allowed",
+      "new": 0,
+      "requests": 32,
+      "discovered": 25,
+      "inspected": 25,
+      "reasons": {
+        "no_clear_product_title": 25
+      }
     }
-  ],
-  "review": {
-    "reviewed_at": "2026-11-17",
-    "gtin_count": 399,
-    "verified_unique": 399,
-    "brand_normalizations": 21,
-    "no_automatic_GTIN_from_grouped_variants": true
-  }
+  ]
 }
