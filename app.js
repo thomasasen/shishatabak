@@ -295,7 +295,7 @@
   function saveTobacco(form) {
     const fd=new FormData(form),brand=plain(fd.get("brand"),120),name=plain(fd.get("name"),160),id=String(fd.get("id")||"");
     if(!brand||!name){toast("Hersteller und Sorte sind Pflichtfelder.",true);return;}
-    const weightInput=String(fd.get("quantity_g")??"").trim(),stockInput=String(fd.get("stock")??"").trim();
+    const weightInput=String(fd.get("quantity_g")??"").trim(),stockInput=String(fd.get("stock")??"1").trim();
     const quantity_g=weightInput===""?0:Number(weightInput),stock=Number(stockInput);
     if((weightInput!==""&&!/^\d+$/.test(weightInput))||!Number.isInteger(quantity_g)||quantity_g<0||quantity_g>1000||
        !/^\d+$/.test(stockInput)||!Number.isInteger(stock)||stock<0||stock>999){
