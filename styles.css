@@ -487,3 +487,5 @@ svg{display:block}
 .skip-link{position:fixed;top:12px;left:12px;z-index:200;background:var(--surface);color:var(--text);padding:12px 16px;border:2px solid var(--focus);border-radius:10px;transform:translateY(-160%);font-weight:700}
 .skip-link:focus{transform:translateY(0)}
 @media (pointer:coarse){.btn,.btn-sm,.filter,.icon-btn,.close-btn,.catalog-result{min-height:44px}.icon-btn,.close-btn{min-width:44px}}
+
+.scan-area .empty-preview .ui-icon{width:36px;height:36px;margin:0 auto 12px}
