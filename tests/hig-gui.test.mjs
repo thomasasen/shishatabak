@@ -81,7 +81,7 @@ test("content surfaces stay solid; only floating navigation has optional blur",(
 test("dialog dismissal protects unsaved data and screen changes update accessible current page",()=>{
   assert.match(app,/function snapshot\(\)/);
   assert.match(app,/Ungespeicherte Änderungen verwerfen/);
-  assert.match(app,/addEventListener\("cancel",e=>\{e\.preventDefault\(\);closeDialog\(\)/);
+  assert.match(app,/addEventListener\("cancel",(?:event|e)=>\{(?:event|e)\.preventDefault\(\);closeDialog\(\)/);
   assert.match(app,/setAttribute\?\.\("aria-current","page"\)/);
   assert.match(app,/removeAttribute\?\.\("aria-current"\)/);
   assert.match(app,/focus\?\.\(\{preventScroll:true\}\)/);
