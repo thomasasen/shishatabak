@@ -23,6 +23,7 @@
   let importMode = "merge";
   let toastTimer;
   let storageError = "";
+  let dialogBaseline = null;
   function escapeHTML(value) { return String(value == null ? "" : value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
   function plain(value, len=300) { return typeof value === "string" ? value.trim().slice(0,len) : ""; }
   function key(value) { return String(value).toLocaleLowerCase("de").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,""); }
@@ -36,29 +37,34 @@
     const symptomatic=state.sessions.filter(s=>s.severity>0).length;
     return {tabak:state.tobaccos.length,packs:state.tobaccos.reduce((sum,p)=>sum+(p.stock??1),0),sessions:state.sessions.length, symptom:symptomatic,none:state.sessions.length-symptomatic};
   }
+  function uiIcon(name) {
+    const allowed=["overview","collection","sessions","insights","data","plus","barcode","search","edit","check"];
+    return allowed.includes(name)?'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-'+name+'"></use></svg>':"";
+  }
   function badge(severity) {
     if (severity===0) return '<span class="tag good">Keine Beschwerden</span>';
     if (severity===1) return '<span class="tag warn">Leicht</span>';
     return '<span class="tag bad">'+(severity===2?'Deutlich':'Stark')+'</span>';
   }
-  function caption(heading, text) { return '<div class="page-head"><div><span class="page-kicker">TABAKJOURNAL / '+escapeHTML(heading.toUpperCase())+'</span><h1>'+escapeHTML(heading)+'</h1><p>'+escapeHTML(text)+'</p></div></div>'; }
+  function caption(heading, text) { return '<div class="page-head"><div><h1>'+escapeHTML(heading)+'</h1><p>'+escapeHTML(text)+'</p></div></div>'; }
   function empty(icon,title,description,action,label) {
-    return '<div class="empty"><div class="empty-icon">'+icon+'</div><strong>'+escapeHTML(title)+'</strong><p>'+escapeHTML(description)+'</p>'+(action?'<button class="btn btn-secondary" data-action="'+action+'">'+escapeHTML(label)+'</button>':'')+'</div>';
+    const iconName=({"◷":"sessions","▤":"collection","▥":"insights","⌕":"search"})[icon]||"overview";
+    return '<div class="empty"><div class="empty-icon">'+uiIcon(iconName)+'</div><strong>'+escapeHTML(title)+'</strong><p>'+escapeHTML(description)+'</p>'+(action?'<button class="btn btn-secondary" data-action="'+action+'">'+escapeHTML(label)+'</button>':'')+'</div>';
   }
   function sessionRow(s) {
     const t=productById(s.tobaccoId);
-    return '<div class="row-item"><div class="mini-badge">◷</div><div class="row-item-info"><strong>'+escapeHTML(pName(t))+'</strong><small>'+escapeHTML(fmtDate(s.date))+' · '+(s.duration?s.duration+' Minuten · ':'')+'Geschmack '+s.taste+'/5</small></div><div class="row-item-right">'+badge(s.severity)+'<button class="icon-btn" title="Session bearbeiten" aria-label="Session bearbeiten" data-action="edit-session" data-id="'+escapeHTML(s.id)+'">✎</button></div></div>';
+    return '<div class="row-item"><div class="mini-badge">'+uiIcon("sessions")+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(t))+'</strong><small>'+escapeHTML(fmtDate(s.date))+' · '+(s.duration?s.duration+' Minuten · ':'')+'Geschmack '+s.taste+'/5</small></div><div class="row-item-right">'+badge(s.severity)+'<button class="icon-btn" title="Session bearbeiten" aria-label="Session bearbeiten" data-action="edit-session" data-id="'+escapeHTML(s.id)+'">'+uiIcon("edit")+'</button></div></div>';
   }
   function productRow(p) {
     const ss=sessionsOf(p.id), affected=ss.filter(s=>s.severity>0).length;
-    return '<div class="row-item"><div class="mini-badge">'+escapeHTML(p.brand.slice(0,2).toUpperCase())+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(p))+'</strong><small>'+escapeHTML(p.base)+' · '+(p.stock??1)+' '+((p.stock??1)===1?'Packung':'Packungen')+' · '+ss.length+' Sessions</small></div><div class="row-item-right">'+(ss.length?affected?'<span class="tag warn">'+affected+' mit Beschwerden</span>':'<span class="tag good">Ohne Beschwerden</span>':'<span class="tag">Neu</span>')+'<button class="icon-btn" title="Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">✎</button></div></div>';
+    return '<div class="row-item"><div class="mini-badge">'+escapeHTML(p.brand.slice(0,2).toUpperCase())+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(p))+'</strong><small>'+escapeHTML(p.base)+' · '+(p.stock??1)+' '+((p.stock??1)===1?'Packung':'Packungen')+' · '+ss.length+' Sessions</small></div><div class="row-item-right">'+(ss.length?affected?'<span class="tag warn">'+affected+' mit Beschwerden</span>':'<span class="tag good">Ohne Beschwerden</span>':'<span class="tag">Neu</span>')+'<button class="icon-btn" title="Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">'+uiIcon("edit")+'</button></div></div>';
   }
   function overview() {
     const n=numbers();
     const recent=state.sessions.slice().sort((a,b)=>(b.date+b.createdAt).localeCompare(a.date+a.createdAt)).slice(0,5);
     const products=state.tobaccos.slice().sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||"")).slice(0,5);
     return caption("Deine Übersicht","Behalte deine Sammlung und persönlichen Erfahrungen im Blick.")+
-      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">DEIN TABAK. DEINE ERFAHRUNG.</span><h2>Wissen, was du rauchst.<br>Festhalten, wie es dir geht.</h2><p>Dokumentiere Geschmack und mögliche Beschwerden. Alle Einträge bleiben lokal in deinem Browser gespeichert.</p><button class="btn" data-action="add-session">＋ Session dokumentieren</button></div><div class="hero-stamp"><span>HEIZSYSTEM</span><strong>NOCCA</strong><span>Elektrisch · ohne Kohle</span></div></section>'+
+      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">Privates Journal</span><h2>Deine Sammlung im Blick.</h2><p>Verwalte deine Tabake und Packungen. Dokumentiere Geschmack und persönliche Erfahrungen nach jeder Session.</p><button type="button" class="btn btn-primary" data-action="'+(n.tabak?"add-session":"open-catalog")+'">'+uiIcon(n.tabak?"sessions":"plus")+(n.tabak?" Session erfassen":" Ersten Tabak erfassen")+'</button></div></section>'+
       '<div class="stats">'+
       stat("Sorten in Sammlung",n.tabak,"Eigene Tabake","")+
       stat("Packungen im Bestand",n.packs,"Erfasste Packungen","")+
@@ -90,7 +96,7 @@
       '<div class="inventory-meta"><strong>'+escapeHTML(stockLabel)+'</strong><span>'+escapeHTML(size)+'</span>'+(p.opened&&stock?'<span class="tag warn">Geöffnet</span>':stock===0?'<span class="tag">Aufgebraucht</span>':'<span class="tag good">Nicht als geöffnet markiert</span>')+'</div>'+
       '<div class="card-top"><span class="pill-number">'+ss.length+' Sessions</span>'+(ss.length?n?'<span class="tag warn">'+n+' mit Beschwerden</span>':'<span class="tag good">Keine Beschwerden protokolliert</span>':'<span class="tag">Noch keine Bewertung</span>')+'</div>'+
       '<div class="card-foot"><div class="stock-actions" aria-label="Bestand ändern"><button type="button" class="icon-btn" title="Eine Packung weniger" aria-label="Bestand von '+escapeHTML(p.name)+' verringern" data-action="stock-minus" data-id="'+escapeHTML(p.id)+'" '+(stock===0?'disabled':'')+'>−</button><span aria-label="'+escapeHTML(stockLabel)+'">'+stock+'</span><button type="button" class="icon-btn" title="Eine Packung mehr" aria-label="Bestand von '+escapeHTML(p.name)+' erhöhen" data-action="stock-plus" data-id="'+escapeHTML(p.id)+'" '+(stock>=999?'disabled':'')+'>＋</button></div>'+
-      '<div class="card-actions"><button class="icon-btn" title="Session erfassen" aria-label="Session für '+escapeHTML(p.name)+' erfassen" data-action="add-session" data-id="'+escapeHTML(p.id)+'">◷</button><button class="icon-btn" title="Bestand und Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">✎</button></div></div></article>';
+      '<div class="card-actions"><button class="icon-btn" title="Session erfassen" aria-label="Session für '+escapeHTML(p.name)+' erfassen" data-action="add-session" data-id="'+escapeHTML(p.id)+'">'+uiIcon("sessions")+'</button><button class="icon-btn" title="Bestand und Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">'+uiIcon("edit")+'</button></div></div></article>';
   }
   function catalogProductOwned(entry) {
     const ean=normalizeBarcode(entry.ean);
@@ -107,7 +113,7 @@
       const text=key([p.brand,p.name,p.flavor||"",p.ean,...(p.aliases||[])].join(" "));
       return tokens.every(token=>text.includes(token));
     });
-    target.innerHTML='<p class="smallprint">'+matches.length+' Treffer'+(matches.length>25?' · erste 25 anzeigen':'')+' von '+PRODUCT_CATALOG.length+' Katalogeinträgen</p>'+
+    target.innerHTML='<p class="smallprint" role="status" aria-live="polite">'+matches.length+' Treffer'+(matches.length>25?' · erste 25 anzeigen':'')+' von '+PRODUCT_CATALOG.length+' Katalogeinträgen</p>'+
       (matches.length?'<div class="catalog-picker-list">'+matches.slice(0,25).map(p=>{
         const owned=catalogProductOwned(p);
         return '<div class="catalog-picker-row"><div class="catalog-picker-info"><strong>'+escapeHTML(p.brand)+' · '+escapeHTML(p.name)+'</strong><small>'+p.quantity_g+' g · EAN '+escapeHTML(p.ean)+(p.flavor?' · '+escapeHTML(p.flavor):'')+'</small><small>Quelle: '+escapeHTML(p.source||"Unbekannt")+'</small></div>'+
@@ -119,7 +125,7 @@
   function openCatalogPicker() {
     dialog('<div class="dialog-head"><div><h2 id="dialogTitle">Tabak aus Katalog erfassen</h2><p>Hersteller, Sorte oder EAN suchen und anschließend deinen Bestand angeben.</p></div><button class="close-btn" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
       '<div class="editor-form"><div class="field"><label for="catalogSearch">Produkt suchen</label><input id="catalogSearch" type="search" autocomplete="off" placeholder="z. B. AINO, Black Nana oder EAN" maxlength="160"></div>'+
-      '<div id="catalogPickerResults" aria-live="polite"></div></div>');
+      '<div id="catalogPickerResults"></div></div>');
     renderCatalogPicker();
     $("catalogSearch")?.focus();
   }
@@ -133,7 +139,7 @@
   function insights() {
     const n=numbers(), all=n.sessions||1;
     const dist=[0,1,2,3].map(i=>state.sessions.filter(s=>s.severity===i).length);
-    const colors=["#56b99a","#e7b35a","#e18b5b","#c96061"];
+    const colors=["var(--severity0)","var(--severity1)","var(--severity2)","var(--severity3)"];
     const bars=dist.map((count,i)=>'<span title="'+SEVERITIES[i]+': '+count+'" style="width:'+(count/all*100)+'%;background:'+colors[i]+'"></span>').join("");
     const brands={};
     state.sessions.forEach(s=>{const p=productById(s.tobaccoId);if(!p)return;const b=p.brand;if(!brands[b])brands[b]={sessions:0,symptoms:0};brands[b].sessions++;if(s.severity>0)brands[b].symptoms++;});
@@ -156,22 +162,22 @@
     return caption("Daten & Backup","Alle Einträge liegen ausschließlich in deinem Browser. Sichere sie regelmäßig.")+
       '<div class="data-grid"><div class="data-tile"><span class="page-kicker">SICHERN</span><h3>Vollständiges JSON-Backup</h3><p>Exportiert alle Tabake, Session-Protokolle und Einstellungen in eine Datei. Die Datei lässt sich später wieder einlesen oder auf ein anderes Gerät übertragen.</p><button class="btn btn-primary" data-action="export">↓ Backup exportieren</button></div>'+
       '<div class="data-tile"><span class="page-kicker">WIEDERHERSTELLEN</span><h3>JSON-Backup importieren</h3><p>Entscheide, ob du die importierten Einträge mit deinen bestehenden Daten zusammenführen oder den aktuellen Datenbestand ersetzen möchtest.</p><div class="btn-row"><button class="btn btn-secondary" data-action="import-merge">↗ Zusammenführen</button><button class="btn btn-secondary" data-action="import-replace">↗ Ersetzen</button></div><input type="file" id="importFile" accept=".json,application/json" hidden></div></div>'+
-      '<h3 class="section-title">Datenschutz & Speicherort</h3><div class="panel"><div class="panel-body"><p style="font-size:13px;line-height:1.8;margin-top:0">Die App verwendet <strong>localStorage</strong>. Die Daten bleiben nach einem normalen Browserneustart erhalten, werden aber nicht zwischen Browsern oder Geräten synchronisiert. Private Fenster, das Löschen von Websitedaten oder eine Browserbereinigung können sie entfernen. Der Betreiber von GitHub Pages erhält keine Kopie deiner Sammlung durch diese App.</p><p class="smallprint">Aktueller Stand: '+state.tobaccos.length+' Tabake · '+state.sessions.length+' Sessions. Backup enthält auch Angaben zu Beschwerden und sollte vertraulich behandelt werden.</p><button class="btn btn-danger" data-action="clear-all">Alle lokalen Daten löschen</button></div></div>'+
+      '<h3 class="section-title">Datenschutz & Speicherort</h3><div class="panel"><div class="panel-body"><p class="privacy-note">Die App verwendet <strong>localStorage</strong>. Die Daten bleiben nach einem normalen Browserneustart erhalten, werden aber nicht zwischen Browsern oder Geräten synchronisiert. Private Fenster, das Löschen von Websitedaten oder eine Browserbereinigung können sie entfernen. Der Betreiber von GitHub Pages erhält keine Kopie deiner Sammlung durch diese App.</p><p class="smallprint">Aktueller Stand: '+state.tobaccos.length+' Tabake · '+state.sessions.length+' Sessions. Backup enthält auch Angaben zu Beschwerden und sollte vertraulich behandelt werden.</p><button class="btn btn-danger" data-action="clear-all">Alle lokalen Daten löschen</button></div></div>'+
       '<div class="hint warning" style="margin-top:18px">Vor dem Ersetzen oder Löschen zuerst ein aktuelles Backup exportieren. Der Import akzeptiert das versionierte JSON-Format dieses Piloten.</div>';
   }
   function render() {
     const names={overview:"Übersicht",collection:"Meine Tabake",sessions:"Sessions",insights:"Auswertung",data:"Daten & Backup"};
     $("currentSection").textContent=names[view];
-    document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("is-active",b.dataset.view===view));
+    document.querySelectorAll(".nav-item").forEach(b=>{const active=b.dataset.view===view;b.classList.toggle("is-active",active);if(active)b.setAttribute?.("aria-current","page");else b.removeAttribute?.("aria-current");});
     $("screen").innerHTML={overview,collection,sessions:sessionsView,insights,data:dataView}[view]();
-    $("saveStatus").textContent=storageError?"● Speicherfehler":"● Lokal gespeichert";
+    $("saveStatus").textContent=storageError?"Speicherfehler":"Lokal gespeichert";
     $("saveStatus").classList.toggle("error",!!storageError);
   }
   function toast(text,isError=false) {
     const el=$("toast");el.textContent=text;el.classList.toggle("error",isError);el.classList.add("visible");
     clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("visible"),3500);
   }
-  function setView(next) { if(!["overview","collection","sessions","insights","data"].includes(next))return;view=next;query="";filter="all";render();window.scrollTo({top:0,behavior:"smooth"}); }
+  function setView(next) { if(!["overview","collection","sessions","insights","data"].includes(next))return;view=next;query="";filter="all";render();const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});$("screen").focus?.({preventScroll:true}); }
   function persist(next) {
     try {
       localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
@@ -230,11 +236,21 @@
     }
     return {app:APP_ID,version:VERSION,tobaccos,sessions,settings:{bowl:plain(raw.settings&&raw.settings.bowl,100)}};
   }
+  function formSnapshot() {
+    const form=$("editorDialog").querySelector?.("form");
+    if(!form)return null;
+    return JSON.stringify([...new FormData(form).entries()]);
+  }
   function dialog(markup) {
     $("dialogContent").innerHTML=markup;
     const dlg=$("editorDialog");if(!dlg.open)dlg.showModal();
+    dialogBaseline=formSnapshot();
   }
-  function closeDialog() { if($("editorDialog").open)$("editorDialog").close(); }
+  function closeDialog(force=false) {
+    const dlg=$("editorDialog");if(!dlg.open)return;
+    if(!force&&dialogBaseline!==null&&formSnapshot()!==dialogBaseline&&!confirm("Ungespeicherte Eingaben verwerfen?"))return;
+    dlg.close();dialogBaseline=null;
+  }
   function input(name,label,value,placeholder,required=false,type="text",extra="") {
     return '<div class="field"><label for="f-'+name+'">'+label+'</label><input id="f-'+name+'" name="'+name+'" type="'+type+'" value="'+escapeHTML(value||"")+'" placeholder="'+escapeHTML(placeholder||"")+'" '+(required?"required ":"")+extra+'></div>';
   }
@@ -313,7 +329,7 @@
     const p={id:existing?existing.id:uid(),barcodes,brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),
       quantity_g,stock,opened:stock>0&&fd.get("opened")==="on",createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,tobaccos:existing?state.tobaccos.map(x=>x.id===p.id?p:x):[...state.tobaccos,p]};
-    if(persist(next)){closeDialog();toast(existing?"Tabak und Bestand aktualisiert.":"Tabak in deine Sammlung aufgenommen.");}
+    if(persist(next)){closeDialog(true);toast(existing?"Tabak und Bestand aktualisiert.":"Tabak in deine Sammlung aufgenommen.");}
   }
   function saveSession(form) {
     const fd=new FormData(form),id=String(fd.get("id")||""),tobaccoId=String(fd.get("tobaccoId")||"");
@@ -326,18 +342,18 @@
     const bowl=plain(fd.get("bowl"),100);
     const s={id:existing?existing.id:uid(),tobaccoId,date,severity,taste,duration,temperature,bowl,symptoms,notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,sessions:existing?state.sessions.map(x=>x.id===s.id?s:x):[...state.sessions,s],settings:{...state.settings,bowl}};
-    if(persist(next)){closeDialog();toast(existing?"Session aktualisiert.":"Session gespeichert.");}
+    if(persist(next)){closeDialog(true);toast(existing?"Session aktualisiert.":"Session gespeichert.");}
   }
   function deleteTobacco(id) {
     const p=productById(id);if(!p)return;
     const count=sessionsOf(id).length;
     if(!confirm('"'+pName(p)+'" und '+count+' zugehörige Sessions unwiderruflich löschen?'))return;
     const next={...state,tobaccos:state.tobaccos.filter(p=>p.id!==id),sessions:state.sessions.filter(s=>s.tobaccoId!==id)};
-    if(persist(next)){closeDialog();toast("Tabak und zugehörige Sessions gelöscht.");}
+    if(persist(next)){closeDialog(true);toast("Tabak und zugehörige Sessions gelöscht.");}
   }
   function deleteSession(id) {
     if(!confirm("Diese Session wirklich dauerhaft löschen?"))return;
-    if(persist({...state,sessions:state.sessions.filter(s=>s.id!==id)})){closeDialog();toast("Session gelöscht.");}
+    if(persist({...state,sessions:state.sessions.filter(s=>s.id!==id)})){closeDialog(true);toast("Session gelöscht.");}
   }
   function exportData() {
     const payload={...state,exportedAt:new Date().toISOString()};
@@ -387,7 +403,7 @@
   document.addEventListener("click",e=>{
     const b=e.target.closest("[data-view], [data-filter], [data-action]");
     if(!b)return;
-    if(b.dataset.view){setView(b.dataset.view);return;}
+    if(b.dataset.view){e.preventDefault?.();setView(b.dataset.view);return;}
     if(b.dataset.filter){filter=b.dataset.filter;render();return;}
     const action=b.dataset.action,id=b.dataset.id;
     if(action==="add-tobacco")tobaccoDialog();
@@ -414,8 +430,7 @@
     if(action==="export")exportData();
     if(action==="import-merge"||action==="import-replace"){importMode=action==="import-merge"?"merge":"replace";$("importFile").click();}
     if(action==="clear-all"){
-      if(!confirm("Wirklich alle Tabake und Sessions löschen? Bitte vorher Backup exportieren."))return;
-      if(!confirm("Zweite Bestätigung: Alle lokalen Einträge dauerhaft entfernen?"))return;
+      if(!confirm("Alle "+state.tobaccos.length+" Tabake und "+state.sessions.length+" Sessions unwiderruflich löschen? Vorher ein Backup exportieren."))return;
       if(persist(emptyState()))toast("Alle Daten gelöscht.");
     }
   });
@@ -433,5 +448,6 @@
     }
   });
   $("editorDialog").addEventListener("click",e=>{if(e.target===$("editorDialog"))closeDialog();});
+  $("editorDialog").addEventListener("cancel",e=>{e.preventDefault();closeDialog();});
   load();render();
 })();

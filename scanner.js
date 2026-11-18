@@ -5,6 +5,8 @@
   const STORAGE="tabakjournal:v1";
   const $=id=>document.getElementById(id);
   const dialog=$("barcodeDialog");
+  const icon=name=>'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-'+name+'"></use></svg>';
+  let scanBaseline=null;
   const escape=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const norm=s=>String(s??"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
   const sameProduct=(t,p)=>{
@@ -101,9 +103,15 @@
     window.location.reload();
   }
   function status(message){const el=$("scanStatus");if(el)el.textContent=message;}
+  function scanSnapshot(){
+    const form=$("scanNewProduct");
+    const values=form?JSON.stringify([...new FormData(form).entries()]):"";
+    return JSON.stringify([values,$("scanVerified")?.checked||false,String($("scanPrintedCode")?.value||"")]);
+  }
   function shell(title,subtitle,contents){
-    $("barcodeDialogContent").innerHTML='<div class="dialog-head"><div><h2 id="barcodeDialogTitle">'+escape(title)+'</h2><p>'+escape(subtitle)+'</p></div><button class="close-btn" type="button" data-scan-action="close" aria-label="Schließen">×</button></div><div class="editor-form">'+contents+'</div>';
+    $("barcodeDialogContent").innerHTML='<div class="dialog-head"><div><h2 id="barcodeDialogTitle">'+escape(title)+'</h2><p>'+escape(subtitle)+'</p></div><button class="close-btn" type="button" data-scan-action="close" aria-label="Schließen">×</button></div><div class="editor-form">'+contents+'<div id="scanError" class="scan-error" role="alert" aria-live="assertive"></div></div>';
     if(!dialog.open)dialog.showModal();
+    scanBaseline=scanSnapshot();
   }
   let html5=null,started=false,starting=false,stopWhenReady=false,locked=false,scriptPromise=null;
   let consensus=createScanConsensus(),activeAltFormats=false;
@@ -122,7 +130,7 @@
     const light=$("scanLightButton"),auto=$("scanFocusButton");
     const focus=$("scanFocusControl"),zoom=$("scanZoomControl");
     const hint=$("scanCameraFeatureHint");
-    if(light){light.hidden=!features.torch;light.disabled=!features.torch;light.textContent="◉ Licht einschalten";light.setAttribute("aria-pressed","false");}
+    if(light){light.hidden=!features.torch;light.disabled=!features.torch;light.textContent="Licht einschalten";light.setAttribute("aria-pressed","false");}
     if(auto){auto.hidden=!features.autofocus;auto.disabled=!features.autofocus;}
     const configureRange=(container,id,range,labelId)=>{
       if(!container)return;
@@ -164,7 +172,7 @@
       if(camera!==html5||!started)return;
       torchOn=next;
       const button=$("scanLightButton");
-      if(button){button.textContent=next?"◉ Licht ausschalten":"◉ Licht einschalten";button.setAttribute("aria-pressed",String(next));}
+      if(button){button.textContent=next?"Licht ausschalten":"Licht einschalten";button.setAttribute("aria-pressed",String(next));}
     },next?"Kameralicht eingeschaltet.":"Kameralicht ausgeschaltet.");
   }
   async function requestFocus(){
@@ -206,13 +214,16 @@
     if(format==="UPC_A")return String(raw).replace(/[\s-]/g,"").length===12;
     return !format||format==="EAN_13";
   }
-  function close(){ if(dialog.open)dialog.close();void stop(); }
+  function close(force=false){
+    if(!force&&dialog.open&&scanBaseline!==null&&scanSnapshot()!==scanBaseline&&!window.confirm("Ungespeicherte Eingaben verwerfen?"))return false;
+    if(dialog.open)dialog.close();scanBaseline=null;void stop();return true;
+  }
   function openScanner(){
-    close();locked=false;consensus=createScanConsensus();
+    if(!close())return;locked=false;consensus=createScanConsensus();
     shell("Barcode scannen","Kamera auf den Barcode deiner Tabakdose richten",
       '<div class="hint">Die EAN wird lokal auf deinem Smartphone ausgelesen. Bei einem bekannten Code erscheint direkt der Tabak.</div>'+
-      '<div id="scanCamera" class="scan-area"><div class="empty-preview">▥<p>Kamera noch nicht gestartet</p></div></div>'+
-      '<div id="scanCameraControls" class="scan-camera-controls" hidden><div class="btn-row"><button type="button" id="scanLightButton" class="btn btn-secondary btn-sm" data-scan-action="torch" aria-pressed="false" hidden>◉ Licht einschalten</button><button type="button" id="scanFocusButton" class="btn btn-secondary btn-sm" data-scan-action="autofocus" hidden>◎ Scharfstellen</button></div>'+
+      '<div id="scanCamera" class="scan-area"><div class="empty-preview">'+icon("barcode")+'<p>Kamera noch nicht gestartet</p></div></div>'+
+      '<div id="scanCameraControls" class="scan-camera-controls" hidden><div class="btn-row"><button type="button" id="scanLightButton" class="btn btn-secondary btn-sm" data-scan-action="torch" aria-pressed="false" hidden>Licht einschalten</button><button type="button" id="scanFocusButton" class="btn btn-secondary btn-sm" data-scan-action="autofocus" hidden>Autofokus</button></div>'+
       '<label id="scanFocusControl" class="scan-range" hidden><span>Manueller Fokus <output id="scanFocusValue"></output></span><input id="scanManualFocus" type="range" aria-label="Manueller Fokus"></label>'+
       '<label id="scanZoomControl" class="scan-range" hidden><span>Kamerazoom <output id="scanZoomValue"></output></span><input id="scanZoom" type="range" aria-label="Kamerazoom"></label></div>'+
       '<p id="scanCameraFeatureHint" class="scan-feature-hint">Kamerafunktionen werden nach dem Start geprüft.</p>'+
@@ -394,7 +405,7 @@
         s.tobaccos.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2),brand:product.brand.slice(0,120),name:product.name.slice(0,160),base:product.base||"Unbekannt",flavor:(product.flavor||"").slice(0,200),notes:"",barcodes:[code],quantity_g,stock:1,opened:false,createdAt:new Date().toISOString()});
       }
       store(s);
-    }catch(e){const node=$("scanError");if(node)node.textContent=e.message;else window.alert("Speichern fehlgeschlagen: "+e.message);}
+    }catch(e){const node=$("scanError");if(node)node.textContent="Speichern fehlgeschlagen: "+e.message;else status("Speichern fehlgeschlagen: "+e.message);}
   }
   function openSession(id){
     close();
@@ -485,7 +496,7 @@
       void queryExternal($("remoteLookup").dataset.code);
     }
   });
-  dialog.addEventListener("cancel",()=>{void stop();});
+  dialog.addEventListener("cancel",e=>{e.preventDefault();close();});
   dialog.addEventListener("click",event=>{if(event.target===dialog)close();});
   window.addEventListener("pagehide",()=>{void stop();});
   // Unprivileged diagnostic API for automated checks; no personal records exposed.
