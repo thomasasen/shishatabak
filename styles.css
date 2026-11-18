@@ -492,3 +492,6 @@ svg{display:block}
 
 /* Browser font scaling and zoom can shrink effective viewport widths below 320 px. */
 @media(max-width:320px){.topbar{padding-inline:10px}.content,.footer{padding-inline:10px}.nav-item{font-size:13px}.nav-item .nav-label{max-width:100%}.filter{padding-inline:6px}.collection-actions .btn-row{grid-template-columns:1fr}}
+
+.privacy-note{font-size:14px;line-height:1.75;color:var(--text-secondary);margin-top:0}
+@media(pointer:coarse){.scan-range input{min-height:44px}}
