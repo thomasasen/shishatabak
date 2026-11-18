@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
-  <meta name="description" content="Privates Tabakjournal: Sammlung, Packungsbestand und Sessions. Persönliche Daten bleiben lokal im Browser.">
-  <title>Tabakjournal · Meine Tabake</title>
+  <meta name="description" content="Privates Tabakjournal: persönliche Verträglichkeitsbewertungen und Geschmack deiner Tabake. Daten bleiben lokal im Browser.">
+  <title>Meine Tabake · Verträglichkeit bewerten</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <script src="./catalog.js" defer></script>
@@ -15,10 +15,7 @@
 </head>
 <body>
   <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <symbol id="i-overview" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
     <symbol id="i-collection" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
-    <symbol id="i-sessions" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l3.7 2.2"/></symbol>
-    <symbol id="i-insights" viewBox="0 0 24 24"><path d="M4.5 19.5V12h4v7.5M10 19.5V7.5h4v12M15.5 19.5V4h4v15.5M3 20.5h18"/></symbol>
     <symbol id="i-data" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10h8m-3-3 3 3-3 3M16 15H8m3-3-3 3 3 3"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
@@ -31,24 +28,21 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">T<span>.</span></span><span><strong>Tabakjournal</strong><small>Deine Sammlung</small></span></div>
       <div class="side-caption">Bereiche</div>
       <nav class="nav" aria-label="Hauptnavigation">
-        <button type="button" class="nav-item is-active" aria-current="page" data-view="overview" aria-label="Übersicht"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-overview"/></svg></span><span class="nav-label"><span class="nav-label-full">Übersicht</span><span class="nav-label-short">Start</span></span></button>
-        <button type="button" class="nav-item" data-view="collection" aria-label="Meine Tabake"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-collection"/></svg></span><span class="nav-label"><span class="nav-label-full">Meine Tabake</span><span class="nav-label-short">Tabake</span></span></button>
-        <button type="button" class="nav-item" data-view="sessions" aria-label="Sessions"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-sessions"/></svg></span><span class="nav-label">Sessions</span></button>
-        <button type="button" class="nav-item" data-view="insights" aria-label="Auswertung"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-insights"/></svg></span><span class="nav-label"><span class="nav-label-full">Auswertung</span><span class="nav-label-short">Analyse</span></span></button>
-        <button type="button" class="nav-item" data-view="data" aria-label="Daten und Backup"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-data"/></svg></span><span class="nav-label"><span class="nav-label-full">Daten &amp; Backup</span><span class="nav-label-short">Daten</span></span></button>
+        <button type="button" class="nav-item is-active" aria-current="page" data-view="collection" aria-label="Meine Tabake"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-collection"/></svg></span><span class="nav-label"><span class="nav-label-full">Meine Tabake</span><span class="nav-label-short">Tabake</span></span></button>
+        <button type="button" class="nav-item" data-view="data" aria-label="Daten und Backup"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-data"/></svg></span><span class="nav-label"><span class="nav-label-full">Backup</span><span class="nav-label-short">Backup</span></span></button>
       </nav>
-      <div class="sidebar-bottom"><div class="setup-chip"><span class="live-dot" aria-hidden="true"></span><span><strong>Dein Setup</strong><small>NOCCA eHMD</small></span></div><p>Privat und lokal gespeichert.</p></div>
+      <div class="sidebar-bottom"><p>Deine Bewertungen werden lokal gespeichert.</p></div>
     </aside>
     <div class="main-wrap">
       <header class="topbar">
-        <div class="topbar-left"><span id="currentSection">Übersicht</span></div>
+        <div class="topbar-left"><span id="currentSection">Meine Tabake</span></div>
         <div class="topbar-actions">
           <span class="save-state" id="saveStatus" role="status" aria-live="polite">Lokal gespeichert</span>
           <button class="btn btn-primary btn-sm" type="button" data-action="add-tobacco" title="Tabak erfassen" aria-label="Tabak erfassen"><svg class="ui-icon" aria-hidden="true"><use href="#i-plus"/></svg><span class="action-label">Tabak erfassen</span></button>
         </div>
       </header>
       <main id="screen" class="content" tabindex="-1"></main>
-      <footer class="footer">Deine Tabake und Sessions bleiben lokal in diesem Browser. Regelmäßig ein <a href="#" data-view="data">Backup</a> erstellen.</footer>
+      <footer class="footer">Deine persönlichen Tabakbewertungen bleiben lokal in diesem Browser. Regelmäßig ein <a href="#" data-view="data">Backup</a> erstellen.</footer>
     </div>
   </div>
   <dialog id="editorDialog" class="editor-dialog" aria-labelledby="dialogTitle"><div id="dialogContent"></div></dialog>
