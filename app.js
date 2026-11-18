@@ -243,20 +243,22 @@
     const existing=state.tobaccos.find(x=>x.id===id);
     const p=existing||preset;
     const isEdit=Boolean(existing);
-    dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(isEdit?"Tabak bearbeiten":"Tabak erfassen")+'</h2><p>Hersteller, Sorte und deinen vorhandenen Bestand speichern.</p></div><button class="close-btn" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
+    dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(isEdit?"Tabak bearbeiten":"Tabak erfassen")+'</h2><p>Hersteller oder Sorte eingeben, Katalogvorschlag auswählen und Bestand speichern.</p></div><button class="close-btn" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
       '<form class="editor-form" id="tobacco-form"><div class="fields">'+
       input("brand","Hersteller *",p&&p.brand,"z. B. Hookain",true,'text','list="brandList" maxlength="120"')+
       '<datalist id="brandList">'+BRANDS.map(b=>'<option value="'+escapeHTML(b)+'"></option>').join("")+'</datalist>'+
       input("name","Sorte *",p&&p.name,"z. B. White Caek",true,'text','maxlength="160" autocomplete="off"')+
-      '<div class="catalog-results" id="catalogResults"></div>'+
+      '<div class="field-help">Während der Eingabe erscheinen passende Sorten und Packungsgrößen aus dem vorhandenen Produktkatalog.</div>'+
+      '<div class="catalog-results" id="catalogResults" aria-label="Produktvorschläge"></div>'+
+      '<div class="field-help" id="catalogSelection" role="status"></div>'+
+      '<input type="hidden" id="f-catalog-ean" name="catalog_ean" value="">'+
       '<div class="field-row"><div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+["Unbekannt","Virginia","Dark Blend"].map(b=>'<option '+((p?p.base:"Unbekannt")===b?"selected ":"")+'value="'+b+'">'+b+'</option>').join("")+'</select></div>'+
       input("flavor","Geschmacksprofil",p&&p.flavor,"z. B. Traube, Minze",false,"text",'maxlength="200"')+'</div>'+
       '<div class="field-row">'+
       input("quantity_g","Packungsgröße (g)",p?.quantity_g?String(p.quantity_g):"","z. B. 200",false,"number",'min="0" max="1000" step="1"')+
       input("stock","Packungen im Bestand *",String(p?.stock??1),"z. B. 2",true,"number",'min="0" max="999" step="1"')+'</div>'+
       '<label class="inventory-open-label"><input type="checkbox" name="opened" '+(p?.opened?'checked ':'')+'> Mindestens eine Packung ist geöffnet</label>'+
-      input("barcodes","EANs / UPCs bearbeiten",p?.barcodes?.join(", ")||"","Bei Bedarf per Komma trennen",false,"text",'maxlength="550"')+
-      '<span class="field-help">EANs werden auf Prüfziffern geprüft. Packungsgröße 0 bedeutet „unbekannt“, Bestand 0 „aufgebraucht“. Sessions bleiben erhalten.</span>'+
+      '<span class="field-help">Packungsgröße 0 bedeutet „unbekannt“, Bestand 0 „aufgebraucht“. Vorhandene Sessions bleiben erhalten.</span>'+
       '<div class="field"><label for="f-notes">Eigene Notizen</label><textarea id="f-notes" maxlength="1000" name="notes" placeholder="Optional">'+escapeHTML(p&&p.notes)+'</textarea></div>'+
       '<div class="hint">Deine persönliche Sammlung ist unabhängig vom Online-Katalog und bleibt lokal im Browser gespeichert.</div></div>'+
       '<div class="dialog-actions">'+(isEdit?'<button type="button" class="btn btn-danger" data-action="delete-tobacco" data-id="'+escapeHTML(existing.id)+'">Löschen</button>':'')+
@@ -265,12 +267,21 @@
   }
   function initAutocomplete() {
     const brand=$("f-brand"),name=$("f-name"),results=$("catalogResults");
-    if(!brand||!name)return;
+    if(!brand||!name||!results)return;
     const update=()=>{
+      const selected=$("f-catalog-ean");
+      if(selected)selected.value="";
+      const status=$("catalogSelection");
+      if(status)status.textContent="";
       const b=key(brand.value),n=key(name.value);
       if(!b&&!n){results.innerHTML="";return;}
-      const matches=CATALOG.filter(x=>(!b||key(x[0]).includes(b))&&(!n||[x[1],...(x[4]||[])].some(label=>key(label).includes(n)))).slice(0,6);
-      results.innerHTML=matches.map((x,i)=>'<button class="catalog-result" type="button" data-action="choose-suggestion" data-index="'+CATALOG.indexOf(x)+'"><span><strong>'+escapeHTML(x[0])+'</strong> · '+escapeHTML(x[1])+'</span><small>Übernehmen +</small></button>').join("");
+      const matches=CATALOG.filter(p=>(!b||key(p.brand).includes(b))&&
+        (!n||[p.name,...p.aliases].some(label=>key(label).includes(n)))).slice(0,8);
+      results.innerHTML=matches.map(p=>{
+        const idx=CATALOG.indexOf(p),size=p.quantity_g?p.quantity_g+" g":"Größe unbekannt";
+        const details=[size,p.base!=="Unbekannt"?p.base:"",p.flavor].filter(Boolean).join(" · ");
+        return '<button class="catalog-result" type="button" data-action="choose-suggestion" data-index="'+idx+'"><span><strong>'+escapeHTML(p.brand)+'</strong> · '+escapeHTML(p.name)+'</span><small>'+escapeHTML(details)+'</small></button>';
+      }).join("");
     };
     brand.addEventListener("input",update);name.addEventListener("input",update);
     update();
@@ -304,13 +315,18 @@
     }
     const duplicate=state.tobaccos.find(p=>p.id!==id&&key(p.brand)===key(brand)&&key(p.name)===key(name)&&
       ((p.quantity_g||0)===0||quantity_g===0||p.quantity_g===quantity_g));
-    if(duplicate){toast("Diese Sorte mit derselben Packungsgröße ist bereits vorhanden. Bitte Bestand dort anpassen.",true);return;}
-    let barcodes;
-    try{barcodes=parseBarcodes(fd.get("barcodes"));}
-    catch(error){toast(error.message,true);return;}
-    const conflict=state.tobaccos.find(p=>p.id!==id&&(p.barcodes||[]).some(raw=>barcodes.includes(normalizeBarcode(raw))));
-    if(conflict){toast("EAN/UPC gehört bereits zu "+pName(conflict)+".",true);return;}
+    if(duplicate){toast("Diese Sorte ist bereits vorhanden. Bitte den Bestand dort anpassen.",true);return;}
     const existing=state.tobaccos.find(p=>p.id===id);
+    // Legacy identifiers are retained when identity is unchanged. No barcode scanning
+    // or remote lookups occur; catalog ids are used only for local product association.
+    const sameIdentity=existing&&key(existing.brand)===key(brand)&&key(existing.name)===key(name)&&
+      (existing.quantity_g||0)===quantity_g;
+    const barcodes=sameIdentity?[...(existing.barcodes||[])]:[];
+    const selected=CATALOG.find(p=>p.ean===String(fd.get("catalog_ean")||""));
+    if(selected&&key(selected.brand)===key(brand)&&key(selected.name)===key(name)&&
+       selected.quantity_g===quantity_g&&!barcodes.includes(selected.ean))barcodes.push(selected.ean);
+    const conflict=state.tobaccos.find(p=>p.id!==id&&(p.barcodes||[]).some(raw=>barcodes.includes(raw)));
+    if(conflict){toast("Dieses Katalogprodukt ist bereits in deiner Sammlung.",true);return;}
     const p={id:existing?existing.id:uid(),barcodes,brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),
       quantity_g,stock,opened:stock>0&&fd.get("opened")==="on",createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,tobaccos:existing?state.tobaccos.map(x=>x.id===p.id?p:x):[...state.tobaccos,p]};
@@ -403,7 +419,14 @@
     if(action==="close-dialog")closeDialog();
     if(action==="choose-suggestion"){
       const item=CATALOG[Number(b.dataset.index)];
-      if(item){$("f-brand").value=item[0];$("f-name").value=item[1];$("f-base").value=item[2];$("f-flavor").value=item[3];$("catalogResults").innerHTML="";}
+      if(item&&$("f-brand")&&$("f-name")){
+        $("f-brand").value=item.brand;$("f-name").value=item.name;
+        $("f-base").value=item.base;$("f-flavor").value=item.flavor;
+        $("f-quantity_g").value=String(item.quantity_g);
+        $("f-catalog-ean").value=item.ean;
+        $("catalogResults").innerHTML="";
+        $("catalogSelection").textContent="Produktdaten übernommen: "+item.brand+" · "+item.name+" · "+item.quantity_g+" g";
+      }
     }
     if(action==="delete-tobacco")deleteTobacco(id);
     if(action==="delete-session")deleteSession(id);
