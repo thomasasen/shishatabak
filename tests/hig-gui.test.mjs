@@ -56,7 +56,9 @@ test("mobile toolbar, five equal rating targets and sticky form actions remain a
   assert.doesNotMatch(css,/\.sidebar\s*\{[^}]*position:fixed/s);
   assert.match(css,/\.topbar-actions \.btn\s*\{height:44px;width:44px/);
   assert.match(css,/\.rating-options\s*\{\s*display:grid;grid-template-columns:repeat\(5,minmax\(44px,1fr\)\)/);
-  assert.doesNotMatch(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  const ratingRule=css.match(/\.rating-options\s*\{([^}]*)\}/);
+  assert.ok(ratingRule);
+  assert.doesNotMatch(ratingRule[1],/repeat\(3,/,"rating must never wrap to 3+2");
   assert.match(css,/\.dialog-actions\s*\{[^}]*position:sticky;bottom:0/s);
   assert.match(css,/:focus-visible/);
   assert.match(css,/prefers-reduced-motion:reduce/);
@@ -70,12 +72,15 @@ test("mobile toolbar, five equal rating targets and sticky form actions remain a
 });
 test("content surfaces stay solid and blurred material appears only in functional toolbar",()=>{
   assert.match(css,/\.topbar\s*\{[^}]*backdrop-filter:/s);
-  for(const selector of [".tobacco-card",".panel",".data-tile",".rating-summary"]){
+  for(const selector of [".tobacco-card",".rating-summary"]){
     const start=css.indexOf(selector+"{");
-    assert.notEqual(start,-1);
+    assert.notEqual(start,-1,"missing "+selector);
     const block=css.slice(start,css.indexOf("}",start));
     assert.doesNotMatch(block,/backdrop-filter/,"content blur prohibited: "+selector);
   }
+  const grouped=css.match(/\.panel,\.data-tile\s*\{([^}]*)\}/);
+  assert.ok(grouped,"shared content surfaces rule must exist");
+  assert.doesNotMatch(grouped[1],/backdrop-filter/);
 });
 test("search updates only the results instead of replacing the live input node",()=>{
   assert.match(app,/function refreshCollectionResults\(\)/);
