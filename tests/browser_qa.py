@@ -226,7 +226,7 @@ def damaged_storage_suite(browser):
     raw='{"app":"tabakjournal","version":1,"tobaccos":[BROKEN]}'
     page.evaluate("([k,v])=>localStorage.setItem(k,v)",[KEY,raw])
     page.reload()
-    assert "konnten nicht gelesen werden" in page.locator("#screen").inner_text()
+    assert "konnten nicht sicher gelesen werden" in page.locator("#screen").inner_text()
     assert page.locator("#saveStatus").inner_text()!="Lokal gespeichert"
     assert page.evaluate("(k)=>localStorage.getItem(k)",KEY)==raw
     page.locator('[data-view="data"]').first.click()
