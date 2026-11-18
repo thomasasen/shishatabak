@@ -218,6 +218,44 @@ def collision_suite(browser):
     assert len(storage(page)["tobaccos"])==2
     ctx.close()
 
+def damaged_storage_suite(browser):
+    """Damaged localStorage must remain exportable and restorable by user choice."""
+    ctx=browser.new_context(accept_downloads=True)
+    page=ctx.new_page()
+    page.goto(BASE)
+    raw='{"app":"tabakjournal","version":1,"tobaccos":[BROKEN]}'
+    page.evaluate("([k,v])=>localStorage.setItem(k,v)",[KEY,raw])
+    page.reload()
+    assert "konnten nicht gelesen werden" in page.locator("#screen").inner_text()
+    assert page.locator("#saveStatus").inner_text()!="Lokal gespeichert"
+    assert page.evaluate("(k)=>localStorage.getItem(k)",KEY)==raw
+    page.locator('[data-view="data"]').first.click()
+    assert "Backup wiederherstellen" in page.locator("#screen h1").inner_text()
+    with page.expect_download() as dl:
+        page.locator('[data-action="export-raw"]').click()
+    assert Path(dl.value.path()).read_text(encoding="utf-8")==raw
+    # A second corrupt import must NOT delete the existing raw bytes.
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="import-replace"]').click()
+    page.locator("#importFile").set_input_files({
+        "name":"bad.json","mimeType":"application/json","buffer":b"BAD INPUT"
+    })
+    page.wait_for_timeout(200)
+    assert page.evaluate("(k)=>localStorage.getItem(k)",KEY)==raw
+    # Valid backup restores functional UI after explicit overwrite confirmation.
+    restored=state([product("restored","Wiederhergestellt","Tabak",4)])
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="import-replace"]').click()
+    page.locator("#importFile").set_input_files({
+        "name":"recovery.json","mimeType":"application/json",
+        "buffer":json.dumps(restored).encode()
+    })
+    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===1")
+    page.reload()
+    assert "Tabak" in page.locator("#collectionResults").inner_text()
+    assert storage(page)["tobaccos"][0]["review"]["tolerability"]==4
+    ctx.close()
+
 def adversarial_suite(browser):
     ctx=browser.new_context()
     page=ctx.new_page()
@@ -296,6 +334,7 @@ def main():
                     ("Product: search/filter/duplicate/delete",search_filter_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
+                    ("Data Recovery: broken localStorage raw export and backup restore",damaged_storage_suite),
                     ("Red Team: injection and storage failure",adversarial_suite),
                 ]:verify(label,lambda fn=fn:fn(browser))
             finally:browser.close()
