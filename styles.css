@@ -78,7 +78,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:96px}
-body{margin:0;min-width:320px;background:var(--canvas);color:var(--text);line-height:1.55}
+body{margin:0;min-width:0;background:var(--canvas);color:var(--text);line-height:1.55}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.48;cursor:not-allowed}
@@ -385,7 +385,7 @@ svg{display:block}
   .nav-icon{width:33px;height:31px;flex:0 0 31px;border-radius:11px}
   .nav-item.is-active .nav-icon{background:var(--accent-soft)}
   .nav-icon .ui-icon{width:22px;height:22px}
-  .nav-label{white-space:nowrap;overflow:visible}
+  .nav-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
   .nav-label-full{display:none}
   .nav-label-short{display:inline}
   .main-wrap{width:100%}
@@ -489,3 +489,6 @@ svg{display:block}
 @media (pointer:coarse){.btn,.btn-sm,.filter,.icon-btn,.close-btn,.catalog-result{min-height:44px}.icon-btn,.close-btn{min-width:44px}}
 
 .scan-area .empty-preview .ui-icon{width:36px;height:36px;margin:0 auto 12px}
+
+/* Browser font scaling and zoom can shrink effective viewport widths below 320 px. */
+@media(max-width:320px){.topbar{padding-inline:10px}.content,.footer{padding-inline:10px}.nav-item{font-size:13px}.nav-item .nav-label{max-width:100%}.filter{padding-inline:6px}.collection-actions .btn-row{grid-template-columns:1fr}}
