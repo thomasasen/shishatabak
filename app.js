@@ -254,7 +254,7 @@
     dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(entry?"Bewertung bearbeiten":"Tabak hinzufügen")+'</h2>'+
       '<p>Wähle die Sorte und bewerte vor allem ihre Verträglichkeit.</p></div>'+
       '<button class="close-btn" type="button" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
-      '<form class="editor-form" id="tobacco-form">'+
+      '<form class="editor-form" id="tobacco-form" method="post">'+
       '<div class="fields">'+
       input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120" autocomplete="off"')+
       '<datalist id="brandList">'+BRANDS.map(b=>'<option value="'+escapeHTML(b)+'"></option>').join("")+'</datalist>'+
@@ -287,7 +287,7 @@
       '<p class="review-disclaimer">Eine persönliche Bewertung ist kein medizinischer Befund.</p></div>'+
       '<div class="dialog-actions"><button class="btn btn-secondary" type="button" data-action="close-dialog">Abbrechen</button>'+
       '<button class="btn btn-primary" type="submit">'+(entry?"Änderungen speichern":"Tabak speichern")+'</button></div>'+
-      '<input type="hidden" name="id" value="'+escapeHTML(p?.id||"")+'"></form>');
+      '<input type="hidden" name="tobacco_id" value="'+escapeHTML(p?.id||"")+'"></form>');
     initAutocomplete();
   }
   function initAutocomplete(){
@@ -310,7 +310,7 @@
   }
   function saveTobacco(form){
     if(!state)return;
-    const fd=new FormData(form),id=String(fd.get("id")||""),brand=plain(fd.get("brand"),120),name=plain(fd.get("name"),160);
+    const fd=new FormData(form),id=String(fd.get("tobacco_id")||""),brand=plain(fd.get("brand"),120),name=plain(fd.get("name"),160);
     if(!brand||!name){notice("Hersteller und Sorte sind Pflichtfelder.",true);return;}
     const rawWeight=String(fd.get("quantity_g")??"").trim(),quantity_g=rawWeight===""?0:Number(rawWeight);
     if((rawWeight!==""&&!/^\d+$/.test(rawWeight))||!Number.isInteger(quantity_g)||quantity_g<0||quantity_g>1000){
@@ -420,7 +420,7 @@
     }
   });
   document.addEventListener("submit",event=>{
-    if(event.target.id==="tobacco-form"){event.preventDefault();saveTobacco(event.target);}
+    if(event.target?.getAttribute?.("id")==="tobacco-form"){event.preventDefault();saveTobacco(event.target);}
   });
   document.addEventListener("change",event=>{
     if(event.target.name==="tolerability"){
