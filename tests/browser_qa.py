@@ -188,6 +188,35 @@ def backup_suite(browser):
     assert len(storage(page)["tobaccos"])==0 and len(storage(page)["sessions"])==0
     ctx.close()
 
+def collision_suite(browser):
+    """A merge must not mistake coinciding IDs for identical products."""
+    ctx=browser.new_context()
+    page=ctx.new_page()
+    local=state([product("shared-id","Lokaler Hersteller","Lokale Sorte",4)],
+                [historical("same-session","shared-id")])
+    seed(page,local)
+    page.locator('[data-view="data"]').first.click()
+    incoming=state([product("shared-id","Import Hersteller","Andere Sorte",1)],
+                   [historical("same-session","shared-id")])
+    page.locator("#importFile").set_input_files({
+        "name":"collision.json","mimeType":"application/json",
+        "buffer":json.dumps(incoming).encode()
+    })
+    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===2")
+    merged=storage(page)
+    assert len(merged["tobaccos"])==2,merged["tobaccos"]
+    assert len({entry["id"] for entry in merged["tobaccos"]})==2
+    old=next(x for x in merged["tobaccos"] if x["name"]=="Lokale Sorte")
+    new=next(x for x in merged["tobaccos"] if x["name"]=="Andere Sorte")
+    assert old["id"]=="shared-id" and old["review"]["tolerability"]==4
+    assert new["id"]!="shared-id" and new["review"]["tolerability"]==1
+    assert len(merged["sessions"])==2,"Same session IDs may not discard imported history"
+    assert len({e["id"] for e in merged["sessions"]})==2
+    assert {e["tobaccoId"] for e in merged["sessions"]}=={old["id"],new["id"]}
+    page.reload()
+    assert len(storage(page)["tobaccos"])==2
+    ctx.close()
+
 def adversarial_suite(browser):
     ctx=browser.new_context()
     page=ctx.new_page()
@@ -265,6 +294,7 @@ def main():
                     ("Product: catalog/save/reload/edit",product_suite),
                     ("Product: search/filter/duplicate/delete",search_filter_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
+                    ("Data Red Team: colliding product and session IDs",collision_suite),
                     ("Red Team: injection and storage failure",adversarial_suite),
                 ]:verify(label,lambda fn=fn:fn(browser))
             finally:browser.close()
