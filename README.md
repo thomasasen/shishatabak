@@ -4,7 +4,7 @@ Ein schlanker, privater Pilot für die Verwaltung von Shisha-Tabaken und die Dok
 
 ## GitHub Pages
 
-Die Anwendung ist **rein statisch**: kein Build, kein Server, keine externen Skripte. Alle für GitHub Pages benötigten Dateien liegen direkt im Root des Branches **main**.
+Die Anwendung ist **rein statisch**: kein Build und kein eigener Backend-Server. Katalog, Benutzeroberfläche und persönliche Datenspeicherung funktionieren lokal im Browser. Beim **Start des Barcode-Scanners** wird die Bibliothek `html5-qrcode` bei Bedarf von einem CDN geladen; für eine unbekannte EAN kann zudem eine öffentliche EAN-Datenbank abgefragt werden. Dabei wird nur die EAN übertragen, nicht deine Sammlung. Alle für GitHub Pages benötigten App-Dateien liegen im Root von **main**.
 
 **Einmalige Aktivierung:** GitHub → Repository → **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main → Folder: /(root) → Save**.
 
@@ -21,7 +21,8 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 - Übersicht und Auswertungen nach Grundtabak und Hersteller mit sichtbarer Fallzahl.
 - Dauerhafte Speicherung über **localStorage** im selben Browser, auch nach Browserneustart.
 - JSON-Export und validierter JSON-Import als **Zusammenführen** oder **Ersetzen**. Einträge sind mit IDs verknüpft; beim Zusammenführen werden doppelte Produkte anhand von Hersteller und Sorte erkannt.
-- Responsive Darstellung für Desktop und Smartphone.
+- Responsive, an Apples Human Interface Guidelines orientierte **vollständig überarbeitete Oberfläche**: Seitenleiste auf dem Desktop, untere Fünf-Tab-Navigation auf Smartphones, einheitliche SVG-Icons, Hell-/Dunkelmodus nach Systemeinstellung, sichtbarer Tastaturfokus, reduzierte Bewegung und Transparenzerhöhung auf Wunsch.
+- Red-Team-Audit mit **rechnerisch geprüftem Farbkontrast**: [Befunde, Korrekturen und verbleibende Plattformgrenzen](docs/apple-hig-red-team.md).
 
 ## Wichtige Grenzen
 
@@ -36,11 +37,17 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 
 | Datei | Zweck |
 | --- | --- |
-| index.html | Oberfläche und Navigation |
-| styles.css | Darstellung und Mobile-Layout |
+| index.html | Oberfläche, SVG-Symbole und responsive Navigation |
+| styles.css | Semantische Design-Tokens, Light/Dark Mode, flexible Layouts und Barrierefreiheit |
 | app.js | Datenmodell, CRUD, Suche, Auswertung, Import/Export |
 | favicon.svg | Programmsymbol |
 | .nojekyll | Auslieferung ohne Jekyll-Transformation |
+
+## Überarbeitete Apple-HIG-orientierte Oberfläche
+
+Die Oberfläche wurde auf Grundlage des Projekts [dickwu/apple-design-skill](https://github.com/dickwu/apple-design-skill) überarbeitet. Sie ist **weiterhin eine Webapp**, keine native iOS-/macOS-App: Grundprinzipien wie Lesbarkeit, Kontrast, Bedienelemente, Navigation und Zugänglichkeit werden für HTML/CSS umgesetzt, ohne native Apple-Systemeffekte zu behaupten. Die fünf Bereiche sind auf dem Smartphone über eine feste untere Navigation erreichbar; ab größeren Breiten erscheint eine Seitenleiste. Eingaben in Dialogen werden beim Verwerfen geschützt. Persönliche Tabake, Sessions und JSON-Backups bleiben unverändert kompatibel.
+
+Weitere Details: [Red-Team-Protokoll](docs/apple-hig-red-team.md).
 
 ## Meine Tabake erfassen
 
