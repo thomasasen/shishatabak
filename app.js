@@ -23,6 +23,7 @@
   let importMode = "merge";
   let toastTimer;
   let storageError = "";
+  let dialogBaseline = null;
   function escapeHTML(value) { return String(value == null ? "" : value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
   function plain(value, len=300) { return typeof value === "string" ? value.trim().slice(0,len) : ""; }
   function key(value) { return String(value).toLocaleLowerCase("de").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,""); }
@@ -235,11 +236,21 @@
     }
     return {app:APP_ID,version:VERSION,tobaccos,sessions,settings:{bowl:plain(raw.settings&&raw.settings.bowl,100)}};
   }
+  function formSnapshot() {
+    const form=$("editorDialog").querySelector?.("form");
+    if(!form)return null;
+    return JSON.stringify([...new FormData(form).entries()]);
+  }
   function dialog(markup) {
     $("dialogContent").innerHTML=markup;
     const dlg=$("editorDialog");if(!dlg.open)dlg.showModal();
+    dialogBaseline=formSnapshot();
   }
-  function closeDialog() { if($("editorDialog").open)$("editorDialog").close(); }
+  function closeDialog(force=false) {
+    const dlg=$("editorDialog");if(!dlg.open)return;
+    if(!force&&dialogBaseline!==null&&formSnapshot()!==dialogBaseline&&!confirm("Ungespeicherte Eingaben verwerfen?"))return;
+    dlg.close();dialogBaseline=null;
+  }
   function input(name,label,value,placeholder,required=false,type="text",extra="") {
     return '<div class="field"><label for="f-'+name+'">'+label+'</label><input id="f-'+name+'" name="'+name+'" type="'+type+'" value="'+escapeHTML(value||"")+'" placeholder="'+escapeHTML(placeholder||"")+'" '+(required?"required ":"")+extra+'></div>';
   }
@@ -318,7 +329,7 @@
     const p={id:existing?existing.id:uid(),barcodes,brand,name,base:normalizeBase(fd.get("base")),flavor:plain(fd.get("flavor"),200),notes:plain(fd.get("notes"),1000),
       quantity_g,stock,opened:stock>0&&fd.get("opened")==="on",createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,tobaccos:existing?state.tobaccos.map(x=>x.id===p.id?p:x):[...state.tobaccos,p]};
-    if(persist(next)){closeDialog();toast(existing?"Tabak und Bestand aktualisiert.":"Tabak in deine Sammlung aufgenommen.");}
+    if(persist(next)){closeDialog(true);toast(existing?"Tabak und Bestand aktualisiert.":"Tabak in deine Sammlung aufgenommen.");}
   }
   function saveSession(form) {
     const fd=new FormData(form),id=String(fd.get("id")||""),tobaccoId=String(fd.get("tobaccoId")||"");
@@ -331,18 +342,18 @@
     const bowl=plain(fd.get("bowl"),100);
     const s={id:existing?existing.id:uid(),tobaccoId,date,severity,taste,duration,temperature,bowl,symptoms,notes:plain(fd.get("notes"),1000),createdAt:existing?existing.createdAt:new Date().toISOString()};
     const next={...state,sessions:existing?state.sessions.map(x=>x.id===s.id?s:x):[...state.sessions,s],settings:{...state.settings,bowl}};
-    if(persist(next)){closeDialog();toast(existing?"Session aktualisiert.":"Session gespeichert.");}
+    if(persist(next)){closeDialog(true);toast(existing?"Session aktualisiert.":"Session gespeichert.");}
   }
   function deleteTobacco(id) {
     const p=productById(id);if(!p)return;
     const count=sessionsOf(id).length;
     if(!confirm('"'+pName(p)+'" und '+count+' zugehörige Sessions unwiderruflich löschen?'))return;
     const next={...state,tobaccos:state.tobaccos.filter(p=>p.id!==id),sessions:state.sessions.filter(s=>s.tobaccoId!==id)};
-    if(persist(next)){closeDialog();toast("Tabak und zugehörige Sessions gelöscht.");}
+    if(persist(next)){closeDialog(true);toast("Tabak und zugehörige Sessions gelöscht.");}
   }
   function deleteSession(id) {
     if(!confirm("Diese Session wirklich dauerhaft löschen?"))return;
-    if(persist({...state,sessions:state.sessions.filter(s=>s.id!==id)})){closeDialog();toast("Session gelöscht.");}
+    if(persist({...state,sessions:state.sessions.filter(s=>s.id!==id)})){closeDialog(true);toast("Session gelöscht.");}
   }
   function exportData() {
     const payload={...state,exportedAt:new Date().toISOString()};
@@ -437,5 +448,6 @@
     }
   });
   $("editorDialog").addEventListener("click",e=>{if(e.target===$("editorDialog"))closeDialog();});
+  $("editorDialog").addEventListener("cancel",e=>{e.preventDefault();closeDialog();});
   load();render();
 })();
