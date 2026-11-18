@@ -363,23 +363,50 @@
     setTimeout(()=>URL.revokeObjectURL(url),1500);notice("Backup gespeichert.");
   }
   function mergeData(incoming){
-    const identity=p=>key(p.brand)+"|"+key(p.name)+"|"+p.quantity_g;
+    // Product identity is based on brand + variety + compatible pack size, not
+    // an ID alone: backups made on separate devices can reuse an internal ID.
+    const sameProduct=(a,b)=>key(a.brand)===key(b.brand)&&key(a.name)===key(b.name)&&
+      (a.quantity_g===b.quantity_g||!a.quantity_g||!b.quantity_g);
     const products=state.tobaccos.map(p=>({...p,barcodes:[...p.barcodes]}));
-    const ids={};
+    const productIds=new Set(products.map(p=>p.id));
+    const idMap=new Map();
+    const uniqueProductId=()=>{
+      let id;
+      do{id=uid();}while(productIds.has(id));
+      productIds.add(id);
+      return id;
+    };
     for(const item of incoming.tobaccos){
-      const match=products.find(p=>p.id===item.id)||products.find(p=>identity(p)===identity(item))||
-        products.find(p=>key(p.brand)===key(item.brand)&&key(p.name)===key(item.name)&&
-          (!p.quantity_g||!item.quantity_g));
+      const byId=products.find(p=>p.id===item.id);
+      const match=(byId&&sameProduct(byId,item)?byId:null)||
+        products.find(p=>sameProduct(p,item));
       if(match){
-        ids[item.id]=match.id;
-        // Local review is authoritative; import fills in missing ratings only.
-        if(match.review?.tolerability==null&&item.review?.tolerability!=null)match.review=item.review;
+        idMap.set(item.id,match.id);
+        // Prefer an existing local rating; imported ratings fill only blanks.
+        if(match.review?.tolerability==null&&item.review?.tolerability!=null)
+          match.review=item.review;
         match.barcodes=[...new Set([...match.barcodes,...item.barcodes])];
         if(!match.quantity_g)match.quantity_g=item.quantity_g;
-      }else{products.push(item);ids[item.id]=item.id;}
+      }else{
+        const id=productIds.has(item.id)?uniqueProductId():item.id;
+        productIds.add(id);
+        idMap.set(item.id,id);
+        products.push({...item,id});
+      }
     }
     const sessions=new Map(state.sessions.map(s=>[s.id,s]));
-    for(const entry of incoming.sessions)if(!sessions.has(entry.id))sessions.set(entry.id,{...entry,tobaccoId:ids[entry.tobaccoId]||entry.tobaccoId});
+    for(const item of incoming.sessions){
+      const entry={...item,tobaccoId:idMap.get(item.tobaccoId)||item.tobaccoId};
+      const existing=sessions.get(entry.id);
+      if(!existing){
+        sessions.set(entry.id,entry);
+      }else if(JSON.stringify(existing)!==JSON.stringify(entry)){
+        // Preserve both histories if two independent backups used the same ID.
+        let id;
+        do{id=uid();}while(sessions.has(id));
+        sessions.set(id,{...entry,id});
+      }
+    }
     return {...state,tobaccos:products,sessions:[...sessions.values()]};
   }
   async function importFile(file){
