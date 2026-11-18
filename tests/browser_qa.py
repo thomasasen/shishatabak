@@ -127,6 +127,7 @@ def search_filter_suite(browser):
     page.locator('[data-action="close-dialog"]').first.click()
     # Delete cancellation and acceptance.
     page.locator(".tobacco-card").filter(has_text="Guter Tabak").get_by_role("button",name="Bewertung bearbeiten").click()
+    page.locator(".optional-details summary").click()
     ctx.once("dialog",lambda d:d.dismiss())
     page.locator('[data-action="delete-tobacco"]').click()
     assert len(storage(page)["tobaccos"])==3
