@@ -6,8 +6,23 @@
   const VERSION = 1;
   // Curated product facts; personal records remain separate in browser storage.
   const PRODUCT_CATALOG = window.TabakCatalog?.products||[];
-  const CATALOG = [...new Map(PRODUCT_CATALOG.map(p=>[(p.brand+"|"+p.name).toLocaleLowerCase("de"),[p.brand,p.name,p.base||"Unbekannt",p.flavor||"",p.aliases||[]]])).values()];
-  const BRANDS = Array.from(new Set(CATALOG.map(x => x[0]).concat([
+  // Group distinct barcode editions of the same tobacco by name and package size.
+  // All canonical source records remain untouched in catalog.js.
+  const groupedCatalog=new Map();
+  for(const entry of PRODUCT_CATALOG){
+    const group=[entry.brand,entry.name,entry.quantity_g].join("|").toLocaleLowerCase("de");
+    const old=groupedCatalog.get(group);
+    if(!old){
+      groupedCatalog.set(group,{brand:entry.brand,name:entry.name,quantity_g:entry.quantity_g,
+        base:entry.base||"Unbekannt",flavor:entry.flavor||"",ean:entry.ean,aliases:[...(entry.aliases||[])]});
+    }else{
+      if(old.base==="Unbekannt"&&entry.base&&entry.base!=="Unbekannt")old.base=entry.base;
+      if(!old.flavor&&entry.flavor)old.flavor=entry.flavor;
+      old.aliases=[...new Set([...old.aliases,...(entry.aliases||[])])];
+    }
+  }
+  const CATALOG=[...groupedCatalog.values()].sort((a,b)=>a.brand.localeCompare(b.brand,"de")||a.name.localeCompare(b.name,"de")||a.quantity_g-b.quantity_g);
+  const BRANDS = Array.from(new Set(CATALOG.map(x => x.brand).concat([
     "Al Massiva", "Blackburn", "Darkside", "Kismet", "Must H", "True Passion",
     "Maridan", "Chaos", "Brohood", "Bad und Mad", "Start Now", "Ocean Hookah",
     "Social Smoke", "O's", "Stral", "Revoshi", "Holster", "Hookain"
@@ -38,7 +53,7 @@
     return {tabak:state.tobaccos.length,packs:state.tobaccos.reduce((sum,p)=>sum+(p.stock??1),0),sessions:state.sessions.length, symptom:symptomatic,none:state.sessions.length-symptomatic};
   }
   function uiIcon(name) {
-    const allowed=["overview","collection","sessions","insights","data","plus","barcode","search","edit","check"];
+    const allowed=["overview","collection","sessions","insights","data","plus","search","edit","check"];
     return allowed.includes(name)?'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-'+name+'"></use></svg>':"";
   }
   function badge(severity) {
@@ -64,7 +79,7 @@
     const recent=state.sessions.slice().sort((a,b)=>(b.date+b.createdAt).localeCompare(a.date+a.createdAt)).slice(0,5);
     const products=state.tobaccos.slice().sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||"")).slice(0,5);
     return caption("Deine Übersicht","Behalte deine Sammlung und persönlichen Erfahrungen im Blick.")+
-      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">Privates Journal</span><h2>Deine Sammlung im Blick.</h2><p>Verwalte deine Tabake und Packungen. Dokumentiere Geschmack und persönliche Erfahrungen nach jeder Session.</p><button type="button" class="btn btn-primary" data-action="'+(n.tabak?"add-session":"open-catalog")+'">'+uiIcon(n.tabak?"sessions":"plus")+(n.tabak?" Session erfassen":" Ersten Tabak erfassen")+'</button></div></section>'+
+      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">Privates Journal</span><h2>Deine Sammlung im Blick.</h2><p>Verwalte deine Tabake und Packungen. Dokumentiere Geschmack und persönliche Erfahrungen nach jeder Session.</p><button type="button" class="btn btn-primary" data-action="'+(n.tabak?"add-session":"add-tobacco")+'">'+uiIcon(n.tabak?"sessions":"plus")+(n.tabak?" Session erfassen":" Ersten Tabak erfassen")+'</button></div></section>'+
       '<div class="stats">'+
       stat("Sorten in Sammlung",n.tabak,"Eigene Tabake","")+
       stat("Packungen im Bestand",n.packs,"Erfasste Packungen","")+
@@ -78,14 +93,14 @@
     return '<div class="stat"><div class="stat-label"><i class="stat-indicator '+tone+'"></i>'+escapeHTML(label)+'</div><strong class="stat-value">'+value+'</strong><small>'+escapeHTML(note)+'</small></div>';
   }
   function collection() {
-    const sorted=state.tobaccos.filter(p => (filter==="all"||p.base===filter) && key([p.brand,p.name,p.flavor,(p.barcodes||[]).join(" ")].join(" ")).includes(key(query))).sort((a,b)=>pName(a).localeCompare(pName(b),"de"));
+    const sorted=state.tobaccos.filter(p => (filter==="all"||p.base===filter) && key([p.brand,p.name,p.flavor].join(" ")).includes(key(query))).sort((a,b)=>pName(a).localeCompare(pName(b),"de"));
     const packCount=state.tobaccos.reduce((sum,p)=>sum+(p.stock??1),0);
     return caption("Meine Tabake","Erfasse deine Tabake mit Packungsgröße, Anzahl und Öffnungsstatus. Alle Daten bleiben lokal.")+
       '<div class="collection-actions"><div class="collection-summary"><strong>'+state.tobaccos.length+' Sorten</strong><span> · '+packCount+' '+(packCount===1?'Packung':'Packungen')+' im Bestand</span></div>'+
-      '<div class="btn-row"><button type="button" class="btn btn-primary btn-sm" data-action="open-catalog">＋ Aus Katalog erfassen</button><button type="button" class="btn btn-secondary btn-sm" data-scan-action="open">▥ Barcode scannen</button><button type="button" class="btn btn-secondary btn-sm" data-action="add-tobacco">Manuell erfassen</button></div></div>'+
-      '<div class="toolbar"><div class="search-wrap"><input class="search" id="searchBar" type="search" placeholder="Hersteller, Sorte, Geschmack oder EAN suchen..." value="'+escapeHTML(query)+'" autocomplete="off" aria-label="Meine Tabake durchsuchen"></div><div class="filters">'+
+      '<div class="btn-row"><button type="button" class="btn btn-primary btn-sm" data-action="add-tobacco">＋ Tabak erfassen</button></div></div>'+
+      '<div class="toolbar"><div class="search-wrap"><input class="search" id="searchBar" type="search" placeholder="Hersteller, Sorte oder Geschmack suchen..." value="'+escapeHTML(query)+'" autocomplete="off" aria-label="Meine Tabake durchsuchen"></div><div class="filters">'+
       [["all","Alle"],["Virginia","Virginia"],["Dark Blend","Dark Blend"],["Unbekannt","Unbekannt"]].map(x=>'<button class="filter '+(filter===x[0]?"active":"")+'" data-filter="'+x[0]+'">'+x[1]+'</button>').join("")+'</div></div>'+
-      (sorted.length?'<div class="cards">'+sorted.map(tobaccoCard).join("")+'</div>':empty("⌕",state.tobaccos.length?"Keine Treffer":"Noch keine Tabake",state.tobaccos.length?"Versuche andere Suchbegriffe oder Filter.":"Wähle eine Sorte aus dem Produktkatalog, scanne deine Dose oder erfasse den Tabak manuell.","open-catalog","Aus Katalog erfassen"))+
+      (sorted.length?'<div class="cards">'+sorted.map(tobaccoCard).join("")+'</div>':empty("⌕",state.tobaccos.length?"Keine Treffer":"Noch keine Tabake",state.tobaccos.length?"Versuche andere Suchbegriffe oder Filter.":"Erfasse einen Tabak und übernimm die passenden Angaben aus den automatischen Katalogvorschlägen.","add-tobacco","Tabak erfassen"))+
       '<p class="smallprint">Anzahl bezeichnet vorhandene Packungen, nicht die Restmenge in Gramm. Der Öffnungsstatus bedeutet, dass mindestens eine Packung geöffnet ist. Auch Tabake mit Bestand 0 behalten ihre Sessions.</p>';
   }
   function tobaccoCard(p) {
@@ -98,37 +113,7 @@
       '<div class="card-foot"><div class="stock-actions" aria-label="Bestand ändern"><button type="button" class="icon-btn" title="Eine Packung weniger" aria-label="Bestand von '+escapeHTML(p.name)+' verringern" data-action="stock-minus" data-id="'+escapeHTML(p.id)+'" '+(stock===0?'disabled':'')+'>−</button><span aria-label="'+escapeHTML(stockLabel)+'">'+stock+'</span><button type="button" class="icon-btn" title="Eine Packung mehr" aria-label="Bestand von '+escapeHTML(p.name)+' erhöhen" data-action="stock-plus" data-id="'+escapeHTML(p.id)+'" '+(stock>=999?'disabled':'')+'>＋</button></div>'+
       '<div class="card-actions"><button class="icon-btn" title="Session erfassen" aria-label="Session für '+escapeHTML(p.name)+' erfassen" data-action="add-session" data-id="'+escapeHTML(p.id)+'">'+uiIcon("sessions")+'</button><button class="icon-btn" title="Bestand und Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">'+uiIcon("edit")+'</button></div></div></article>';
   }
-  function catalogProductOwned(entry) {
-    const ean=normalizeBarcode(entry.ean);
-    const possibleNames=[entry.name,...(entry.aliases||[])].map(key);
-    return state.tobaccos.find(p=>(p.barcodes||[]).some(c=>normalizeBarcode(c)===ean) ||
-      (key(p.brand)===key(entry.brand)&&possibleNames.includes(key(p.name))&&
-        (!(p.quantity_g>0)||p.quantity_g===entry.quantity_g)));
-  }
-  function renderCatalogPicker() {
-    const inputEl=$("catalogSearch"),target=$("catalogPickerResults");
-    if(!inputEl||!target)return;
-    const tokens=inputEl.value.trim().split(/\s+/).map(key).filter(Boolean);
-    const matches=PRODUCT_CATALOG.filter(p=>{
-      const text=key([p.brand,p.name,p.flavor||"",p.ean,...(p.aliases||[])].join(" "));
-      return tokens.every(token=>text.includes(token));
-    });
-    target.innerHTML='<p class="smallprint" role="status" aria-live="polite">'+matches.length+' Treffer'+(matches.length>25?' · erste 25 anzeigen':'')+' von '+PRODUCT_CATALOG.length+' Katalogeinträgen</p>'+
-      (matches.length?'<div class="catalog-picker-list">'+matches.slice(0,25).map(p=>{
-        const owned=catalogProductOwned(p);
-        return '<div class="catalog-picker-row"><div class="catalog-picker-info"><strong>'+escapeHTML(p.brand)+' · '+escapeHTML(p.name)+'</strong><small>'+p.quantity_g+' g · EAN '+escapeHTML(p.ean)+(p.flavor?' · '+escapeHTML(p.flavor):'')+'</small><small>Quelle: '+escapeHTML(p.source||"Unbekannt")+'</small></div>'+
-          (owned?'<button type="button" class="btn btn-secondary btn-sm" data-action="edit-tobacco" data-id="'+escapeHTML(owned.id)+'">Bereits erfasst · bearbeiten</button>':
-          '<button type="button" class="btn btn-primary btn-sm" data-action="catalog-select" data-ean="'+escapeHTML(p.ean)+'">Erfassen</button>')+'</div>';
-      }).join("")+'</div>':empty("⌕","Keine Katalogtreffer","Andere Schreibweise versuchen oder Tabak manuell erfassen."))+
-      '<div class="catalog-picker-footer"><button type="button" class="btn btn-secondary" data-action="add-tobacco">Produkt nicht gefunden? Manuell erfassen</button></div>';
-  }
-  function openCatalogPicker() {
-    dialog('<div class="dialog-head"><div><h2 id="dialogTitle">Tabak aus Katalog erfassen</h2><p>Hersteller, Sorte oder EAN suchen und anschließend deinen Bestand angeben.</p></div><button class="close-btn" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
-      '<div class="editor-form"><div class="field"><label for="catalogSearch">Produkt suchen</label><input id="catalogSearch" type="search" autocomplete="off" placeholder="z. B. AINO, Black Nana oder EAN" maxlength="160"></div>'+
-      '<div id="catalogPickerResults"></div></div>');
-    renderCatalogPicker();
-    $("catalogSearch")?.focus();
-  }
+
   function sessionsView() {
     const sorted=state.sessions.slice().sort((a,b)=>(b.date+b.createdAt).localeCompare(a.date+a.createdAt));
     return caption("Session-Tagebuch","Jede Session wird separat bewertet. So bleiben Veränderungen sichtbar.")+
@@ -407,11 +392,6 @@
     if(b.dataset.filter){filter=b.dataset.filter;render();return;}
     const action=b.dataset.action,id=b.dataset.id;
     if(action==="add-tobacco")tobaccoDialog();
-    if(action==="open-catalog")openCatalogPicker();
-    if(action==="catalog-select"){
-      const entry=PRODUCT_CATALOG.find(p=>p.ean===b.dataset.ean);
-      if(entry){const owned=catalogProductOwned(entry);if(owned)tobaccoDialog(owned.id);else tobaccoDialog(null,{...entry,barcodes:[entry.ean],stock:1,opened:false});}
-    }
     if(action==="stock-plus"||action==="stock-minus"){
       const item=productById(id);
       if(item){const current=item.stock??1,nextStock=current+(action==="stock-plus"?1:-1);
@@ -442,7 +422,6 @@
     if(e.target.id==="importFile"){const file=e.target.files&&e.target.files[0];importFile(file);e.target.value="";}
   });
   document.addEventListener("input",e=>{
-    if(e.target.id==="catalogSearch"){renderCatalogPicker();return;}
     if(e.target.id==="searchBar"){
       query=e.target.value;const pos=e.target.selectionStart;render();const replacement=$("searchBar");if(replacement){replacement.focus();replacement.setSelectionRange(pos,pos);}
     }
