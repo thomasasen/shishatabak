@@ -52,9 +52,11 @@ test("single form places five-step tolerability rating before optional taste and
   assert.match(html,/Verträglichkeit/);
   assert.match(html,/name="tolerability" value="1"/);
   assert.match(html,/name="tolerability" value="5"/);
-  assert.match(html,/Geschmack \(optional\)/);
-  assert.match(html,/Beobachtete Beschwerden \(optional\)/);
-  assert.ok(html.indexOf("rating-block")<html.indexOf("Geschmack (optional)"));
+  assert.match(html,/Weitere Angaben/);
+  assert.match(html,/<details class="optional-details"/);
+  assert.match(html,/id="ratingFeedback"/);
+  assert.match(html,/Beobachtete Beschwerden/);
+  assert.ok(html.indexOf("rating-block")<html.indexOf("Weitere Angaben"));
   assert.doesNotMatch(html,/Session erfassen|Packungen im Bestand|NOCCA Temperatur|duration/);
 });
 test("product autocomplete retains aliases and picks the correct package size",()=>{
@@ -85,13 +87,13 @@ test("same tobacco in different pack sizes can have different personal ratings",
   const s=f.read();
   assert.equal(s.tobaccos.length,2);
   assert.deepEqual(s.tobaccos.map(p=>p.review.tolerability),[2,5]);
-  assert.match(f.elements.screen.innerHTML,/Verträglichkeit 2\/5/);
-  assert.match(f.elements.screen.innerHTML,/Verträglichkeit 5\/5/);
+  assert.match(f.elements.screen.innerHTML,/Verträglichkeit: 2 von 5/);
+  assert.match(f.elements.screen.innerHTML,/Verträglichkeit: 5 von 5/);
   f.filter("good");
-  assert.match(f.elements.screen.innerHTML,/Verträglichkeit 5\/5/);
-  assert.doesNotMatch(f.elements.screen.innerHTML,/Verträglichkeit 2\/5/);
+  assert.match(f.elements.screen.innerHTML,/Verträglichkeit: 5 von 5/);
+  assert.doesNotMatch(f.elements.screen.innerHTML,/Verträglichkeit: 2 von 5/);
   f.filter("bad");
-  assert.match(f.elements.screen.innerHTML,/Verträglichkeit 2\/5/);
+  assert.match(f.elements.screen.innerHTML,/Verträglichkeit: 2 von 5/);
 });
 test("legacy Sessiondaten do not silently become an inferred general tolerability rating",()=>{
   const old={

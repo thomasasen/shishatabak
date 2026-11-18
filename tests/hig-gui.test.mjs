@@ -39,44 +39,54 @@ test("HIG semantic foreground combinations meet WCAG AA in light and dark includ
     }
   }
 });
-test("exactly two destinations, keyboard skip link and accessible add-tobacco action",()=>{
-  const tabs=[...html.matchAll(/<button[^>]+class="nav-item[^"]*"[^>]*data-view="([^"]+)"/g)];
-  assert.deepEqual(tabs.map(m=>m[1]),["collection","data"]);
+test("single-purpose header keeps Backup a utility, not a full-height tab or sidebar",()=>{
+  assert.doesNotMatch(html,/<aside|class="sidebar"|class="nav-item"|<nav class="nav"/);
+  assert.match(html,/class="topbar-brand"[^>]*data-view="collection"/);
+  assert.match(html,/class="btn btn-secondary btn-sm utility-action"[^>]*data-view="data"/);
   assert.equal((html.match(/aria-current="page"/g)||[]).length,1);
-  assert.equal((html.match(/class="nav-icon"/g)||[]).length,2);
   assert.match(html,/<a class="skip-link" href="#screen">/);
   assert.match(html,/<main id="screen" class="content" tabindex="-1"><\/main>/);
   assert.doesNotMatch(html,/<main[^>]*aria-live=/);
-  assert.doesNotMatch(html,/data-scan-action|scanner\\.js|barcodeDialog|ean-suche\\.net/);
-  assert.match(html,/data-action="add-tobacco"[^>]*aria-label="Tabak erfassen"/);
-  assert.doesNotMatch(app,/data-scan-action|openCatalogPicker|renderCatalogPicker/);
-  assert.doesNotMatch(html,/data-view="sessions"|data-view="overview"|data-view="insights"/);
+  assert.match(html,/data-action="add-tobacco"[^>]*aria-label="Tabak hinzufügen"/);
+  assert.doesNotMatch(html,/scanner\.js|barcodeDialog|data-view="sessions"|data-view="overview"|data-view="insights"/);
   assert.doesNotMatch(app,/sessionDialog\(|session-form|add-session|sessionsView\(|insightsView\(/);
 });
-test("mobile navigation is a safe-area aware bottom bar; interactive targets and focus styles exist",()=>{
-  assert.match(css,/@media\(max-width:780px\)/);
-  assert.match(css,/\.sidebar\s*\{\s*position:fixed;top:auto;bottom:0/);
-  assert.match(css,/env\(safe-area-inset-bottom\)/);
-  assert.match(css,/\.nav\s*\{display:grid;grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
-  assert.match(css,/\.topbar-actions \.btn\s*\{width:44px;height:44px/);
-  assert.match(css,/\.icon-btn\s*\{width:44px;height:44px/);
+test("mobile toolbar, five equal rating targets and sticky form actions remain accessible",()=>{
+  assert.match(css,/@media\(max-width:680px\)/);
+  assert.doesNotMatch(css,/\.sidebar\s*\{[^}]*position:fixed/s);
+  assert.match(css,/\.topbar-actions \.btn\s*\{height:44px;width:44px/);
+  assert.match(css,/\.rating-options\s*\{\s*display:grid;grid-template-columns:repeat\(5,minmax\(44px,1fr\)\)/);
+  const ratingRule=css.match(/\.rating-options\s*\{([^}]*)\}/);
+  assert.ok(ratingRule);
+  assert.doesNotMatch(ratingRule[1],/repeat\(3,/,"rating must never wrap to 3+2");
+  assert.match(css,/\.dialog-actions\s*\{[^}]*position:sticky;bottom:0/s);
   assert.match(css,/:focus-visible/);
   assert.match(css,/prefers-reduced-motion:reduce/);
   assert.match(css,/prefers-reduced-transparency:reduce/);
   assert.match(css,/prefers-contrast:more/);
   assert.match(css,/forced-colors:active/);
-  assert.match(css,/\.rating-options\s*\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(app,/name="tolerability"/);
+  assert.match(app,/name="tolerability"[^>]*aria-label=/);
+  assert.match(app,/class="optional-details"/);
+  assert.match(app,/id="ratingFeedback"/);
 });
-test("content surfaces stay solid; only floating navigation has optional blur",()=>{
+test("content surfaces stay solid and blurred material appears only in functional toolbar",()=>{
   assert.match(css,/\.topbar\s*\{[^}]*backdrop-filter:/s);
-  assert.match(css,/\.sidebar\s*\{[^}]*backdrop-filter:/s);
-  for(const selector of [".hero",".tobacco-card",".panel",".stat",".data-tile"]){
+  for(const selector of [".tobacco-card",".rating-summary"]){
     const start=css.indexOf(selector+"{");
-    assert.notEqual(start,-1);
+    assert.notEqual(start,-1,"missing "+selector);
     const block=css.slice(start,css.indexOf("}",start));
-    assert.doesNotMatch(block,/backdrop-filter|rgba\(/,"content glass prohibited: "+selector);
+    assert.doesNotMatch(block,/backdrop-filter/,"content blur prohibited: "+selector);
   }
+  const grouped=css.match(/\.panel,\.data-tile\s*\{([^}]*)\}/);
+  assert.ok(grouped,"shared content surfaces rule must exist");
+  assert.doesNotMatch(grouped[1],/backdrop-filter/);
+});
+test("search updates only the results instead of replacing the live input node",()=>{
+  assert.match(app,/function refreshCollectionResults\(\)/);
+  assert.match(app,/results\.innerHTML=collectionCards\(products\)/);
+  assert.match(app,/query=event\.target\.value;\s*refreshCollectionResults\(\)/);
+  assert.match(app,/filter=el\.dataset\.filter;refreshCollectionResults\(\)/);
 });
 test("dialog dismissal protects unsaved data and screen changes update accessible current page",()=>{
   assert.match(app,/function snapshot\(\)/);

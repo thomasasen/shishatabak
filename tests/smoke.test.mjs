@@ -75,7 +75,7 @@ test("a single rating per tobacco saves tolerability first, optional taste, symp
   assert.equal(s.tobaccos[0].review.notes,"Nach kurzer Zeit Schwindel");
   assert.equal(s.sessions.length,0);
   const reopened=fixture(s);
-  assert.match(reopened.get("screen").innerHTML,/Verträglichkeit 4\/5/);
+  assert.match(reopened.get("screen").innerHTML,/Verträglichkeit: 4 von 5/);
   assert.match(reopened.get("screen").innerHTML,/Schwindel/);
   const id=s.tobaccos[0].id;
   reopened.submit(product({id,tolerability:"5",taste:"",symptom:[],review_notes:"Jetzt gut verträglich"}));
@@ -86,6 +86,18 @@ test("a single rating per tobacco saves tolerability first, optional taste, symp
   assert.equal(s.tobaccos[0].review.taste,null);
   assert.equal(s.tobaccos[0].review.notes,"Jetzt gut verträglich");
 });
+test("search keeps the main view stable while only results update",()=>{
+  const app=fixture();
+  app.submit(product({tolerability:"4",symptom:[]}));
+  const before=app.get("screen").innerHTML;
+  app.listeners.input({target:{id:"searchBar",value:"NichtsGefunden"}});
+  assert.equal(app.get("screen").innerHTML,before,"typing must not rebuild the input or page");
+  assert.match(app.get("collectionResults").innerHTML,/Keine passenden Tabake/);
+  assert.match(app.get("resultsStatus").textContent,/0 Sorten/);
+  app.listeners.input({target:{id:"searchBar",value:"Hookain"}});
+  assert.match(app.get("collectionResults").innerHTML,/White Caek/);
+});
+
 test("tolerability score must be explicitly chosen and in the 1–5 range",()=>{
   const app=fixture();
   app.submit(product({tolerability:""}));
