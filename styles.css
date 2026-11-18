@@ -495,3 +495,5 @@ svg{display:block}
 
 .privacy-note{font-size:14px;line-height:1.75;color:var(--text-secondary);margin-top:0}
 @media(pointer:coarse){.scan-range input{min-height:44px}}
+
+.scan-error:not(:empty){margin-top:15px;padding:12px 14px;border-radius:12px;background:var(--danger-bg);color:var(--danger);font-size:14px;font-weight:600;line-height:1.5}
