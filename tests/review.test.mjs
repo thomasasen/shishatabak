@@ -42,7 +42,8 @@ function fixture(savedValue=null){
     elements,events,read(){return saved?JSON.parse(saved):null;},
     click(action,extras={}){const target={dataset:{action,...extras},closest(){return this;}};events.click({target});},
     filter(value){const target={dataset:{filter:value},closest(){return this;}};events.click({target});},
-    submit(data){events.submit({target:{id:"tobacco-form",data},preventDefault(){}});}
+    submit(data){const values={...data,tobacco_id:data.tobacco_id??data.id??""};delete values.id;
+      events.submit({target:{id:"tobacco-form",getAttribute(name){return name==="id"?"tobacco-form":null;},data:values},preventDefault(){}});}
   };
 }
 test("single form places five-step tolerability rating before optional taste and symptoms",()=>{
