@@ -1,5 +1,7 @@
 # Apple-HIG-Red-Team: Tabakjournal (18.11.2026)
 
+> **Historisches Designprotokoll.** Die nachfolgend beschriebenen fünf Navigationsbereiche, Sessions und Bestandsfunktionen wurden später bewusst entfernt. Aktueller Stand: **Meine Tabake** und **Backup**, mit einer persönlichen **Verträglichkeitsbewertung je Tabak**. Kontrast- und Barrierefreiheitsprinzipien gelten weiter; der neue Bewertungsdialog ist mit zusätzlichen Regressionstests abgesichert.
+
 ## Gegenstand und Einordnung
 
 **Plattform:** statische, lokal speichernde Webapp für Smartphone und Desktop (GitHub Pages, HTML/CSS/JavaScript), keine native iOS- oder macOS-App.

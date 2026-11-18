@@ -39,23 +39,25 @@ test("HIG semantic foreground combinations meet WCAG AA in light and dark includ
     }
   }
 });
-test("exactly five tab destinations, keyboard skip link and accessible add-tobacco action",()=>{
+test("exactly two destinations, keyboard skip link and accessible add-tobacco action",()=>{
   const tabs=[...html.matchAll(/<button[^>]+class="nav-item[^"]*"[^>]*data-view="([^"]+)"/g)];
-  assert.deepEqual(tabs.map(m=>m[1]),["overview","collection","sessions","insights","data"]);
+  assert.deepEqual(tabs.map(m=>m[1]),["collection","data"]);
   assert.equal((html.match(/aria-current="page"/g)||[]).length,1);
-  assert.equal((html.match(/class="nav-icon"/g)||[]).length,5);
+  assert.equal((html.match(/class="nav-icon"/g)||[]).length,2);
   assert.match(html,/<a class="skip-link" href="#screen">/);
   assert.match(html,/<main id="screen" class="content" tabindex="-1"><\/main>/);
   assert.doesNotMatch(html,/<main[^>]*aria-live=/);
   assert.doesNotMatch(html,/data-scan-action|scanner\\.js|barcodeDialog|ean-suche\\.net/);
   assert.match(html,/data-action="add-tobacco"[^>]*aria-label="Tabak erfassen"/);
   assert.doesNotMatch(app,/data-scan-action|openCatalogPicker|renderCatalogPicker/);
+  assert.doesNotMatch(html,/data-view="sessions"|data-view="overview"|data-view="insights"/);
+  assert.doesNotMatch(app,/sessionDialog\(|session-form|add-session|sessionsView\(|insightsView\(/);
 });
 test("mobile navigation is a safe-area aware bottom bar; interactive targets and focus styles exist",()=>{
   assert.match(css,/@media\(max-width:780px\)/);
   assert.match(css,/\.sidebar\s*\{\s*position:fixed;top:auto;bottom:0/);
   assert.match(css,/env\(safe-area-inset-bottom\)/);
-  assert.match(css,/\.nav\s*\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+  assert.match(css,/\.nav\s*\{display:grid;grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(css,/\.topbar-actions \.btn\s*\{width:44px;height:44px/);
   assert.match(css,/\.icon-btn\s*\{width:44px;height:44px/);
   assert.match(css,/:focus-visible/);
@@ -63,6 +65,8 @@ test("mobile navigation is a safe-area aware bottom bar; interactive targets and
   assert.match(css,/prefers-reduced-transparency:reduce/);
   assert.match(css,/prefers-contrast:more/);
   assert.match(css,/forced-colors:active/);
+  assert.match(css,/\.rating-options\s*\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+  assert.match(app,/name="tolerability"/);
 });
 test("content surfaces stay solid; only floating navigation has optional blur",()=>{
   assert.match(css,/\.topbar\s*\{[^}]*backdrop-filter:/s);
@@ -75,9 +79,9 @@ test("content surfaces stay solid; only floating navigation has optional blur",(
   }
 });
 test("dialog dismissal protects unsaved data and screen changes update accessible current page",()=>{
-  assert.match(app,/function formSnapshot\(\)/);
-  assert.match(app,/Ungespeicherte Eingaben verwerfen/);
-  assert.match(app,/addEventListener\("cancel",e=>\{e\.preventDefault\(\);closeDialog\(\)/);
+  assert.match(app,/function snapshot\(\)/);
+  assert.match(app,/Ungespeicherte Änderungen verwerfen/);
+  assert.match(app,/addEventListener\("cancel",(?:event|e)=>\{(?:event|e)\.preventDefault\(\);closeDialog\(\)/);
   assert.match(app,/setAttribute\?\.\("aria-current","page"\)/);
   assert.match(app,/removeAttribute\?\.\("aria-current"\)/);
   assert.match(app,/focus\?\.\(\{preventScroll:true\}\)/);

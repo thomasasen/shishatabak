@@ -1,59 +1,68 @@
-# Tabakjournal
+# Tabakjournal – Verträglichkeit meiner Tabake
 
-Private Webapp zur Verwaltung der eigenen Shisha-Tabake, des Packungsbestands und persönlicher Session-Notizen. Sie läuft ohne Benutzerkonto und speichert die persönliche Sammlung ausschließlich im Browser.
+Eine kleine, private Webapp, in der du **jeden Tabak genau einmal bewertest**. Das wichtigste Kriterium ist die **persönliche Verträglichkeit**.
 
-**Webapp:** https://thomasasen.github.io/shishatabak/
+**App:** https://thomasasen.github.io/shishatabak/
 
-## Funktionen
+## Das kann die App
 
-- **Meine Tabake:** Tabak erfassen, bearbeiten, löschen und nach Hersteller, Sorte oder Geschmack suchen.
-- **Automatische Produktvorschläge:** Beim Eingeben von Hersteller oder Sorte schlägt die App passende Einträge aus dem bestehenden Produktkatalog vor. Ein Klick übernimmt **Hersteller, Sorte, Packungsgröße sowie bekannte Grundtabak- und Geschmacksangaben**. Das Formular bleibt frei bearbeitbar; nicht gefundene Sorten lassen sich manuell anlegen.
-- **Packungsbestand:** Anzahl, Packungsgröße und Öffnungsstatus erfassen; Bestand über +/− ändern. Ein Bestand von null löscht keine Sessions.
-- **Sessions:** Datum, Geschmack, Beschwerden, Dauer, NOCCA-Temperatur, Kopf und Notizen dokumentieren.
-- **Übersicht und Auswertung:** Persönliche Sammlung, vergangene Sessions und deren Auswertungen.
-- **Backup:** JSON-Export und validierter Import als Zusammenführen oder Ersetzen. Auch ältere Version-1-Backups sind kompatibel.
+- **Tabak hinzufügen:** Hersteller und Sorte eingeben. Die automatische Vervollständigung nutzt den vorhandenen lokalen Produktkatalog mit 994 GTIN-Einträgen (878 zusammengefasste Sorten-/Packungsgrößen-Varianten). Ein Treffer übernimmt Hersteller, Sorte, Packungsgröße und verfügbare Angaben zu Grundtabak und Geschmacksrichtung.
+- **Verträglichkeit bewerten:** Pro Tabak eine dauerhafte Einschätzung von **1 (sehr schlecht)** bis **5 (sehr gut)**. Sie ist die Hauptinformation jeder Tabakkarte.
+- **Optionale Details:** Geschmack von 1 bis 5, beobachtete Beschwerden (Schwindel, Übelkeit, Kopfschmerzen, Herzrasen, andere Beschwerden) und eine freie Notiz.
+- **Bearbeiten und vergleichen:** Eine Bewertung später korrigieren oder aktualisieren; Suche und Filter für gut verträgliche, schlecht verträgliche und noch nicht bewertete Tabake.
+- **Backup:** Persönliche Daten als JSON exportieren, importieren, zusammenführen oder ersetzen. Keine Anmeldung, kein Backend und keine Cloud-Synchronisation.
 
-**Bewusste Vereinfachung:** Die App hat **keinen Barcode-Scanner**, keinen Zugriff auf die Kamera, keine Fotoerkennung und keine externe EAN-Namensabfrage. Es gibt nur noch einen Ablauf zum Erfassen eines Tabaks mit automatischen Katalogvorschlägen. Der bestehende Produktkatalog bleibt unverändert.
+**Bewusst entfernt:** Session-Tagebuch und Session-Auswertungen, die Bestandsverwaltung als sichtbare Funktion, Barcode-/Kameraerkennung und externe EAN-Abfragen. Es gibt nur die beiden Bereiche **Meine Tabake** und **Backup**.
+
+## Bewertungsprinzip
+
+Die Verträglichkeitsbewertung beschreibt die persönliche Gesamteinschätzung einer Sorte. Sie wird **nicht aus einer früheren Session oder aus dem Symptomfeld abgeleitet**. Bei nicht bewerteten Altbeständen erscheint „Noch nicht bewertet“, bis du selbst eine Bewertung vergibst.
+
+| Wert | Verträglichkeit |
+| --- | --- |
+| 1 | Sehr schlecht |
+| 2 | Schlecht |
+| 3 | Mittel |
+| 4 | Gut |
+| 5 | Sehr gut |
+
+Geschmacksbewertung, Symptome und Notiz sind optional. Aus subjektiven Notizen lassen sich keine sicheren medizinischen Ursachen ableiten. Bei Beschwerden den Konsum beenden und wiederkehrende Symptome ärztlich abklären.
+
+## Alte Daten und Backups
+
+Das bisherige lokale Speicherformat `tabakjournal:v1` und ältere JSON-Dateien bleiben gültig. Bestehende **Tabake und Produktkennungen** werden übernommen. Frühere **Bestandswerte und Sessioneinträge** bleiben intern bzw. im JSON-Backup erhalten, obwohl die Oberfläche keine Sessions oder Packungsverwaltung mehr anbietet. Historische Sessionbewertungen werden nicht automatisch in die neue Gesamtnote umgerechnet.
+
+Die neue Einzelbewertung wird pro Tabak als `review` gespeichert:
+
+```json
+{
+  "tolerability": 4,
+  "taste": 3,
+  "symptoms": ["Kopfschmerzen"],
+  "notes": "Meine persönliche Einschätzung",
+  "updatedAt": "2026-11-18T15:30:00.000Z"
+}
+```
+
+Beim **Zusammenführen** hat eine bereits vorhandene lokale Bewertung Vorrang. Importierte Bewertungen füllen lediglich noch nicht bewertete Einträge. Beim **Ersetzen** wird die gesamte lokale Sammlung durch die Backup-Datei ersetzt. Das Löschen eines Tabaks entfernt auch dessen früher zugeordnete Daten, worauf vorher hingewiesen wird. Exportiere deshalb vor Änderungen ein Backup.
 
 ## Produktkatalog
 
-Die kanonische Datei [catalog/products.json](catalog/products.json) enthält **994 eindeutige, quellenverknüpfte GTIN-Datensätze** aus **71 Marken beziehungsweise Produktlinien** (Stand 18.11.2026). [catalog.js](catalog.js) ist die generierte Browserfassung. Mehrere GTIN-Ausgaben derselben Sorte und Packungsgröße erscheinen in der Eingabe **nur als ein Vorschlag**. Unterschiedliche Packungsgrößen bleiben getrennt auswählbar.
+[Der Produktkatalog](catalog/products.json) enthält weiterhin 994 eindeutige, quellenverknüpfte GTINs aus 71 Marken beziehungsweise Produktlinien. Die Browserdatei [catalog.js](catalog.js) wird daraus erzeugt. Die Produktsuche läuft ausschließlich lokal und benötigt keine Kamera, keinen Barcode-Scanner und keine Online-API. Für nicht im Katalog enthaltene Sorten ist eine freie Eingabe möglich.
 
-Unbekannte Daten werden nicht geraten. Wenn Grundtabak oder Geschmacksprofil nicht belegt sind, bleiben diese Angaben unverifiziert beziehungsweise leer. Die Produktvorschläge werden vollständig aus dem bereits geladenen Katalog gebildet; das Tippen löst **keine externen Webanfragen** aus.
-
-Die Python-Skripte unter [scripts](scripts) dienen ausschließlich der **separaten Katalogpflege** und den Importprüfungen, nicht der laufenden Produkterkennung in der Webapp. Die konservative Prüfung neuer GTINs verhindert doppelte Katalogeinträge. Dokumentation: [Shop-Exporter](docs/shisha-ean-export.md), [Importbericht](catalog/shisha-shop-import-report.json), [Qualitätsprüfung](catalog/audit-report.json).
-
-## Speicherung und Datenschutz
-
-- Alle persönlichen Tabake und Sessions werden unter `tabakjournal:v1` in `localStorage` gespeichert.
-- Bestehende Einträge und Backups behalten ihre früher erfassten Produktkennungen intern. Die frühere Barcode-Bedienoberfläche ist entfernt. Alte Produktdaten werden dadurch nicht unbemerkt gelöscht.
-- Beim Bearbeiten einer Sorte oder Packungsgröße kann die bisherige interne Produktkennung durch eine neu gewählte Katalogzuordnung ersetzt werden. Packungsbestand und Sessions bleiben mit der persönlichen Eintrags-ID verknüpft.
-- Es gibt weder Synchronisation zwischen Geräten noch ein Benutzerkonto. Browserdaten können gelöscht werden; **regelmäßig JSON-Backups exportieren**.
-- Der Katalog wird statisch geladen. Er erfordert keine Freigabe von Kamera oder Mikrofon.
-- Session-Protokolle dienen der persönlichen Dokumentation, nicht der medizinischen Diagnose.
-
-## Bedienung
-
-1. **Meine Tabake → Tabak erfassen** öffnen.
-2. Hersteller oder Sorte eingeben. Passenden Vorschlag mit der richtigen Packungsgröße auswählen.
-3. Bei Bedarf Angaben ergänzen, Bestand und Öffnungsstatus eintragen und **Tabak speichern** wählen.
-4. Optional eine Session erfassen. Die Bestandszahl kann direkt in der Sammlung geändert werden.
+Die Skripte unter [scripts](scripts) dienen nur der **separaten Pflege des Datenbestands** und sind kein Teil der Bedienoberfläche. Details stehen in den [Katalog-Auditdaten](catalog/audit-report.json) und dem [Importbericht](catalog/shisha-shop-import-report.json).
 
 ## Oberfläche
 
-Die responsive Weboberfläche orientiert sich an grundlegenden Prinzipien der Apple Human Interface Guidelines: klare Navigation, Systemtypografie, Hell-/Dunkelmodus und barrierearme Bedienung. Die App ist **keine native Apple-App**. Das [Design-Red-Team-Protokoll](docs/apple-hig-red-team.md) dokumentiert die Gestaltung. Die dort erwähnte frühere Scannerfunktion wurde mit der Vereinfachung entfernt.
+Das responsive Design orientiert sich an den Apple Human Interface Guidelines, setzt deren Grundprinzipien aber mit HTML/CSS und Browserstandards um. Hell-/Dunkelmodus, Tastaturfokus, reduzierte Animationen und die zugängliche Bewertungssteuerung bleiben vorhanden. Die Webapp beansprucht keine nativen Apple-Oberflächenelemente.
 
-## Lokal entwickeln
-
-Es handelt sich um eine statische Anwendung ohne App-Build und ohne Server-Backend:
+## Lokal starten und testen
 
 ```bash
 python -m http.server 8000
 ```
 
-Danach http://localhost:8000 öffnen. Bei GitHub Pages muss `main` als Deployment-Branch mit Ordner `/(root)` eingerichtet sein.
-
-**Prüfungen:**
+Danach http://localhost:8000 öffnen. Für GitHub Pages kann die App direkt aus dem Root des Branches `main` veröffentlicht werden.
 
 ```bash
 node --check app.js
@@ -62,4 +71,4 @@ node --test tests/*.test.mjs
 python -m scripts.audit_catalog
 ```
 
-Die Katalog-Pipelines in `scripts/` besitzen eigene Python-Tests. GitHub Actions führt die vorgesehenen Prüfungen bei jedem Pull Request durch.
+GitHub Actions führt außerdem die bestehenden Import- und Katalogtests aus.
