@@ -55,7 +55,7 @@
     --text-secondary:#C0C0CA;
     --text-tertiary:#A9A9B5;
     --accent:#7FB7FF;
-    --accent-pressed:#A5CDFF;
+    --accent-pressed:#1653AA;
     --accent-soft:#1D3554;
     --primary-bg:#1B5DB9;
     --primary-text:#FFFFFF;
@@ -392,7 +392,7 @@ svg{display:block}
   .topbar{min-height:65px;padding:9px 16px;gap:10px}
   .topbar-left #currentSection{font-size:16px}
   .topbar-actions .save-state{display:none}
-  .topbar-actions .btn{width:42px;height:42px;min-width:42px;min-height:42px;border-radius:13px;padding:8px;gap:0}
+  .topbar-actions .btn{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:13px;padding:8px;gap:0}
   .topbar-actions .action-label{display:none}
   .topbar-actions .btn .ui-icon{width:21px;height:21px}
   .content{padding:28px 18px calc(104px + env(safe-area-inset-bottom));}
@@ -407,7 +407,7 @@ svg{display:block}
   .stat{padding:19px 16px}
   .stat .stat-value{font-size:31px}
   .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .filter{min-height:43px}
+  .filter{min-height:44px}
   .search{min-height:48px}
   .collection-actions{padding:17px}
   .collection-actions .btn-row{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -418,9 +418,14 @@ svg{display:block}
     border-radius:23px 23px 0 0;border-bottom:0;
     padding-bottom:env(safe-area-inset-bottom);
   }
-  .editor-dialog::before{content:"";display:block;width:38px;height:5px;border-radius:10px;background:var(--border);margin:10px auto 0}
+  /* A browser dialog is not a draggable native sheet: no misleading grabber. */
   .dialog-head{padding:15px 18px 16px}
   .dialog-head h2{font-size:22px}
+  .close-btn{width:44px;height:44px;flex-basis:44px}
+  .btn-sm{min-height:44px}
+  .segmented label{min-height:44px}
+  .smallprint,.tag,.field-help,.scan-feature-hint{font-size:14px}
+  .nav-item{font-size:14px}
   .editor-form{padding:20px 18px 24px}
   .dialog-actions .btn{flex:1 1 135px}
   .toast{left:14px;right:14px;bottom:calc(80px + env(safe-area-inset-bottom));max-width:none;text-align:center}
@@ -447,7 +452,7 @@ svg{display:block}
   .bar-row{grid-template-columns:minmax(75px,110px) 1fr 40px;gap:8px}
 }
 @media(max-width:370px){
-  .nav-item{font-size:11.5px}
+  .nav-item{font-size:13.5px}
   .nav-icon{width:31px}
   .topbar-left #currentSection{font-size:15px}
   .topbar-actions{gap:6px}
@@ -477,3 +482,8 @@ svg{display:block}
   .tag,.status{border:1px solid CanvasText}
   .stat-indicator,.live-dot{background:CanvasText}
 }
+
+/* Keyboard navigation and touch-action refinements identified in red-team audit. */
+.skip-link{position:fixed;top:12px;left:12px;z-index:200;background:var(--surface);color:var(--text);padding:12px 16px;border:2px solid var(--focus);border-radius:10px;transform:translateY(-160%);font-weight:700}
+.skip-link:focus{transform:translateY(0)}
+@media (pointer:coarse){.btn,.btn-sm,.filter,.icon-btn,.close-btn,.catalog-result{min-height:44px}.icon-btn,.close-btn{min-width:44px}}
