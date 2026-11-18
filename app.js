@@ -213,7 +213,6 @@
       '<button class="btn btn-danger" data-action="clear-all">Alle Daten löschen</button></div>';
   }
   function render(){
-    $("currentSection").textContent=view==="collection"?"Meine Tabake":"Backup";
     $("saveStatus").textContent=storageError||"Lokal gespeichert";
     $("saveStatus").classList.toggle("error",!!storageError);
     document.querySelectorAll(".topbar [data-view]").forEach(el=>{
