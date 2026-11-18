@@ -24,21 +24,20 @@
   </svg>
   <a class="skip-link" href="#screen">Zum Inhalt springen</a>
   <div class="app-shell">
-    <aside class="sidebar" aria-label="App-Navigation">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">T<span>.</span></span><span><strong>Tabakjournal</strong><small>Deine Sammlung</small></span></div>
-      <div class="side-caption">Bereiche</div>
-      <nav class="nav" aria-label="Hauptnavigation">
-        <button type="button" class="nav-item is-active" aria-current="page" data-view="collection" aria-label="Meine Tabake"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-collection"/></svg></span><span class="nav-label"><span class="nav-label-full">Meine Tabake</span><span class="nav-label-short">Tabake</span></span></button>
-        <button type="button" class="nav-item" data-view="data" aria-label="Daten und Backup"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-data"/></svg></span><span class="nav-label"><span class="nav-label-full">Backup</span><span class="nav-label-short">Backup</span></span></button>
-      </nav>
-      <div class="sidebar-bottom"><p>Deine Bewertungen werden lokal gespeichert.</p></div>
-    </aside>
     <div class="main-wrap">
       <header class="topbar">
-        <div class="topbar-left"><span id="currentSection">Meine Tabake</span></div>
+        <button type="button" class="topbar-brand" data-view="collection" aria-current="page" aria-label="Meine Tabake öffnen">
+          <span class="brand-mark" aria-hidden="true">T<span>.</span></span>
+          <span class="brand-text">Tabakjournal</span>
+        </button>
         <div class="topbar-actions">
           <span class="save-state" id="saveStatus" role="status" aria-live="polite">Lokal gespeichert</span>
-          <button class="btn btn-primary btn-sm" type="button" data-action="add-tobacco" title="Tabak erfassen" aria-label="Tabak erfassen"><svg class="ui-icon" aria-hidden="true"><use href="#i-plus"/></svg><span class="action-label">Tabak erfassen</span></button>
+          <button class="btn btn-secondary btn-sm utility-action" type="button" data-view="data" aria-label="Backup verwalten" title="Backup verwalten">
+            <svg class="ui-icon" aria-hidden="true"><use href="#i-data"/></svg><span class="action-label">Backup</span>
+          </button>
+          <button class="btn btn-primary btn-sm" type="button" data-action="add-tobacco" title="Tabak hinzufügen" aria-label="Tabak hinzufügen">
+            <svg class="ui-icon" aria-hidden="true"><use href="#i-plus"/></svg><span class="action-label">Tabak hinzufügen</span>
+          </button>
         </div>
       </header>
       <main id="screen" class="content" tabindex="-1"></main>
