@@ -257,7 +257,7 @@
       '<button class="close-btn" type="button" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
       '<form class="editor-form" id="tobacco-form">'+
       '<div class="fields">'+
-      input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120" autocomplete="organization"')+
+      input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120" autocomplete="off"')+
       '<datalist id="brandList">'+BRANDS.map(b=>'<option value="'+escapeHTML(b)+'"></option>').join("")+'</datalist>'+
       input("name","Sorte *",p?.name||"","z. B. White Caek",true,"text",'maxlength="160" autocomplete="off"')+
       '<p class="field-help">Während der Eingabe erscheinen passende Produkte aus dem Katalog.</p>'+
@@ -301,6 +301,8 @@
       if(!b&&!n){results.innerHTML="";return;}
       const matches=CATALOG.filter(p=>(!b||key(p.brand).includes(b))&&
         (!n||[p.name,...p.aliases].some(label=>key(label).includes(n)))).slice(0,8);
+      const status=$("catalogSelection");
+      if(status)status.textContent=matches.length?matches.length+" Produktvorschläge. Mit Tab auswählen.":"Kein Katalogtreffer. Du kannst den Tabak manuell eintragen.";
       results.innerHTML=matches.map(p=>'<button type="button" class="catalog-result" data-action="choose-suggestion" data-index="'+CATALOG.indexOf(p)+'">'+
         '<span><strong>'+escapeHTML(p.brand)+'</strong> · '+escapeHTML(p.name)+'</span><small>'+
         escapeHTML([p.quantity_g+" g",p.base!=="Unbekannt"?p.base:"",p.flavor].filter(Boolean).join(" · "))+'</small></button>').join("");
