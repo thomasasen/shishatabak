@@ -200,7 +200,13 @@
     });
   }
   function dataView(){
-    if(!state)return '<header class="page-head"><h1>Backup</h1></header><div class="hint warning">Bestehende Browserdaten konnten nicht gelesen werden. Diese Anwendung schreibt deshalb keine neuen Daten, um sie nicht zu überschreiben.</div>';
+    if(!state)return '<header class="page-head"><h1>Backup wiederherstellen</h1><p>Deine gespeicherten Daten konnten nicht gelesen werden. Sie wurden nicht verändert.</p></header>'+
+      '<div class="hint warning">Sichere zuerst die unveränderten Rohdaten, bevor du ein gültiges Backup einspielst. Zusammenführen ist nicht möglich, solange der vorhandene Speicher beschädigt ist.</div>'+
+      '<div class="data-grid"><section class="data-tile"><h3>Vorhandene Rohdaten sichern</h3><p>Speichert die ursprünglichen Browserdaten als Textdatei, damit du sie später prüfen oder retten kannst.</p>'+
+      button("Rohdaten herunterladen","export-raw")+'</section>'+
+      '<section class="data-tile"><h3>Gültiges Backup wiederherstellen</h3><p>Ersetzt die nicht lesbaren Browserdaten erst nach ausdrücklicher Bestätigung durch ein geprüftes JSON-Backup.</p>'+
+      '<button class="btn btn-primary" type="button" data-action="import-replace">JSON-Backup auswählen</button>'+
+      '<input id="importFile" type="file" accept=".json,application/json" hidden></section></div>';
     return '<header class="page-head"><div><h1>Backup</h1><p>Deine Bewertungen bleiben auf diesem Gerät. Sichere sie regelmäßig als JSON-Datei.</p></div></header>'+
       '<div class="data-grid">'+
       '<section class="data-tile"><h3>Sicherung erstellen</h3><p>Exportiert '+state.tobaccos.length+' Tabake mit Bewertungen und alle bisherigen Daten. Historische Sessions bleiben im Backup erhalten, werden aber nicht mehr in der App angezeigt.</p>'+
@@ -353,6 +359,18 @@
     const next={...state,tobaccos:state.tobaccos.filter(p=>p.id!==id),sessions:state.sessions.filter(s=>s.tobaccoId!==id)};
     if(persist(next)){closeDialog(true);notice("Tabak gelöscht.");}
   }
+  function exportRawData(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(!raw){notice("Keine Rohdaten im lokalen Speicher vorhanden.",true);return;}
+      const blob=new Blob([raw],{type:"text/plain;charset=utf-8"});
+      const url=URL.createObjectURL(blob),anchor=document.createElement("a");
+      anchor.href=url;anchor.download="tabakjournal-rohdaten-"+localDate()+".txt";
+      document.body.append(anchor);anchor.click();anchor.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+      notice("Unveränderte Rohdaten als Datei gesichert.");
+    }catch(error){notice("Rohdaten konnten nicht exportiert werden: "+error.message,true);}
+  }
   function exportData(){
     if(!state)return;
     const payload={...state,exportedAt:new Date().toISOString()};
@@ -410,11 +428,12 @@
     return {...state,tobaccos:products,sessions:[...sessions.values()]};
   }
   async function importFile(file){
-    if(!state||!file)return;
+    if(!file)return;
     if(file.size>8*1024*1024){notice("Backup darf höchstens 8 MB groß sein.",true);return;}
     try{
       const incoming=validate(JSON.parse(await file.text()));
       if(importMode==="replace"&&!confirm("Alle eigenen Bewertungen und gespeicherten Daten durch den Inhalt des Backups ersetzen?"))return;
+      if(!state&&importMode!=="replace")throw new Error("Beschädigte Daten können nur durch ein gültiges Backup ersetzt werden.");
       const next=importMode==="replace"?incoming:mergeData(incoming);
       if(persist(next)){notice("Backup erfolgreich importiert.");setView("data");}
     }catch(error){notice("Import nicht möglich: "+error.message,true);}
@@ -488,6 +507,7 @@
     }
     if(action==="delete-tobacco")deleteTobacco(id);
     if(action==="export")exportData();
+    if(action==="export-raw")exportRawData();
     if(action==="import-merge"||action==="import-replace"){importMode=action==="import-merge"?"merge":"replace";$("importFile")?.click();}
     if(action==="clear-all"){
       if(!state)return;
