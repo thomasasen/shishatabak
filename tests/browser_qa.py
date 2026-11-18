@@ -235,7 +235,6 @@ def damaged_storage_suite(browser):
         page.locator('[data-action="export-raw"]').click()
     assert Path(dl.value.path()).read_text(encoding="utf-8")==raw
     # A second corrupt import must NOT delete the existing raw bytes.
-    ctx.once("dialog",lambda d:d.accept())
     page.locator('[data-action="import-replace"]').click()
     page.locator("#importFile").set_input_files({
         "name":"bad.json","mimeType":"application/json","buffer":b"BAD INPUT"
