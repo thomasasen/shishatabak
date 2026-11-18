@@ -345,19 +345,32 @@
     const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="tabakjournal-backup-"+localDate()+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast("Backup erstellt. Datei sicher aufbewahren.");
   }
   function mergeData(incoming) {
-    const productMap=new Map(state.tobaccos.map(p=>[key(p.brand)+"|"+key(p.name),p.id]));
-    const rekey={};
-    const products=state.tobaccos.slice();
+    const productKey=p=>key(p.brand)+"|"+key(p.name)+"|"+(p.quantity_g||0);
+    const productMap=new Map(state.tobaccos.map(p=>[productKey(p),p.id]));
+    const rekey={},products=state.tobaccos.slice();
     for(const p of incoming.tobaccos){
-      const productKey=key(p.brand)+"|"+key(p.name);
       const byId=products.findIndex(x=>x.id===p.id);
-      const matched=productMap.get(productKey);
-      if(byId>=0){products[byId]={...p,barcodes:[...new Set([...(products[byId].barcodes||[]),...(p.barcodes||[])])]};rekey[p.id]=p.id;productMap.set(productKey,p.id);}
-      else if(matched){rekey[p.id]=matched;const i=products.findIndex(x=>x.id===matched);products[i]={...products[i],barcodes:[...new Set([...(products[i].barcodes||[]),...(p.barcodes||[])])]};}
-      else {products.push(p);productMap.set(productKey,p.id);rekey[p.id]=p.id;}
+      const matched=productMap.get(productKey(p)) ||
+        products.find(x=>key(x.brand)===key(p.brand)&&key(x.name)===key(p.name)&&((x.quantity_g||0)===0||(p.quantity_g||0)===0))?.id;
+      if(byId>=0){
+        const prior=products[byId];
+        products[byId]={...p,quantity_g:p.quantity_g||prior.quantity_g||0,
+          stock:Math.max(prior.stock??1,p.stock??1),opened:prior.opened||p.opened,
+          barcodes:[...new Set([...(prior.barcodes||[]),...(p.barcodes||[])])]};
+        rekey[p.id]=p.id;productMap.set(productKey(products[byId]),p.id);
+      }else if(matched){
+        rekey[p.id]=matched;
+        const idx=products.findIndex(x=>x.id===matched),prior=products[idx];
+        products[idx]={...prior,quantity_g:prior.quantity_g||p.quantity_g||0,
+          stock:Math.max(prior.stock??1,p.stock??1),opened:prior.opened||p.opened,
+          barcodes:[...new Set([...(prior.barcodes||[]),...(p.barcodes||[])])]};
+        productMap.set(productKey(products[idx]),matched);
+      }else{
+        products.push(p);productMap.set(productKey(p),p.id);rekey[p.id]=p.id;
+      }
     }
     const oldSessions=new Map(state.sessions.map(s=>[s.id,s]));
-    for(const s of incoming.sessions)oldSessions.set(s.id,{...s,tobaccoId:rekey[s.tobaccoId]||s.tobaccoId});
+    for(const entry of incoming.sessions)oldSessions.set(entry.id,{...entry,tobaccoId:rekey[entry.tobaccoId]||entry.tobaccoId});
     return {...state,tobaccos:products,sessions:[...oldSessions.values()]};
   }
   async function importFile(file) {
