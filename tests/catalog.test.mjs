@@ -177,3 +177,24 @@ test("SUN-VI reconciliation adds verified-format GTINs without overwriting old i
   assert.equal(love.flavor,"Honigmelone, Maracuja, Minze, Wassermelone");
   assert.ok(!products.some(p=>p.source_url.includes("NASTY-GIRL-Erdbeere-Wassermelone-200g")));
 });
+
+
+test("Shisha-Shop import adds distinct GTINs without overwriting existing identities",()=>{
+  assert.equal(products.length,994);
+  assert.equal(new Set(products.map(p=>p.ean)).size,994);
+  const newAino=products.find(p=>p.ean==="4251647513279");
+  assert.equal(newAino.brand,"AINO Dark");
+  assert.equal(newAino.name,"Conud Shake");
+  assert.equal(newAino.source,"Shisha-Shop.de");
+  const kismet=products.find(p=>p.ean==="4260482894634");
+  assert.equal(kismet.brand,"Kismet Honey Blend");
+  const nana=products.find(p=>p.ean==="4251862400033");
+  assert.equal(nana.name,"#40 Black Nana");
+  assert.ok(nana.aliases.includes("Black Nana"));
+  const preserved=products.find(p=>p.ean==="4260553820371");
+  assert.equal(preserved.quantity_g,25);
+  assert.equal(preserved.source,"Shisha-Nil");
+  const other=products.find(p=>p.ean==="5905930233595");
+  assert.equal(other.source,"Shisha-Shop.de");
+  assert.ok(products.find(p=>p.ean==="5905930237593"));
+});

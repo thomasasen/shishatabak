@@ -75,11 +75,13 @@ Freigegebene Produktfeeds und Katalogimporte, Barcode-Scan, lokale Bild-/OCR-Erk
 
 ## Recherchebasierte EAN-Datenbank und Scanner (v0.2)
 
-Die Datenbank befindet sich unter [catalog/products.json](catalog/products.json). Sie enthält **759 EAN-/GTIN-Einträge** aus **58 Marken bzw. Produktlinien** mit EAN/GTIN, Packungsgröße, Quellenlink und Prüfdatum. Die Datei [catalog.js](catalog.js) wird daraus für die statische Webapp erzeugt. Prüfskript: `node scripts/build-catalog.mjs --check`.
+Die Datenbank befindet sich unter [catalog/products.json](catalog/products.json). Sie enthält **994 EAN-/GTIN-Einträge** aus **71 Marken bzw. Produktlinien** mit EAN/GTIN, Packungsgröße, Quellenlink und Prüfdatum. Die Datei [catalog.js](catalog.js) wird daraus für die statische Webapp erzeugt. Prüfskript: `node scripts/build-catalog.mjs --check`.
 
 Oben **Barcode scannen** wählen und die Handykamera auf den Strichcode richten. Alternativ Foto oder manuelle EAN-Eingabe. Der Scanner erkennt EAN-13, EAN-8 und UPC-A. Ein gefundener Tabak lässt sich direkt der Sammlung hinzufügen. Unbekannte EANs können einmalig einem neuen oder vorhandenen Tabak zugeordnet werden. Diese Zuordnungen bleiben lokal gespeichert und werden mit dem bestehenden JSON-Backup exportiert/importiert.
 
 **SUN-VI-Import vom 17.11.2026:** 104 neue EANs und 90 ergänzte Geschmacksprofile ohne Überschreiben bestehender Identitäten. Die Prüfung und Konflikte stehen im [SUN-VI-Importbericht](catalog/sunvi-import-report.json).
+
+**Shisha-Shop.de-Import vom 18.11.2026:** 235 neue eindeutige GTINs aus einem 360-Zeilen-Export; 125 vorhandene GTINs unverändert gelassen. 515 unsichere Produktseiten ausgeschlossen. Alternative GTINs derselben Sorte sowie der Packungsgrößenkonflikt bei Savu 2ana sind im [Importbericht](catalog/shisha-shop-import-report.json) dokumentiert.
 
 **Transparenz und Grenzen:** Der Katalog ist keine vollständige Liste aller erhältlichen Tabake. Er wird aus Einzelnachweisen unterschiedlicher Shops gepflegt; die Quelle steht bei jedem Produkt. Es gibt keinen unautorisierten automatischen Shop-Crawler. Manche Quellen führen verschiedene Packungsgrößen unter abweichenden EANs; die Angaben der gescannten Dose sind maßgeblich.
 

@@ -1,13 +1,14 @@
 {
   "summary": {
-    "ean_records": 759,
-    "distinct_gtins": 759,
-    "brands_or_lines": 58,
-    "tobacco_base_unknown": 391,
-    "flavor_missing": 536,
-    "families_multiple_gtins": 82,
+    "ean_records": 994,
+    "distinct_gtins": 994,
+    "brands_or_lines": 71,
+    "tobacco_base_unknown": 626,
+    "flavor_missing": 771,
+    "families_multiple_gtins": 115,
     "source_counts": {
       "Shisha-Nil": 319,
+      "Shisha-Shop.de": 235,
       "Turaah": 124,
       "SUN-VI": 104,
       "Shisharia": 78,
@@ -22,5 +23,5 @@
   "fatal": [],
   "warnings": [],
   "note": "GTIN checksum and source-URL syntax cannot prove the barcode exists on the physical pack. External supplier data is not independently verified.",
-  "review_note": "SUN-VI file import reconciled on 2026-11-17; CI independently reruns scripts/audit_catalog.py in the pull request."
+  "review_note": "2026-11-18 Shisha-Shop.de candidate import: 360 exported candidates reconciled against 759 previous GTINs. CI independently runs audit_catalog.py after import."
 }
