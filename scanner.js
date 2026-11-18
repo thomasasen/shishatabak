@@ -10,6 +10,7 @@
   const sameProduct=(t,p)=>{
     const cleanBrand=b=>norm(b).replace(/(tobacco|tabak)$/,"");
     return cleanBrand(t.brand)===cleanBrand(p.brand)
+      && (!(t.quantity_g>0)||!(p.quantity_g>0)||t.quantity_g===p.quantity_g)
       && [p.name,...(p.aliases||[])].some(label=>norm(label)===norm(t.name));
   };
   function normalizeCode(input) {
@@ -340,8 +341,8 @@
     const title='Barcode '+code;
     if(owned){
       shell(title,"Der Barcode ist in deiner Sammlung gespeichert",
-        '<div class="scan-result good"><strong>Tabak erkannt</strong><h3>'+escape(owned.brand+" · "+owned.name)+'</h3>Bereits in deiner Sammlung</div>'+
-        '<div class="btn-row">'+btn("session","Session erfassen",{id:owned.id,primary:true})+btn("rescan","Weitere Dose scannen")+'</div>');
+        '<div class="scan-result good"><strong>Tabak erkannt</strong><h3>'+escape(owned.brand+" · "+owned.name)+'</h3>Bereits in deiner Sammlung · '+(owned.stock??1)+' Packung(en)</div>'+
+        '<div class="btn-row">'+btn("stock-plus","＋ Eine Packung hinzufügen",{id:owned.id,primary:true})+btn("session","Session erfassen",{id:owned.id})+btn("rescan","Weitere Dose scannen")+'</div>');
       return;
     }
     if(entry){
@@ -358,7 +359,8 @@
       '<div class="field"><label for="scanPrintedCode">Gedruckte Ziffern auf der Dose (falls abweichend)</label><div class="btn-row"><input id="scanPrintedCode" type="text" inputmode="numeric" maxlength="20" placeholder="Hier die richtige EAN eintippen" style="flex:1;min-width:160px"><button type="button" class="btn btn-secondary" data-scan-action="check-printed">Erneut prüfen</button></div></div>'+
       '<div class="field" style="margin:14px 0"><label><input id="scanVerified" type="checkbox"> Ich habe die angezeigte EAN mit den Ziffern auf der Verpackung abgeglichen.</label></div>'+
       '<form id="scanNewProduct" class="fields"><div class="field-row"><div class="field"><label for="scanBrand">Hersteller *</label><input id="scanBrand" name="brand" maxlength="120" required placeholder="Hersteller"></div><div class="field"><label for="scanName">Sorte *</label><input id="scanName" name="name" maxlength="160" required placeholder="Sortenname"></div></div>'+
-      '<div class="field"><label for="scanBase">Grundtabak</label><select id="scanBase" name="base"><option>Unbekannt</option><option>Virginia</option><option>Dark Blend</option></select></div>'+
+      '<div class="field"><label for="scanBase">Grundtabak</label><select id="scanBase" name="base"><option>Unbekannt</option><option>Virginia</option><option>Dark Blend</option></select></div>'+ 
+      '<div class="field"><label for="scanQuantity">Packungsgröße (g, optional)</label><input id="scanQuantity" name="quantity_g" type="number" min="0" max="1000" step="1" placeholder="z. B. 200"></div>'+
       '<input type="hidden" name="code" value="'+escape(code)+'"><button class="btn btn-primary" type="submit">Tabak mit Barcode speichern</button></form>'+
       choices+'<div class="scan-status" id="remoteLookup" data-code="'+escape(code)+'">Öffentliche Produktdatenbank wird abgefragt …</div><p class="smallprint">Externe Quelle: <a href="https://ean-suche.net" target="_blank" rel="noopener noreferrer">EAN-Suche.net</a> (60 Abfragen/Stunde/IP laut Anbieter). Die App überträgt ausschließlich die EAN an den Dienst. Es wird keine Produktzuordnung geraten. Deine lokale EAN-Zuordnung bleibt Teil des JSON-Backups.</p>');
     // Leading-zero unknowns are especially easy to confuse with truncated UPC reads.
@@ -380,12 +382,16 @@
         const stored=s.tobaccos.find(t=>t.id===product.id);
         if(!stored)throw Error("Tabak nicht mehr vorhanden.");
         stored.barcodes=[...new Set([...(stored.barcodes||[]),code])];
+        const selected=DB.find(p=>normalizeCode(p.ean)===code);
+        if(selected&&!(stored.quantity_g>0))stored.quantity_g=selected.quantity_g;
       }else{
         if(!product.brand||!product.name)throw Error("Hersteller und Sorte eingeben.");
         const entry=DB.find(p=>normalizeCode(p.ean)===code);
-        const exists=s.tobaccos.find(t=>entry?sameProduct(t,entry):(norm(t.brand)===norm(product.brand)&&norm(t.name)===norm(product.name)));
+        const exists=s.tobaccos.find(t=>entry?sameProduct(t,entry):(norm(t.brand)===norm(product.brand)&&norm(t.name)===norm(product.name)&&(!(t.quantity_g>0)||!(product.quantity_g>0)||t.quantity_g===product.quantity_g)));
         if(exists)throw Error("Diese Sorte gibt es bereits. Nutze die Zuordnung zum vorhandenen Tabak.");
-        s.tobaccos.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2),brand:product.brand.slice(0,120),name:product.name.slice(0,160),base:product.base||"Unbekannt",flavor:(product.flavor||"").slice(0,200),notes:"",barcodes:[code],createdAt:new Date().toISOString()});
+        const quantity_g=entry?.quantity_g??product.quantity_g??0;
+        if(!Number.isInteger(quantity_g)||quantity_g<0||quantity_g>1000)throw Error("Packungsgröße muss zwischen 0 und 1000 g liegen.");
+        s.tobaccos.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2),brand:product.brand.slice(0,120),name:product.name.slice(0,160),base:product.base||"Unbekannt",flavor:(product.flavor||"").slice(0,200),notes:"",barcodes:[code],quantity_g,stock:1,opened:false,createdAt:new Date().toISOString()});
       }
       store(s);
     }catch(e){const node=$("scanError");if(node)node.textContent=e.message;else window.alert("Speichern fehlgeschlagen: "+e.message);}
@@ -439,6 +445,15 @@
       }else void lookup(value);
     }
     if(cmd==="session")openSession(el.dataset.id);
+    if(cmd==="stock-plus"){
+      try{
+        const s=state(),item=s.tobaccos.find(p=>p.id===el.dataset.id);
+        if(!item)throw Error("Tabak nicht mehr vorhanden.");
+        const count=item.stock??1;
+        if(!Number.isInteger(count)||count>=999)throw Error("Maximal 999 Packungen pro Sorte.");
+        item.stock=count+1;store(s);
+      }catch(e){window.alert("Bestand konnte nicht geändert werden: "+e.message);}
+    }
     if(cmd==="add"){
       const p=DB.find(p=>normalizeCode(p.ean)===code);if(p)persistBarcode(code,{brand:p.brand,name:p.name,base:p.base,flavor:p.flavor});
     }
@@ -458,7 +473,7 @@
     }
     if(event.target.id==="scanNewProduct"){
       event.preventDefault();const fields=new FormData(event.target);
-      persistBarcode(normalizeCode(fields.get("code")),{brand:String(fields.get("brand")||"").trim(),name:String(fields.get("name")||"").trim(),base:String(fields.get("base")||"Unbekannt")});
+      persistBarcode(normalizeCode(fields.get("code")),{brand:String(fields.get("brand")||"").trim(),name:String(fields.get("name")||"").trim(),base:String(fields.get("base")||"Unbekannt"),quantity_g:String(fields.get("quantity_g")||"").trim()===""?0:Number(fields.get("quantity_g"))});
     }
   });
   document.addEventListener("change",event=>{
