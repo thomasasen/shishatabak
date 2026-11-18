@@ -264,10 +264,6 @@
       '<div class="catalog-results" id="catalogResults" aria-label="Produktvorschläge"></div>'+
       '<div class="field-help" role="status" aria-live="polite" id="catalogSelection"></div>'+
       '<input type="hidden" id="f-catalog-ean" name="catalog_ean" value="">'+
-      '<div class="field-row">'+input("quantity_g","Packungsgröße (g)",p?.quantity_g||"","z. B. 200",false,"number",'min="0" max="1000" step="1" inputmode="numeric"')+
-      '<div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+
-      ["Unbekannt","Virginia","Dark Blend"].map(v=>'<option value="'+v+'"'+(v===(p?.base||"Unbekannt")?' selected':'')+'>'+v+'</option>').join("")+'</select></div></div>'+
-      input("flavor","Geschmacksrichtung",p?.flavor||"","z. B. Minze, Traube",false,"text",'maxlength="200"')+
       '<fieldset class="rating-block"><legend>Verträglichkeit <span class="required-star" aria-label="Pflichtfeld">*</span></legend>'+
       '<p id="ratingHelp">Wie gut verträgst du den Tabak? 1 = sehr schlecht, 5 = sehr gut.</p>'+
       '<div class="rating-options">'+
@@ -276,6 +272,10 @@
       '</div><p id="ratingFeedback" class="rating-feedback" role="status" aria-live="polite">'+
       (r.tolerability==null?"Bitte einen Wert auswählen.":"Ausgewählt: "+r.tolerability+" von 5 · "+TOLERABILITY[r.tolerability-1])+'</p></fieldset>'+
       '<details class="optional-details"'+(hasDetails?' open':'')+'><summary>Weitere Angaben <span>optional</span></summary><div class="optional-content">'+
+      '<div class="field-row">'+input("quantity_g","Packungsgröße (g)",p?.quantity_g||"","z. B. 200",false,"number",'min="0" max="1000" step="1" inputmode="numeric"')+
+      '<div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+
+      ["Unbekannt","Virginia","Dark Blend"].map(v=>'<option value="'+v+'"'+(v===(p?.base||"Unbekannt")?' selected':'')+'>'+v+'</option>').join("")+'</select></div></div>'+
+      input("flavor","Geschmacksrichtung",p?.flavor||"","z. B. Minze, Traube",false,"text",'maxlength="200"')+
       '<div class="field"><label for="f-taste">Geschmack</label><select id="f-taste" name="taste"><option value="">Keine Bewertung</option>'+
       [1,2,3,4,5].map(n=>'<option value="'+n+'"'+(r.taste===n?' selected':'')+'>'+n+' von 5</option>').join("")+'</select></div>'+
       '<fieldset class="symptom-block"><legend>Beobachtete Beschwerden</legend><p>Mehrfachauswahl möglich.</p><div class="symptom-grid">'+
