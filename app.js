@@ -216,7 +216,7 @@
     $("currentSection").textContent=view==="collection"?"Meine Tabake":"Backup";
     $("saveStatus").textContent=storageError||"Lokal gespeichert";
     $("saveStatus").classList.toggle("error",!!storageError);
-    document.querySelectorAll(".nav-item").forEach(el=>{
+    document.querySelectorAll(".topbar [data-view]").forEach(el=>{
       const active=el.dataset.view===view;
       el.classList.toggle("is-active",active);
       if(active)el.setAttribute?.("aria-current","page");else el.removeAttribute?.("aria-current");
@@ -392,7 +392,7 @@
     const el=event.target.closest?.("[data-view], [data-filter], [data-action]");
     if(!el)return;
     if(el.dataset.view){event.preventDefault?.();setView(el.dataset.view);return;}
-    if(el.dataset.filter){filter=el.dataset.filter;render();return;}
+    if(el.dataset.filter){filter=el.dataset.filter;refreshCollectionResults();return;}
     const action=el.dataset.action,id=el.dataset.id;
     if(action==="add-tobacco")tobaccoDialog();
     if(action==="edit-tobacco")tobaccoDialog(id);
@@ -425,9 +425,8 @@
   });
   document.addEventListener("input",event=>{
     if(event.target.id==="searchBar"){
-      query=event.target.value;const pos=event.target.selectionStart;
-      render();const el=$("searchBar");
-      if(el){el.focus();el.setSelectionRange?.(pos,pos);}
+      query=event.target.value;
+      refreshCollectionResults();
     }
   });
   $("editorDialog").addEventListener("click",event=>{if(event.target===$("editorDialog"))closeDialog();});
