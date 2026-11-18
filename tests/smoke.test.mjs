@@ -45,7 +45,8 @@ function fixture(previous=null){
   return {
     storage,listeners,get,
     read(){return JSON.parse(storage.get(STORAGE));},
-    submit(data){listeners.submit({target:{id:"tobacco-form",data},preventDefault(){}});},
+    submit(data){const values={...data,tobacco_id:data.tobacco_id??data.id??""};delete values.id;
+      listeners.submit({target:{id:"tobacco-form",getAttribute(name){return name==="id"?"tobacco-form":null;},data:values},preventDefault(){}});},
     click(action,id){const el={dataset:{action,id},closest(){return this;}};listeners.click({target:el});},
     view(next){const el={dataset:{view:next},closest(){return this;}};listeners.click({target:el,preventDefault(){}});},
     async import(backup,mode="merge"){this.click(mode==="replace"?"import-replace":"import-merge");listeners.change({target:{id:"importFile",files:[{size:4096,text:async()=>JSON.stringify(backup)}],value:""}});await new Promise(resolve=>setImmediate(resolve));}
