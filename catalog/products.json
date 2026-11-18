@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17",
+  "updated_at": "2026-11-18",
   "description": "Curated public Shisha tobacco product facts with per-record source links. Valid GTIN check digits and shop listings do not prove the barcode on a physical package.",
   "products": [
     {
@@ -23,6 +23,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/030-tabak-180g-luftschloss",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9505975666486",
+      "brand": "030",
+      "name": "Sternenstaub",
+      "quantity_g": 180,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/030-Tobacco-180g-Sternenstaub",
       "verified_at": "2026-11-17"
     },
     {
@@ -760,6 +771,17 @@
       "source_url": "https://shisharia.de/7days-classic-shisha-tabak-vanilla-cream-200g",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/7Days-Vanilla-Cream-Vanille-200g"
+    },
+    {
+      "ean": "760947052639",
+      "brand": "Aamoza",
+      "name": "TM",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Aamoza-Shisha-Tabak-200g-TM",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "8681511383541",
@@ -1626,6 +1648,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "8020841638516",
+      "brand": "Afzal",
+      "name": "Bombay Nights",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Afzal-Shisha-Tabak-200g-Bombay-Nights",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647505489",
       "brand": "AINO",
       "name": "Bad Rule White",
@@ -1634,6 +1667,28 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-bad-rule-white",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647507575",
+      "brand": "AINO",
+      "name": "Black Ice",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Black-Ice",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647515174",
+      "brand": "AINO",
+      "name": "Cassia Ice",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Cassia-Ice",
       "verified_at": "2026-11-17"
     },
     {
@@ -1656,6 +1711,28 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-don-app",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647515013",
+      "brand": "AINO",
+      "name": "Dragon Blast",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Dragon-Blast",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647505519",
+      "brand": "AINO",
+      "name": "Frut Squad",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Frut-Squad",
       "verified_at": "2026-11-17"
     },
     {
@@ -1703,6 +1780,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647505540",
+      "brand": "AINO",
+      "name": "Le Monyze",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Le-Monyze",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647518410",
       "brand": "AINO",
       "name": "Mamacita",
@@ -1711,6 +1799,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-mamacita",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647507445",
+      "brand": "AINO",
+      "name": "Massai",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Massai",
       "verified_at": "2026-11-17"
     },
     {
@@ -1725,6 +1824,50 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647505564",
+      "brand": "AINO",
+      "name": "OVRLD",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-OVRLD",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647514719",
+      "brand": "AINO",
+      "name": "Red Ice",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Red-Ice",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647505571",
+      "brand": "AINO",
+      "name": "Royal Rumble",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Royal-Rumble",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513910",
+      "brand": "AINO",
+      "name": "Smash",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Shisha-Tabak-200g-Smash",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647506776",
       "brand": "AINO",
       "name": "The Great Raspy",
@@ -1733,6 +1876,28 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-200g-the-great-raspy",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513255",
+      "brand": "AINO Dark",
+      "name": "Black",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513279",
+      "brand": "AINO Dark",
+      "name": "Conud Shake",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Conud-Shake",
       "verified_at": "2026-11-17"
     },
     {
@@ -1747,6 +1912,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647513316",
+      "brand": "AINO Dark",
+      "name": "Galaxchee",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Galaxchee",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513354",
+      "brand": "AINO Dark",
+      "name": "Great Frut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Great-Frut",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647511145",
       "brand": "AINO Dark",
       "name": "Lapina",
@@ -1755,6 +1942,39 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-dark-tobacco-25g-lapina",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513392",
+      "brand": "AINO Dark",
+      "name": "Lapina",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Lapina",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513439",
+      "brand": "AINO Dark",
+      "name": "Rosy P",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Rosy-P",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513453",
+      "brand": "AINO Dark",
+      "name": "Sakura",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Dark-Shisha-Tabak-200g-Sakura",
       "verified_at": "2026-11-17"
     },
     {
@@ -1769,6 +1989,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647515440",
+      "brand": "AINO Strong",
+      "name": "Cassia",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Cassia",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647514696",
       "brand": "AINO Strong",
       "name": "Cumba",
@@ -1777,6 +2008,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-strong-200g-cumba",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647514610",
+      "brand": "AINO Strong",
+      "name": "Forbidden Frut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Forbidden-Frut",
       "verified_at": "2026-11-17"
     },
     {
@@ -1791,6 +2033,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647513538",
+      "brand": "AINO Strong",
+      "name": "Great Frut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Great-Frut",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647513552",
       "brand": "AINO Strong",
       "name": "K-Peak",
@@ -1802,6 +2055,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647513996",
+      "brand": "AINO Strong",
+      "name": "Kiwi Lover",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Kiwi-Lover",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251647514658",
       "brand": "AINO Strong",
       "name": "Nocte",
@@ -1810,6 +2074,105 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/aino-tobacco-strong-200g-nocte",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513576",
+      "brand": "AINO Strong",
+      "name": "OHA",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-OHA",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647513590",
+      "brand": "AINO Strong",
+      "name": "Pi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Pi",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647515419",
+      "brand": "AINO Strong",
+      "name": "PLAM",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-PLAM",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647514672",
+      "brand": "AINO Strong",
+      "name": "RED",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-RED",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647515600",
+      "brand": "AINO Strong",
+      "name": "Straw Barita",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Straw-Barita",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647517932",
+      "brand": "AINO Strong",
+      "name": "Yoga",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Yoga",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647517956",
+      "brand": "AINO Strong",
+      "name": "Yoga Mang",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Yoga-Mang",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647517970",
+      "brand": "AINO Strong",
+      "name": "Yoga Razz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Yoga-Razz",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647515808",
+      "brand": "AINO Strong",
+      "name": "Zonte",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/AINO-Strong-Shisha-Tabak-200g-Zonte",
       "verified_at": "2026-11-17"
     },
     {
@@ -2587,6 +2950,17 @@
       "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Grapio-Minze-Traube-200g"
     },
     {
+      "ean": "5905930237661",
+      "brand": "Al Fakher",
+      "name": "Crystal Grapio",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-1KG-Crystal-Grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5904323463144",
       "brand": "Al Fakher",
       "name": "Crystal Yellow",
@@ -2609,6 +2983,28 @@
       "source_url": "https://www.shisha-nil.de/al-fakher-tobacco-200g-crystal-yellow",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Crystal-Yellow-Minze-Zitrone-200g"
+    },
+    {
+      "ean": "5905930233588",
+      "brand": "Al Fakher",
+      "name": "Double Crunch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-200g-Double-Crunch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930235612",
+      "brand": "Al Fakher",
+      "name": "Double Crunch",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-1KG-Double-Crunch",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "5904323463212",
@@ -2709,6 +3105,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5905930233625",
+      "brand": "Al Fakher",
+      "name": "Grapio",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-200g-Grapio",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930237623",
       "brand": "Al Fakher",
       "name": "Grapio",
@@ -2733,6 +3140,17 @@
       "market": "NL",
       "source_reference": "00273-16-73234",
       "evidence_type": "EU-CEG ProductNumberType=EAN"
+    },
+    {
+      "ean": "5905930237654",
+      "brand": "Al Fakher",
+      "name": "Grapio",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-1KG-Grapio",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "6291100732012",
@@ -3064,6 +3482,17 @@
       "evidence_type": "EU-CEG ProductNumberType=EAN"
     },
     {
+      "ean": "5905930233595",
+      "brand": "Al Fakher",
+      "name": "Red Smash",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-200g-Red-Smash",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930237593",
       "brand": "Al Fakher",
       "name": "Red Smash",
@@ -3376,6 +3805,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5905930233526",
+      "brand": "Al Fakher",
+      "name": "White Pods",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-200g-White-Pods",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930237548",
       "brand": "Al Fakher",
       "name": "White Pods",
@@ -3423,6 +3863,17 @@
       "flavor": "Zitrone",
       "source": "SUN-VI",
       "source_url": "https://www.sunvi.de/Al-Fakher-Tabak-Yellow-Zitrone-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "5905930233571",
+      "brand": "Al Fakher",
+      "name": "Yellow",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-Shisha-Tabak-200g-Yellow",
       "verified_at": "2026-11-17"
     },
     {
@@ -3532,6 +3983,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "5905930235063",
+      "brand": "Al Fakher x Snoop Dogg",
+      "name": "Doggs Delight",
+      "quantity_g": 180,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Al-Fakher-x-Snoop-Dogg-Shisha-Tabak-180g-Doggs-Delight",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "5905930235070",
       "brand": "Al Fakher X Snoop Dogg",
       "name": "Purple Passion",
@@ -3577,6 +4039,18 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776104096",
+      "brand": "Al Massiva",
+      "name": "5 Palm",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-5-Palm",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776106007",
       "brand": "Al Massiva",
       "name": "5 Palm",
@@ -3599,6 +4073,18 @@
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-big-m",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Big-M-Pfirsich-Menthol-200g"
+    },
+    {
+      "ean": "4251776104720",
+      "brand": "Al Massiva",
+      "name": "Black Lebanese",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Black-Lebanese",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776105987",
@@ -3625,6 +4111,18 @@
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blaulicht-Blaubeere-25g"
     },
     {
+      "ean": "4251776104140",
+      "brand": "Al Massiva",
+      "name": "Blaulicht",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Blaulicht",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776105840",
       "brand": "Al Massiva",
       "name": "Blaulicht",
@@ -3635,6 +4133,18 @@
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-blaulicht",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blaulicht-Blaubeere-200g"
+    },
+    {
+      "ean": "4251776105017",
+      "brand": "Al Massiva",
+      "name": "Blue Beast",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Blue-Beast",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776105888",
@@ -3660,6 +4170,18 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776104157",
+      "brand": "Al Massiva",
+      "name": "Blut gegen Blut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Blut-gegen-Blut",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776106083",
       "brand": "Al Massiva",
       "name": "Blut gegen Blut",
@@ -3669,6 +4191,18 @@
       "source": "SUN-VI",
       "source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Blut-gegen-Blut-Zitrone-Drachenfrucht-200g",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776101330",
+      "brand": "Al Massiva",
+      "name": "Bruderherz",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-25g-Bruderherz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776106502",
@@ -3683,6 +4217,18 @@
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Bruderherz-Drachenfrucht-25g"
     },
     {
+      "ean": "4251776104164",
+      "brand": "Al Massiva",
+      "name": "Bruderherz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Bruderherz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776105826",
       "brand": "Al Massiva",
       "name": "Bruderherz",
@@ -3693,6 +4239,18 @@
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-200g-bruderherz",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Bruderherz-Drachenfrucht-200g"
+    },
+    {
+      "ean": "4251776104072",
+      "brand": "Al Massiva",
+      "name": "Cabrio in Marbella",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Cabrio-in-Marbella",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776106021",
@@ -3742,6 +4300,18 @@
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Handgemacht-und-Illegal-Kiwi-Ananas-200g"
     },
     {
+      "ean": "4251776101392",
+      "brand": "Al Massiva",
+      "name": "Löwenherz",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-25g-Loewenherz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776106687",
       "brand": "Al Massiva",
       "name": "Löwenherz",
@@ -3752,6 +4322,18 @@
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-loewenherz",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Loewenherz-Drachenfrucht-Pfirsich-Himbeere-25g"
+    },
+    {
+      "ean": "4251776104256",
+      "brand": "Al Massiva",
+      "name": "Löwenherz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Loewenherz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776105949",
@@ -3847,6 +4429,18 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776101385",
+      "brand": "Al Massiva",
+      "name": "Sommer in Beirut",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-25g-Sommer-in-Beirut",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
+    },
+    {
       "ean": "4251776106656",
       "brand": "Al Massiva",
       "name": "Sommer in Beirut",
@@ -3857,6 +4451,18 @@
       "source_url": "https://www.shisha-nil.de/almassiva-tobacco-25g-sommer-in-beirut",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Al-Massiva-Tobacco-Sommer-in-Beirut-Himbeere-Wassermelonen-Zitronen-25g"
+    },
+    {
+      "ean": "4251776104249",
+      "brand": "Al Massiva",
+      "name": "Sommer in Beirut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Almassiva-Shisha-Tabak-200g-Sommer-in-Beirut",
+      "verified_at": "2026-11-17",
+      "source_brand": "Almassiva"
     },
     {
       "ean": "4251776105925",
@@ -4215,6 +4821,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260623440935",
+      "brand": "Argileh",
+      "name": "Chapo Haram",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-200g-Chapo-Haram",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260623442267",
       "brand": "Argileh",
       "name": "Chapo Lay",
@@ -4223,6 +4840,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/argileh-tobacco-200g-chapo-lay",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260623442762",
+      "brand": "Argileh",
+      "name": "CHAPO LAY",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-1KG-CHAPO-LAY",
       "verified_at": "2026-11-17"
     },
     {
@@ -4237,6 +4865,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260623442557",
+      "brand": "Argileh",
+      "name": "Chapo Peponi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-200g-Chapo-Peponi",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260623443097",
       "brand": "Argileh",
       "name": "Chillo",
@@ -4245,6 +4884,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/argileh-tobacco-200g-chillo",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260623441116",
+      "brand": "Argileh",
+      "name": "Frixxy",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-200g-Frixxy",
       "verified_at": "2026-11-17"
     },
     {
@@ -4270,6 +4920,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260623442823",
+      "brand": "Argileh",
+      "name": "LAM&M",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-1KG-LAMM",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260623441819",
       "brand": "Argileh",
       "name": "OG & M",
@@ -4278,6 +4939,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/argileh-tobacco-20g-og-m",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260623443004",
+      "brand": "Argileh",
+      "name": "OMI",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-1KG-OMI",
       "verified_at": "2026-11-17"
     },
     {
@@ -4319,6 +4991,28 @@
       ]
     },
     {
+      "ean": "4260623440751",
+      "brand": "Argileh",
+      "name": "Titan Smoke",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-200g-Titan-Smoke",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260623442731",
+      "brand": "Argileh",
+      "name": "White King",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Argileh-Shisha-Tabak-200g-White-King",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260719553075",
       "brand": "Babos",
       "name": "FFM",
@@ -4352,6 +5046,50 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776196879",
+      "brand": "BANGER",
+      "name": "3 MAL IM LEBEN",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/BANGER-Shisha-Tabak-200g-3-MAL-IM-LEBEN",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776196886",
+      "brand": "BANGER",
+      "name": "HAPPY BIRTHDAY",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/BANGER-Shisha-Tabak-200g-HAPPY-BIRTHDAY",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776196893",
+      "brand": "BANGER",
+      "name": "KUCK KUCK",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/BANGER-Shisha-Tabak-200g-KUCK-KUCK",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251776197159",
+      "brand": "BANGER",
+      "name": "NIEMALS ANTÄUSCHEN",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/BANGER-Shisha-Tabak-200g-NIEMALS-ANTAeUSCHEN",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251776197166",
       "brand": "Banger",
       "name": "Regionalliga After Game",
@@ -4374,6 +5112,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251776197258",
+      "brand": "BANGER",
+      "name": "ZWEI OPTIONEN",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/BANGER-Shisha-Tabak-200g-ZWEI-OPTIONEN",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4843321006940",
       "brand": "Blackburn",
       "name": "Cane M",
@@ -4393,6 +5142,28 @@
       "flavor": "Maracuja",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/blackburn-tobacco-200g-real-p.f.",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655710111",
+      "brand": "Blue Horse",
+      "name": "Mi Amor",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Blue-Horse-Shisha-Tabak-200g-Mi-Amor",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "8681655720073",
+      "brand": "Blue Horse",
+      "name": "Mi Amor",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Blue-Horse-Shisha-Tabak-1KG-Mi-Amor",
       "verified_at": "2026-11-17"
     },
     {
@@ -4552,6 +5323,39 @@
       "flavor_source_url": "https://www.sunvi.de/Chaos-Tobacco-FALIM-RED-Falim-Kaugummi-mit-Waldbeeren-200g"
     },
     {
+      "ean": "4251595326440",
+      "brand": "Chaos",
+      "name": "Green MNT",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Chaos-Shisha-Tabak-200g-Green-MNT",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251595326433",
+      "brand": "Chaos",
+      "name": "GRP MNT",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Chaos-Shisha-Tabak-200g-GRP-MNT",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251595324729",
+      "brand": "Chaos",
+      "name": "XOXO",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Chaos-Shisha-Tabak-200g-XOXO",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260673312329",
       "brand": "Chillma",
       "name": "Nashpati",
@@ -4582,6 +5386,171 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/chillma-tobacco-200g-persian-app",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9501396741993",
+      "brand": "Cloud Smoke",
+      "name": "Baddie Call",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Baddie-Call",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9509771879149",
+      "brand": "Cloud Smoke",
+      "name": "Big Green",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Big-Green",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9506335393264",
+      "brand": "Cloud Smoke",
+      "name": "Blue Mystic",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Blue-Mystic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9507525929584",
+      "brand": "Cloud Smoke",
+      "name": "Feeling",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Feeling",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9506918144757",
+      "brand": "Cloud Smoke",
+      "name": "Modus",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Modus",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9506771999754",
+      "brand": "Cloud Smoke",
+      "name": "Naughty Girl",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Naughty-Girl",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "9509947575141",
+      "brand": "Cloud Smoke",
+      "name": "Red Mystic",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Cloud-Smoke-Shisha-Tabak-200g-Red-Mystic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518496",
+      "brand": "Craftium Nova",
+      "name": "BLCKBARI",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-BLCKBARI-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518533",
+      "brand": "Craftium Nova",
+      "name": "CMIN",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-CMIN-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518618",
+      "brand": "Craftium Nova",
+      "name": "CRAFTBARY",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-CRAFTBARY-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518557",
+      "brand": "Craftium Nova",
+      "name": "JSMN",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-JSMN-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518632",
+      "brand": "Craftium Nova",
+      "name": "LEM LIM",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-LEM-LIM-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518571",
+      "brand": "Craftium Nova",
+      "name": "PATCHLI",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-PATCHLI-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518656",
+      "brand": "Craftium Nova",
+      "name": "REDICAL",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-REDICAL-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518595",
+      "brand": "Craftium Nova",
+      "name": "WILDY STRAWBS",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Craftium-Nova-WILDY-STRAWBS-Shisha-Tabak-100g",
       "verified_at": "2026-11-17"
     },
     {
@@ -4805,6 +5774,171 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4640195512511",
+      "brand": "DEUS",
+      "name": "BLACK JI",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-BLACK-JI-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195510777",
+      "brand": "DEUS",
+      "name": "BLACKMERRY WN",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-BLACKMERRY-WN-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195511651",
+      "brand": "DEUS",
+      "name": "FIONES",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-FIONES-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195511613",
+      "brand": "DEUS",
+      "name": "JAZZMIN PIR",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-JAZZMIN-PIR-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195511569",
+      "brand": "DEUS",
+      "name": "PASHIN",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-PASHIN-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4603791545697",
+      "brand": "DEUS",
+      "name": "PIN-GO",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-PIN-GO-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195515390",
+      "brand": "DEUS",
+      "name": "PINK S",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-PINK-S-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4603791545710",
+      "brand": "DEUS",
+      "name": "RASMERRY",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-RASMERRY-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195513891",
+      "brand": "DEUS",
+      "name": "RED",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-RED-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4603791545703",
+      "brand": "DEUS",
+      "name": "ROZGRAP",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-ROZGRAP-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195512566",
+      "brand": "DEUS",
+      "name": "TRPIC CODA",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-TRPIC-CODA-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195515154",
+      "brand": "DEUS",
+      "name": "ULTIMA",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-ULTIMA-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4603791545734",
+      "brand": "DEUS",
+      "name": "WANMERRY",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-WANMERRY-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195515963",
+      "brand": "DEUS",
+      "name": "WHITE P",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-WHITE-P-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4640195511675",
+      "brand": "DEUS",
+      "name": "YZU",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/DEUS-YZU-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260616964967",
       "brand": "Dschinni",
       "name": "Blue Frsh",
@@ -4846,6 +5980,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Dschinni-Shisha-Tabak-200g-Da-Bomb",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260616964943",
+      "brand": "Dschinni",
+      "name": "Da Bomb",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dschinni-Shisha-Tabak-200g-Da-Bomb",
       "verified_at": "2026-11-17"
     },
     {
@@ -4948,6 +6093,61 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553821187",
+      "brand": "Dunya",
+      "name": "Bero Black",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dunya-Shisha-Tabak-25g-Bero-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553821194",
+      "brand": "Dunya",
+      "name": "Cheftali Black",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dunya-Shisha-Tabak-25g-Cheftali-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553821156",
+      "brand": "Dunya",
+      "name": "Kimi Black",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dunya-Shisha-Tabak-25g-Kimi-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553821170",
+      "brand": "Dunya",
+      "name": "Papa Black",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dunya-Shisha-Tabak-25g-Papa-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553821163",
+      "brand": "Dunya",
+      "name": "Strawbelly Black",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Dunya-Shisha-Tabak-25g-Strawbelly-Black",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "602343054254",
       "brand": "Electro Smog Tobacco",
       "name": "BLUE MAGIC",
@@ -4979,6 +6179,42 @@
       "source": "SUN-VI",
       "source_url": "https://www.sunvi.de/Electro-Smog-Tobacco-MAGIC-Beerenmix-200g",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "602343054261",
+      "brand": "Electro Smog Tobacco",
+      "name": "Mood",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Electro-Smog-Shisha-Tabak-200g-Mood",
+      "verified_at": "2026-11-17",
+      "source_brand": "Electro Smog"
+    },
+    {
+      "ean": "049841019031",
+      "brand": "Electro Smog Tobacco",
+      "name": "Nasty Girl",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Electro-Smog-Shisha-Tabak-200g-Nasty-Girl",
+      "verified_at": "2026-11-17",
+      "source_brand": "Electro Smog"
+    },
+    {
+      "ean": "4060594012625",
+      "brand": "Electro Smog Tobacco",
+      "name": "Vibe",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Electro-Smog-Shisha-Tabak-200g-Vibe",
+      "verified_at": "2026-11-17",
+      "source_brand": "Electro Smog"
     },
     {
       "ean": "9505928476315",
@@ -5190,6 +6426,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4255799709498",
+      "brand": "Holster",
+      "name": "Bloody Punch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-200g-Bloody-Punch",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799718407",
       "brand": "Holster",
       "name": "Bloody Punch",
@@ -5368,6 +6615,17 @@
       "flavor_source_url": "https://www.sunvi.de/Holster-CE-Kaktuz-Kaktus-Ice-25g"
     },
     {
+      "ean": "4262390816210",
+      "brand": "Holster",
+      "name": "Ice Kaktuz",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-25g-Ice-Kaktuz",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799700822",
       "brand": "Holster",
       "name": "Ice Kaktuz",
@@ -5387,6 +6645,17 @@
       "flavor": "Kaktus, Ice",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-ice-kaktuz",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799711187",
+      "brand": "Holster",
+      "name": "Ice Kaktuz",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-1KG-Ice-Kaktuz",
       "verified_at": "2026-11-17"
     },
     {
@@ -5420,6 +6689,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/holster-tobacco-200g-lamoretto",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799709573",
+      "brand": "Holster",
+      "name": "Lee Punch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-200g-Lee-Punch",
       "verified_at": "2026-11-17"
     },
     {
@@ -5568,6 +6848,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4255799709443",
+      "brand": "Holster",
+      "name": "Quwi Punch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-200g-Quwi-Punch",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4255799718353",
       "brand": "Holster",
       "name": "Quwi Punch",
@@ -5633,6 +6924,17 @@
       "flavor": "",
       "source": "Turaah",
       "source_url": "https://turaah.de/Holster-Shisha-Tabak-200g-Watermill-Punch",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4255799709474",
+      "brand": "Holster",
+      "name": "Watermill Punch",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Holster-Shisha-Tabak-200g-Watermill-Punch",
       "verified_at": "2026-11-17"
     },
     {
@@ -6154,6 +7456,116 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4843218004387",
+      "brand": "JENT",
+      "name": "Air (Alcohol)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Air-Alcohol",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218009214",
+      "brand": "JENT",
+      "name": "Aloha CRN (Classic)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Aloha-CRN-Classic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218009207",
+      "brand": "JENT",
+      "name": "Aprl&Grnt (Alcohol)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-AprlGrnt-Alcohol",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218007128",
+      "brand": "JENT",
+      "name": "Follar (Herbal)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Follar-Herbal",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004424",
+      "brand": "JENT",
+      "name": "Havana 29 (Alcohol)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Havana-29-Alcohol",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004523",
+      "brand": "JENT",
+      "name": "Industry Legend (Classic)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Industry-Legend-Classic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004684",
+      "brand": "JENT",
+      "name": "Jamaica 4:19 (Herbal)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Jamaica-419-Herbal",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004509",
+      "brand": "JENT",
+      "name": "Pure Love (Classic)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Pure-Love-Classic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004547",
+      "brand": "JENT",
+      "name": "Saint Tropez (Classic)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Saint-Tropez-Classic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006633",
+      "brand": "JENT",
+      "name": "Your Grace (Classic)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/JENT-Shisha-Tabak-200g-Your-Grace-Classic",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4251822810193",
       "brand": "Jookah",
       "name": "2 Apes",
@@ -6209,6 +7621,126 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260482894535",
+      "brand": "Kismet Honey Blend",
+      "name": "AK Nektar (AL KASHMIR EDITION)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-AK-Nektar-AL-KASHMIR-EDITION",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894580",
+      "brand": "Kismet Honey Blend",
+      "name": "AK Orienttee (AL KASHMIR EDITION)",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-AK-Orienttee-AL-KASHMIR-EDITION",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894634",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Amber",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Amber",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894191",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Apple",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Apple",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894245",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Berries",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Berries",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894177",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Bisquit",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Bisquit",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894450",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Cactus",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Cactus",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894337",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Cake",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Cake",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "8260181894528",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Cane",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Cane",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894320",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Cassis",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Cassis",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
       "ean": "4260482894344",
       "brand": "Kismet Honey Blend",
       "name": "Black Ccmbr 34",
@@ -6218,6 +7750,18 @@
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/kismet-honey-blend-200g-black-ccmbr-34",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482894030",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Cigar",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Cigar",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
     },
     {
       "ean": "4260482894528",
@@ -6231,6 +7775,54 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260482894627",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Falim",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Falim",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894078",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Flowers",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Flowers",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894139",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Forrest",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Forrest",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894467",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Ginger",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Ginger",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
       "ean": "4260482894108",
       "brand": "Kismet Honey Blend",
       "name": "Black Grp 10",
@@ -6240,6 +7832,18 @@
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/kismet-honey-blend-200g-black-grp-10",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482894283",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Hibiscus",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Hibiscus",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
     },
     {
       "ean": "4260482894115",
@@ -6253,6 +7857,54 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260482894252",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Jasmine",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Jasmine",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894443",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Kiwi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Kiwi",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894375",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Lemonade",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Lemonade",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894276",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Lime",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Lime",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
       "ean": "4260482894436",
       "brand": "Kismet Honey Blend",
       "name": "Black Lvndr 43",
@@ -6262,6 +7914,30 @@
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/kismet-honey-blend-200g-black-lvndr-43",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482894498",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Magic",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Magic",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894672",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Majesty",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Majesty",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
     },
     {
       "ean": "4260482894597",
@@ -6284,6 +7960,42 @@
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/kismet-honey-blend-200g-black-pch-12",
       "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482894641",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Pear",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Pear",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894559",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Perfume",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Perfume",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894566",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Pineapple",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Pineapple",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
     },
     {
       "ean": "4260482894214",
@@ -6319,6 +8031,54 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260719551606",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Strawberry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Strawberry",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894382",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Tea",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Tea",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894153",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Vanilla",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Vanilla",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "5264412894014",
+      "brand": "Kismet Honey Blend",
+      "name": "Black Violet",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Black-Violet",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
       "ean": "4260719551019",
       "brand": "Kismet Honey Blend",
       "name": "Black Vlt 1",
@@ -6330,6 +8090,78 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260482894702",
+      "brand": "Kismet Honey Blend",
+      "name": "Cherry Blossom",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Cherry-Blossom",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894719",
+      "brand": "Kismet Honey Blend",
+      "name": "Cigar Vanilla",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Cigar-Vanilla",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894146",
+      "brand": "Kismet Honey Blend",
+      "name": "Coffee Cardamom",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Coffee-Cardamom",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894665",
+      "brand": "Kismet Honey Blend",
+      "name": "Elixier",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Elixier",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894696",
+      "brand": "Kismet Honey Blend",
+      "name": "Elysium",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Elysium",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894306",
+      "brand": "Kismet Honey Blend",
+      "name": "Frozen Rose",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Frozen-Rose",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
       "ean": "4260482894610",
       "brand": "Kismet Honey Blend",
       "name": "Lmn Rse 61",
@@ -6338,6 +8170,65 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/kismet-honey-blend-200g-lmn-rse-61",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482894481",
+      "brand": "Kismet Honey Blend",
+      "name": "Peach Blossom",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Peach-Blossom",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894061",
+      "brand": "Kismet Honey Blend",
+      "name": "Veritas",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Veritas",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894184",
+      "brand": "Kismet Honey Blend",
+      "name": "Walhalla",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Walhalla",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260482894474",
+      "brand": "Kismet Honey Blend",
+      "name": "Wild Cherry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Kismet-Shisha-Tabak-200g-Wild-Cherry",
+      "verified_at": "2026-11-17",
+      "source_brand": "Kismet"
+    },
+    {
+      "ean": "4260133383029",
+      "brand": "Loyal",
+      "name": "Grape Mint",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Loyal-Shisha-Tabak-200g-Grape-Mint",
       "verified_at": "2026-11-17"
     },
     {
@@ -6709,6 +8600,21 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251862400033",
+      "brand": "Nameless",
+      "name": "#40 Black Nana",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nameless-Shisha-Tabak-25g-Black-Nana",
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "Black Nana",
+        "Black Nana #40"
+      ]
+    },
+    {
       "ean": "4260711891496",
       "brand": "Nameless",
       "name": "#40 Black Nana",
@@ -6734,6 +8640,21 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260620118790",
+      "brand": "Nameless",
+      "name": "#40 Black Nana",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nameless-Shisha-Tabak-200g-Black-Nana",
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "Black Nana",
+        "Black Nana #40"
+      ]
+    },
+    {
       "ean": "5907479354106",
       "brand": "Nameless",
       "name": "#40 Black Nana",
@@ -6745,6 +8666,21 @@
       "verified_at": "2026-11-17",
       "aliases": [
         "BLACK NANA #40"
+      ]
+    },
+    {
+      "ean": "4251862400026",
+      "brand": "Nameless",
+      "name": "#40 Black Nana",
+      "quantity_g": 1000,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nameless-Shisha-Tabak-1KG-Black-Nana",
+      "verified_at": "2026-11-17",
+      "aliases": [
+        "Black Nana",
+        "Black Nana #40"
       ]
     },
     {
@@ -6760,6 +8696,28 @@
       "flavor_source_url": "https://www.sunvi.de/NameLess-Tobacco-BLACK-NANA-schw-Traube-Minze-40-1kg"
     },
     {
+      "ean": "4260620117687",
+      "brand": "Nameless",
+      "name": "Big Red (Red Turtle) #105",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nameless-Shisha-Tabak-200g-Big-Red-Red-Turtle-105",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260630340839",
+      "brand": "Nargilem",
+      "name": "Amazon Forest",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nargilem-Shisha-Tabak-200g-Amazon-Forest",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260630340327",
       "brand": "Nargilem",
       "name": "DA-Classic",
@@ -6768,6 +8726,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/nargilem-tabak-25g-da-classic",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260630340174",
+      "brand": "Nargilem",
+      "name": "Dragonberry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Nargilem-Shisha-Tabak-200g-Dragonberry",
       "verified_at": "2026-11-17"
     },
     {
@@ -7037,6 +9006,30 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647515563",
+      "brand": "Ocean Hookah",
+      "name": "Anazz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Anazz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4251647514818",
+      "brand": "Ocean Hookah",
+      "name": "Azzure",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Azzure",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
       "ean": "4251647515488",
       "brand": "Ocean Hookah",
       "name": "Cérie",
@@ -7048,6 +9041,42 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4251647515396",
+      "brand": "Ocean Hookah",
+      "name": "Iced Fuzz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Iced-Fuzz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4251647515037",
+      "brand": "Ocean Hookah",
+      "name": "Iced Splash",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Iced-Splash",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4251647514795",
+      "brand": "Ocean Hookah",
+      "name": "Kaif",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Kaif",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
       "ean": "4251647514733",
       "brand": "Ocean Hookah",
       "name": "KOKA",
@@ -7056,6 +9085,97 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/ocean-hookah-tobacco-200g-koka",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4251647518014",
+      "brand": "Ocean Hookah",
+      "name": "Meln Brry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Meln-Brry",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4251647515587",
+      "brand": "Ocean Hookah",
+      "name": "Orenj",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Orenj",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4251647514870",
+      "brand": "Ocean Hookah",
+      "name": "Rubizz",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Ocean-Shisha-Tabak-200g-Rubizz",
+      "verified_at": "2026-11-17",
+      "source_brand": "Ocean"
+    },
+    {
+      "ean": "4260482892531",
+      "brand": "Odinson",
+      "name": "Asgard",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Odinson-Shisha-Tabak-200g-Asgard",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482892548",
+      "brand": "Odinson",
+      "name": "Freya",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Odinson-Shisha-Tabak-200g-Freya",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482892579",
+      "brand": "Odinson",
+      "name": "Galstar",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Odinson-Shisha-Tabak-200g-Galstar",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482892517",
+      "brand": "Odinson",
+      "name": "Loki",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Odinson-Shisha-Tabak-200g-Loki",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260482892593",
+      "brand": "Odinson",
+      "name": "Vitki",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Odinson-Shisha-Tabak-200g-Vitki",
       "verified_at": "2026-11-17"
     },
     {
@@ -7125,6 +9245,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820432",
+      "brand": "Savu",
+      "name": "2ana",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-2ana",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820043",
       "brand": "Savu",
       "name": "2ana",
@@ -7145,6 +9276,17 @@
       "flavor": "Banane, Milchshake",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-bananoz",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820456",
+      "brand": "Savu",
+      "name": "Bero Mind",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Bero-Mind",
       "verified_at": "2026-11-17"
     },
     {
@@ -7170,6 +9312,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820715",
+      "brand": "Savu",
+      "name": "Cocovay",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Cocovay",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820982",
       "brand": "Savu",
       "name": "Cocovay",
@@ -7178,6 +9331,17 @@
       "flavor": "Kokosnuss",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-cocovay",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820241",
+      "brand": "Savu",
+      "name": "Dutty",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Dutty",
       "verified_at": "2026-11-17"
     },
     {
@@ -7216,6 +9380,28 @@
       "flavor_source_url": "https://www.sunvi.de/Savu-Green-Bear-Birne-200g"
     },
     {
+      "ean": "4260553820494",
+      "brand": "Savu",
+      "name": "Green Bear",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Green-Bear",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820135",
+      "brand": "Savu",
+      "name": "Green Bear",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Green-Bear",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820159",
       "brand": "Savu",
       "name": "Häuptling",
@@ -7224,6 +9410,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-haeuptling",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820357",
+      "brand": "Savu",
+      "name": "Häuptling",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Haeuptling",
       "verified_at": "2026-11-17"
     },
     {
@@ -7249,6 +9446,28 @@
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-kaktoss",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/Savu-Kaktoss-Kaktus-200g"
+    },
+    {
+      "ean": "4260553820555",
+      "brand": "Savu",
+      "name": "Kimi",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Kimi",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820005",
+      "brand": "Savu",
+      "name": "Kimi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Kimi",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "4260553820333",
@@ -7285,6 +9504,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553829695",
+      "brand": "Savu",
+      "name": "Leafy",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Leafy",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553829718",
       "brand": "Savu",
       "name": "Leafy",
@@ -7307,6 +9537,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820326",
+      "brand": "Savu",
+      "name": "Lim2",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Lim2",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820661",
       "brand": "Savu",
       "name": "Lim2",
@@ -7315,6 +9556,17 @@
       "flavor": "Zitrone, Orange, Limette, Minze",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/savu-premium-tobacco-200g-lim2",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260553820302",
+      "brand": "Savu",
+      "name": "Mama Luma",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-200g-Mama-Luma",
       "verified_at": "2026-11-17"
     },
     {
@@ -7384,6 +9636,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260553820678",
+      "brand": "Savu",
+      "name": "Strawbelly",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Savu-Shisha-Tabak-25g-Strawbelly",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260553820944",
       "brand": "Savu",
       "name": "Strawbelly",
@@ -7415,6 +9678,270 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/sebero-tobacco-25g-isabella",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001430",
+      "brand": "Sebero BLACK",
+      "name": "Amarena Chry",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Amarena-Chry",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006688",
+      "brand": "Sebero BLACK",
+      "name": "Blckberi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Blckberi",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004974",
+      "brand": "Sebero BLACK",
+      "name": "Blue Forest",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Blue-Forest",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004752",
+      "brand": "Sebero BLACK",
+      "name": "Coki Monster",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Coki-Monster",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218003458",
+      "brand": "Sebero BLACK",
+      "name": "Cuctus",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Cuctus",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218007135",
+      "brand": "Sebero BLACK",
+      "name": "Del Toro",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Del-Toro",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006695",
+      "brand": "Sebero BLACK",
+      "name": "Depth",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Depth",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006770",
+      "brand": "Sebero BLACK",
+      "name": "Exo Mix",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Exo-Mix",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218003489",
+      "brand": "Sebero BLACK",
+      "name": "Grap Frut",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Grap-Frut",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218005308",
+      "brand": "Sebero BLACK",
+      "name": "Green&Green",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-GreenGreen",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218002055",
+      "brand": "Sebero BLACK",
+      "name": "Grnt",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Grnt",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001416",
+      "brand": "Sebero BLACK",
+      "name": "Grpe",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Grpe",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218010371",
+      "brand": "Sebero BLACK",
+      "name": "HOLA",
+      "quantity_g": 100,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-HOLA-Shisha-Tabak-100g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218003496",
+      "brand": "Sebero BLACK",
+      "name": "Iscer",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Iscer",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001782",
+      "brand": "Sebero BLACK",
+      "name": "LMN Candi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-LMN-Candi",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001577",
+      "brand": "Sebero BLACK",
+      "name": "Lmnchello",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Lmnchello",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218004776",
+      "brand": "Sebero BLACK",
+      "name": "Mngo Ygrt",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Mngo-Ygrt",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001775",
+      "brand": "Sebero BLACK",
+      "name": "Passion Rings",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Passion-Rings",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006817",
+      "brand": "Sebero BLACK",
+      "name": "PRNS",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-PRNS",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218006268",
+      "brand": "Sebero BLACK",
+      "name": "Rspberi",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Rspberi",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218005339",
+      "brand": "Sebero BLACK",
+      "name": "Sharlot",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Sharlot",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001454",
+      "brand": "Sebero BLACK",
+      "name": "Wild",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Wild",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218003533",
+      "brand": "Sebero BLACK",
+      "name": "Wonder",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Wonder",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4843218001393",
+      "brand": "Sebero BLACK",
+      "name": "Wtrmln",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Sebero-BLACK-Shisha-Tabak-200g-Wtrmln",
       "verified_at": "2026-11-17"
     },
     {
@@ -7742,6 +10269,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4260673312190",
+      "brand": "Shades",
+      "name": "Bluegasmus",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Shades-Shisha-Tabak-25g-Bluegasmus",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4260673310189",
       "brand": "Shades",
       "name": "Bluegasmus",
@@ -7761,6 +10299,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/shades-tobacco-200g-bluegasmus",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260673312985",
+      "brand": "Shades",
+      "name": "Cubanera (Darkblend)",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Shades-Shisha-Tabak-25g-Cubanera-Darkblend",
       "verified_at": "2026-11-17"
     },
     {
@@ -7838,6 +10387,17 @@
       "flavor": "",
       "source": "Shisha-Nil",
       "source_url": "https://www.shisha-nil.de/shades-tobacco-200g-grpporn",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4260673312169",
+      "brand": "Shades",
+      "name": "Ice Math",
+      "quantity_g": 25,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/Shades-Shisha-Tabak-25g-Ice-Math",
       "verified_at": "2026-11-17"
     },
     {
@@ -8502,6 +11062,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859824968",
+      "brand": "True Passion",
+      "name": "Blue X",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Blue-X",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859820595",
       "brand": "True Passion",
       "name": "Cinderella",
@@ -8646,6 +11217,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825248",
+      "brand": "True Passion",
+      "name": "Okolom CB",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Okolom-CB",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859822797",
       "brand": "True Passion",
       "name": "Okolom CB10",
@@ -8689,6 +11271,17 @@
       "source_url": "https://www.shisha-nil.de/true-passion-tobacco-200g-okolom-classic",
       "verified_at": "2026-11-17",
       "flavor_source_url": "https://www.sunvi.de/True-Passion-Tobacco-Okolom-Classic-Cola-Holunder-Limette-200g"
+    },
+    {
+      "ean": "4250859825231",
+      "brand": "True Passion",
+      "name": "Okolom Gold",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Okolom-Gold",
+      "verified_at": "2026-11-17"
     },
     {
       "ean": "4250859825262",
@@ -8736,6 +11329,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825286",
+      "brand": "True Passion",
+      "name": "Okolom White",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Okolom-White",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859822827",
       "brand": "True Passion",
       "name": "Peami",
@@ -8744,6 +11348,17 @@
       "flavor": "Pfirsich",
       "source": "Shisharia",
       "source_url": "https://shisharia.de/True-Passion-Shisha-Tabak-200g-Peami",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859825316",
+      "brand": "True Passion",
+      "name": "Peami",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Peami",
       "verified_at": "2026-11-17"
     },
     {
@@ -8792,6 +11407,28 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825392",
+      "brand": "True Passion",
+      "name": "Ruffy Ello",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Ruffy-Ello",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859822858",
+      "brand": "True Passion",
+      "name": "Vaja Blue",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Vaja-Blue",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859825514",
       "brand": "True Passion",
       "name": "Vaja Blue",
@@ -8825,6 +11462,17 @@
       "verified_at": "2026-11-17"
     },
     {
+      "ean": "4250859825538",
+      "brand": "True Passion",
+      "name": "WaMe",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-WaMe",
+      "verified_at": "2026-11-17"
+    },
+    {
       "ean": "4250859822872",
       "brand": "True Passion",
       "name": "Zuuu Wild",
@@ -8833,6 +11481,17 @@
       "flavor": "Brombeere, Erdbeere, Himbeere",
       "source": "SUN-VI",
       "source_url": "https://www.sunvi.de/True-Passion-Tobacco-Zuuu-Wild-Brombeere-Erdbeere-Himbeere-200g",
+      "verified_at": "2026-11-17"
+    },
+    {
+      "ean": "4250859825590",
+      "brand": "True Passion",
+      "name": "Zuuu Wild",
+      "quantity_g": 200,
+      "base": "Unbekannt",
+      "flavor": "",
+      "source": "Shisha-Shop.de",
+      "source_url": "https://shisha-shop.de/True-Passion-Shisha-Tabak-200g-Zuuu-Wild",
       "verified_at": "2026-11-17"
     },
     {

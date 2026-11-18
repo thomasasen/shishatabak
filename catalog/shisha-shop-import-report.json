@@ -1,0 +1,1178 @@
+{
+  "import_date": "2026-11-18",
+  "source": "Shisha-Shop.de",
+  "source_category": "https://shisha-shop.de/Shisha-Tabak",
+  "submitted_export": {
+    "checked_urls": 875,
+    "distinct_gtins": 360,
+    "review_count": 515,
+    "http_requests": 1055,
+    "category_products": 1039,
+    "parent_products": 166,
+    "parent_inspected": 126,
+    "variant_links": 830,
+    "detail_unusable": 515
+  },
+  "reconciliation": {
+    "previous_records": 759,
+    "candidates": 360,
+    "existing_eans_skipped": 125,
+    "new_distinct_eans": 235,
+    "new_total": 994,
+    "new_retailer_entries": 235,
+    "brands_or_lines": 71,
+    "review_rows_excluded": 515,
+    "old_records_modified": 0
+  },
+  "validation": {
+    "new_gtin_valid_check_digits": 235,
+    "new_unique_gtins": 235,
+    "source_urls_per_new_record": true,
+    "all_360_csv_rows_match_json": true,
+    "all_360_verified_csv_detail_gtins_match_ean": true,
+    "source_brand_aliases": {
+      "Almassiva": "Al Massiva",
+      "Electro Smog": "Electro Smog Tobacco",
+      "Ocean": "Ocean Hookah",
+      "Kismet": "Kismet Honey Blend"
+    }
+  },
+  "conflicts": {
+    "existing_eans_same_gtin_different_retailer_attributes": [
+      {
+        "ean": "4251647513293",
+        "stored": {
+          "brand": "AINO Dark",
+          "name": "Dark OHA",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "AINO Dark",
+          "name": "OHA",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251647507438",
+        "stored": {
+          "brand": "AINO",
+          "name": "G.O.A.T.",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "AINO",
+          "name": "GOAT",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251647515549",
+        "stored": {
+          "brand": "AINO",
+          "name": "Kwi Lover",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "AINO",
+          "name": "Kiwi Lover",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251647515686",
+        "stored": {
+          "brand": "AINO Strong",
+          "name": "G.O.A.T.",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "AINO Strong",
+          "name": "GOAT",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "5904323463106",
+        "stored": {
+          "brand": "Al Fakher",
+          "name": "The Double Crunch",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Al Fakher",
+          "name": "Double Crunch",
+          "quantity_g": 25
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "5905930235087",
+        "stored": {
+          "brand": "Al Fakher X Snoop Dogg",
+          "name": "Cloud 92",
+          "quantity_g": 180
+        },
+        "retailer": {
+          "brand": "Al Fakher x Snoop Dogg",
+          "name": "Cloud 92",
+          "quantity_g": 180
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "5905930235070",
+        "stored": {
+          "brand": "Al Fakher X Snoop Dogg",
+          "name": "Purple Passion",
+          "quantity_g": 180
+        },
+        "retailer": {
+          "brand": "Al Fakher x Snoop Dogg",
+          "name": "Purple Passion",
+          "quantity_g": 180
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251776105239",
+        "stored": {
+          "brand": "Al Massiva",
+          "name": "Skyline",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Almassiva",
+          "name": "Skylines",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260623442977",
+        "stored": {
+          "brand": "Argileh",
+          "name": "ORNG MNT",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Argileh",
+          "name": "OMI",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251776197166",
+        "stored": {
+          "brand": "Banger",
+          "name": "Regionalliga After Game",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "BANGER",
+          "name": "REGIONALLIGA AFTER GAME",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251776197241",
+        "stored": {
+          "brand": "Banger",
+          "name": "Triple Air Sign",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "BANGER",
+          "name": "TRIPLE AIR SIGN",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260616964967",
+        "stored": {
+          "brand": "Dschinni",
+          "name": "Blue Frsh",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Dschinni",
+          "name": "Blue",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260616964295",
+        "stored": {
+          "brand": "Dschinni",
+          "name": "Cndy Brz",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Dschinni",
+          "name": "Candy Breeze",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260616960099",
+        "stored": {
+          "brand": "Dschinni",
+          "name": "Lmn Frsh",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Dschinni",
+          "name": "Lemon Fresh",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260616960174",
+        "stored": {
+          "brand": "Dschinni",
+          "name": "Water Frsh",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Dschinni",
+          "name": "Water Fresh",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260616960532",
+        "stored": {
+          "brand": "Dschinni",
+          "name": "Lmn Frsh",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Dschinni",
+          "name": "Lemon Fresh",
+          "quantity_g": 25
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4255799718582",
+        "stored": {
+          "brand": "Holster",
+          "name": "Drachenzunge",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Holster",
+          "name": "Drachen Zunge",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4255799709504",
+        "stored": {
+          "brand": "Holster",
+          "name": "Grp 2.0",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Holster",
+          "name": "GRP 2.0",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4255799700952",
+        "stored": {
+          "brand": "Holster",
+          "name": "ICE Finger",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Holster",
+          "name": "Ice Fingers",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4255799709481",
+        "stored": {
+          "brand": "Holster",
+          "name": "Wild Punch (27,90€)",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Holster",
+          "name": "Wild Punch",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260626348573",
+        "stored": {
+          "brand": "Holster",
+          "name": "Grp 2.0",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Holster",
+          "name": "GRP 2.0",
+          "quantity_g": 25
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894344",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Ccmbr 34",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Cucumber",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894108",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Grp 10",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Grape",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894115",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Hznt 11",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Hazelnut",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894436",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Lvndr 43",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Lavender",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894597",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Paan 59",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Paan",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894122",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Pch 12",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Peach",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894429",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Rspbrry 42",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Raspberry",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894214",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Rse 21",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Rose",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894221",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Black Snd 22",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Black Sandalwood",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260482894610",
+        "stored": {
+          "brand": "Kismet Honey Blend",
+          "name": "Lmn Rse 61",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Kismet",
+          "name": "Lemon-Rose",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260453517210",
+        "stored": {
+          "brand": "Maridan",
+          "name": "TINGLE TANGLE",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Maridan",
+          "name": "Tingle Tangle",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260453517258",
+        "stored": {
+          "brand": "Maridan",
+          "name": "TINGLE TANGLE PURPLE",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Maridan",
+          "name": "Tingle Tangle Purple",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260453517272",
+        "stored": {
+          "brand": "Maridan",
+          "name": "TINGLE TANGLE TROPICAL",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Maridan",
+          "name": "Tingle Tangle Tropical",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260453517234",
+        "stored": {
+          "brand": "Maridan",
+          "name": "TINGLE TANGLE BREEZE",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Maridan",
+          "name": "Tingle Tangle Breeze",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251647515488",
+        "stored": {
+          "brand": "Ocean Hookah",
+          "name": "Cérie",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Ocean",
+          "name": "Cerie",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4251647514733",
+        "stored": {
+          "brand": "Ocean Hookah",
+          "name": "KOKA",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Ocean",
+          "name": "Koka",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "602343054254",
+        "stored": {
+          "brand": "Electro Smog Tobacco",
+          "name": "BLUE MAGIC",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Electro Smog",
+          "name": "Blue Magic",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "9505438577557",
+        "stored": {
+          "brand": "Electro Smog Tobacco",
+          "name": "BOOTY CALL",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Electro Smog",
+          "name": "Booty Call",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260553820371",
+        "stored": {
+          "brand": "Savu",
+          "name": "2ana",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Savu",
+          "name": "2ana",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260553820173",
+        "stored": {
+          "brand": "Savu",
+          "name": "Ice One One",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Savu",
+          "name": "Ice One",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260673312022",
+        "stored": {
+          "brand": "Shades",
+          "name": "GRPporn",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Shades",
+          "name": "Grpporn",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260673312176",
+        "stored": {
+          "brand": "Shades",
+          "name": "GRPporn",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Shades",
+          "name": "Grpporn",
+          "quantity_g": 25
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4250859825224",
+        "stored": {
+          "brand": "True Passion",
+          "name": "oKaKola",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "True Passion",
+          "name": "Okakola",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4250859825262",
+        "stored": {
+          "brand": "True Passion",
+          "name": "Okolom Jo-Jo",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "True Passion",
+          "name": "Okolom JoJo",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4250859824913",
+        "stored": {
+          "brand": "True Passion",
+          "name": "Artic Line",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "True Passion",
+          "name": "Arctic Line",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "8682063040012",
+        "stored": {
+          "brand": "Revoshi",
+          "name": "D'App Strng",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "Revoshi",
+          "name": "D'app Strng",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260327580357",
+        "stored": {
+          "brand": "Babos",
+          "name": "FFM",
+          "quantity_g": 200
+        },
+        "retailer": {
+          "brand": "BABOS",
+          "name": "FFM",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      },
+      {
+        "ean": "4260719553075",
+        "stored": {
+          "brand": "Babos",
+          "name": "FFM",
+          "quantity_g": 20
+        },
+        "retailer": {
+          "brand": "BABOS",
+          "name": "FFM",
+          "quantity_g": 20
+        },
+        "handling": "Existing catalog entry preserved"
+      }
+    ],
+    "existing_eans_pack_size_mismatches": [
+      {
+        "ean": "4260553820371",
+        "stored": {
+          "brand": "Savu",
+          "name": "2ana",
+          "quantity_g": 25
+        },
+        "retailer": {
+          "brand": "Savu",
+          "name": "2ana",
+          "quantity_g": 200
+        },
+        "handling": "Existing catalog entry preserved"
+      }
+    ],
+    "distinct_new_gtins_same_brand_name_pack": [
+      {
+        "new_gtin": "5905930237654",
+        "brand": "Al Fakher",
+        "name": "Grapio",
+        "quantity_g": 1000,
+        "existing_gtins": [
+          "6291100732012",
+          "5905930237654"
+        ]
+      },
+      {
+        "new_gtin": "5905930233625",
+        "brand": "Al Fakher",
+        "name": "Grapio",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "5905930232093",
+          "5905930237623",
+          "5905930233625"
+        ]
+      },
+      {
+        "new_gtin": "5905930233595",
+        "brand": "Al Fakher",
+        "name": "Red Smash",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "5905930237593",
+          "5905930233595"
+        ]
+      },
+      {
+        "new_gtin": "5905930233526",
+        "brand": "Al Fakher",
+        "name": "White Pods",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "5905930232086",
+          "5905930237548",
+          "5905930233526"
+        ]
+      },
+      {
+        "new_gtin": "5905930233571",
+        "brand": "Al Fakher",
+        "name": "Yellow",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "5905930232130",
+          "5905930237579",
+          "5905930233571"
+        ]
+      },
+      {
+        "new_gtin": "4251776104096",
+        "brand": "Al Massiva",
+        "name": "5 Palm",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776106007",
+          "4251776104096"
+        ]
+      },
+      {
+        "new_gtin": "4251776104720",
+        "brand": "Al Massiva",
+        "name": "Black Lebanese",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105987",
+          "4251776104720"
+        ]
+      },
+      {
+        "new_gtin": "4251776104140",
+        "brand": "Al Massiva",
+        "name": "Blaulicht",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105840",
+          "4251776104140"
+        ]
+      },
+      {
+        "new_gtin": "4251776105017",
+        "brand": "Al Massiva",
+        "name": "Blue Beast",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105888",
+          "4251776105017"
+        ]
+      },
+      {
+        "new_gtin": "4251776104164",
+        "brand": "Al Massiva",
+        "name": "Bruderherz",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105826",
+          "4251776104164"
+        ]
+      },
+      {
+        "new_gtin": "4251776104072",
+        "brand": "Al Massiva",
+        "name": "Cabrio in Marbella",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776106021",
+          "4251776104072"
+        ]
+      },
+      {
+        "new_gtin": "4251776104256",
+        "brand": "Al Massiva",
+        "name": "Löwenherz",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105949",
+          "4251776104256"
+        ]
+      },
+      {
+        "new_gtin": "4251776104249",
+        "brand": "Al Massiva",
+        "name": "Sommer in Beirut",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776105925",
+          "4251776104249"
+        ]
+      },
+      {
+        "new_gtin": "4251776104157",
+        "brand": "Al Massiva",
+        "name": "Blut gegen Blut",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251776106083",
+          "4251776104157"
+        ]
+      },
+      {
+        "new_gtin": "4251776101330",
+        "brand": "Al Massiva",
+        "name": "Bruderherz",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4251776106502",
+          "4251776101330"
+        ]
+      },
+      {
+        "new_gtin": "4251776101392",
+        "brand": "Al Massiva",
+        "name": "Löwenherz",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4251776106687",
+          "4251776101392"
+        ]
+      },
+      {
+        "new_gtin": "4251776101385",
+        "brand": "Al Massiva",
+        "name": "Sommer in Beirut",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4251776106656",
+          "4251776101385"
+        ]
+      },
+      {
+        "new_gtin": "4260616964943",
+        "brand": "Dschinni",
+        "name": "Da Bomb",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260616960129",
+          "4260616964288",
+          "4260616964943"
+        ]
+      },
+      {
+        "new_gtin": "4255799709498",
+        "brand": "Holster",
+        "name": "Bloody Punch",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4255799700884",
+          "4255799718407",
+          "4255799709498"
+        ]
+      },
+      {
+        "new_gtin": "4255799709573",
+        "brand": "Holster",
+        "name": "Lee Punch",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4255799718483",
+          "4255799709573"
+        ]
+      },
+      {
+        "new_gtin": "4255799709443",
+        "brand": "Holster",
+        "name": "Quwi Punch",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4255799700839",
+          "4255799718353",
+          "4255799709443"
+        ]
+      },
+      {
+        "new_gtin": "4255799709474",
+        "brand": "Holster",
+        "name": "Watermill Punch",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4255799700860",
+          "4255799718384",
+          "4255799709474"
+        ]
+      },
+      {
+        "new_gtin": "4262390816210",
+        "brand": "Holster",
+        "name": "Ice Kaktuz",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4255799713150",
+          "4262390816210"
+        ]
+      },
+      {
+        "new_gtin": "4060594012625",
+        "brand": "Electro Smog Tobacco",
+        "name": "Vibe",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "9505928476315",
+          "4060594012625"
+        ]
+      },
+      {
+        "new_gtin": "4260553820241",
+        "brand": "Savu",
+        "name": "Dutty",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260553821002",
+          "4260553820241"
+        ]
+      },
+      {
+        "new_gtin": "4260553820357",
+        "brand": "Savu",
+        "name": "Häuptling",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260553820159",
+          "4260553820357"
+        ]
+      },
+      {
+        "new_gtin": "4260553820005",
+        "brand": "Savu",
+        "name": "Kimi",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260553820333",
+          "4260553820005"
+        ]
+      },
+      {
+        "new_gtin": "4260553820326",
+        "brand": "Savu",
+        "name": "Lim2",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260553820661",
+          "4260553820326"
+        ]
+      },
+      {
+        "new_gtin": "4260553820302",
+        "brand": "Savu",
+        "name": "Mama Luma",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4260553820708",
+          "4260553820302"
+        ]
+      },
+      {
+        "new_gtin": "4260553820432",
+        "brand": "Savu",
+        "name": "2ana",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4260553820371",
+          "4260553820432"
+        ]
+      },
+      {
+        "new_gtin": "4260553820494",
+        "brand": "Savu",
+        "name": "Green Bear",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4260553820364",
+          "4260553820494"
+        ]
+      },
+      {
+        "new_gtin": "4260553829695",
+        "brand": "Savu",
+        "name": "Leafy",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4260553829718",
+          "4260553829695"
+        ]
+      },
+      {
+        "new_gtin": "4260553820678",
+        "brand": "Savu",
+        "name": "Strawbelly",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4260553820029",
+          "4260553820678"
+        ]
+      },
+      {
+        "new_gtin": "4250859825286",
+        "brand": "True Passion",
+        "name": "Okolom White",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4250859823176",
+          "4250859825286"
+        ]
+      },
+      {
+        "new_gtin": "4250859825392",
+        "brand": "True Passion",
+        "name": "Ruffy Ello",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4250859823435",
+          "4250859825392"
+        ]
+      },
+      {
+        "new_gtin": "4250859822858",
+        "brand": "True Passion",
+        "name": "Vaja Blue",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4250859825514",
+          "4250859822858"
+        ]
+      },
+      {
+        "new_gtin": "4250859825590",
+        "brand": "True Passion",
+        "name": "Zuuu Wild",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4250859822872",
+          "4250859825590"
+        ]
+      },
+      {
+        "new_gtin": "4250859825316",
+        "brand": "True Passion",
+        "name": "Peami",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4250859822827",
+          "4250859825316"
+        ]
+      },
+      {
+        "new_gtin": "4251862400026",
+        "brand": "Nameless",
+        "name": "#40 Black Nana",
+        "quantity_g": 1000,
+        "existing_gtins": [
+          "4260620118172",
+          "4251862400026"
+        ]
+      },
+      {
+        "new_gtin": "4260620118790",
+        "brand": "Nameless",
+        "name": "#40 Black Nana",
+        "quantity_g": 200,
+        "existing_gtins": [
+          "4251862400019",
+          "5907479354106",
+          "4260620118790"
+        ]
+      },
+      {
+        "new_gtin": "4251862400033",
+        "brand": "Nameless",
+        "name": "#40 Black Nana",
+        "quantity_g": 25,
+        "existing_gtins": [
+          "4260711891496",
+          "4251862400033"
+        ]
+      }
+    ]
+  },
+  "known_issue": "Savu 2ana GTIN 4260553820371 is currently stored as 25g while the supplied Shisha-Shop.de record says 200g; multiple external retailers also say 200g. The prior entry was not auto-modified.",
+  "review_reason_counts": {
+    "Keine eindeutige Sorte/Groesse im H1": 420,
+    "GTIN fehlt/mehrdeutig im Produktbereich": 95
+  },
+  "limitations": [
+    "Export provides product detail GTIN and check digit but no physical package barcode verification",
+    "All 360 products have unverified tobacco base and missing flavor fields; no speculation added",
+    "No review-row product is imported",
+    "A new distinct GTIN for same variety/weight is retained, potentially a packaging revision. Identity requires more evidence.",
+    "Bulk reuse of retailer facts may require separate rights or permission."
+  ]
+}
