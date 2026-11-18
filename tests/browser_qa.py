@@ -175,6 +175,7 @@ def backup_suite(browser):
         "name":"replace.json","mimeType":"application/json","buffer":json.dumps(state()).encode()
     })
     page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===0")
+    page.locator('[data-action="import-merge"]').click()
     page.locator("#importFile").set_input_files({
         "name":"restore.json","mimeType":"application/json","buffer":json.dumps(saved).encode()
     })
