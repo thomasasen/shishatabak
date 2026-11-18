@@ -251,40 +251,43 @@
   function tobaccoDialog(id){
     if(!state){notice("Gespeicherte Daten konnten nicht sicher gelesen werden.",true);return;}
     const p=productById(id),r=p?.review||defaultReview();
-    const entry=Boolean(p);
-    dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(entry?"Tabak bewerten":"Tabak hinzufügen")+'</h2>'+
-      '<p>Die Verträglichkeit steht im Mittelpunkt. Pro Sorte gibt es eine Bewertung, keine einzelnen Sessions.</p></div>'+
+    const entry=Boolean(p),hasDetails=Boolean(r.taste!=null||r.symptoms.length||r.notes||p?.notes);
+    dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(entry?"Bewertung bearbeiten":"Tabak hinzufügen")+'</h2>'+
+      '<p>Wähle die Sorte und bewerte vor allem ihre Verträglichkeit.</p></div>'+
       '<button class="close-btn" type="button" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
       '<form class="editor-form" id="tobacco-form">'+
       '<div class="fields">'+
-      input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120"')+
+      input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120" autocomplete="organization"')+
       '<datalist id="brandList">'+BRANDS.map(b=>'<option value="'+escapeHTML(b)+'"></option>').join("")+'</datalist>'+
       input("name","Sorte *",p?.name||"","z. B. White Caek",true,"text",'maxlength="160" autocomplete="off"')+
-      '<p class="field-help">Passende Sorten und Packungsgrößen erscheinen während der Eingabe.</p>'+
-      '<div class="catalog-results" id="catalogResults" aria-label="Katalogvorschläge"></div>'+
-      '<div class="field-help" role="status" id="catalogSelection"></div>'+
+      '<p class="field-help">Während der Eingabe erscheinen passende Produkte aus dem Katalog.</p>'+
+      '<div class="catalog-results" id="catalogResults" aria-label="Produktvorschläge"></div>'+
+      '<div class="field-help" role="status" aria-live="polite" id="catalogSelection"></div>'+
       '<input type="hidden" id="f-catalog-ean" name="catalog_ean" value="">'+
-      '<div class="field-row">'+input("quantity_g","Packungsgröße (g)",p?.quantity_g||"","z. B. 200",false,"number",'min="0" max="1000" step="1"')+
+      '<div class="field-row">'+input("quantity_g","Packungsgröße (g)",p?.quantity_g||"","z. B. 200",false,"number",'min="0" max="1000" step="1" inputmode="numeric"')+
       '<div class="field"><label for="f-base">Grundtabak</label><select id="f-base" name="base">'+
       ["Unbekannt","Virginia","Dark Blend"].map(v=>'<option value="'+v+'"'+(v===(p?.base||"Unbekannt")?' selected':'')+'>'+v+'</option>').join("")+'</select></div></div>'+
       input("flavor","Geschmacksrichtung",p?.flavor||"","z. B. Minze, Traube",false,"text",'maxlength="200"')+
-      '<fieldset class="rating-block"><legend>Verträglichkeit <span class="required-star">*</span></legend>'+
-      '<p>Wie gut verträgst du diesen Tabak insgesamt? 1 = sehr schlecht, 5 = sehr gut.</p>'+
-      '<div class="rating-options" role="group" aria-label="Verträglichkeit von eins bis fünf">'+
-      TOLERABILITY.map((label,i)=>'<label class="rating-option"><input type="radio" name="tolerability" value="'+(i+1)+'"'+
+      '<fieldset class="rating-block"><legend>Verträglichkeit <span class="required-star" aria-label="Pflichtfeld">*</span></legend>'+
+      '<p id="ratingHelp">Wie gut verträgst du den Tabak? 1 = sehr schlecht, 5 = sehr gut.</p>'+
+      '<div class="rating-options">'+
+      TOLERABILITY.map((label,i)=>'<label class="rating-option"><input type="radio" name="tolerability" value="'+(i+1)+'" aria-label="'+(i+1)+' von 5: '+escapeHTML(label)+'"'+
       (r.tolerability===i+1?' checked':'')+(i===0?' required':'')+'><span class="rating-score">'+(i+1)+'</span><span class="rating-name">'+label+'</span></label>').join("")+
-      '</div></fieldset>'+
-      '<div class="field"><label for="f-taste">Geschmack (optional)</label><select id="f-taste" name="taste"><option value="">Keine Bewertung</option>'+
-      [1,2,3,4,5].map(n=>'<option value="'+n+'"'+(r.taste===n?' selected':'')+'>'+n+'/5</option>').join("")+'</select></div>'+
-      '<fieldset class="symptom-block"><legend>Beobachtete Beschwerden (optional)</legend><p>Mehrfachauswahl möglich.</p><div class="symptom-grid">'+
+      '</div><p id="ratingFeedback" class="rating-feedback" role="status" aria-live="polite">'+
+      (r.tolerability==null?"Bitte einen Wert auswählen.":"Ausgewählt: "+r.tolerability+" von 5 · "+TOLERABILITY[r.tolerability-1])+'</p></fieldset>'+
+      '<details class="optional-details"'+(hasDetails?' open':'')+'><summary>Weitere Angaben <span>optional</span></summary><div class="optional-content">'+
+      '<div class="field"><label for="f-taste">Geschmack</label><select id="f-taste" name="taste"><option value="">Keine Bewertung</option>'+
+      [1,2,3,4,5].map(n=>'<option value="'+n+'"'+(r.taste===n?' selected':'')+'>'+n+' von 5</option>').join("")+'</select></div>'+
+      '<fieldset class="symptom-block"><legend>Beobachtete Beschwerden</legend><p>Mehrfachauswahl möglich.</p><div class="symptom-grid">'+
       SYMPTOMS.map(sym=>'<label class="symptom-choice"><input type="checkbox" name="symptom" value="'+escapeHTML(sym)+'"'+
       (r.symptoms.includes(sym)?' checked':'')+'> '+escapeHTML(sym)+'</label>').join("")+'</div></fieldset>'+
-      '<div class="field"><label for="f-review-notes">Notizen zur Verträglichkeit (optional)</label>'+
-      '<textarea id="f-review-notes" name="review_notes" maxlength="1000" placeholder="Wie hast du den Tabak vertragen?">'+escapeHTML(r.notes||(r.updatedAt?"":p?.notes||""))+'</textarea></div>'+
-      '<div class="hint">Die Bewertung beschreibt deine persönlichen Erfahrungen. Sie gilt nicht als medizinischer Befund.</div></div>'+
-      '<div class="dialog-actions">'+(entry?'<button class="btn btn-danger" type="button" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Tabak löschen</button>':'')+
-      '<button class="btn btn-secondary" type="button" data-action="close-dialog">Abbrechen</button>'+
-      '<button class="btn btn-primary" type="submit">Bewertung speichern</button></div>'+
+      '<div class="field"><label for="f-review-notes">Persönliche Notiz</label>'+
+      '<textarea id="f-review-notes" name="review_notes" maxlength="1000" placeholder="Was ist dir bei der Verträglichkeit aufgefallen?">'+escapeHTML(r.notes||(r.updatedAt?"":p?.notes||""))+'</textarea></div>'+
+      (entry?'<button class="btn btn-danger" type="button" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Tabak löschen</button>':'')+
+      '</div></details>'+
+      '<p class="review-disclaimer">Eine persönliche Bewertung ist kein medizinischer Befund.</p></div>'+
+      '<div class="dialog-actions"><button class="btn btn-secondary" type="button" data-action="close-dialog">Abbrechen</button>'+
+      '<button class="btn btn-primary" type="submit">'+(entry?"Änderungen speichern":"Tabak speichern")+'</button></div>'+
       '<input type="hidden" name="id" value="'+escapeHTML(p?.id||"")+'"></form>');
     initAutocomplete();
   }
@@ -419,6 +422,10 @@
     if(event.target.id==="tobacco-form"){event.preventDefault();saveTobacco(event.target);}
   });
   document.addEventListener("change",event=>{
+    if(event.target.name==="tolerability"){
+      const selected=Number(event.target.value),label=$("ratingFeedback");
+      if(label&&selected>=1&&selected<=5)label.textContent="Ausgewählt: "+selected+" von 5 · "+TOLERABILITY[selected-1];
+    }
     if(event.target.id==="importFile"){
       const file=event.target.files?.[0];void importFile(file);event.target.value="";
     }
