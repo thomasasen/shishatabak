@@ -392,6 +392,55 @@
       if(persist(next)){notice("Backup erfolgreich importiert.");setView("data");}
     }catch(error){notice("Import nicht möglich: "+error.message,true);}
   }
+  function restoreFailedSubmissionFromUrl(){
+    // Earlier versions accidentally sent form fields as a GET request due to a
+    // hidden input named "id" shadowing HTMLFormElement.id. Never auto-save
+    // values from a URL: restore a visible draft and require explicit Save.
+    const search=window.location?.search;
+    if(!search)return;
+    let params;
+    try{params=new URLSearchParams(search);}catch{return;}
+    if(!params.has("brand")||!params.has("name")||!params.has("tolerability"))return;
+    const fields=["brand","name","catalog_ean","tolerability","quantity_g","base",
+      "flavor","taste","symptom","review_notes","id","tobacco_id"];
+    const remaining=new URLSearchParams(params);
+    for(const field of fields)remaining.delete(field);
+    try{
+      const newSearch=remaining.toString(),location=window.location;
+      window.history?.replaceState?.(window.history.state,"",
+        location.pathname+(newSearch?"?"+newSearch:"")+(location.hash||""));
+    }catch{ /* URL cleanup must never block the app. */ }
+    if(!state)return;
+    try{
+      const previousId=params.get("tobacco_id")||params.get("id")||"";
+      tobaccoDialog(productById(previousId)?previousId:null);
+      const form=$("editorDialog").querySelector?.("#tobacco-form");
+      if(!form)return;
+      for(const field of ["brand","name","catalog_ean","quantity_g","base","flavor","taste","review_notes"]){
+        if(!params.has(field))continue;
+        const control=form.elements.namedItem(field);
+        if(control)control.value=params.get(field);
+      }
+      const score=params.get("tolerability");
+      form.querySelectorAll('input[name="tolerability"]').forEach(radio=>{
+        radio.checked=radio.value===score;
+      });
+      const selectedSymptoms=params.getAll("symptom");
+      form.querySelectorAll('input[name="symptom"]').forEach(input=>{
+        input.checked=selectedSymptoms.includes(input.value);
+      });
+      const feedback=$("ratingFeedback"),n=Number(score);
+      if(feedback&&Number.isInteger(n)&&n>=1&&n<=5)
+        feedback.textContent="Ausgewählt: "+n+" von 5 · "+TOLERABILITY[n-1];
+      form.querySelector(".optional-details").open=true;
+      const note=$("catalogSelection");
+      if(note)note.textContent="Nicht gespeicherte Eingaben aus dem letzten Speicherversuch wiederhergestellt. Bitte jetzt erneut speichern.";
+    }catch(error){
+      // The main collection must remain usable if a malformed old URL cannot
+      // be reconstructed into a draft.
+      notice("Die alten Formulareingaben konnten nicht vollständig wiederhergestellt werden.",true);
+    }
+  }
   document.addEventListener("click",event=>{
     const el=event.target.closest?.("[data-view], [data-filter], [data-action]");
     if(!el)return;
@@ -439,5 +488,5 @@
   });
   $("editorDialog").addEventListener("click",event=>{if(event.target===$("editorDialog"))closeDialog();});
   $("editorDialog").addEventListener("cancel",event=>{event.preventDefault();closeDialog();});
-  load();render();
+  load();render();restoreFailedSubmissionFromUrl();
 })();
