@@ -36,29 +36,34 @@
     const symptomatic=state.sessions.filter(s=>s.severity>0).length;
     return {tabak:state.tobaccos.length,packs:state.tobaccos.reduce((sum,p)=>sum+(p.stock??1),0),sessions:state.sessions.length, symptom:symptomatic,none:state.sessions.length-symptomatic};
   }
+  function uiIcon(name) {
+    const allowed=["overview","collection","sessions","insights","data","plus","barcode","search","edit","check"];
+    return allowed.includes(name)?'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-'+name+'"></use></svg>':"";
+  }
   function badge(severity) {
     if (severity===0) return '<span class="tag good">Keine Beschwerden</span>';
     if (severity===1) return '<span class="tag warn">Leicht</span>';
     return '<span class="tag bad">'+(severity===2?'Deutlich':'Stark')+'</span>';
   }
-  function caption(heading, text) { return '<div class="page-head"><div><span class="page-kicker">TABAKJOURNAL / '+escapeHTML(heading.toUpperCase())+'</span><h1>'+escapeHTML(heading)+'</h1><p>'+escapeHTML(text)+'</p></div></div>'; }
+  function caption(heading, text) { return '<div class="page-head"><div><h1>'+escapeHTML(heading)+'</h1><p>'+escapeHTML(text)+'</p></div></div>'; }
   function empty(icon,title,description,action,label) {
-    return '<div class="empty"><div class="empty-icon">'+icon+'</div><strong>'+escapeHTML(title)+'</strong><p>'+escapeHTML(description)+'</p>'+(action?'<button class="btn btn-secondary" data-action="'+action+'">'+escapeHTML(label)+'</button>':'')+'</div>';
+    const iconName=({"◷":"sessions","▤":"collection","▥":"insights","⌕":"search"})[icon]||"overview";
+    return '<div class="empty"><div class="empty-icon">'+uiIcon(iconName)+'</div><strong>'+escapeHTML(title)+'</strong><p>'+escapeHTML(description)+'</p>'+(action?'<button class="btn btn-secondary" data-action="'+action+'">'+escapeHTML(label)+'</button>':'')+'</div>';
   }
   function sessionRow(s) {
     const t=productById(s.tobaccoId);
-    return '<div class="row-item"><div class="mini-badge">◷</div><div class="row-item-info"><strong>'+escapeHTML(pName(t))+'</strong><small>'+escapeHTML(fmtDate(s.date))+' · '+(s.duration?s.duration+' Minuten · ':'')+'Geschmack '+s.taste+'/5</small></div><div class="row-item-right">'+badge(s.severity)+'<button class="icon-btn" title="Session bearbeiten" aria-label="Session bearbeiten" data-action="edit-session" data-id="'+escapeHTML(s.id)+'">✎</button></div></div>';
+    return '<div class="row-item"><div class="mini-badge">'+uiIcon("sessions")+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(t))+'</strong><small>'+escapeHTML(fmtDate(s.date))+' · '+(s.duration?s.duration+' Minuten · ':'')+'Geschmack '+s.taste+'/5</small></div><div class="row-item-right">'+badge(s.severity)+'<button class="icon-btn" title="Session bearbeiten" aria-label="Session bearbeiten" data-action="edit-session" data-id="'+escapeHTML(s.id)+'">'+uiIcon("edit")+'</button></div></div>';
   }
   function productRow(p) {
     const ss=sessionsOf(p.id), affected=ss.filter(s=>s.severity>0).length;
-    return '<div class="row-item"><div class="mini-badge">'+escapeHTML(p.brand.slice(0,2).toUpperCase())+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(p))+'</strong><small>'+escapeHTML(p.base)+' · '+(p.stock??1)+' '+((p.stock??1)===1?'Packung':'Packungen')+' · '+ss.length+' Sessions</small></div><div class="row-item-right">'+(ss.length?affected?'<span class="tag warn">'+affected+' mit Beschwerden</span>':'<span class="tag good">Ohne Beschwerden</span>':'<span class="tag">Neu</span>')+'<button class="icon-btn" title="Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">✎</button></div></div>';
+    return '<div class="row-item"><div class="mini-badge">'+escapeHTML(p.brand.slice(0,2).toUpperCase())+'</div><div class="row-item-info"><strong>'+escapeHTML(pName(p))+'</strong><small>'+escapeHTML(p.base)+' · '+(p.stock??1)+' '+((p.stock??1)===1?'Packung':'Packungen')+' · '+ss.length+' Sessions</small></div><div class="row-item-right">'+(ss.length?affected?'<span class="tag warn">'+affected+' mit Beschwerden</span>':'<span class="tag good">Ohne Beschwerden</span>':'<span class="tag">Neu</span>')+'<button class="icon-btn" title="Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">'+uiIcon("edit")+'</button></div></div>';
   }
   function overview() {
     const n=numbers();
     const recent=state.sessions.slice().sort((a,b)=>(b.date+b.createdAt).localeCompare(a.date+a.createdAt)).slice(0,5);
     const products=state.tobaccos.slice().sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||"")).slice(0,5);
     return caption("Deine Übersicht","Behalte deine Sammlung und persönlichen Erfahrungen im Blick.")+
-      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">DEIN TABAK. DEINE ERFAHRUNG.</span><h2>Wissen, was du rauchst.<br>Festhalten, wie es dir geht.</h2><p>Dokumentiere Geschmack und mögliche Beschwerden. Alle Einträge bleiben lokal in deinem Browser gespeichert.</p><button class="btn" data-action="add-session">＋ Session dokumentieren</button></div><div class="hero-stamp"><span>HEIZSYSTEM</span><strong>NOCCA</strong><span>Elektrisch · ohne Kohle</span></div></section>'+
+      '<section class="hero"><div class="hero-copy"><span class="hero-kicker">Privates Journal</span><h2>Deine Sammlung im Blick.</h2><p>Verwalte deine Tabake und Packungen. Dokumentiere Geschmack und persönliche Erfahrungen nach jeder Session.</p><button type="button" class="btn btn-primary" data-action="'+(n.tabak?"add-session":"open-catalog")+'">'+uiIcon(n.tabak?"sessions":"plus")+(n.tabak?" Session erfassen":" Ersten Tabak erfassen")+'</button></div></section>'+
       '<div class="stats">'+
       stat("Sorten in Sammlung",n.tabak,"Eigene Tabake","")+
       stat("Packungen im Bestand",n.packs,"Erfasste Packungen","")+
@@ -90,7 +95,7 @@
       '<div class="inventory-meta"><strong>'+escapeHTML(stockLabel)+'</strong><span>'+escapeHTML(size)+'</span>'+(p.opened&&stock?'<span class="tag warn">Geöffnet</span>':stock===0?'<span class="tag">Aufgebraucht</span>':'<span class="tag good">Nicht als geöffnet markiert</span>')+'</div>'+
       '<div class="card-top"><span class="pill-number">'+ss.length+' Sessions</span>'+(ss.length?n?'<span class="tag warn">'+n+' mit Beschwerden</span>':'<span class="tag good">Keine Beschwerden protokolliert</span>':'<span class="tag">Noch keine Bewertung</span>')+'</div>'+
       '<div class="card-foot"><div class="stock-actions" aria-label="Bestand ändern"><button type="button" class="icon-btn" title="Eine Packung weniger" aria-label="Bestand von '+escapeHTML(p.name)+' verringern" data-action="stock-minus" data-id="'+escapeHTML(p.id)+'" '+(stock===0?'disabled':'')+'>−</button><span aria-label="'+escapeHTML(stockLabel)+'">'+stock+'</span><button type="button" class="icon-btn" title="Eine Packung mehr" aria-label="Bestand von '+escapeHTML(p.name)+' erhöhen" data-action="stock-plus" data-id="'+escapeHTML(p.id)+'" '+(stock>=999?'disabled':'')+'>＋</button></div>'+
-      '<div class="card-actions"><button class="icon-btn" title="Session erfassen" aria-label="Session für '+escapeHTML(p.name)+' erfassen" data-action="add-session" data-id="'+escapeHTML(p.id)+'">◷</button><button class="icon-btn" title="Bestand und Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">✎</button></div></div></article>';
+      '<div class="card-actions"><button class="icon-btn" title="Session erfassen" aria-label="Session für '+escapeHTML(p.name)+' erfassen" data-action="add-session" data-id="'+escapeHTML(p.id)+'">'+uiIcon("sessions")+'</button><button class="icon-btn" title="Bestand und Tabak bearbeiten" aria-label="Tabak bearbeiten" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'">'+uiIcon("edit")+'</button></div></div></article>';
   }
   function catalogProductOwned(entry) {
     const ean=normalizeBarcode(entry.ean);
@@ -107,7 +112,7 @@
       const text=key([p.brand,p.name,p.flavor||"",p.ean,...(p.aliases||[])].join(" "));
       return tokens.every(token=>text.includes(token));
     });
-    target.innerHTML='<p class="smallprint">'+matches.length+' Treffer'+(matches.length>25?' · erste 25 anzeigen':'')+' von '+PRODUCT_CATALOG.length+' Katalogeinträgen</p>'+
+    target.innerHTML='<p class="smallprint" role="status" aria-live="polite">'+matches.length+' Treffer'+(matches.length>25?' · erste 25 anzeigen':'')+' von '+PRODUCT_CATALOG.length+' Katalogeinträgen</p>'+
       (matches.length?'<div class="catalog-picker-list">'+matches.slice(0,25).map(p=>{
         const owned=catalogProductOwned(p);
         return '<div class="catalog-picker-row"><div class="catalog-picker-info"><strong>'+escapeHTML(p.brand)+' · '+escapeHTML(p.name)+'</strong><small>'+p.quantity_g+' g · EAN '+escapeHTML(p.ean)+(p.flavor?' · '+escapeHTML(p.flavor):'')+'</small><small>Quelle: '+escapeHTML(p.source||"Unbekannt")+'</small></div>'+
@@ -119,7 +124,7 @@
   function openCatalogPicker() {
     dialog('<div class="dialog-head"><div><h2 id="dialogTitle">Tabak aus Katalog erfassen</h2><p>Hersteller, Sorte oder EAN suchen und anschließend deinen Bestand angeben.</p></div><button class="close-btn" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
       '<div class="editor-form"><div class="field"><label for="catalogSearch">Produkt suchen</label><input id="catalogSearch" type="search" autocomplete="off" placeholder="z. B. AINO, Black Nana oder EAN" maxlength="160"></div>'+
-      '<div id="catalogPickerResults" aria-live="polite"></div></div>');
+      '<div id="catalogPickerResults"></div></div>');
     renderCatalogPicker();
     $("catalogSearch")?.focus();
   }
