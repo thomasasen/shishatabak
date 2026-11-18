@@ -109,7 +109,7 @@
     return JSON.stringify([values,$("scanVerified")?.checked||false,String($("scanPrintedCode")?.value||"")]);
   }
   function shell(title,subtitle,contents){
-    $("barcodeDialogContent").innerHTML='<div class="dialog-head"><div><h2 id="barcodeDialogTitle">'+escape(title)+'</h2><p>'+escape(subtitle)+'</p></div><button class="close-btn" type="button" data-scan-action="close" aria-label="Schließen">×</button></div><div class="editor-form">'+contents+'</div>';
+    $("barcodeDialogContent").innerHTML='<div class="dialog-head"><div><h2 id="barcodeDialogTitle">'+escape(title)+'</h2><p>'+escape(subtitle)+'</p></div><button class="close-btn" type="button" data-scan-action="close" aria-label="Schließen">×</button></div><div class="editor-form">'+contents+'<div id="scanError" class="scan-error" role="alert" aria-live="assertive"></div></div>';
     if(!dialog.open)dialog.showModal();
     scanBaseline=scanSnapshot();
   }
@@ -405,7 +405,7 @@
         s.tobaccos.push({id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2),brand:product.brand.slice(0,120),name:product.name.slice(0,160),base:product.base||"Unbekannt",flavor:(product.flavor||"").slice(0,200),notes:"",barcodes:[code],quantity_g,stock:1,opened:false,createdAt:new Date().toISOString()});
       }
       store(s);
-    }catch(e){const node=$("scanError");if(node)node.textContent=e.message;else window.alert("Speichern fehlgeschlagen: "+e.message);}
+    }catch(e){const node=$("scanError");if(node)node.textContent="Speichern fehlgeschlagen: "+e.message;else status("Speichern fehlgeschlagen: "+e.message);}
   }
   function openSession(id){
     close();
