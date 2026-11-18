@@ -254,7 +254,7 @@
     dialog('<div class="dialog-head"><div><h2 id="dialogTitle">'+(entry?"Bewertung bearbeiten":"Tabak hinzufügen")+'</h2>'+
       '<p>Wähle die Sorte und bewerte vor allem ihre Verträglichkeit.</p></div>'+
       '<button class="close-btn" type="button" data-action="close-dialog" aria-label="Schließen">×</button></div>'+
-      '<form class="editor-form" id="tobacco-form">'+
+      '<form class="editor-form" id="tobacco-form" method="post">'+
       '<div class="fields">'+
       input("brand","Hersteller *",p?.brand||"","z. B. Hookain",true,"text",'list="brandList" maxlength="120" autocomplete="off"')+
       '<datalist id="brandList">'+BRANDS.map(b=>'<option value="'+escapeHTML(b)+'"></option>').join("")+'</datalist>'+
@@ -287,7 +287,7 @@
       '<p class="review-disclaimer">Eine persönliche Bewertung ist kein medizinischer Befund.</p></div>'+
       '<div class="dialog-actions"><button class="btn btn-secondary" type="button" data-action="close-dialog">Abbrechen</button>'+
       '<button class="btn btn-primary" type="submit">'+(entry?"Änderungen speichern":"Tabak speichern")+'</button></div>'+
-      '<input type="hidden" name="id" value="'+escapeHTML(p?.id||"")+'"></form>');
+      '<input type="hidden" name="tobacco_id" value="'+escapeHTML(p?.id||"")+'"></form>');
     initAutocomplete();
   }
   function initAutocomplete(){
@@ -310,7 +310,7 @@
   }
   function saveTobacco(form){
     if(!state)return;
-    const fd=new FormData(form),id=String(fd.get("id")||""),brand=plain(fd.get("brand"),120),name=plain(fd.get("name"),160);
+    const fd=new FormData(form),id=String(fd.get("tobacco_id")||""),brand=plain(fd.get("brand"),120),name=plain(fd.get("name"),160);
     if(!brand||!name){notice("Hersteller und Sorte sind Pflichtfelder.",true);return;}
     const rawWeight=String(fd.get("quantity_g")??"").trim(),quantity_g=rawWeight===""?0:Number(rawWeight);
     if((rawWeight!==""&&!/^\d+$/.test(rawWeight))||!Number.isInteger(quantity_g)||quantity_g<0||quantity_g>1000){
@@ -392,6 +392,55 @@
       if(persist(next)){notice("Backup erfolgreich importiert.");setView("data");}
     }catch(error){notice("Import nicht möglich: "+error.message,true);}
   }
+  function restoreFailedSubmissionFromUrl(){
+    // Earlier versions accidentally sent form fields as a GET request due to a
+    // hidden input named "id" shadowing HTMLFormElement.id. Never auto-save
+    // values from a URL: restore a visible draft and require explicit Save.
+    const search=window.location?.search;
+    if(!search)return;
+    let params;
+    try{params=new URLSearchParams(search);}catch{return;}
+    if(!params.has("brand")||!params.has("name")||!params.has("tolerability"))return;
+    const fields=["brand","name","catalog_ean","tolerability","quantity_g","base",
+      "flavor","taste","symptom","review_notes","id","tobacco_id"];
+    const remaining=new URLSearchParams(params);
+    for(const field of fields)remaining.delete(field);
+    try{
+      const newSearch=remaining.toString(),location=window.location;
+      window.history?.replaceState?.(window.history.state,"",
+        location.pathname+(newSearch?"?"+newSearch:"")+(location.hash||""));
+    }catch{ /* URL cleanup must never block the app. */ }
+    if(!state)return;
+    try{
+      const previousId=params.get("tobacco_id")||params.get("id")||"";
+      tobaccoDialog(productById(previousId)?previousId:null);
+      const form=$("editorDialog").querySelector?.("#tobacco-form");
+      if(!form)return;
+      for(const field of ["brand","name","catalog_ean","quantity_g","base","flavor","taste","review_notes"]){
+        if(!params.has(field))continue;
+        const control=form.elements.namedItem(field);
+        if(control)control.value=params.get(field);
+      }
+      const score=params.get("tolerability");
+      form.querySelectorAll('input[name="tolerability"]').forEach(radio=>{
+        radio.checked=radio.value===score;
+      });
+      const selectedSymptoms=params.getAll("symptom");
+      form.querySelectorAll('input[name="symptom"]').forEach(input=>{
+        input.checked=selectedSymptoms.includes(input.value);
+      });
+      const feedback=$("ratingFeedback"),n=Number(score);
+      if(feedback&&Number.isInteger(n)&&n>=1&&n<=5)
+        feedback.textContent="Ausgewählt: "+n+" von 5 · "+TOLERABILITY[n-1];
+      form.querySelector(".optional-details").open=true;
+      const note=$("catalogSelection");
+      if(note)note.textContent="Nicht gespeicherte Eingaben aus dem letzten Speicherversuch wiederhergestellt. Bitte jetzt erneut speichern.";
+    }catch(error){
+      // The main collection must remain usable if a malformed old URL cannot
+      // be reconstructed into a draft.
+      notice("Die alten Formulareingaben konnten nicht vollständig wiederhergestellt werden.",true);
+    }
+  }
   document.addEventListener("click",event=>{
     const el=event.target.closest?.("[data-view], [data-filter], [data-action]");
     if(!el)return;
@@ -420,7 +469,7 @@
     }
   });
   document.addEventListener("submit",event=>{
-    if(event.target.id==="tobacco-form"){event.preventDefault();saveTobacco(event.target);}
+    if(event.target?.getAttribute?.("id")==="tobacco-form"){event.preventDefault();saveTobacco(event.target);}
   });
   document.addEventListener("change",event=>{
     if(event.target.name==="tolerability"){
@@ -439,5 +488,5 @@
   });
   $("editorDialog").addEventListener("click",event=>{if(event.target===$("editorDialog"))closeDialog();});
   $("editorDialog").addEventListener("cancel",event=>{event.preventDefault();closeDialog();});
-  load();render();
+  load();render();restoreFailedSubmissionFromUrl();
 })();
