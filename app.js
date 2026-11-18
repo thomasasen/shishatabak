@@ -167,16 +167,16 @@
   function render() {
     const names={overview:"Übersicht",collection:"Meine Tabake",sessions:"Sessions",insights:"Auswertung",data:"Daten & Backup"};
     $("currentSection").textContent=names[view];
-    document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("is-active",b.dataset.view===view));
+    document.querySelectorAll(".nav-item").forEach(b=>{const active=b.dataset.view===view;b.classList.toggle("is-active",active);if(active)b.setAttribute?.("aria-current","page");else b.removeAttribute?.("aria-current");});
     $("screen").innerHTML={overview,collection,sessions:sessionsView,insights,data:dataView}[view]();
-    $("saveStatus").textContent=storageError?"● Speicherfehler":"● Lokal gespeichert";
+    $("saveStatus").textContent=storageError?"Speicherfehler":"Lokal gespeichert";
     $("saveStatus").classList.toggle("error",!!storageError);
   }
   function toast(text,isError=false) {
     const el=$("toast");el.textContent=text;el.classList.toggle("error",isError);el.classList.add("visible");
     clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("visible"),3500);
   }
-  function setView(next) { if(!["overview","collection","sessions","insights","data"].includes(next))return;view=next;query="";filter="all";render();window.scrollTo({top:0,behavior:"smooth"}); }
+  function setView(next) { if(!["overview","collection","sessions","insights","data"].includes(next))return;view=next;query="";filter="all";render();const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});$("screen").focus?.({preventScroll:true}); }
   function persist(next) {
     try {
       localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
@@ -392,7 +392,7 @@
   document.addEventListener("click",e=>{
     const b=e.target.closest("[data-view], [data-filter], [data-action]");
     if(!b)return;
-    if(b.dataset.view){setView(b.dataset.view);return;}
+    if(b.dataset.view){e.preventDefault?.();setView(b.dataset.view);return;}
     if(b.dataset.filter){filter=b.dataset.filter;render();return;}
     const action=b.dataset.action,id=b.dataset.id;
     if(action==="add-tobacco")tobaccoDialog();
@@ -419,8 +419,7 @@
     if(action==="export")exportData();
     if(action==="import-merge"||action==="import-replace"){importMode=action==="import-merge"?"merge":"replace";$("importFile").click();}
     if(action==="clear-all"){
-      if(!confirm("Wirklich alle Tabake und Sessions löschen? Bitte vorher Backup exportieren."))return;
-      if(!confirm("Zweite Bestätigung: Alle lokalen Einträge dauerhaft entfernen?"))return;
+      if(!confirm("Alle "+state.tobaccos.length+" Tabake und "+state.sessions.length+" Sessions unwiderruflich löschen? Vorher ein Backup exportieren."))return;
       if(persist(emptyState()))toast("Alle Daten gelöscht.");
     }
   });
