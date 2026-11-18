@@ -1,0 +1,278 @@
+"""Real-browser end-to-end QA run: product, data, adversarial, mobile, cross-browser."""
+import json
+import threading
+from functools import partial
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+ROOT=Path(__file__).resolve().parent.parent
+KEY="tabakjournal:v1"
+BASE=""
+passed=[]
+
+class Quiet(SimpleHTTPRequestHandler):
+    def log_message(self,*args):pass
+
+def storage(page):
+    value=page.evaluate("(k)=>localStorage.getItem(k)",KEY)
+    return json.loads(value) if value else None
+
+def state(tobaccos=None,sessions=None):
+    return {"app":"tabakjournal","version":1,"tobaccos":tobaccos or [],"sessions":sessions or [],"settings":{"bowl":""}}
+
+def product(id,brand,name,score=None,barcodes=None):
+    return {"id":id,"brand":brand,"name":name,"quantity_g":200,"base":"Virginia",
+            "flavor":"","stock":1,"opened":False,"barcodes":barcodes or [],
+            "review":{"tolerability":score,"taste":None,"symptoms":[],"notes":""}}
+
+def historical(id,tobacco_id):
+    return {"id":id,"tobaccoId":tobacco_id,"date":"2026-11-17","severity":1,
+            "taste":3,"symptoms":["Schwindel"],"notes":"historischer Eintrag"}
+
+def seed(page,data):
+    page.goto(BASE)
+    page.evaluate("([k,v])=>localStorage.setItem(k,JSON.stringify(v))",[KEY,data])
+    page.reload()
+
+def add(page,brand,name,score,notes=None):
+    page.locator('.topbar [data-action="add-tobacco"]').click()
+    page.locator("#f-brand").fill(brand)
+    page.locator("#f-name").fill(name)
+    if score is not None:
+        page.locator('input[name="tolerability"][value="'+str(score)+'"]').check()
+    if notes is not None:
+        page.locator(".optional-details summary").click()
+        page.locator("#f-review-notes").fill(notes)
+    page.locator('#tobacco-form button[type="submit"]').click()
+    if score is not None:assert not page.locator("#editorDialog").evaluate("(el)=>el.open")
+
+def verify(label,fn):
+    print("START",label,flush=True)
+    fn()
+    passed.append(label)
+    print("PASS",label,flush=True)
+
+def product_suite(browser):
+    ctx=browser.new_context()
+    page=ctx.new_page()
+    errors=[]
+    page.on("pageerror",lambda exc:errors.append(str(exc)))
+    page.goto(BASE)
+    assert "Noch kein Tabak erfasst" in page.locator("#screen").inner_text()
+    page.locator('.topbar [data-action="add-tobacco"]').click()
+    page.locator("#f-brand").fill("AINO Dark")
+    page.locator("#f-name").fill("Conud")
+    page.locator(".catalog-result").filter(has_text="Conud Shake").first.click()
+    assert page.locator("#f-catalog-ean").input_value()=="4251647513279"
+    assert page.locator("#f-quantity_g").input_value()=="200"
+    page.locator('input[name="tolerability"][value="4"]').check()
+    assert "4 von 5" in page.locator("#ratingFeedback").inner_text()
+    page.locator('#tobacco-form button[type="submit"]').click()
+    saved=storage(page)
+    assert len(saved["tobaccos"])==1
+    assert saved["tobaccos"][0]["barcodes"]==["4251647513279"]
+    assert saved["tobaccos"][0]["review"]["tolerability"]==4
+    assert "brand=" not in page.url
+    page.reload()
+    assert "Conud Shake" in page.locator("#collectionResults").inner_text()
+    page.locator(".tobacco-card").get_by_role("button",name="Bewertung bearbeiten").click()
+    page.locator('input[name="tolerability"][value="2"]').check()
+    page.locator(".optional-details summary").click()
+    page.locator("#f-review-notes").fill("Schlechter verträglich")
+    page.locator('input[name="symptom"][value="Übelkeit"]').check()
+    page.locator('#tobacco-form button[type="submit"]').click()
+    assert len(storage(page)["tobaccos"])==1
+    assert storage(page)["tobaccos"][0]["review"]["tolerability"]==2
+    assert storage(page)["tobaccos"][0]["review"]["symptoms"]==["Übelkeit"]
+    page.reload()
+    assert "Schlechter verträglich" in page.locator("#collectionResults").inner_text()
+    assert not errors,errors
+    ctx.close()
+
+def search_filter_suite(browser):
+    ctx=browser.new_context()
+    page=ctx.new_page()
+    page.goto(BASE)
+    add(page,"A Test","Guter Tabak",5)
+    add(page,"B Test","Schlechter Tabak",1)
+    add(page,"C Test","Mittel Tabak",3)
+    assert len(storage(page)["tobaccos"])==3
+    field=page.locator("#searchBar")
+    field.fill("Guter")
+    assert field.evaluate("(el)=>document.activeElement===el")
+    assert "Guter Tabak" in page.locator("#collectionResults").inner_text()
+    assert "Schlechter Tabak" not in page.locator("#collectionResults").inner_text()
+    field.fill("")
+    for target,positive,negative in [
+        ("good","Guter Tabak","Schlechter Tabak"),
+        ("bad","Schlechter Tabak","Guter Tabak"),
+    ]:
+        page.locator('[data-filter="'+target+'"]').click()
+        text=page.locator("#collectionResults").inner_text()
+        assert positive in text and negative not in text
+        assert page.locator('[data-filter="'+target+'"]').get_attribute("aria-pressed")=="true"
+    page.locator('[data-filter="unrated"]').click()
+    assert "Keine passenden Tabake" in page.locator("#collectionResults").inner_text()
+    page.locator('[data-filter="all"]').click()
+    # Duplicate must never add a second record.
+    page.locator('.topbar [data-action="add-tobacco"]').click()
+    page.locator("#f-brand").fill("A Test")
+    page.locator("#f-name").fill("Guter Tabak")
+    page.locator('input[name="tolerability"][value="3"]').check()
+    page.locator('#tobacco-form button[type="submit"]').click()
+    assert page.locator("#editorDialog").evaluate("(el)=>el.open")
+    assert len(storage(page)["tobaccos"])==3
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="close-dialog"]').first.click()
+    # Delete cancellation and acceptance.
+    page.locator(".tobacco-card").filter(has_text="Guter Tabak").get_by_role("button",name="Bewertung bearbeiten").click()
+    ctx.once("dialog",lambda d:d.dismiss())
+    page.locator('[data-action="delete-tobacco"]').click()
+    assert len(storage(page)["tobaccos"])==3
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="delete-tobacco"]').click()
+    assert len(storage(page)["tobaccos"])==2
+    ctx.close()
+
+def backup_suite(browser):
+    ctx=browser.new_context(accept_downloads=True)
+    page=ctx.new_page()
+    initial=state([product("legacy","Alt","Archiv",None,["4260623441833"])],[historical("session1","legacy")])
+    seed(page,initial)
+    assert "Noch nicht bewertet" in page.locator("#collectionResults").inner_text()
+    page.locator('[data-view="data"]').first.click()
+    with page.expect_download() as item:
+        page.locator('[data-action="export"]').click()
+    saved=json.loads(Path(item.value.path()).read_text(encoding="utf-8"))
+    assert len(saved["sessions"])==1 and len(saved["tobaccos"])==1
+    incoming=state([product("external","Alt","Archiv",5)],[historical("session2","external")])
+    page.locator("#importFile").set_input_files({
+        "name":"merge.json","mimeType":"application/json","buffer":json.dumps(incoming).encode()
+    })
+    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).sessions.length===2")
+    data=storage(page)
+    assert len(data["tobaccos"])==1
+    assert data["sessions"][1]["tobaccoId"]=="legacy"
+    assert data["tobaccos"][0]["review"]["tolerability"]==5
+    # Personal rating wins over imported rating.
+    lower=state([product("another","Alt","Archiv",1)])
+    page.locator("#importFile").set_input_files({
+        "name":"lower.json","mimeType":"application/json","buffer":json.dumps(lower).encode()
+    })
+    page.wait_for_timeout(150)
+    assert storage(page)["tobaccos"][0]["review"]["tolerability"]==5
+    before=storage(page)
+    page.locator("#importFile").set_input_files({
+        "name":"invalid.json","mimeType":"application/json","buffer":b'{"wrong":1}'
+    })
+    page.wait_for_timeout(150)
+    assert storage(page)==before
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="import-replace"]').click()
+    page.locator("#importFile").set_input_files({
+        "name":"replace.json","mimeType":"application/json","buffer":json.dumps(state()).encode()
+    })
+    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===0")
+    page.locator("#importFile").set_input_files({
+        "name":"restore.json","mimeType":"application/json","buffer":json.dumps(saved).encode()
+    })
+    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===1")
+    assert len(storage(page)["sessions"])==1
+    ctx.once("dialog",lambda d:d.dismiss())
+    page.locator('[data-action="clear-all"]').click()
+    assert len(storage(page)["tobaccos"])==1
+    ctx.once("dialog",lambda d:d.accept())
+    page.locator('[data-action="clear-all"]').click()
+    assert len(storage(page)["tobaccos"])==0 and len(storage(page)["sessions"])==0
+    ctx.close()
+
+def adversarial_suite(browser):
+    ctx=browser.new_context()
+    page=ctx.new_page()
+    errors=[]
+    page.on("pageerror",lambda exc:errors.append(str(exc)))
+    page.goto(BASE)
+    add(page,'<img src=x onerror=alert(1)>','<script>window.__hack=1</script>',4,
+        notes='"><svg/onload=alert(2)>')
+    assert len(storage(page)["tobaccos"])==1
+    assert page.locator("#collectionResults script").count()==0
+    assert page.locator("#collectionResults img").count()==0
+    assert not page.evaluate("Boolean(window.__hack)")
+    page.locator('.topbar [data-action="add-tobacco"]').click()
+    page.locator("#f-brand").fill("Blocked")
+    page.locator("#f-name").fill("Storage")
+    page.locator('input[name="tolerability"][value="2"]').check()
+    page.evaluate("""() => {const native=Storage.prototype.setItem;
+      Storage.prototype.setItem=function(k,v){if(k==='tabakjournal:v1')throw new DOMException('Quota','QuotaExceededError');
+      return native.call(this,k,v)}}""")
+    page.locator('#tobacco-form button[type="submit"]').click()
+    assert page.locator("#editorDialog").evaluate("(el)=>el.open")
+    assert len(storage(page)["tobaccos"])==1
+    assert "nicht gespeichert" in page.locator("#toast").inner_text()
+    assert not errors,errors
+    ctx.close()
+
+def cross_browser(browser_type,name):
+    browser=browser_type.launch(headless=True,args=["--no-sandbox"] if name=="Chromium" else [])
+    try:
+        ctx=browser.new_context()
+        page=ctx.new_page()
+        page.goto(BASE)
+        add(page,"Cross","Browser "+name,4)
+        page.reload()
+        assert storage(page)["tobaccos"][0]["review"]["tolerability"]==4
+        assert "Browser "+name in page.locator("#collectionResults").inner_text()
+        page.locator('[data-view="data"]').first.click()
+        assert "Backup"==page.locator("#screen h1").inner_text()
+        ctx.close()
+    finally:browser.close()
+
+def mobile(browser_type):
+    browser=browser_type.launch(headless=True,args=["--no-sandbox"])
+    try:
+        for width in (320,375,430,768):
+            ctx=browser.new_context(viewport={"width":width,"height":740},is_mobile=True,has_touch=True)
+            page=ctx.new_page()
+            page.goto(BASE)
+            w=page.evaluate("({scroll:document.documentElement.scrollWidth,view:document.documentElement.clientWidth})")
+            assert w["scroll"]<=w["view"]+1,(width,w)
+            page.locator('.topbar [data-action="add-tobacco"]').click()
+            radios=page.locator('input[name="tolerability"]')
+            assert radios.count()==5
+            positions=[radios.nth(i).bounding_box() for i in range(5)]
+            assert max(pos["y"] for pos in positions)-min(pos["y"] for pos in positions)<2
+            assert min(pos["width"] for pos in positions)>=43
+            page.locator("#f-brand").fill("Mobil")
+            page.locator("#f-name").fill("Test")
+            radios.nth(3).check()
+            page.locator('#tobacco-form button[type="submit"]').click()
+            assert len(storage(page)["tobaccos"])==1
+            ctx.close()
+    finally:browser.close()
+
+def main():
+    global BASE
+    server=ThreadingHTTPServer(("127.0.0.1",0),partial(Quiet,directory=str(ROOT)))
+    threading.Thread(target=server.serve_forever,daemon=True).start()
+    BASE="http://127.0.0.1:"+str(server.server_port)+"/"
+    try:
+        with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,args=["--no-sandbox"])
+            try:
+                for label,fn in [
+                    ("Product: catalog/save/reload/edit",product_suite),
+                    ("Product: search/filter/duplicate/delete",search_filter_suite),
+                    ("Data: export/import/merge/replace/legacy/clear",backup_suite),
+                    ("Red Team: injection and storage failure",adversarial_suite),
+                ]:verify(label,lambda fn=fn:fn(browser))
+            finally:browser.close()
+            for name,engine in [("Chromium",p.chromium),("Firefox",p.firefox),("WebKit",p.webkit)]:
+                verify("Cross-browser "+name,lambda e=engine,n=name:cross_browser(e,n))
+            verify("Mobile: widths 320,375,430,768",lambda:mobile(p.chromium))
+        print("QS ERGEBNIS:",len(passed),"Suiten bestanden; 0 Fehler",flush=True)
+    finally:
+        server.shutdown()
+        server.server_close()
+
+if __name__=="__main__":main()
