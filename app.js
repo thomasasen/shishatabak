@@ -156,8 +156,7 @@
     if(!state)return '<div class="hint warning">Deine bisherigen Daten konnten nicht sicher gelesen werden. Bitte Browserdaten nicht löschen oder überschreiben und zuerst eine Sicherung der vorhandenen Daten erstellen.</div>';
     const all=state.tobaccos.filter(p=>
       key([p.brand,p.name,p.flavor,p.review?.notes||""].join(" ")).includes(key(query))&&
-      (filter==="all"||(filter==="rated"&&p.review?.tolerability!=null)||
-       (filter==="good"&&p.review?.tolerability>=4)||
+      (filter==="all"||(filter==="good"&&p.review?.tolerability>=4)||
        (filter==="bad"&&p.review?.tolerability!=null&&p.review.tolerability<=2)||
        (filter==="unrated"&&p.review?.tolerability==null))
     ).sort((a,b)=>a.brand.localeCompare(b.brand,"de")||a.name.localeCompare(b.name,"de"));
@@ -167,7 +166,7 @@
       '<div class="btn-row">'+button("＋ Tabak hinzufügen","add-tobacco")+'</div></div>'+
       '<div class="toolbar"><div class="search-wrap"><input type="search" class="search" id="searchBar" value="'+escapeHTML(query)+'" placeholder="Hersteller oder Sorte suchen" aria-label="Meine Tabake suchen" autocomplete="off"></div>'+
       '<div class="filters" role="group" aria-label="Bewertung filtern">'+[
-        ["all","Alle"],["rated","Bewertet"],["good","Gut verträglich"],["bad","Schlecht verträglich"],["unrated","Unbewertet"]
+        ["all","Alle"],["good","Gut verträglich"],["bad","Schlecht verträglich"],["unrated","Unbewertet"]
       ].map(pair=>'<button type="button" class="filter '+(filter===pair[0]?'active':'')+'" data-filter="'+pair[0]+'" aria-pressed="'+(filter===pair[0])+'">'+pair[1]+'</button>').join("")+'</div></div>'+
       (all.length?'<div class="cards">'+all.map(card).join("")+'</div>':
         '<div class="panel"><div class="empty"><div class="empty-icon">'+icon("collection")+'</div><strong>'+
@@ -185,8 +184,8 @@
       '<section class="data-tile"><h3>Sicherung wiederherstellen</h3><p>Bestehendes Backup zusammenführen oder den aktuellen Bestand ersetzen. Frühere Backups bleiben verwendbar.</p>'+
       '<div class="btn-row"><button class="btn btn-secondary" data-action="import-merge">Zusammenführen</button><button class="btn btn-danger" data-action="import-replace">Ersetzen</button></div>'+
       '<input id="importFile" type="file" accept=".json,application/json" hidden></section></div>'+
-      '<div class="data-tile archive-tile"><h3>Historische Daten</h3><p>Die bisher erfassten '+state.sessions.length+' Session-Einträge bleiben aus Gründen der Datensicherheit im JSON-Backup enthalten. Sie werden weder angezeigt noch automatisch in eine allgemeine Tabakbewertung umgerechnet.</p></div>'+
-      '<div class="data-tile archive-tile"><h3>Alle lokalen Daten löschen</h3><p>Dies entfernt Tabake, Bewertungen und historische Sessions dauerhaft aus diesem Browser. Erstelle vorher ein Backup.</p>'+
+      '<p class="smallprint">Frühere Daten aus älteren App-Versionen bleiben im Backup enthalten, auch wenn sie nicht mehr in der Oberfläche erscheinen.</p>'+
+      '<div class="data-tile archive-tile"><h3>Alle lokalen Daten löschen</h3><p>Dies entfernt Tabake, Bewertungen und frühere Daten dauerhaft aus diesem Browser. Erstelle vorher ein Backup.</p>'+
       '<button class="btn btn-danger" data-action="clear-all">Alle Daten löschen</button></div>';
   }
   function render(){
@@ -246,7 +245,7 @@
       ["Unbekannt","Virginia","Dark Blend"].map(v=>'<option value="'+v+'"'+(v===(p?.base||"Unbekannt")?' selected':'')+'>'+v+'</option>').join("")+'</select></div></div>'+
       input("flavor","Geschmacksrichtung",p?.flavor||"","z. B. Minze, Traube",false,"text",'maxlength="200"')+
       '<fieldset class="rating-block"><legend>Verträglichkeit <span class="required-star">*</span></legend>'+
-      '<p>Wie gut verträgst du diesen Tabak insgesamt?</p>'+
+      '<p>Wie gut verträgst du diesen Tabak insgesamt? 1 = sehr schlecht, 5 = sehr gut.</p>'+
       '<div class="rating-options" role="group" aria-label="Verträglichkeit von eins bis fünf">'+
       TOLERABILITY.map((label,i)=>'<label class="rating-option"><input type="radio" name="tolerability" value="'+(i+1)+'"'+
       (r.tolerability===i+1?' checked':'')+(i===0?' required':'')+'><span class="rating-score">'+(i+1)+'</span><span class="rating-name">'+label+'</span></label>').join("")+
@@ -257,7 +256,7 @@
       SYMPTOMS.map(sym=>'<label class="symptom-choice"><input type="checkbox" name="symptom" value="'+escapeHTML(sym)+'"'+
       (r.symptoms.includes(sym)?' checked':'')+'> '+escapeHTML(sym)+'</label>').join("")+'</div></fieldset>'+
       '<div class="field"><label for="f-review-notes">Notizen zur Verträglichkeit (optional)</label>'+
-      '<textarea id="f-review-notes" name="review_notes" maxlength="1000" placeholder="Wie hast du den Tabak vertragen?">'+escapeHTML(r.notes||p?.notes||"")+'</textarea></div>'+
+      '<textarea id="f-review-notes" name="review_notes" maxlength="1000" placeholder="Wie hast du den Tabak vertragen?">'+escapeHTML(r.notes||(r.updatedAt?"":p?.notes||""))+'</textarea></div>'+
       '<div class="hint">Die Bewertung beschreibt deine persönlichen Erfahrungen. Sie gilt nicht als medizinischer Befund.</div></div>'+
       '<div class="dialog-actions">'+(entry?'<button class="btn btn-danger" type="button" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Tabak löschen</button>':'')+
       '<button class="btn btn-secondary" type="button" data-action="close-dialog">Abbrechen</button>'+
@@ -322,7 +321,7 @@
     if(!state)return;
     const product=productById(id);if(!product)return;
     const historical=state.sessions.filter(s=>s.tobaccoId===id).length;
-    if(!confirm('"'+productName(product)+'" mit Bewertung'+(historical?' und '+historical+' historischen Sessions':'')+' dauerhaft löschen?'))return;
+    if(!confirm('"'+productName(product)+'" mit Bewertung'+(historical?' und '+historical+' älteren Protokollen':'')+' dauerhaft löschen?'))return;
     const next={...state,tobaccos:state.tobaccos.filter(p=>p.id!==id),sessions:state.sessions.filter(s=>s.tobaccoId!==id)};
     if(persist(next)){closeDialog(true);notice("Tabak gelöscht.");}
   }
@@ -352,7 +351,7 @@
       }else{products.push(item);ids[item.id]=item.id;}
     }
     const sessions=new Map(state.sessions.map(s=>[s.id,s]));
-    for(const entry of incoming.sessions)sessions.set(entry.id,{...entry,tobaccoId:ids[entry.tobaccoId]||entry.tobaccoId});
+    for(const entry of incoming.sessions)if(!sessions.has(entry.id))sessions.set(entry.id,{...entry,tobaccoId:ids[entry.tobaccoId]||entry.tobaccoId});
     return {...state,tobaccos:products,sessions:[...sessions.values()]};
   }
   async function importFile(file){
@@ -388,7 +387,7 @@
     if(action==="import-merge"||action==="import-replace"){importMode=action==="import-merge"?"merge":"replace";$("importFile")?.click();}
     if(action==="clear-all"){
       if(!state)return;
-      if(!confirm("Alle "+state.tobaccos.length+" Tabake, ihre Bewertungen und "+state.sessions.length+" historische Sessiondaten dauerhaft löschen? Vorher ein Backup erstellen."))return;
+      if(!confirm("Alle "+state.tobaccos.length+" Tabake und ihre Bewertungen sowie "+state.sessions.length+" frühere Protokolle dauerhaft löschen? Vorher ein Backup erstellen."))return;
       if(persist(emptyState()))notice("Alle lokalen Daten gelöscht.");
     }
   });
