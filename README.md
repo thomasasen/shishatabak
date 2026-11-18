@@ -15,7 +15,8 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 ## Was der Pilot bereits kann
 
 - Hersteller-/Sorten-Autovervollständigung aus einem **recherchierten lokalen Produktkatalog** mit exemplarischen, öffentlich dokumentierten Produkten; zusätzlich Herstellervorschläge und freie Eingabe.
-- Tabake anlegen, bearbeiten und löschen (Hersteller, Sorte, Grundtabak, Geschmack, Notizen).
+- Eigene Tabake über **994 recherchierte EAN-/GTIN-Katalogeinträge**, Barcode-Scan oder manuelle Eingabe erfassen; **Packungsgröße, Packungsanzahl und Öffnungsstatus** verwalten (auch direkt per +/− in der Sammlung). Bestehende Einträge und Sessions bleiben beim Anpassen des Bestands erhalten.
+- Tabake anlegen, bearbeiten und löschen (Hersteller, Sorte, Grundtabak, Geschmack, Packungsgröße, Bestand, Öffnungsstatus, EANs und Notizen).
 - Sessions erfassen, bearbeiten und löschen: Datum, Tabak, Geschmack (1–5), Beschwerden (0–3), Symptome, Dauer, NOCCA-Temperatur und Kopf.
 - Übersicht und Auswertungen nach Grundtabak und Hersteller mit sichtbarer Fallzahl.
 - Dauerhafte Speicherung über **localStorage** im selben Browser, auch nach Browserneustart.
@@ -25,6 +26,7 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 ## Wichtige Grenzen
 
 - **Keine vollständige Shisha-Datenbank:** Die Vorschläge sind ein kuratierter Offline-Produktkatalog, keine laufend synchronisierte Händler-/Hersteller-API. Produktattribute können sich ändern und sollten überprüft werden.
+- **Bestandszahlen sind Packungen, nicht tatsächliche Gramm-Restmengen.** Eine geöffnete Dose wird nicht automatisch durch das Erfassen einer Session verbraucht. Alte Backups ohne Bestandsfelder werden als 1 Packung mit unbekannter Größe und geschlossenem Status interpretiert; beim Zusammenführen gilt die höhere Bestandszahl statt einer Summe, um wiederholte Importe nicht doppelt zu zählen.
 - **Keine Geräte-Synchronisation.** Jeder Browser hat seine eigene lokale Sammlung. Daten können durch Löschen der Websitedaten, privaten Modus oder Browser-Bereinigung verloren gehen. Regelmäßig ein JSON-Backup herunterladen.
 - **Keine medizinische Diagnose.** Beschwerden wie Schwindel oder Übelkeit sind auch bei elektrischer Beheizung möglich. Die App dokumentiert nur individuelle Beobachtungen und weist keine Ursache nach.
 - Keine Anmeldung, kein Server, keine Cloud-Datenbank, keine Tracking-Skripte, keine Tabakwerbung.
@@ -39,6 +41,12 @@ Danach ist die erwartete URL: https://thomasasen.github.io/shishatabak/
 | app.js | Datenmodell, CRUD, Suche, Auswertung, Import/Export |
 | favicon.svg | Programmsymbol |
 | .nojekyll | Auslieferung ohne Jekyll-Transformation |
+
+## Meine Tabake erfassen
+
+Im Bereich **Meine Tabake** führt **Aus Katalog erfassen** zu einer Suche in den 994 Katalogeinträgen (Hersteller, Sorte, EAN und Geschmack). **Erfassen** übernimmt Hersteller, Sorte, Grundtabak, falls bekannt, die richtige Packungsgröße und GTIN in ein bearbeitbares Formular. Trage die Anzahl deiner vorhandenen Packungen und bei Bedarf „Mindestens eine Packung geöffnet“ ein. **Tabak speichern** legt den Eintrag ausschließlich im Browser an. Bereits gespeicherte Sorten werden zum Bearbeiten geöffnet, statt eine Dublette anzulegen.
+
+Alternativ kannst du **Barcode scannen** oder **Manuell erfassen** verwenden. Wenn du eine bereits bekannte Dose erneut scannst, kannst du direkt **Eine Packung hinzufügen** wählen. Die Karten der Sammlung bieten +/− zum Anpassen des Bestands; 0 Packungen löscht weder Sorte noch Sessions. Der JSON-Export/Import enthält die neuen Inventarfelder. Bestehende Backups der Version 1 bleiben importierbar. Die Erfassung lädt keine persönlichen Bestandsdaten auf einen Server.
 
 ## Datenformat
 
