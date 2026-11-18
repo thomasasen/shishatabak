@@ -249,7 +249,11 @@ def damaged_storage_suite(browser):
         "name":"recovery.json","mimeType":"application/json",
         "buffer":json.dumps(restored).encode()
     })
-    page.wait_for_function("JSON.parse(localStorage.getItem('tabakjournal:v1')).tobaccos.length===1")
+    page.wait_for_timeout(450)
+    current=page.evaluate("(k)=>localStorage.getItem(k)",KEY)
+    assert current!=raw,("Recovery did not replace invalid storage; UI message: "+
+                        page.locator("#toast").inner_text())
+    assert len(storage(page)["tobaccos"])==1
     page.reload()
     assert "Tabak" in page.locator("#collectionResults").inner_text()
     assert storage(page)["tobaccos"][0]["review"]["tolerability"]==4
