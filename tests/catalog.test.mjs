@@ -25,31 +25,14 @@ test("generated browser database matches canonical JSON",()=>{
   runInNewContext(readFileSync(new URL("../catalog.js",import.meta.url),"utf8"),context);
   assert.equal(JSON.stringify(context.window.TabakCatalog.products),JSON.stringify(products));
 });
-test("scan module validates EAN and UPC before lookup",()=>{
-  const root={addEventListener() {}};
-  const context={
-    window:{TabakCatalog:{products},addEventListener() {}},
-    document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener() {}},
-    console
-  };
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),context);
-  const n=context.window.TabakBarcode.normalizeCode;
-  assert.equal(n("4255799718414"),"4255799718414");
-  assert.equal(n("4255799718415"),null);
-  assert.equal(n(" 4255799718414 "),"4255799718414");
-  assert.equal(n("740813533752"),"0740813533752");
-  assert.equal(n("abc"),null);
-  assert.equal(context.window.TabakBarcode.catalogCount,products.length);
-});
-test("GitHub Pages scripts load catalog before app and scanner",()=>{
+test("GitHub Pages loads the static product catalog before the application, with no scanner",()=>{
   const html=readFileSync(new URL("../index.html",import.meta.url),"utf8");
-  const names=["catalog.js","app.js","scanner.js"];
-  assert.ok(names.every(n=>html.includes(n)));
-  assert.ok(html.indexOf(names[0])<html.indexOf(names[1]));
-  assert.ok(html.indexOf(names[1])<html.indexOf(names[2]));
+  assert.match(html,/<script src="\.\/catalog\.js" defer><\/script>/);
+  assert.match(html,/<script src="\.\/app\.js" defer><\/script>/);
+  assert.ok(html.indexOf("catalog.js")<html.indexOf("app.js"));
+  assert.doesNotMatch(html,/scanner\.js|barcodeDialog|data-scan-action|ean-suche\.net/);
 });
-
-test("Argileh ORNG MNT variants share a canonical name and aliases",()=>{
+test("Argileh ORNG MNT remains discoverable through existing catalog aliases",()=>{
   const hits=products.filter(p=>p.brand==="Argileh"&&["4260623442977","4260623441833"].includes(p.ean));
   assert.equal(hits.length,2);
   for(const p of hits){
@@ -58,108 +41,7 @@ test("Argileh ORNG MNT variants share a canonical name and aliases",()=>{
     assert.ok(p.aliases.includes("OG&M"));
     assert.ok(p.aliases.includes("OMI"));
   }
-  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?{addEventListener(){}}:null;},addEventListener(){}},console};
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
-  const matches=ctx.window.TabakBarcode.sameProduct;
-  const entry=hits[0];
-  assert.ok(matches({brand:"Argileh",name:"OG&M"},entry));
-  assert.ok(matches({brand:"Argileh Tobacco",name:"OMI"},entry));
-  assert.ok(matches({brand:"Argileh",name:"ORNG MNT"},entry));
-  assert.ok(!matches({brand:"Dschinni",name:"ORNG MNT"},entry));
 });
-
-test("camera scanning requires three matching decodes rather than one lucky checksum",()=>{
-  const root={addEventListener() {}};
-  const context={
-    window:{TabakCatalog:{products},addEventListener() {}},
-    document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},
-    console
-  };
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),context);
-  const consensus=context.window.TabakBarcode.createScanConsensus(3,70,4000);
-  assert.equal(consensus("0050674441883",100).accepted,false);
-  assert.equal(consensus("0050674441883",125).count,1); // too soon for a new frame
-  assert.equal(consensus("0050674441883",210).count,2);
-  assert.equal(consensus("0050674441883",340).accepted,true);
-  const noisy=context.window.TabakBarcode.createScanConsensus(3,70,4000);
-  noisy("4260623442977",100);
-  noisy("0050674441883",200);
-  assert.equal(noisy("4260623442977",300).count,1);
-  assert.equal(noisy("4260623442977",420).count,2);
-  assert.equal(noisy("4260623442977",540).accepted,true);
-  assert.equal(noisy("4260623442976",650).accepted,false); // invalid check digit
-});
-
-test("standard scanner only accepts EAN-13 and rejects UPC-A fallback",()=>{
-  const dialog={addEventListener(){}};
-  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?dialog:null;},addEventListener(){}},console};
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
-  const {validForScanMode,normalizeCode,decodedFormat}=ctx.window.TabakBarcode;
-  const ean={result:{format:{formatName:"EAN_13"}}};
-  const upc={result:{format:{formatName:"UPC_A"}}};
-  const ean8={result:{format:{formatName:"EAN_8"}}};
-  assert.equal(validForScanMode("4260623441833",ean,false),true);
-  assert.equal(validForScanMode("0000674441833",upc,false),false);
-  assert.equal(validForScanMode("0000674441833",ean,false),true); // mathematically valid; print must still be checked
-  assert.equal(validForScanMode("050674441883",upc,false),false);
-  assert.equal(validForScanMode("050674441883",upc,true),true);
-  assert.equal(validForScanMode("4260623441833",ean,true),true);
-  assert.equal(validForScanMode("4260623441833",{result:{format:{formatName:"UPC_E"}}},true),false);
-  assert.equal(normalizeCode("050674441883"),"0050674441883");
-  assert.equal(decodedFormat(upc),"UPC_A");
-});
-
-test("camera controls detect capabilities and use supported video track settings",async()=>{
-  const root={addEventListener(){}};
-  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},console};
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
-  const api=ctx.window.TabakBarcode;
-  const applied=[],lit=[];
-  const camera={
-    getRunningTrackCapabilities:()=>({torch:true,focusMode:["continuous","manual"],focusDistance:{min:0.1,max:3,step:0.1},zoom:{min:1,max:5,step:0.2}}),
-    getRunningTrackCameraCapabilities:()=>({torchFeature:()=>({isSupported:()=>true,apply:async value=>lit.push(value)})}),
-    applyVideoConstraints:async options=>applied.push(options)
-  };
-  const caps=api.cameraFeatures(camera);
-  assert.equal(caps.torch,true);
-  assert.equal(caps.autofocus,true);
-  assert.equal(caps.focusMode,"continuous");
-  assert.equal(caps.manualFocus.min,0.1);
-  assert.equal(caps.zoom.max,5);
-  await api.applyTorch(camera,caps,true);
-  await api.applyTorch(camera,caps,false);
-  assert.deepEqual(lit,[true,false]);
-  await api.applyAutoFocus(camera,caps);
-  await api.applyManualFocus(camera,caps,1.8);
-  await api.applyZoom(camera,caps,4.5);
-  assert.equal(JSON.stringify(applied),JSON.stringify([
-    {advanced:[{focusMode:"continuous"}]},
-    {advanced:[{focusMode:"manual",focusDistance:1.8}]},
-    {advanced:[{zoom:4.5}]}
-  ]));
-});
-test("unsupported camera has no callable torch/focus and clamps manual controls",async()=>{
-  const root={addEventListener(){}};
-  const ctx={window:{TabakCatalog:{products},addEventListener(){}},document:{getElementById(id){return id==="barcodeDialog"?root:null;},addEventListener(){}},console};
-  runInNewContext(readFileSync(new URL("../scanner.js",import.meta.url),"utf8"),ctx);
-  const api=ctx.window.TabakBarcode;
-  const unsupported=api.cameraFeatures({getRunningTrackCapabilities(){return {};}});
-  assert.equal(unsupported.torch,false);
-  assert.equal(unsupported.autofocus,false);
-  assert.equal(unsupported.manualFocus,null);
-  assert.equal(unsupported.zoom,null);
-  await assert.rejects(api.applyTorch(null,unsupported,true),/nicht verfügbar/);
-  await assert.rejects(api.applyAutoFocus(null,unsupported),/nicht unterstützt/);
-  const calls=[];
-  const camera={
-    getRunningTrackCapabilities:()=>({zoom:{min:1,max:3,step:1}}),
-    applyVideoConstraints:async c=>calls.push(c)
-  };
-  const features=api.cameraFeatures(camera);
-  await api.applyZoom(camera,features,999);
-  assert.equal(JSON.stringify(calls),JSON.stringify([{advanced:[{zoom:3}]}]));
-});
-
 
 test("SUN-VI reconciliation adds verified-format GTINs without overwriting old identities",()=>{
   assert.ok(products.length>=759);

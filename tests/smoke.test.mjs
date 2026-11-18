@@ -114,25 +114,26 @@ test("merge import reuses products instead of duplicating them", async () => {
   assert.equal(app.saved().sessions[0].tobaccoId,app.saved().tobaccos[0].id);
 });
 
-test("wrong scanned EAN can be corrected without losing tobacco or sessions",()=>{
-  const app=runApp();
-  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"ORNG MNT",base:"Virginia",barcodes:"0000674441833"});
-  const id=app.saved().tobaccos[0].id;
-  app.submit("session-form",{id:"",tobaccoId:id,date:"2026-11-17",severity:"1",taste:"3",duration:"30",temperature:"200",bowl:"NOCCA",notes:""});
-  assert.equal(app.saved().sessions.length,1);
-  app.submit("tobacco-form",{id,brand:"Argileh",name:"ORNG MNT",base:"Virginia",barcodes:"4260623441833"});
+test("legacy backup identifiers survive a non-identity edit without losing sessions",()=>{
+  const old={app:"tabakjournal",version:1,settings:{bowl:""},tobaccos:[
+    {id:"legacy-tabak",brand:"Argileh",name:"ORNG MNT",base:"Virginia",flavor:"",notes:"",quantity_g:200,barcodes:["4260623441833"],stock:1,opened:false}
+  ],sessions:[{id:"legacy-session",tobaccoId:"legacy-tabak",date:"2026-11-17",severity:1,taste:3,notes:"",symptoms:[]}]};
+  const storage=new Map([["tabakjournal:v1",JSON.stringify(old)]]);
+  const app=runApp(storage);
+  app.submit("tobacco-form",{id:"legacy-tabak",brand:"Argileh",name:"ORNG MNT",base:"Virginia",quantity_g:"200",stock:"2",notes:"Geändert"});
   assert.deepEqual(app.saved().tobaccos[0].barcodes,["4260623441833"]);
-  assert.equal(app.saved().tobaccos[0].id,id);
-  assert.equal(app.saved().sessions[0].tobaccoId,id);
+  assert.equal(app.saved().tobaccos[0].stock,2);
+  assert.equal(app.saved().sessions[0].tobaccoId,"legacy-tabak");
 });
-test("invalid barcodes are not silently persisted",()=>{
+test("invalid legacy EAN data is rejected on import without overwriting the collection",async()=>{
   const app=runApp();
-  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"Test",base:"Virginia",barcodes:"4260623441834"});
-  assert.equal(app.sharedStorage.size,0);
-  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"Test",base:"Virginia",barcodes:"4260623441833"});
-  assert.equal(app.saved().tobaccos.length,1);
-  app.submit("tobacco-form",{id:"",brand:"Other",name:"Other",base:"Virginia",barcodes:"4260623441833"});
-  assert.equal(app.saved().tobaccos.length,1);
+  app.submit("tobacco-form",{id:"",brand:"Argileh",name:"Test",base:"Virginia"});
+  const before=JSON.stringify(app.saved());
+  const corrupt={app:"tabakjournal",version:1,tobaccos:[{
+    id:"legacy-1",brand:"Argileh",name:"ORNG MNT",base:"Virginia",barcodes:["4260623441834"]
+  }],sessions:[],settings:{bowl:""}};
+  await app.import(corrupt);
+  assert.equal(JSON.stringify(app.saved()),before);
 });
 test("import rejects two products claiming the same EAN and preserves local storage",async()=>{
   const app=runApp();

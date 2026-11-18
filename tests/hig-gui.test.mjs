@@ -39,7 +39,7 @@ test("HIG semantic foreground combinations meet WCAG AA in light and dark includ
     }
   }
 });
-test("exactly five tab destinations, keyboard skip link and icon-only toolbar accessibility labels",()=>{
+test("exactly five tab destinations, keyboard skip link and accessible add-tobacco action",()=>{
   const tabs=[...html.matchAll(/<button[^>]+class="nav-item[^"]*"[^>]*data-view="([^"]+)"/g)];
   assert.deepEqual(tabs.map(m=>m[1]),["overview","collection","sessions","insights","data"]);
   assert.equal((html.match(/aria-current="page"/g)||[]).length,1);
@@ -47,8 +47,9 @@ test("exactly five tab destinations, keyboard skip link and icon-only toolbar ac
   assert.match(html,/<a class="skip-link" href="#screen">/);
   assert.match(html,/<main id="screen" class="content" tabindex="-1"><\/main>/);
   assert.doesNotMatch(html,/<main[^>]*aria-live=/);
-  assert.match(html,/data-scan-action="open"[^>]*aria-label="Barcode scannen"/);
-  assert.match(html,/data-action="open-catalog"[^>]*aria-label="Tabak aus Katalog erfassen"/);
+  assert.doesNotMatch(html,/data-scan-action|scanner\\.js|barcodeDialog|ean-suche\\.net/);
+  assert.match(html,/data-action="add-tobacco"[^>]*aria-label="Tabak erfassen"/);
+  assert.doesNotMatch(app,/data-scan-action|openCatalogPicker|renderCatalogPicker/);
 });
 test("mobile navigation is a safe-area aware bottom bar; interactive targets and focus styles exist",()=>{
   assert.match(css,/@media\(max-width:780px\)/);
