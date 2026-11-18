@@ -9,10 +9,10 @@ Eine kleine, private Webapp, in der du **jeden Tabak genau einmal bewertest**. D
 - **Tabak hinzufügen:** Hersteller und Sorte eingeben. Die automatische Vervollständigung nutzt den vorhandenen lokalen Produktkatalog mit 994 GTIN-Einträgen (878 zusammengefasste Sorten-/Packungsgrößen-Varianten). Ein Treffer übernimmt Hersteller, Sorte, Packungsgröße und verfügbare Angaben zu Grundtabak und Geschmacksrichtung.
 - **Verträglichkeit bewerten:** Pro Tabak eine dauerhafte Einschätzung von **1 (sehr schlecht)** bis **5 (sehr gut)**. Sie ist die Hauptinformation jeder Tabakkarte.
 - **Optionale Details:** Geschmack von 1 bis 5, beobachtete Beschwerden (Schwindel, Übelkeit, Kopfschmerzen, Herzrasen, andere Beschwerden) und eine freie Notiz.
-- **Bearbeiten und vergleichen:** Eine Bewertung später korrigieren oder aktualisieren; Suche und Filter für gut verträgliche, schlecht verträgliche und noch nicht bewertete Tabake.
+- **Bearbeiten und vergleichen:** Verträglichkeit steht als große Zahl und Klartext auf jeder Karte; Suche und Filter für gut/schlecht verträgliche und nicht bewertete Sorten. Die Suche aktualisiert nur Treffer, ohne beim Tippen das Eingabefeld zu ersetzen.
 - **Backup:** Persönliche Daten als JSON exportieren, importieren, zusammenführen oder ersetzen. Keine Anmeldung, kein Backend und keine Cloud-Synchronisation.
 
-**Bewusst entfernt:** Session-Tagebuch und Session-Auswertungen, die Bestandsverwaltung als sichtbare Funktion, Barcode-/Kameraerkennung und externe EAN-Abfragen. Es gibt nur die beiden Bereiche **Meine Tabake** und **Backup**.
+**Bewusst entfernt:** Session-Tagebuch und Session-Auswertungen, die Bestandsverwaltung als sichtbare Funktion, Barcode-/Kameraerkennung und externe EAN-Abfragen. Die App konzentriert sich auf **Meine Tabake**. **Backup** ist als sekundäre Werkzeugleisten-Aktion erreichbar.
 
 ## Bewertungsprinzip
 
@@ -54,7 +54,7 @@ Die Skripte unter [scripts](scripts) dienen nur der **separaten Pflege des Daten
 
 ## Oberfläche
 
-Das responsive Design orientiert sich an den Apple Human Interface Guidelines, setzt deren Grundprinzipien aber mit HTML/CSS und Browserstandards um. Hell-/Dunkelmodus, Tastaturfokus, reduzierte Animationen und die zugängliche Bewertungssteuerung bleiben vorhanden. Die Webapp beansprucht keine nativen Apple-Oberflächenelemente.
+Das responsive Design orientiert sich an den Apple Human Interface Guidelines, setzt deren Grundprinzipien aber mit HTML/CSS und Browserstandards um. Hell-/Dunkelmodus, Tastaturfokus und die zugängliche Bewertungssteuerung bleiben erhalten. Die Fünferbewertung steht durchgehend in einer Reihe; Produktdaten und persönliche Zusatzangaben sind aufklappbar und die Dialogaktionen beim Scrollen sichtbar. Die Webapp verwendet keine nativen Apple-Oberflächenelemente. Den aktuellen Prüfbericht enthält das [Red-Team-Protokoll für die Bewertungsoberfläche](docs/red-team-apple-bewertungs-gui-20261118.md).
 
 ## Lokal starten und testen
 
