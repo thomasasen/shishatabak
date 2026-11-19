@@ -459,7 +459,7 @@ def mockup_fidelity_suite(browser):
         }""")
         assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
         assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
-        assert metrics["tile"]["width"]<=64,metrics
+        assert metrics["tile"]["width"]<=64,metrics\n        if width>=1000:\n            assert page.locator(".card-identity").bounding_box()["y"] >= page.locator(".card-side").bounding_box()["y"]-3\n            assert abs(page.locator(".card-identity").bounding_box()["y"] - page.locator(".card-side").bounding_box()["y"])<16
         assert page.locator(".shisha-scale svg use").count()==5
         assert page.locator(".shisha-scale").evaluate("(el)=>el.scrollWidth<=el.clientWidth+1")
         assert "design-symptom-artwork.png" in metrics["cardImage"]
@@ -469,16 +469,16 @@ def mockup_fidelity_suite(browser):
             assert 116<=metrics["header"]["height"]<=138,metrics
             assert 25<=metrics["card"]["x"]<=65,metrics
             assert metrics["card"]["width"]>=1570,metrics
-            assert 95<=metrics["card"]["height"]<=205,metrics
+            assert 65<=metrics["card"]["height"]<=110,metrics
             assert metrics["titleFont"]>=57,metrics
             assert metrics["card"]["height"]<218,metrics
-            assert 40<=metrics["tile"]["width"]<=64,metrics
+            assert 30<=metrics["tile"]["width"]<=42,metrics
             assert 150<=metrics["title"]["y"]<=210,metrics
             assert 465<=metrics["card"]["y"]<=570,metrics
         if width==1152:
             assert metrics["card"]["width"]>=1000,metrics
-            assert 40<=metrics["tile"]["width"]<=64,metrics
-            assert metrics["card"]["height"]<240,metrics
+            assert 30<=metrics["tile"]["width"]<=42,metrics
+            assert metrics["card"]["height"]<=115,metrics
         if width<500:
             assert metrics["card"]["width"]>=width-45,metrics
             assert metrics["tile"]["width"]>=42,metrics
