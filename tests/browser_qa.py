@@ -259,6 +259,53 @@ def damaged_storage_suite(browser):
     assert storage(page)["tobaccos"][0]["review"]["tolerability"]==4
     ctx.close()
 
+
+def compact_card_suite(browser):
+    """Compact rating cards remain short, readable and fully editable."""
+    brand="Sehr lange Marke mit zusätzlichen Wörtern"
+    name="Extra lange Produktsorte mit mehreren Aromen und langer Bezeichnung"
+    note="Die vollständig gespeicherte persönliche Notiz mit vielen Details " * 4
+    for width in (320,390,1280):
+        ctx=browser.new_context(viewport={"width":width,"height":800},
+                                is_mobile=width<500,has_touch=width<500)
+        page=ctx.new_page()
+        entry=product("compact-id",brand,name,2)
+        entry["review"].update({
+            "taste":3,
+            "symptoms":["Schwindel","Übelkeit","Kopfschmerzen","Herzrasen"],
+            "notes":note
+        })
+        seed(page,state([entry]))
+        card=page.locator(".tobacco-card")
+        assert card.count()==1
+        assert page.locator(".rating-summary-value").inner_text()=="2/5"
+        assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
+        button=page.locator(".card-edit")
+        bounds=button.bounding_box()
+        assert bounds["width"]>=44 and bounds["height"]>=44,(width,bounds)
+        assert "Bewertung bearbeiten" in button.get_attribute("aria-label")
+        assert page.locator(".review-notes").inner_text()==note
+        assert page.locator(".review-symptoms").count()==1
+        assert page.locator(".card-extra-row").count()==1
+        for selector in (".review-notes",".review-symptoms",".card-meta"):
+            css=page.locator(selector).evaluate(
+                "(el)=>({overflow:getComputedStyle(el).overflow,"
+                "textOverflow:getComputedStyle(el).textOverflow})")
+            assert css=={"overflow":"hidden","textOverflow":"ellipsis"},(selector,css)
+        card_height=card.bounding_box()["height"]
+        assert card_height <= (225 if width<500 else 195),(width,card_height)
+        doc=page.evaluate("({scroll:document.documentElement.scrollWidth,"
+                          "client:document.documentElement.clientWidth})")
+        assert doc["scroll"]<=doc["client"]+1,(width,doc)
+        button.click()
+        assert page.locator("#editorDialog").evaluate("(el)=>el.open")
+        assert page.locator("#f-brand").input_value()==brand
+        assert page.locator("#f-name").input_value()==name
+        assert page.locator("#f-review-notes").input_value()==note.strip()
+        page.locator('[data-action="close-dialog"]').first.click()
+        assert len(storage(page)["tobaccos"])==1
+        ctx.close()
+
 def adversarial_suite(browser):
     ctx=browser.new_context()
     page=ctx.new_page()
@@ -335,6 +382,7 @@ def main():
                 for label,fn in [
                     ("Product: catalog/save/reload/edit",product_suite),
                     ("Product: search/filter/duplicate/delete",search_filter_suite),
+                    ("UI: compact rating cards at 320/390/1280 px",compact_card_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
                     ("Data Recovery: broken localStorage raw export and backup restore",damaged_storage_suite),
