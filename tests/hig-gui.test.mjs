@@ -103,7 +103,7 @@ test("compact tobacco cards keep rating prominent and editing accessible without
   assert.match(app,/class="card-identity"/);
   assert.match(app,/class="card-side"/);
   assert.match(app,/class="card-edit"/);
-  assert.match(app,/aria-label="'+escapeHTML\(action\+": "/);
+  assert.match(app,/escapeHTML\(action\+": "\+p\.brand\+" "\+p\.name\)/);
   assert.match(app,/icon\(r\.tolerability==null\?"plus":"edit"\)/);
   assert.doesNotMatch(app,/class="card-foot"/);
   assert.match(css,/\.tobacco-card\s*\{[^}]*padding:15px 16px/s);
