@@ -590,8 +590,8 @@ body{
 .symptom-mini .symptom-art{
   width:112px;height:112px;
   background-image:url("./assets/design-symptom-artwork.png");
-  background-size:500% 100%;
-  background-position:var(--icon-x) center;
+  background-size:500% 200%;
+  background-position:var(--icon-x) var(--icon-y,100%);
 }
 .symptom-art--dizziness{--icon-x:0%}
 .symptom-art--nausea{--icon-x:25%}
@@ -625,7 +625,7 @@ body{
 .rating-option:has(input:checked) .rating-choice-shisha{color:var(--accent)}
 .symptom-choice .symptom-art{
   width:50px;height:50px;background-image:url("./assets/design-symptom-artwork.png");
-  background-size:500% 100%;background-position:var(--icon-x) center;
+  background-size:500% 200%;background-position:var(--icon-x) var(--icon-y,100%);
 }
 .symptom-choice{min-height:64px}
 @media(max-width:1520px){
@@ -727,3 +727,6 @@ body{
   .card-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px}
   .rating-count{display:none}
 }
+
+:root[data-theme="light"] .symptom-art{--icon-y:0%}
+:root[data-theme="dark"] .symptom-art{--icon-y:100%}
