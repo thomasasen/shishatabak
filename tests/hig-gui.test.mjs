@@ -97,3 +97,24 @@ test("dialog dismissal protects unsaved data and screen changes update accessibl
   assert.match(app,/focus\?\.\(\{preventScroll:true\}\)/);
   assert.match(app,/window\.matchMedia\?\./);
 });
+
+test("compact tobacco cards keep rating prominent and editing accessible without full-width footer",()=>{
+  assert.match(app,/class="card-head"/);
+  assert.match(app,/class="card-identity"/);
+  assert.match(app,/class="card-side"/);
+  assert.match(app,/class="card-edit"/);
+  assert.match(app,/escapeHTML\(action\+": "\+p\.brand\+" "\+p\.name\)/);
+  assert.match(app,/icon\(r\.tolerability==null\?"plus":"edit"\)/);
+  assert.doesNotMatch(app,/class="card-foot"/);
+  assert.match(css,/\.tobacco-card\s*\{[^}]*padding:15px 16px/s);
+  assert.match(css,/\.card-edit\s*\{[^}]*width:44px;height:44px/s);
+  assert.match(css,/\.rating-summary\s*\{[^}]*min-height:58px/s);
+  for(const className of ["card-meta","review-symptoms","review-notes"]){
+    const start=css.indexOf("."+className+"{");
+    assert.notEqual(start,-1,"missing "+className);
+    const rule=css.slice(start,css.indexOf("}",start));
+    assert.match(rule,/text-overflow:ellipsis/,"single-line summary required: "+className);
+    assert.match(rule,/overflow:hidden/,"untruncated layout can expand card: "+className);
+  }
+  assert.match(css,/\.tobacco-card\{padding:14px\}/);
+});

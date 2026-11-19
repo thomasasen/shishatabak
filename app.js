@@ -138,23 +138,34 @@
     const value=review?.tolerability;
     if(value==null)return '<div class="rating-summary unrated"><span class="rating-summary-label">Noch nicht bewertet</span></div>';
     const tone=value>=4?"good":value<=2?"poor":"neutral";
-    const label=["Sehr schlecht verträglich","Schlecht verträglich","Mittelmäßig verträglich","Gut verträglich","Sehr gut verträglich"][value-1];
-    return '<div class="rating-summary '+tone+'" aria-label="Verträglichkeit: '+value+' von 5, '+escapeHTML(label)+'">'+
+    const fullLabel=["Sehr schlecht verträglich","Schlecht verträglich","Mittelmäßig verträglich","Gut verträglich","Sehr gut verträglich"][value-1];
+    return '<div class="rating-summary '+tone+'" role="group" aria-label="Verträglichkeit: '+value+' von 5, '+escapeHTML(fullLabel)+'">'+
       '<strong class="rating-summary-value">'+value+'<small>/5</small></strong>'+
-      '<span class="rating-summary-label">'+escapeHTML(label)+'</span></div>';
+      '<span class="rating-summary-label">'+escapeHTML(TOLERABILITY[value-1])+'</span></div>';
   }
   function card(p){
     const r=p.review||defaultReview();
     const details=[p.quantity_g?p.quantity_g+" g":"",p.base!=="Unbekannt"?p.base:"",p.flavor].filter(Boolean);
+    const action=r.tolerability==null?"Jetzt bewerten":"Bewertung bearbeiten";
+    const extra=[
+      r.taste!=null?'<span class="rating-secondary">Geschmack <strong>'+r.taste+'/5</strong></span>':"",
+      r.symptoms.length?'<span class="review-symptoms"><strong>Beschwerden:</strong> '+escapeHTML(r.symptoms.join(", "))+'</span>':""
+    ].filter(Boolean).join("");
     return '<article class="tobacco-card">'+
-      '<div class="card-top"><span class="card-brand">'+escapeHTML(p.brand)+'</span></div>'+
-      '<h2>'+escapeHTML(p.name)+'</h2>'+
-      '<div class="card-meta">'+(details.length?escapeHTML(details.join(" · ")):"Produktdetails nicht hinterlegt")+'</div>'+
-      ratingTag(r)+
-      (r.taste!=null?'<div class="rating-secondary">Geschmack <strong>'+r.taste+'/5</strong></div>':'')+
-      (r.symptoms.length?'<div class="review-symptoms"><strong>Beobachtete Beschwerden:</strong> '+escapeHTML(r.symptoms.join(", "))+'</div>':'')+
-      (r.notes?'<p class="review-notes">'+escapeHTML(r.notes)+'</p>':'')+
-      '<div class="card-foot">'+button(r.tolerability==null?"Jetzt bewerten":"Bewertung bearbeiten","edit-tobacco",p.id,r.tolerability==null?"primary":"secondary")+'</div>'+
+      '<div class="card-head">'+
+        '<div class="card-identity">'+
+          '<div class="card-brand">'+escapeHTML(p.brand)+'</div>'+
+          '<h2>'+escapeHTML(p.name)+'</h2>'+
+          '<div class="card-meta">'+(details.length?escapeHTML(details.join(" · ")):"Produktdetails nicht hinterlegt")+'</div>'+
+        '</div>'+
+        '<div class="card-side">'+ratingTag(r)+
+          '<button class="card-edit" type="button" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'"'+
+          ' aria-label="'+escapeHTML(action+": "+p.brand+" "+p.name)+'" title="'+escapeHTML(action)+'">'+
+          icon(r.tolerability==null?"plus":"edit")+'</button>'+
+        '</div>'+
+      '</div>'+
+      (extra?'<div class="card-extra-row">'+extra+'</div>':"")+
+      (r.notes?'<p class="review-notes">'+escapeHTML(r.notes)+'</p>':"")+
     '</article>';
   }
   function matchingProducts(){
