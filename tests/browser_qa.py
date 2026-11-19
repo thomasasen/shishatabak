@@ -461,7 +461,7 @@ def mockup_fidelity_suite(browser):
         assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
         assert "design-symptom-artwork.png" in metrics["cardImage"]
         assert "design-shisha-rating.png" in metrics["mask"]
-        assert max(metrics["marks"])-min(metrics["marks"])<3
+        assert max(metrics["marks"])-min(metrics["marks"])<3,(width,metrics)
         if width==1750:
             assert 116<=metrics["header"]["height"]<=138,metrics
             assert 25<=metrics["card"]["x"]<=65,metrics
