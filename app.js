@@ -23,7 +23,7 @@
   const BRANDS=[...new Set(CATALOG.map(p=>p.brand))].sort((a,b)=>a.localeCompare(b,"de"));
   const $=id=>document.getElementById(id);
   const emptyState=()=>({app:APP_ID,version:VERSION,tobaccos:[],sessions:[],settings:{bowl:""}});
-  let state=emptyState(),view="collection",query="",filter="all",importMode="merge",dialogBaseline=null,toastTimer,storageError="";
+  let state=emptyState(),view="collection",query="",filter="all",catalogQuery="",theme="dark",importMode="merge",dialogBaseline=null,toastTimer,storageError="";
   const escapeHTML=value=>String(value==null?"":value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const plain=(value,max=300)=>typeof value==="string"?value.trim().slice(0,max):"";
   const key=value=>String(value??"").toLocaleLowerCase("de").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"");
@@ -43,6 +43,24 @@
     const name=SYMPTOM_ICONS[symptom];
     return name?'<span class="symptom-art symptom-art--'+name+'" aria-hidden="true"></span>':"";
   };
+  function applyTheme(next,persistChoice=false){
+    theme=next==="light"?"light":"dark";
+    document.documentElement?.setAttribute?.("data-theme",theme);
+    const control=document.querySelector?.(".theme-toggle");
+    if(control){
+      control.setAttribute("aria-label",theme==="dark"?"Helles Design aktivieren":"Dunkles Design aktivieren");
+      control.setAttribute("title",theme==="dark"?"Helles Design aktivieren":"Dunkles Design aktivieren");
+      const glyph=control.querySelector?.("use");
+      if(glyph)glyph.setAttribute("href",theme==="dark"?"#i-moon":"#i-sun");
+    }
+    if(persistChoice){
+      try{localStorage.setItem("tabakjournal:theme",theme);}catch{ /* Theme must not affect ratings. */ }
+    }
+  }
+  function readTheme(){
+    try{return localStorage.getItem("tabakjournal:theme")==="light"?"light":"dark";}
+    catch{return "dark";}
+  }
   const normalizedBase=value=>["Virginia","Dark Blend","Unbekannt"].includes(value)?value:"Unbekannt";
   const ratingValue=value=>value==null||value===""?null:Number(value);
   function defaultReview(){return {tolerability:null,taste:null,symptoms:[],notes:"",updatedAt:""};}
@@ -165,27 +183,32 @@
     const r=p.review||defaultReview();
     const details=[p.quantity_g?p.quantity_g+" g":"",p.base!=="Unbekannt"?p.base:"",p.flavor].filter(Boolean);
     const action=r.tolerability==null?"Jetzt bewerten":"Bewertung bearbeiten";
-    const extra=[
-      r.taste!=null?'<span class="rating-secondary">Geschmack <strong>'+r.taste+'/5</strong></span>':"",
-      r.symptoms.length?'<span class="review-symptoms" role="group" aria-label="Beschwerden: '+escapeHTML(r.symptoms.join(", "))+'">'+
-        r.symptoms.map(sym=>'<span class="symptom-mini" title="'+escapeHTML(sym)+'">'+symptomIcon(sym)+'</span>').join("")+'</span>':""
-    ].filter(Boolean).join("");
     const tone=r.tolerability==null?"unrated":r.tolerability>=4?"good":r.tolerability<=2?"poor":"neutral";
+    const symptoms=r.symptoms.length?
+      '<div class="review-symptoms" role="group" aria-label="Beschwerden: '+escapeHTML(r.symptoms.join(", "))+'">'+
+      r.symptoms.map(sym=>'<span class="symptom-item" title="'+escapeHTML(sym)+'"><span class="symptom-mini">'+symptomIcon(sym)+'</span>'+
+        '<span class="symptom-label">'+escapeHTML(sym)+'</span></span>').join("")+
+      '</div>':'<span class="no-symptoms">Keine Beschwerden erfasst</span>';
     return '<article class="tobacco-card rate-'+tone+'">'+
       '<div class="card-head">'+
+        '<div class="card-emblem" aria-hidden="true"><img src="./assets/design-shisha-logo.png" width="132" height="132" alt=""></div>'+
         '<div class="card-identity">'+
           '<div class="card-brand">'+escapeHTML(p.brand)+'</div>'+
           '<h2>'+escapeHTML(p.name)+'</h2>'+
           '<div class="card-meta">'+(details.length?escapeHTML(details.join(" · ")):"Produktdetails nicht hinterlegt")+'</div>'+
         '</div>'+
-        '<div class="card-side">'+ratingTag(r)+
-          '<button class="card-edit" type="button" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'"'+
-          ' aria-label="'+escapeHTML(action+": "+p.brand+" "+p.name)+'" title="'+escapeHTML(action)+'">'+
-          icon(r.tolerability==null?"plus":"edit")+'</button>'+
+        '<div class="card-side">'+
+          '<div class="card-rating">'+ratingTag(r)+'</div>'+
+          '<div class="card-symptoms">'+symptoms+'</div>'+
+          '<div class="card-actions"><button class="card-edit" type="button" data-action="edit-tobacco" data-id="'+escapeHTML(p.id)+'"'+
+            ' aria-label="'+escapeHTML(action+": "+p.brand+" "+p.name)+'" title="'+escapeHTML(action)+'">'+
+            icon(r.tolerability==null?"plus":"edit")+'</button></div>'+
         '</div>'+
       '</div>'+
-      (extra?'<div class="card-extra-row">'+extra+'</div>':"")+
-      (r.notes?'<p class="review-notes">'+escapeHTML(r.notes)+'</p>':"")+
+      ((r.taste!=null||r.notes)?'<div class="card-extra-row">'+
+          (r.taste!=null?'<span class="rating-secondary">Geschmack <strong>'+r.taste+'/5</strong></span>':"")+
+          (r.notes?'<p class="review-notes">'+escapeHTML(r.notes)+'</p>':"")+
+        '</div>':"")+
     '</article>';
   }
   function matchingProducts(){
@@ -216,7 +239,7 @@
       ].map(pair=>'<button type="button" class="filter '+(filter===pair[0]?'active':'')+'" data-filter="'+pair[0]+'" aria-pressed="'+(filter===pair[0])+'">'+pair[1]+'</button>').join("")+'</div></div>'+
       '<div id="resultsStatus" class="results-count" role="status" aria-live="polite">'+products.length+' '+(products.length===1?"Sorte":"Sorten")+' angezeigt</div>'+
       '<div id="collectionResults">'+collectionCards(products)+'</div>'+
-      '<p class="smallprint">Verträglichkeit ist eine persönliche Einschätzung, keine medizinische Diagnose. Bei Beschwerden den Konsum beenden und wiederkehrende Symptome ärztlich abklären.</p>';
+      '';
   }
   function refreshCollectionResults(){
     const results=$("collectionResults"),status=$("resultsStatus");
@@ -229,6 +252,49 @@
       el.classList.toggle("active",active);
       el.setAttribute?.("aria-pressed",String(active));
     });
+  }
+  function catalogResults(){
+    const term=key(catalogQuery);
+    const found=term?CATALOG.filter(p=>key([p.brand,p.name,p.flavor,...p.aliases].join(" ")).includes(term)):CATALOG;
+    const shown=found.slice(0,60);
+    return '<p class="results-count">'+found.length+' Sorten im lokalen Katalog'+(found.length>shown.length?' · erste '+shown.length+' angezeigt':"")+'</p>'+
+      '<div class="catalog-grid">'+shown.map(p=>{
+        const index=CATALOG.indexOf(p);
+        return '<article class="catalog-entry"><div><strong>'+escapeHTML(p.brand)+'</strong><h2>'+escapeHTML(p.name)+'</h2>'+
+          '<p>'+escapeHTML([p.quantity_g?p.quantity_g+" g":"",p.base!=="Unbekannt"?p.base:"",p.flavor].filter(Boolean).join(" · "))+'</p></div>'+
+          '<button type="button" class="btn btn-secondary" data-action="add-catalog-product" data-index="'+index+'">Bewerten</button></article>';
+      }).join("")+'</div>';
+  }
+  function catalogView(){
+    return '<header class="page-head"><h1>Katalog</h1><p>Lokale Tabaksorten durchsuchen und direkt zur Bewertung übernehmen.</p></header>'+
+      '<div class="search-wrap catalog-search"><input type="search" class="search" id="catalogSearch" value="'+escapeHTML(catalogQuery)+'"'+
+      ' placeholder="Hersteller, Sorte oder Geschmack" aria-label="Tabakkatalog durchsuchen" autocomplete="off"></div>'+
+      '<div id="catalogViewResults">'+catalogResults()+'</div>';
+  }
+  function settingsView(){
+    return '<header class="page-head"><h1>Einstellungen</h1><p>Darstellung und lokale Datensicherung verwalten.</p></header>'+
+      '<div class="data-grid settings-grid"><section class="data-tile"><h3>Darstellung</h3><p>Wähle das helle oder dunkle Design. Die Auswahl wird nur in diesem Browser gespeichert.</p>'+
+        '<div class="btn-row"><button type="button" class="btn btn-secondary" data-action="set-theme" data-theme="dark" aria-pressed="'+(theme==="dark")+'">Dunkel</button>'+
+        '<button type="button" class="btn btn-secondary" data-action="set-theme" data-theme="light" aria-pressed="'+(theme==="light")+'">Hell</button></div></section>'+
+        '<section class="data-tile"><h3>Datensicherung</h3><p>Tabake und persönliche Bewertungen bleiben lokal auf diesem Gerät. Regelmäßig sichern.</p>'+
+        '<button class="btn btn-secondary" type="button" data-view="data">'+icon("data")+' Backup verwalten</button></section></div>';
+  }
+  function refreshCatalogResults(){
+    const target=$("catalogViewResults");
+    if(target)target.innerHTML=catalogResults();
+  }
+  function selectCatalogProduct(p){
+    if(!p)return;
+    tobaccoDialog();
+    const brand=$("f-brand"),name=$("f-name");
+    if(!brand||!name)return;
+    brand.value=p.brand;name.value=p.name;
+    $("f-base").value=p.base;
+    $("f-flavor").value=p.flavor;
+    $("f-quantity_g").value=String(p.quantity_g||"");
+    $("f-catalog-ean").value=p.ean||"";
+    const results=$("catalogResults");if(results)results.innerHTML="";
+    const info=$("catalogSelection");if(info)info.textContent="Übernommen: "+p.brand+" · "+p.name;
   }
   function dataView(){
     if(!state)return '<header class="page-head"><h1>Backup wiederherstellen</h1><p>Deine gespeicherten Daten konnten nicht gelesen werden. Sie wurden nicht verändert.</p></header>'+
@@ -257,11 +323,11 @@
       el.classList.toggle("is-active",active);
       if(active)el.setAttribute?.("aria-current","page");else el.removeAttribute?.("aria-current");
     });
-    $("screen").innerHTML=view==="collection"?collection():dataView();
+    $("screen").innerHTML=view==="collection"?collection():view==="catalog"?catalogView():view==="settings"?settingsView():dataView();
   }
   function setView(next){
-    if(!["collection","data"].includes(next))return;
-    view=next;query="";filter="all";render();
+    if(!["collection","catalog","data","settings"].includes(next))return;
+    view=next;query="";filter="all";catalogQuery="";render();
     window.scrollTo?.({top:0,behavior:window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches?"auto":"smooth"});
     $("screen").focus?.({preventScroll:true});
   }
@@ -524,6 +590,9 @@
     if(el.dataset.view){event.preventDefault?.();setView(el.dataset.view);return;}
     if(el.dataset.filter){filter=el.dataset.filter;refreshCollectionResults();return;}
     const action=el.dataset.action,id=el.dataset.id;
+    if(action==="toggle-theme"){applyTheme(theme==="dark"?"light":"dark",true);if(view==="settings")render();return;}
+    if(action==="set-theme"){applyTheme(el.dataset.theme,true);render();return;}
+    if(action==="add-catalog-product"){selectCatalogProduct(CATALOG[Number(el.dataset.index)]);return;}
     if(action==="add-tobacco")tobaccoDialog();
     if(action==="edit-tobacco")tobaccoDialog(id);
     if(action==="close-dialog")closeDialog();
@@ -559,6 +628,9 @@
     }
   });
   document.addEventListener("input",event=>{
+    if(event.target.id==="catalogSearch"){
+      catalogQuery=event.target.value;refreshCatalogResults();return;
+    }
     if(event.target.id==="searchBar"){
       query=event.target.value;
       refreshCollectionResults();
@@ -566,5 +638,5 @@
   });
   $("editorDialog").addEventListener("click",event=>{if(event.target===$("editorDialog"))closeDialog();});
   $("editorDialog").addEventListener("cancel",event=>{event.preventDefault();closeDialog();});
-  load();render();restoreFailedSubmissionFromUrl();
+  applyTheme(readTheme());load();render();restoreFailedSubmissionFromUrl();
 })();
