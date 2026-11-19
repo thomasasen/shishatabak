@@ -337,7 +337,7 @@ def symptom_icons_suite(browser):
             assert item.count()==1,(width,label)
             art=item.locator(".symptom-art--"+symbol)
             assert art.count()==1,(width,label)
-            assert "symptom-reference-sprite.png" in art.evaluate(
+            assert "design-symptom-artwork.png" in art.evaluate(
                 "(el)=>getComputedStyle(el).backgroundImage")
             assert art.bounding_box()["width"]>=38
             item.locator('input[name="symptom"]').check()
