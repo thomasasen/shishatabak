@@ -155,7 +155,7 @@ test("tolerability renders five shisha marks with muted remainder and accessible
   assert.match(app,/function shishaScale\(value\)/);
   assert.match(app,/Array\.from\(\{length:5\}/);
   assert.match(app,/class="shisha-mark /);
-  assert.match(app,/i<value\?'filled':'empty'/);
+  assert.match(app,/i<value\?'is-filled':'is-muted'/);
   assert.match(app,/rating-summary-bottom/);
   assert.match(app,/rating-count/);
   assert.match(css,/\.shisha-mark\.is-filled\{color:var\(--rating-on\)\}/);
