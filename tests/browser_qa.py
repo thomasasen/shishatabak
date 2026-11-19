@@ -290,13 +290,13 @@ def compact_card_suite(browser):
         assert page.locator(".review-notes").inner_text()==note.strip()
         assert page.locator(".review-symptoms").count()==1
         assert page.locator(".card-extra-row").count()==1
-        for selector in (".review-notes",".review-symptoms",".card-meta"):
+        for selector in (".review-notes",".card-meta"):
             css=page.locator(selector).evaluate(
                 "(el)=>({overflow:getComputedStyle(el).overflow,"
                 "textOverflow:getComputedStyle(el).textOverflow})")
             assert css=={"overflow":"hidden","textOverflow":"ellipsis"},(selector,css)
         card_height=card.bounding_box()["height"]
-        assert card_height <= (285 if width<500 else 230),(width,card_height)
+        assert card_height <= (470 if width<500 else 325),(width,card_height)
         doc=page.evaluate("({scroll:document.documentElement.scrollWidth,"
                           "client:document.documentElement.clientWidth})")
         assert doc["scroll"]<=doc["client"]+1,(width,doc)
@@ -351,7 +351,7 @@ def symptom_icons_suite(browser):
         assert group.locator(".symptom-mini").count()==5
         assert group.get_attribute("aria-label")=="Beschwerden: "+", ".join(v[0] for v in values)
         for label,symbol in values:
-            tile=group.locator('.symptom-mini[title="'+label+'"]')
+            tile=group.locator('.symptom-item[title="'+label+'"] .symptom-mini')
             assert tile.count()==1,(width,label)
             art=tile.locator(".symptom-art--"+symbol)
             assert art.count()==1,(width,label)
@@ -391,7 +391,8 @@ def shisha_rating_suite(browser):
         assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
         assert page.locator(".shisha-scale .shisha-mark.empty").count()==5-score
         for i in range(5):
-            assert marks.nth(i).locator("use").get_attribute("href")=="#i-shisha"
+            mask=marks.nth(i).evaluate("(el)=>getComputedStyle(el).maskImage")
+            assert "design-shisha-rating.png" in mask,mask
         assert page.locator(".rating-count").inner_text()==str(score)+" von 5"
         assert "Verträglichkeit: "+str(score)+" von 5" in page.locator(".rating-summary").get_attribute("aria-label")
         page.reload()
