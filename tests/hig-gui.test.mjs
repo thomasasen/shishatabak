@@ -118,3 +118,30 @@ test("compact tobacco cards keep rating prominent and editing accessible without
   }
   assert.match(css,/\.tobacco-card\{padding:14px\}/);
 });
+
+test("five symptom pictograms have stable labels, lightweight SVG symbols and keyboard-accessible choices",()=>{
+  const pairs={
+    "Schwindel":"dizziness",
+    "Übelkeit":"nausea",
+    "Kopfschmerzen":"headache",
+    "Herzrasen":"palpitations",
+    "Andere Beschwerden":"other"
+  };
+  for(const [label,name] of Object.entries(pairs)){
+    assert.match(html,new RegExp('<symbol id="i-symptom-'+name+'" viewBox="0 0 24 24">'));
+    assert.ok(app.includes('"'+label+'":"'+name+'"'),"missing safe static mapping for "+label);
+  }
+  assert.match(app,/symptomIcon\(sym\)/);
+  assert.match(app,/class="symptom-text"/);
+  assert.match(app,/class="symptom-mini"/);
+  assert.match(app,/role="group" aria-label="Beschwerden: /);
+  assert.match(css,/\.symptom-choice:has\(input:checked\)/);
+  assert.match(css,/\.symptom-choice:focus-within\{/);
+  assert.match(css,/\.symptom-mini\s*\{[^}]*width:26px;height:26px/s);
+  assert.match(css,/\.symptom-icon\s*\{[^}]*width:20px;height:20px/s);
+  assert.match(css,/--symptom-accent:/);
+  assert.doesNotMatch(app,/src=["']https?:\/\/.*symptom|fetch\(["'].*symptom/);
+  // Backwards compatibility: plain-text persisted values and FormData naming.
+  assert.match(app,/name="symptom" value="/);
+  assert.match(app,/getAll\("symptom"\)/);
+});

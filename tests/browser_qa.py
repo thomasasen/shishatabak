@@ -306,6 +306,57 @@ def compact_card_suite(browser):
         assert len(storage(page)["tobaccos"])==1
         ctx.close()
 
+def symptom_icons_suite(browser):
+    """All five pictograms, checkbox labels, saved values and mobile layouts."""
+    values=[
+        ("Schwindel","dizziness"),
+        ("Übelkeit","nausea"),
+        ("Kopfschmerzen","headache"),
+        ("Herzrasen","palpitations"),
+        ("Andere Beschwerden","other")
+    ]
+    for width in (320,390,1280):
+        ctx=browser.new_context(viewport={"width":width,"height":800},
+                                is_mobile=width<500,has_touch=width<500)
+        page=ctx.new_page()
+        failures=[]
+        page.on("pageerror",lambda error:failures.append(str(error)))
+        page.goto(BASE)
+        page.locator('.topbar [data-action="add-tobacco"]').click()
+        page.locator("#f-brand").fill("Test Symbole")
+        page.locator("#f-name").fill("Alle Beschwerden")
+        page.locator('input[name="tolerability"][value="2"]').check()
+        page.locator(".optional-details summary").click()
+        page.locator("#f-taste").select_option("3")
+        assert page.locator('.symptom-choice').count()==5
+        for label,symbol in values:
+            item=page.locator(".symptom-choice").filter(has_text=label)
+            assert item.count()==1,(width,label)
+            assert item.locator(".symptom-icon use").get_attribute("href")=="#i-symptom-"+symbol
+            item.locator('input[name="symptom"]').check()
+            assert item.locator("input").is_checked()
+        page.locator('#tobacco-form button[type="submit"]').click()
+        stored=storage(page)
+        assert stored["tobaccos"][0]["review"]["symptoms"]==[v[0] for v in values]
+        page.reload()
+        group=page.locator(".review-symptoms")
+        assert group.count()==1
+        assert group.locator(".symptom-mini").count()==5
+        assert group.get_attribute("aria-label")=="Beschwerden: "+", ".join(v[0] for v in values)
+        for label,symbol in values:
+            tile=group.locator('.symptom-mini[title="'+label+'"]')
+            assert tile.count()==1,(width,label)
+            assert tile.locator("use").get_attribute("href")=="#i-symptom-"+symbol
+            assert tile.locator(".symptom-icon").get_attribute("aria-hidden")=="true"
+        dims=page.evaluate("({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth})")
+        assert dims["scroll"]<=dims["client"]+1,(width,dims)
+        page.locator(".card-edit").click()
+        for label,_ in values:
+            selected=page.locator('.symptom-choice').filter(has_text=label).locator("input")
+            assert selected.is_checked(),(width,label)
+        assert not failures,failures
+        ctx.close()
+
 def adversarial_suite(browser):
     ctx=browser.new_context()
     page=ctx.new_page()
@@ -383,6 +434,7 @@ def main():
                     ("Product: catalog/save/reload/edit",product_suite),
                     ("Product: search/filter/duplicate/delete",search_filter_suite),
                     ("UI: compact rating cards at 320/390/1280 px",compact_card_suite),
+                    ("UI: five symptom icons and accessible persisted choices",symptom_icons_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
                     ("Data Recovery: broken localStorage raw export and backup restore",damaged_storage_suite),
