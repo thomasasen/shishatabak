@@ -41,7 +41,7 @@
   };
   const symptomIcon=symptom=>{
     const name=SYMPTOM_ICONS[symptom];
-    return name?'<svg class="symptom-icon" aria-hidden="true" focusable="false"><use href="#i-symptom-'+name+'"></use></svg>':"";
+    return name?'<span class="symptom-art symptom-art--'+name+'" aria-hidden="true"></span>':"";
   };
   const normalizedBase=value=>["Virginia","Dark Blend","Unbekannt"].includes(value)?value:"Unbekannt";
   const ratingValue=value=>value==null||value===""?null:Number(value);
@@ -145,14 +145,21 @@
     return '<button class="btn btn-'+variant+'" type="button" data-action="'+action+'"'+
       (id?' data-id="'+escapeHTML(id)+'"':'')+'>'+escapeHTML(label)+'</button>';
   }
+  function shishaScale(value){
+    return '<span class="shisha-scale" aria-hidden="true">'+
+      Array.from({length:5},(_,i)=>'<svg class="shisha-mark '+(i<value?'filled':'empty')+'" focusable="false"><use href="#i-shisha"></use></svg>').join("")+
+    '</span>';
+  }
   function ratingTag(review){
     const value=review?.tolerability;
-    if(value==null)return '<div class="rating-summary unrated"><span class="rating-summary-label">Noch nicht bewertet</span></div>';
+    if(value==null)return '<div class="rating-summary unrated" role="group" aria-label="Verträglichkeit: noch nicht bewertet">'+
+      shishaScale(0)+'<span class="rating-summary-bottom"><span class="rating-summary-label">Noch nicht bewertet</span></span></div>';
     const tone=value>=4?"good":value<=2?"poor":"neutral";
     const fullLabel=["Sehr schlecht verträglich","Schlecht verträglich","Mittelmäßig verträglich","Gut verträglich","Sehr gut verträglich"][value-1];
     return '<div class="rating-summary '+tone+'" role="group" aria-label="Verträglichkeit: '+value+' von 5, '+escapeHTML(fullLabel)+'">'+
-      '<strong class="rating-summary-value">'+value+'<small>/5</small></strong>'+
-      '<span class="rating-summary-label">'+escapeHTML(TOLERABILITY[value-1])+'</span></div>';
+      shishaScale(value)+
+      '<span class="rating-summary-bottom"><span class="rating-summary-label">'+escapeHTML(TOLERABILITY[value-1])+'</span>'+
+      '<span class="rating-count">'+value+' von 5</span></span></div>';
   }
   function card(p){
     const r=p.review||defaultReview();
@@ -163,7 +170,8 @@
       r.symptoms.length?'<span class="review-symptoms" role="group" aria-label="Beschwerden: '+escapeHTML(r.symptoms.join(", "))+'">'+
         r.symptoms.map(sym=>'<span class="symptom-mini" title="'+escapeHTML(sym)+'">'+symptomIcon(sym)+'</span>').join("")+'</span>':""
     ].filter(Boolean).join("");
-    return '<article class="tobacco-card">'+
+    const tone=r.tolerability==null?"unrated":r.tolerability>=4?"good":r.tolerability<=2?"poor":"neutral";
+    return '<article class="tobacco-card rate-'+tone+'">'+
       '<div class="card-head">'+
         '<div class="card-identity">'+
           '<div class="card-brand">'+escapeHTML(p.brand)+'</div>'+
@@ -296,7 +304,7 @@
       '<p id="ratingHelp">Wie gut verträgst du den Tabak? 1 = sehr schlecht, 5 = sehr gut.</p>'+
       '<div class="rating-options">'+
       TOLERABILITY.map((label,i)=>'<label class="rating-option"><input type="radio" name="tolerability" value="'+(i+1)+'" aria-label="'+(i+1)+' von 5: '+escapeHTML(label)+'"'+
-      (r.tolerability===i+1?' checked':'')+(i===0?' required':'')+'><span class="rating-score">'+(i+1)+'</span><span class="rating-name">'+label+'</span></label>').join("")+
+      (r.tolerability===i+1?' checked':'')+(i===0?' required':'')+'><svg class="rating-choice-shisha" aria-hidden="true" focusable="false"><use href="#i-shisha"></use></svg><span class="rating-score">'+(i+1)+'</span><span class="rating-name">'+label+'</span></label>').join("")+
       '</div><p id="ratingFeedback" class="rating-feedback" role="status" aria-live="polite">'+
       (r.tolerability==null?"Bitte einen Wert auswählen.":"Ausgewählt: "+r.tolerability+" von 5 · "+TOLERABILITY[r.tolerability-1])+'</p></fieldset>'+
       '<details class="optional-details"'+(hasDetails?' open':'')+'><summary>Weitere Angaben <span>optional</span></summary><div class="optional-content">'+
