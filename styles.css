@@ -838,3 +838,58 @@ body{
   .card-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px}
   .shisha-mark{width:17px;height:23px;flex-basis:17px}
 }
+
+/* Single-row desktop cards: identity | tolerance | symptoms | edit.
+   Preserve all five rating glyphs; use two rows only where viewport is too narrow. */
+@media(min-width:1000px){
+  .cards{gap:10px}
+  .tobacco-card{min-height:0;padding:9px 14px;border-radius:14px;border-left-width:4px}
+  .card-head{
+    display:grid;
+    grid-template-columns:minmax(160px,.95fr) minmax(0,2.25fr);
+    align-items:center;gap:12px;
+  }
+  .card-identity{gap:1px}
+  .card-brand{font-size:12px;line-height:1.25}
+  .tobacco-card h2{font-size:clamp(18px,1.45vw,24px);letter-spacing:-.3px;line-height:1.18}
+  .card-meta{font-size:12px;line-height:1.3}
+  .card-side{
+    grid-column:2;
+    display:grid;
+    grid-template-columns:minmax(150px,.85fr) minmax(220px,1.25fr) 48px;
+    align-items:center;gap:0;border-top:0;padding-top:0;
+  }
+  .card-rating,.card-symptoms,.card-actions{min-height:62px;padding:0 8px}
+  .card-rating{border-left:1px solid var(--border)}
+  .card-actions{padding:0 0 0 6px}
+  .rating-summary{min-height:58px;gap:3px}
+  .shisha-scale{gap:4px}
+  .shisha-mark{width:20px;height:25px;flex:0 1 20px}
+  .rating-summary-bottom{gap:5px;flex-wrap:nowrap}
+  .rating-summary-label{font-size:11px;line-height:1.15;padding:3px 7px}
+  .rating-count{font-size:10px;padding-left:6px}
+  .review-symptoms{flex-wrap:nowrap;gap:4px;min-width:0;justify-content:center}
+  .symptom-item{flex:0 1 auto;max-width:68px;gap:2px}
+  .symptom-mini{width:38px;height:38px;border-radius:10px;box-shadow:none}
+  .symptom-mini .symptom-art{width:36px;height:36px}
+  .symptom-label{font-size:10px;line-height:1.1;overflow-wrap:anywhere}
+  .card-edit{width:44px;height:44px;flex:0 0 44px;border-radius:11px}
+  .card-edit .ui-icon{width:19px;height:19px}
+  .card-extra-row{margin-top:5px;padding-top:5px}
+}
+@media(min-width:1000px) and (max-width:1199px){
+  .card-head{grid-template-columns:minmax(160px,.85fr) minmax(0,2.5fr);gap:8px}
+  .card-side{grid-template-columns:minmax(148px,.8fr) minmax(205px,1.25fr) 46px}
+  .card-rating,.card-symptoms,.card-actions{padding-left:5px;padding-right:5px}
+  .shisha-scale{gap:2px}
+  .shisha-mark{width:19px;height:24px;flex-basis:19px}
+  .symptom-item{max-width:60px}
+  .symptom-mini{width:34px;height:34px}
+  .symptom-mini .symptom-art{width:32px;height:32px}
+}
+@media(min-width:681px) and (max-width:999px){
+  .cards{gap:10px}
+  .tobacco-card{padding:12px 14px;border-radius:15px}
+  .card-head{grid-template-columns:minmax(0,1fr);gap:6px}
+  .card-side{grid-column:1;padding-top:7px}
+}
