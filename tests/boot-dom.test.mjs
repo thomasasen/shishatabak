@@ -70,7 +70,11 @@ test("boot: real index.html IDs can initialize the app and render the collection
 });
 test("boot: switching between collection and Backup works with the real header",()=>{
   const app=startApp();
-  assert.deepEqual(navDestinations,["collection","data"]);
+  assert.deepEqual(navDestinations,["collection","catalog","data","settings"]);
+  app.navigate("catalog");
+  assert.match(app.nodes.get("screen").innerHTML,/<h1>Katalog<\/h1>/);
+  app.navigate("settings");
+  assert.match(app.nodes.get("screen").innerHTML,/<h1>Einstellungen<\/h1>/);
   app.navigate("data");
   assert.match(app.nodes.get("screen").innerHTML,/<h1>Backup<\/h1>/);
   app.navigate("collection");
@@ -85,7 +89,7 @@ test("boot: existing v1 localStorage content renders saved products after the re
   };
   const app=startApp(legacy);
   assert.match(app.nodes.get("screen").innerHTML,/White Caek/);
-  assert.equal((app.nodes.get("screen").innerHTML.match(/class="shisha-mark filled"/g)||[]).length,4);
+  assert.equal((app.nodes.get("screen").innerHTML.match(/class="shisha-mark is-filled"/g)||[]).length,4);
   assert.match(app.nodes.get("screen").innerHTML,/4 von 5/);
   assert.match(app.nodes.get("screen").innerHTML,/Gut verträglich/);
 });

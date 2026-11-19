@@ -281,8 +281,8 @@ def compact_card_suite(browser):
         assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
         assert page.locator(".rating-count").inner_text()=="2 von 5"
         assert page.locator(".shisha-scale .shisha-mark").count()==5
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==2
-        assert page.locator(".shisha-scale .shisha-mark.empty").count()==3
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==2
+        assert page.locator(".shisha-scale .shisha-mark.is-muted").count()==3
         button=page.locator(".card-edit")
         bounds=button.bounding_box()
         assert bounds["width"]>=44 and bounds["height"]>=44,(width,bounds)
@@ -290,13 +290,13 @@ def compact_card_suite(browser):
         assert page.locator(".review-notes").inner_text()==note.strip()
         assert page.locator(".review-symptoms").count()==1
         assert page.locator(".card-extra-row").count()==1
-        for selector in (".review-notes",".review-symptoms",".card-meta"):
+        for selector in (".review-notes",".card-meta"):
             css=page.locator(selector).evaluate(
                 "(el)=>({overflow:getComputedStyle(el).overflow,"
                 "textOverflow:getComputedStyle(el).textOverflow})")
             assert css=={"overflow":"hidden","textOverflow":"ellipsis"},(selector,css)
         card_height=card.bounding_box()["height"]
-        assert card_height <= (285 if width<500 else 230),(width,card_height)
+        assert card_height <= (470 if width<500 else 325),(width,card_height)
         doc=page.evaluate("({scroll:document.documentElement.scrollWidth,"
                           "client:document.documentElement.clientWidth})")
         assert doc["scroll"]<=doc["client"]+1,(width,doc)
@@ -337,7 +337,7 @@ def symptom_icons_suite(browser):
             assert item.count()==1,(width,label)
             art=item.locator(".symptom-art--"+symbol)
             assert art.count()==1,(width,label)
-            assert "symptom-reference-sprite.png" in art.evaluate(
+            assert "design-symptom-artwork.png" in art.evaluate(
                 "(el)=>getComputedStyle(el).backgroundImage")
             assert art.bounding_box()["width"]>=38
             item.locator('input[name="symptom"]').check()
@@ -351,7 +351,7 @@ def symptom_icons_suite(browser):
         assert group.locator(".symptom-mini").count()==5
         assert group.get_attribute("aria-label")=="Beschwerden: "+", ".join(v[0] for v in values)
         for label,symbol in values:
-            tile=group.locator('.symptom-mini[title="'+label+'"]')
+            tile=group.locator('.symptom-item[title="'+label+'"] .symptom-mini')
             assert tile.count()==1,(width,label)
             art=tile.locator(".symptom-art--"+symbol)
             assert art.count()==1,(width,label)
@@ -388,15 +388,168 @@ def shisha_rating_suite(browser):
         assert result["tobaccos"][0]["review"]["tolerability"]==score
         marks=page.locator(".shisha-scale .shisha-mark")
         assert marks.count()==5
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
-        assert page.locator(".shisha-scale .shisha-mark.empty").count()==5-score
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==score
+        assert page.locator(".shisha-scale .shisha-mark.is-muted").count()==5-score
         for i in range(5):
-            assert marks.nth(i).locator("use").get_attribute("href")=="#i-shisha"
+            mask=marks.nth(i).evaluate("(el)=>getComputedStyle(el).maskImage")
+            assert "design-shisha-rating.png" in mask,mask
         assert page.locator(".rating-count").inner_text()==str(score)+" von 5"
         assert "Verträglichkeit: "+str(score)+" von 5" in page.locator(".rating-summary").get_attribute("aria-label")
         page.reload()
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==score
     ctx.close()
+
+def mockup_fidelity_suite(browser):
+    """Independent design check against the approved 1750x899 visual reference.
+
+    The reference defines a 124px branded header, x≈44px full-width content,
+    one 1640px-wide product row, a ~140px emblem, five visible Shisha glyphs,
+    >110px symptom tiles, and a dedicated edit action. Compare DOM geometry,
+    computed styling and screenshots on desktop and mobile.
+    """
+    images=ROOT/"tests"/"_screenshots"
+    images.mkdir(exist_ok=True)
+    item=product("mockup-card","Argileh","ORNG MNT",2)
+    item["flavor"]="Orange, Minze"
+    item["review"]["symptoms"]=["Schwindel","Übelkeit"]
+    for width,height in ((1750,899),(1152,859),(390,844),(320,740)):
+        ctx=browser.new_context(viewport={"width":width,"height":height},
+                                is_mobile=width<500,has_touch=width<500,
+                                color_scheme="dark")
+        page=ctx.new_page()
+        errors=[]
+        page.on("pageerror",lambda e:errors.append(str(e)))
+        seed(page,state([item]))
+        page.locator("#screen h1").wait_for()
+        assert page.locator("#screen h1").inner_text()=="Meine Tabake"
+        assert page.locator(".topbar .brand-text").inner_text()=="Tabakjournal"
+        assert page.locator(".brand-subtitle").inner_text()=="Bewerten · Verwalten · Verträglichkeit"
+        assert page.locator(".topbar-actions button").count()==5
+        assert page.locator(".tobacco-card").count()==1
+        assert page.locator(".tobacco-card h2").inner_text()=="ORNG MNT"
+        assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
+        assert page.locator(".rating-count").inner_text()=="2 von 5"
+        assert page.locator(".shisha-mark.is-filled").count()==2
+        assert page.locator(".shisha-mark.is-muted").count()==3
+        assert page.locator(".symptom-item").count()==2
+        assert page.locator(".symptom-item").nth(0).inner_text()=="Schwindel"
+        assert page.locator(".symptom-item").nth(1).inner_text()=="Übelkeit"
+        assert page.locator(".card-edit").is_visible()
+        assert page.locator(".brand-mark").evaluate("(img)=>img.complete && img.naturalWidth>0")
+        assert page.locator(".card-emblem img").evaluate("(img)=>img.complete && img.naturalWidth>0")
+        assert page.evaluate("document.documentElement.dataset.theme")=="dark"
+        metrics=page.evaluate("""() => {
+          const rect=q=>{const r=document.querySelector(q).getBoundingClientRect();
+            return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
+          const style=q=>getComputedStyle(document.querySelector(q));
+          return {
+            screen:rect("#screen"),header:rect(".topbar"),title:rect(".page-head h1"),
+            card:rect(".tobacco-card"),emblem:rect(".card-emblem img"),
+            rating:rect(".rating-summary"),tile:rect(".symptom-mini"),
+            edit:rect(".card-edit"),search:rect(".search"),
+            dark:style("body").backgroundColor,
+            titleFont:parseFloat(style(".page-head h1").fontSize),
+            cardColumns:style(".card-head").gridTemplateColumns,
+            cardImage:style(".symptom-art").backgroundImage,
+            mask:style(".shisha-mark").maskImage,
+            scroll:document.documentElement.scrollWidth,
+            client:document.documentElement.clientWidth,
+            marks:[...document.querySelectorAll(".shisha-mark")].map(el=>el.getBoundingClientRect().y)
+          };
+        }""")
+        assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
+        assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
+        assert "design-symptom-artwork.png" in metrics["cardImage"]
+        assert "design-shisha-rating.png" in metrics["mask"]
+        assert max(metrics["marks"])-min(metrics["marks"])<3,(width,metrics)
+        if width==1750:
+            assert 116<=metrics["header"]["height"]<=138,metrics
+            assert 25<=metrics["card"]["x"]<=65,metrics
+            assert metrics["card"]["width"]>=1570,metrics
+            assert 180<=metrics["card"]["height"]<=290,metrics
+            assert metrics["titleFont"]>=57,metrics
+            assert metrics["emblem"]["width"]>=125,metrics
+            assert metrics["tile"]["width"]>=110,metrics
+            assert 150<=metrics["title"]["y"]<=210,metrics
+            assert 465<=metrics["card"]["y"]<=570,metrics
+        if width==1152:
+            assert metrics["card"]["width"]>=1000,metrics
+            assert metrics["tile"]["width"]>=70,metrics
+            assert metrics["emblem"]["width"]>=78,metrics
+        if width<500:
+            assert metrics["card"]["width"]>=width-45,metrics
+            assert metrics["tile"]["width"]>=42,metrics
+        page.screenshot(path=str(images/f"approved-layout-{width}-dark.png"),full_page=True)
+        print(f"FIDELITY {width}px: "+str({
+            k:metrics[k] for k in ("header","card","emblem","tile","edit","titleFont")
+        }),flush=True)
+        assert not errors,(width,errors)
+        ctx.close()
+
+def mockup_redteam_suite(browser):
+    """Independent adversarial audit: new nav has real actions, themes persist,
+    all saved tobacco data survive navigation, and mobile has no clipped actions.
+    """
+    ctx=browser.new_context(viewport={"width":1280,"height":900},color_scheme="dark")
+    page=ctx.new_page()
+    item=product("invariant","Testhersteller","Testtabak",4)
+    item["review"]["symptoms"]=["Herzrasen","Andere Beschwerden"]
+    seed(page,state([item]))
+    baseline=page.evaluate("(k)=>localStorage.getItem(k)",KEY)
+    # Katalog must be a working local catalogue, not a decorative button.
+    page.locator('.topbar [data-view="catalog"]').click()
+    assert page.locator("#screen h1").inner_text()=="Katalog"
+    assert page.locator(".catalog-entry").count()>0
+    catalogue=page.locator("#catalogSearch")
+    catalogue.fill("Conud")
+    assert catalogue.evaluate("(el)=>document.activeElement===el")
+    assert page.locator(".catalog-entry").count()>0
+    page.locator(".catalog-entry button").first.click()
+    assert page.locator("#editorDialog").evaluate("(el)=>el.open")
+    assert page.locator("#f-brand").input_value()
+    assert page.locator("#f-name").input_value()
+    ctx.once("dialog",lambda dialog:dialog.accept())
+    page.locator('[data-action="close-dialog"]').first.click()
+    # Settings must be a real page, not a dead CTA. Theme may never alter data.
+    page.locator('.topbar [data-view="settings"]').click()
+    assert page.locator("#screen h1").inner_text()=="Einstellungen"
+    page.locator('[data-action="set-theme"][data-theme="light"]').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="light"
+    assert page.locator('[data-action="set-theme"][data-theme="light"]').get_attribute("aria-pressed")=="true"
+    assert page.evaluate("(k)=>localStorage.getItem(k)",KEY)==baseline
+    page.reload()
+    assert page.evaluate("document.documentElement.dataset.theme")=="light"
+    page.locator('.theme-toggle').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark"
+    assert page.evaluate("(k)=>localStorage.getItem(k)",KEY)==baseline
+    page.locator('.topbar [data-view="data"]').click()
+    assert page.locator("#screen h1").inner_text()=="Backup"
+    page.locator('.topbar [data-view="collection"]').click()
+    assert "Testtabak" in page.locator("#collectionResults").inner_text()
+    assert len(storage(page)["tobaccos"])==1
+    ctx.close()
+    # Screens as small as 320px must keep reachable navigation and controls.
+    for width in (320,375,430,820,1120,1280,1750):
+        ctx=browser.new_context(viewport={"width":width,"height":850},
+                                is_mobile=width<500,has_touch=width<500,
+                                color_scheme="dark")
+        page=ctx.new_page()
+        seed(page,state([item]))
+        assert page.locator(".topbar [data-action='add-tobacco']").is_visible()
+        assert page.locator(".topbar [data-view='catalog']").count()==1
+        assert page.locator(".topbar [data-view='settings']").count()==1
+        assert page.locator(".topbar [data-view='data']").count()==1
+        bounds=page.evaluate("""() => ({
+          scroll:document.documentElement.scrollWidth,
+          client:document.documentElement.clientWidth,
+          btn:document.querySelector('.card-edit').getBoundingClientRect().width
+        })""")
+        assert bounds["scroll"]<=bounds["client"]+1,(width,bounds)
+        assert bounds["btn"]>=44,bounds
+        page.locator(".card-edit").click()
+        assert page.locator("#editorDialog").evaluate("(el)=>el.open")
+        page.locator('[data-action="close-dialog"]').first.click()
+        ctx.close()
 
 def adversarial_suite(browser):
     ctx=browser.new_context()
@@ -408,7 +561,9 @@ def adversarial_suite(browser):
         notes='"><svg/onload=alert(2)>')
     assert len(storage(page)["tobaccos"])==1
     assert page.locator("#collectionResults script").count()==0
-    assert page.locator("#collectionResults img").count()==0
+    assert page.locator("#collectionResults img[onerror]").count()==0
+    assert page.locator("#collectionResults img[src^='x']").count()==0
+    assert page.locator("#collectionResults .card-emblem img").count()==1
     assert not page.evaluate("Boolean(window.__hack)")
     page.locator('.topbar [data-action="add-tobacco"]').click()
     page.locator("#f-brand").fill("Blocked")
@@ -477,6 +632,8 @@ def main():
                     ("UI: compact rating cards at 320/390/1280 px",compact_card_suite),
                     ("UI: five symptom icons and accessible persisted choices",symptom_icons_suite),
                     ("UI: five shisha marks persist score and support rating edits",shisha_rating_suite),
+                    ("Visual QA: approved mockup layout at 1750/1152/390/320",mockup_fidelity_suite),
+                    ("Red Team: navigation, theme, storage and responsive containment",mockup_redteam_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
                     ("Data Recovery: broken localStorage raw export and backup restore",damaged_storage_suite),

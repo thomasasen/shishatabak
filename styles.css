@@ -204,8 +204,8 @@ svg{display:block}
   width:23px;height:29px;flex:0 0 23px;
   fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
 }
-.shisha-mark.filled{color:var(--rating-on)}
-.shisha-mark.empty{color:var(--text-tertiary);opacity:.42}
+.shisha-mark.is-filled{color:var(--rating-on)}
+.shisha-mark.is-muted{color:var(--text-tertiary);opacity:.42}
 .rating-summary-bottom{display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
 .rating-summary-label{
   font-size:11.5px;font-weight:720;line-height:1.25;
@@ -454,3 +454,289 @@ svg{display:block}
   .btn-primary{color:HighlightText;background:Highlight}
   .rating-summary,.panel,.data-tile{border:1px solid CanvasText}
 }
+
+
+/* VISUAL FIDELITY 2026-11-19
+ * Explicitly follows the approved 1750x899 mockup while maintaining native
+ * controls, accessible labels, responsive behavior and a usable light mode.
+ * Design QA: visual geometry. Red team: overflow, contrast and persistence.
+ */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --canvas:#0e1018;--surface:#1a1c24;--surface-subtle:#252833;
+  --surface-soft:#292b36;--bar:rgba(15,17,25,.96);
+  --text:#f7f8ff;--text-secondary:#c6c9d8;--text-tertiary:#aeb3c5;
+  --accent:#d2a7ff;--accent-pressed:#9162bd;--accent-soft:#352746;
+  --primary-bg:#3c294f;--primary-text:#ffffff;--border:#454858;
+  --border-subtle:#343743;--focus:#c1a2ff;
+  --success:#7fe4bf;--success-bg:#183b33;
+  --warning:#f3bf7d;--warning-bg:#473324;
+  --danger:#ff858d;--danger-bg:#49252e;
+  --shadow:0 10px 34px rgba(0,0,0,.23);
+  --journal-glass:linear-gradient(145deg,#20232d 0%,#171a22 53%,#1a1c25 100%);
+  --journal-header:linear-gradient(105deg,rgba(19,21,30,.98),rgba(15,17,26,.98));
+  --journal-glow:rgba(246,97,132,.12);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --canvas:#f5f5f7;--surface:#ffffff;--surface-subtle:#f9f9fb;
+  --surface-soft:#edeef2;--bar:rgba(249,249,251,.94);
+  --text:#1d1d1f;--text-secondary:#51525b;--text-tertiary:#63646d;
+  --accent:#005fcc;--accent-pressed:#004aab;--accent-soft:#e8f1fe;
+  --primary-bg:#005fcc;--primary-text:#ffffff;
+  --border:#dde0e6;--border-subtle:#ebecf0;--focus:#005fcc;
+  --success:#216a48;--success-bg:#e7f6ec;
+  --warning:#7a4f11;--warning-bg:#fff1d9;
+  --danger:#b42318;--danger-bg:#fcebe9;
+  --journal-glass:linear-gradient(145deg,#ffffff,#f4f5fb);
+  --journal-header:rgba(255,255,255,.97);
+  --journal-glow:rgba(220,123,164,.09);
+}
+body{
+  background:
+    radial-gradient(ellipse at 0% 83%,var(--journal-glow),transparent 34%),
+    radial-gradient(ellipse at 82% 10%,rgba(106,85,167,.055),transparent 38%),
+    var(--canvas);
+  color:var(--text);
+}
+.topbar{
+  min-height:124px;padding:12px clamp(26px,2.55vw,45px);
+  background:var(--journal-header);
+  border-bottom:1px solid var(--border-subtle);
+  gap:20px;
+}
+.topbar-brand{flex:0 0 auto;gap:18px;text-decoration:none;letter-spacing:0}
+.brand-mark{
+  width:88px;height:88px;flex:0 0 88px;
+  border-radius:25px;object-fit:cover;
+  background:#20212b;box-shadow:0 0 0 1px rgba(255,151,179,.22);
+}
+.brand-copy{display:flex;flex-direction:column;align-items:flex-start;gap:2px;white-space:nowrap}
+.brand-text{font-size:clamp(29px,2.7vw,43px);font-weight:760;line-height:1.11;letter-spacing:-1px;color:var(--text)}
+.brand-subtitle{font-size:clamp(13px,1.27vw,21px);font-weight:420;letter-spacing:0;color:var(--text-secondary);line-height:1.45}
+.topbar-actions{gap:16px;flex:0 1 auto}
+.topbar-actions .btn{
+  height:66px;min-height:66px;flex:0 0 auto;gap:12px;
+  padding:13px 22px;font-size:19px;font-weight:570;white-space:nowrap;
+  border-radius:19px;background:linear-gradient(145deg,var(--surface-soft),var(--surface));
+  color:var(--text);border:1px solid var(--border);
+  box-shadow:0 2px 10px rgba(0,0,0,.13);
+}
+.topbar-actions .btn .ui-icon{height:29px;width:29px;stroke-width:1.8}
+.topbar-actions .btn:hover,.topbar-actions .btn.is-active{
+  border-color:var(--accent);background:var(--accent-soft);
+}
+.topbar-actions .header-add{
+  background:linear-gradient(115deg,#533367,#272239);
+  color:#fff;border:2px solid #ca96fa;
+  font-weight:710;box-shadow:0 0 24px rgba(165,99,225,.13);
+}
+.topbar-actions .header-add:hover{background:linear-gradient(125deg,#65427d,#3b2a53);color:#fff}
+.topbar-actions .theme-toggle{padding:13px;width:66px;justify-content:center}
+.topbar-actions .theme-toggle .ui-icon{color:var(--accent)}
+.content{width:100%;max-width:1800px;margin:0 auto;padding:42px clamp(26px,2.55vw,45px) 38px;flex:1}
+.page-head{margin:0 0 24px}
+.page-head h1{font-size:clamp(37px,3.8vw,64px);line-height:1.12;letter-spacing:-1.7px;font-weight:790}
+.page-head p{font-size:clamp(15px,1.38vw,24px);line-height:1.55;margin:12px 0 0;max-width:1100px}
+.collection-meta{margin:22px 0 23px;font-size:clamp(15px,1.4vw,22px);gap:8px}
+.toolbar{gap:24px;align-items:center;margin-bottom:20px}
+.search-wrap{max-width:815px;flex:1 1 480px}
+.search{height:69px;min-height:69px;border-radius:19px;padding:15px 22px 15px 79px;font-size:21px;border:1px solid #515564;
+  background:linear-gradient(135deg,var(--surface-soft),var(--surface));box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.search-wrap:before{width:24px;height:24px;left:28px;border-width:3px}
+.search-wrap:after{left:51px;top:calc(50% + 10px);width:11px;height:3px}
+.filters{min-height:69px;padding:6px;gap:6px;border:1px solid var(--border);border-radius:19px;background:var(--surface-soft)}
+.filter{min-height:54px;padding:11px 19px;font-size:clamp(13px,1.15vw,20px);border-radius:14px}
+.filter.active{background:var(--surface);box-shadow:0 3px 14px rgba(0,0,0,.17)}
+.results-count{font-size:clamp(13px,1.22vw,20px);margin-bottom:15px}
+.cards{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.tobacco-card{
+  min-width:0;min-height:218px;gap:6px;
+  border:1px solid var(--border);border-left-width:5px;
+  border-radius:28px;padding:27px 27px 24px 35px;
+  background:var(--journal-glass);
+  box-shadow:0 20px 50px rgba(0,0,0,.20),0 1px 1px rgba(255,255,255,.02) inset;
+}
+.tobacco-card.rate-poor{border-left-color:var(--danger)}
+.tobacco-card.rate-good{border-left-color:var(--success)}
+.tobacco-card.rate-neutral{border-left-color:var(--warning)}
+.tobacco-card.rate-unrated{border-left-color:var(--border)}
+.card-head{display:grid;grid-template-columns:175px minmax(280px,1fr) minmax(650px,1.8fr);gap:23px;align-items:center;min-width:0}
+.card-emblem{display:flex;align-items:center;justify-content:flex-start;min-height:153px;border-right:1px solid var(--border);padding-right:22px}
+.card-emblem img{width:137px;height:137px;object-fit:cover;border-radius:30px;box-shadow:0 6px 24px rgba(0,0,0,.24)}
+.card-identity{gap:5px;min-width:0}
+.card-brand{font-size:clamp(15px,1.3vw,22px);font-weight:520;color:var(--text-secondary);line-height:1.3}
+.tobacco-card h2{font-size:clamp(24px,2.5vw,41px);letter-spacing:-1.05px;line-height:1.17}
+.card-meta{font-size:clamp(14px,1.35vw,22px);line-height:1.35;color:var(--text-secondary)}
+.card-side{display:grid;grid-template-columns:minmax(270px,1.07fr) minmax(240px,.91fr) 108px;align-items:center;min-width:0;gap:0}
+.card-rating,.card-symptoms,.card-actions{display:flex;align-items:center;justify-content:center;min-width:0;min-height:148px;border-left:1px solid var(--border);padding:0 15px}
+.card-rating{padding:0 18px}
+.card-symptoms{padding:0 14px}
+.card-actions{padding:0 0 0 23px}
+.rating-summary{width:100%;min-height:122px;gap:12px;align-items:center;justify-content:center}
+.shisha-scale{gap:12px}
+.shisha-mark{
+  width:45px;height:55px;flex:0 0 45px;
+  display:block;mask:url("./assets/design-shisha-rating.png") center/contain no-repeat;
+  -webkit-mask:url("./assets/design-shisha-rating.png") center/contain no-repeat;
+  background:currentColor;stroke:none;
+}
+.shisha-mark.is-filled{color:var(--rating-on)}
+.shisha-mark.is-muted{color:var(--text-tertiary);opacity:.78}
+.rating-summary.poor{--rating-on:var(--danger)}
+.rating-summary.good{--rating-on:var(--success)}
+.rating-summary.neutral{--rating-on:var(--warning)}
+.rating-summary-bottom{gap:17px;flex-wrap:nowrap}
+.rating-summary-label{font-size:clamp(14px,1.17vw,19px);font-weight:720;padding:7px 20px;border-radius:30px;line-height:1.2}
+.rating-count{font-size:clamp(14px,1.22vw,21px);font-weight:550;color:var(--text-secondary);border-left:1px solid var(--border);padding-left:17px}
+.review-symptoms{display:flex;align-items:center;gap:18px;justify-content:center;overflow:hidden;white-space:normal;text-overflow:clip;min-width:0}
+.symptom-item{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;max-width:142px}
+.symptom-mini{
+  display:grid;place-items:center;flex:0 0 auto;
+  width:125px;height:125px;background:linear-gradient(130deg,var(--surface-soft),var(--surface));
+  border:1px solid var(--border);border-radius:31px;
+  box-shadow:0 7px 16px rgba(0,0,0,.11);
+}
+.symptom-mini .symptom-art{
+  width:112px;height:112px;
+  background-image:url("./assets/design-symptom-artwork.png");
+  background-size:500% 200%;
+  background-position:var(--icon-x) var(--icon-y,100%);
+}
+.symptom-art--dizziness{--icon-x:0%}
+.symptom-art--nausea{--icon-x:25%}
+.symptom-art--headache{--icon-x:50%}
+.symptom-art--palpitations{--icon-x:75%}
+.symptom-art--other{--icon-x:100%}
+.symptom-label{font-size:clamp(14px,1.24vw,21px);font-weight:650;text-align:center;line-height:1.28;color:var(--text)}
+.no-symptoms{font-size:15px;color:var(--text-tertiary);text-align:center}
+.card-edit{width:78px;height:78px;flex:0 0 78px;border-radius:22px;background:var(--surface-soft);border-color:var(--border)}
+.card-edit .ui-icon{width:31px;height:31px}
+.card-edit:hover{color:var(--accent);border-color:var(--accent)}
+.card-extra-row{padding-top:10px;margin-top:12px;border-top:1px solid var(--border);font-size:15px}
+.rating-secondary,.review-notes{font-size:14px}
+.review-notes{flex:1}
+.smallprint{display:flex;align-items:center;gap:22px;margin:43px 0 0;font-size:clamp(13px,1.32vw,21px);color:var(--text-secondary);line-height:1.55}
+.smallprint .ui-icon{width:43px;height:43px;flex:0 0 43px;stroke-width:1.9;color:var(--text-tertiary)}
+.footer{width:100%;max-width:1800px;padding:0 clamp(26px,2.55vw,45px) 16px;margin:0 auto;color:var(--text-secondary)}
+.footer .save-state{display:block;text-align:right;font-size:11px;opacity:.73;margin:0}
+.footer .save-state:before{width:6px;height:6px}
+.footer .save-state.error{font-size:13px;opacity:1}
+.catalog-search{max-width:760px;margin-bottom:24px}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:13px}
+.catalog-entry{display:flex;gap:14px;justify-content:space-between;align-items:center;padding:20px;background:var(--surface);border-radius:18px;border:1px solid var(--border)}
+.catalog-entry h2{font-size:18px;margin:2px 0}
+.catalog-entry p{font-size:13px;color:var(--text-secondary);margin:0}
+.catalog-entry strong{font-size:12px;color:var(--text-secondary)}
+.catalog-entry .btn{flex-shrink:0}
+.data-tile{background:var(--journal-glass)}
+.rating-choice-shisha{width:32px;height:38px;fill:none}
+.rating-option:has(input:checked){background:var(--accent-soft);border-color:var(--accent)}
+.rating-option:has(input:checked) .rating-choice-shisha{color:var(--accent)}
+.symptom-choice .symptom-art{
+  width:50px;height:50px;background-image:url("./assets/design-symptom-artwork.png");
+  background-size:500% 200%;background-position:var(--icon-x) var(--icon-y,100%);
+}
+.symptom-choice{min-height:64px}
+@media(max-width:1520px){
+  .topbar{min-height:92px}
+  .brand-mark{width:66px;height:66px;flex-basis:66px;border-radius:20px}
+  .topbar-brand{gap:12px}
+  .brand-text{font-size:30px}
+  .brand-subtitle{font-size:14px}
+  .topbar-actions{gap:10px}
+  .topbar-actions .btn{min-height:53px;height:53px;padding:9px 13px;font-size:14px;border-radius:15px;gap:8px}
+  .topbar-actions .btn .ui-icon{width:22px;height:22px}
+  .topbar-actions .theme-toggle{width:52px}
+  .tobacco-card{padding:19px 20px;min-height:175px;border-radius:23px}
+  .card-head{grid-template-columns:127px minmax(170px,1fr) minmax(550px,2.1fr);gap:14px}
+  .card-emblem{min-height:120px;padding-right:14px}
+  .card-emblem img{width:103px;height:103px;border-radius:22px}
+  .card-side{grid-template-columns:minmax(225px,1.1fr) minmax(185px,.9fr) 70px}
+  .card-rating,.card-symptoms,.card-actions{min-height:116px;padding:0 8px}
+  .card-actions{padding-left:12px}
+  .rating-summary{min-height:105px;gap:8px}
+  .shisha-scale{gap:7px}
+  .shisha-mark{width:33px;height:41px;flex-basis:33px}
+  .rating-summary-label{font-size:14px;padding:5px 11px}
+  .rating-count{font-size:13px;padding-left:10px}
+  .symptom-mini{width:82px;height:82px;border-radius:19px}
+  .symptom-mini .symptom-art{width:75px;height:75px}
+  .review-symptoms{gap:10px}
+  .symptom-label{font-size:13px}
+  .card-edit{width:55px;height:55px;flex-basis:55px;border-radius:16px}
+  .card-edit .ui-icon{width:23px;height:23px}
+  .search{min-height:54px;height:54px;font-size:16px;padding-left:58px}
+  .search-wrap:before{width:18px;height:18px;left:20px;border-width:2px}
+  .search-wrap:after{left:36px;top:calc(50% + 7px);width:8px;height:2px}
+  .filters{min-height:54px}
+  .filter{min-height:40px;font-size:14px;padding:8px 11px}
+  .page-head h1{font-size:clamp(35px,4.1vw,54px)}
+  .page-head p{font-size:clamp(15px,1.8vw,19px)}
+  .content{padding-top:35px}
+}
+@media(max-width:1120px){
+  .topbar{flex-wrap:wrap;gap:10px;padding-top:12px;padding-bottom:12px}
+  .topbar-actions{width:100%;justify-content:flex-start;overflow-x:auto;padding-bottom:2px}
+  .card-head{grid-template-columns:96px minmax(170px,1fr);gap:13px}
+  .card-emblem{min-height:95px}
+  .card-emblem img{width:79px;height:79px;border-radius:18px}
+  .card-side{grid-column:1/-1;grid-template-columns:minmax(180px,1fr) minmax(160px,1fr) 60px;border-top:1px solid var(--border);padding-top:9px}
+  .card-rating{border-left:0}
+  .card-symptoms{border-left:1px solid var(--border)}
+  .card-actions{border-left:1px solid var(--border)}
+  .tobacco-card{min-height:0}
+}
+@media(max-width:680px){
+  .topbar{min-height:0;padding:12px 16px}
+  .brand-mark{width:50px;height:50px;flex-basis:50px;border-radius:14px}
+  .brand-text{font-size:23px}
+  .brand-subtitle{font-size:11px}
+  .topbar-actions .btn{min-width:45px;width:auto;height:48px;min-height:48px;gap:5px;padding:10px 12px}
+  .topbar-actions .header-add{min-width:50px}
+  .topbar-actions .action-label{display:inline;font-size:12px}
+  .topbar-actions .theme-toggle{width:48px;min-width:48px}
+  .content{padding:24px 16px 26px}
+  .page-head h1{font-size:37px}
+  .page-head p{font-size:15px}
+  .collection-meta{font-size:14px;margin:15px 0 17px}
+  .toolbar{gap:11px}
+  .search-wrap{flex:1 1 100%}
+  .search{height:50px;min-height:50px}
+  .filters{width:100%;overflow-x:auto;flex-wrap:nowrap}
+  .filter{flex:0 0 auto}
+  .tobacco-card{padding:16px 13px;border-radius:18px}
+  .card-head{display:grid;grid-template-columns:73px minmax(0,1fr);gap:11px;align-items:center}
+  .card-emblem{min-height:70px;padding-right:8px;border-right:1px solid var(--border)}
+  .card-emblem img{height:60px;width:60px;border-radius:15px}
+  .card-identity{flex-basis:auto}
+  .card-brand{font-size:12px}
+  .tobacco-card h2{font-size:20px}
+  .card-meta{font-size:12px;white-space:normal}
+  .card-side{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 52px;gap:0;min-height:0;padding-top:12px}
+  .card-rating,.card-symptoms,.card-actions{min-height:95px;padding:0 4px}
+  .rating-summary{width:100%;min-height:88px;gap:6px;align-items:center}
+  .shisha-scale{gap:3px}
+  .shisha-mark{width:20px;height:27px;flex-basis:20px}
+  .rating-summary-bottom{gap:5px;flex-wrap:wrap}
+  .rating-summary-label{font-size:11px;padding:3px 7px}
+  .rating-count{font-size:10px;padding-left:5px}
+  .symptom-mini{width:46px;height:46px;border-radius:12px}
+  .symptom-mini .symptom-art{width:41px;height:41px}
+  .review-symptoms{gap:5px;justify-content:center}
+  .symptom-label{font-size:10px;max-width:64px;overflow-wrap:anywhere}
+  .card-edit{width:44px;height:44px;flex-basis:44px;border-radius:12px}
+  .card-edit .ui-icon{width:19px;height:19px}
+  .smallprint{font-size:12px;gap:10px;margin-top:25px}
+  .smallprint .ui-icon{width:30px;height:30px;flex-basis:30px}
+  .footer{padding:0 16px 12px}
+}
+@media(max-width:380px){
+  .topbar-actions .action-label{display:none}
+  .topbar-actions .header-add .action-label{display:inline;font-size:12px}
+  .card-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px}
+  .rating-count{display:none}
+}
+
+:root[data-theme="light"] .symptom-art{--icon-y:0%}
+:root[data-theme="dark"] .symptom-art{--icon-y:100%}
