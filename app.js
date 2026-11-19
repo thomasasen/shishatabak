@@ -191,7 +191,7 @@
       '</div>':'<span class="no-symptoms">Keine Beschwerden erfasst</span>';
     return '<article class="tobacco-card rate-'+tone+'">'+
       '<div class="card-head">'+
-        '<div class="card-emblem" aria-hidden="true"><img src="./assets/design-shisha-logo.png" width="132" height="132" alt=""></div>'+
+        '<div class="card-emblem" aria-hidden="true"><img src="./assets/design-shisha-logo.webp" width="132" height="132" alt=""></div>'+
         '<div class="card-identity">'+
           '<div class="card-brand">'+escapeHTML(p.brand)+'</div>'+
           '<h2>'+escapeHTML(p.name)+'</h2>'+
