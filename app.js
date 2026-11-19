@@ -32,6 +32,17 @@
   const productById=id=>state.tobaccos.find(p=>p.id===id);
   const productName=p=>p?p.brand+" · "+p.name:"Unbekannter Tabak";
   const icon=name=>'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-'+name+'"></use></svg>';
+  const SYMPTOM_ICONS={
+    "Schwindel":"dizziness",
+    "Übelkeit":"nausea",
+    "Kopfschmerzen":"headache",
+    "Herzrasen":"palpitations",
+    "Andere Beschwerden":"other"
+  };
+  const symptomIcon=symptom=>{
+    const name=SYMPTOM_ICONS[symptom];
+    return name?'<svg class="symptom-icon" aria-hidden="true" focusable="false"><use href="#i-symptom-'+name+'"></use></svg>':"";
+  };
   const normalizedBase=value=>["Virginia","Dark Blend","Unbekannt"].includes(value)?value:"Unbekannt";
   const ratingValue=value=>value==null||value===""?null:Number(value);
   function defaultReview(){return {tolerability:null,taste:null,symptoms:[],notes:"",updatedAt:""};}
@@ -149,7 +160,8 @@
     const action=r.tolerability==null?"Jetzt bewerten":"Bewertung bearbeiten";
     const extra=[
       r.taste!=null?'<span class="rating-secondary">Geschmack <strong>'+r.taste+'/5</strong></span>':"",
-      r.symptoms.length?'<span class="review-symptoms"><strong>Beschwerden:</strong> '+escapeHTML(r.symptoms.join(", "))+'</span>':""
+      r.symptoms.length?'<span class="review-symptoms" role="group" aria-label="Beschwerden: '+escapeHTML(r.symptoms.join(", "))+'">'+
+        r.symptoms.map(sym=>'<span class="symptom-mini" title="'+escapeHTML(sym)+'">'+symptomIcon(sym)+'</span>').join("")+'</span>':""
     ].filter(Boolean).join("");
     return '<article class="tobacco-card">'+
       '<div class="card-head">'+
@@ -296,7 +308,7 @@
       [1,2,3,4,5].map(n=>'<option value="'+n+'"'+(r.taste===n?' selected':'')+'>'+n+' von 5</option>').join("")+'</select></div>'+
       '<fieldset class="symptom-block"><legend>Beobachtete Beschwerden</legend><p>Mehrfachauswahl möglich.</p><div class="symptom-grid">'+
       SYMPTOMS.map(sym=>'<label class="symptom-choice"><input type="checkbox" name="symptom" value="'+escapeHTML(sym)+'"'+
-      (r.symptoms.includes(sym)?' checked':'')+'> '+escapeHTML(sym)+'</label>').join("")+'</div></fieldset>'+
+      (r.symptoms.includes(sym)?' checked':'')+'>'+symptomIcon(sym)+'<span class="symptom-text">'+escapeHTML(sym)+'</span></label>').join("")+'</div></fieldset>'+
       '<div class="field"><label for="f-review-notes">Persönliche Notiz</label>'+
       '<textarea id="f-review-notes" name="review_notes" maxlength="1000" placeholder="Was ist dir bei der Verträglichkeit aufgefallen?">'+escapeHTML(r.notes||(r.updatedAt?"":p?.notes||""))+'</textarea></div>'+
       (entry?'<button class="btn btn-danger" type="button" data-action="delete-tobacco" data-id="'+escapeHTML(p.id)+'">Tabak löschen</button>':'')+
