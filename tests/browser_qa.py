@@ -508,6 +508,7 @@ def mockup_redteam_suite(browser):
     assert page.locator("#editorDialog").evaluate("(el)=>el.open")
     assert page.locator("#f-brand").input_value()
     assert page.locator("#f-name").input_value()
+    ctx.once("dialog",lambda dialog:dialog.accept())
     page.locator('[data-action="close-dialog"]').first.click()
     # Settings must be a real page, not a dead CTA. Theme may never alter data.
     page.locator('.topbar [data-view="settings"]').click()
