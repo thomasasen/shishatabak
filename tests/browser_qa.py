@@ -561,7 +561,9 @@ def adversarial_suite(browser):
         notes='"><svg/onload=alert(2)>')
     assert len(storage(page)["tobaccos"])==1
     assert page.locator("#collectionResults script").count()==0
-    assert page.locator("#collectionResults img").count()==0
+    assert page.locator("#collectionResults img[onerror]").count()==0
+    assert page.locator("#collectionResults img[src^='x']").count()==0
+    assert page.locator("#collectionResults .card-emblem img").count()==1
     assert not page.evaluate("Boolean(window.__hack)")
     page.locator('.topbar [data-action="add-tobacco"]').click()
     page.locator("#f-brand").fill("Blocked")
