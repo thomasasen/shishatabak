@@ -281,8 +281,8 @@ def compact_card_suite(browser):
         assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
         assert page.locator(".rating-count").inner_text()=="2 von 5"
         assert page.locator(".shisha-scale .shisha-mark").count()==5
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==2
-        assert page.locator(".shisha-scale .shisha-mark.empty").count()==3
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==2
+        assert page.locator(".shisha-scale .shisha-mark.is-muted").count()==3
         button=page.locator(".card-edit")
         bounds=button.bounding_box()
         assert bounds["width"]>=44 and bounds["height"]>=44,(width,bounds)
@@ -388,15 +388,15 @@ def shisha_rating_suite(browser):
         assert result["tobaccos"][0]["review"]["tolerability"]==score
         marks=page.locator(".shisha-scale .shisha-mark")
         assert marks.count()==5
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
-        assert page.locator(".shisha-scale .shisha-mark.empty").count()==5-score
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==score
+        assert page.locator(".shisha-scale .shisha-mark.is-muted").count()==5-score
         for i in range(5):
             mask=marks.nth(i).evaluate("(el)=>getComputedStyle(el).maskImage")
             assert "design-shisha-rating.png" in mask,mask
         assert page.locator(".rating-count").inner_text()==str(score)+" von 5"
         assert "Verträglichkeit: "+str(score)+" von 5" in page.locator(".rating-summary").get_attribute("aria-label")
         page.reload()
-        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
+        assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==score
     ctx.close()
 
 def mockup_fidelity_suite(browser):
@@ -429,8 +429,8 @@ def mockup_fidelity_suite(browser):
         assert page.locator(".tobacco-card h2").inner_text()=="ORNG MNT"
         assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
         assert page.locator(".rating-count").inner_text()=="2 von 5"
-        assert page.locator(".shisha-mark.filled").count()==2
-        assert page.locator(".shisha-mark.empty").count()==3
+        assert page.locator(".shisha-mark.is-filled").count()==2
+        assert page.locator(".shisha-mark.is-muted").count()==3
         assert page.locator(".symptom-item").count()==2
         assert page.locator(".symptom-item").nth(0).inner_text()=="Schwindel"
         assert page.locator(".symptom-item").nth(1).inner_text()=="Übelkeit"
