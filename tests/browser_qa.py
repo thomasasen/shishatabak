@@ -284,7 +284,7 @@ def compact_card_suite(browser):
         bounds=button.bounding_box()
         assert bounds["width"]>=44 and bounds["height"]>=44,(width,bounds)
         assert "Bewertung bearbeiten" in button.get_attribute("aria-label")
-        assert page.locator(".review-notes").inner_text()==note
+        assert page.locator(".review-notes").inner_text()==note.strip()
         assert page.locator(".review-symptoms").count()==1
         assert page.locator(".card-extra-row").count()==1
         for selector in (".review-notes",".review-symptoms",".card-meta"):
