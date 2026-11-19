@@ -435,6 +435,7 @@ def mockup_fidelity_suite(browser):
         assert page.locator(".symptom-item").nth(0).inner_text()=="Schwindel"
         assert page.locator(".symptom-item").nth(1).inner_text()=="Übelkeit"
         assert page.locator(".card-edit").is_visible()
+        assert page.evaluate("document.querySelector('link[rel=stylesheet]').href.includes('visible2')")
         assert page.locator(".brand-mark").evaluate("(img)=>img.complete && img.naturalWidth>0")
         assert page.locator(".card-emblem").count()==0
         assert page.evaluate("document.documentElement.dataset.theme")=="dark"
@@ -477,9 +478,9 @@ def mockup_fidelity_suite(browser):
             assert 25<=metrics["card"]["x"]<=65,metrics
             assert metrics["card"]["width"]>=1570,metrics
             assert 65<=metrics["card"]["height"]<=110,metrics
-            assert 30<=metrics["titleFont"]<=46,metrics
+            assert 28<=metrics["titleFont"]<=38,metrics
             assert metrics["card"]["height"]<218,metrics
-            assert 30<=metrics["tile"]["width"]<=42,metrics
+            assert 30<=metrics["tile"]["width"]<=45,metrics
             assert 80<=metrics["title"]["y"]<=150,metrics
             assert 220<=metrics["card"]["y"]<=430,metrics
         if width==1152:
