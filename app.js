@@ -239,7 +239,7 @@
       ].map(pair=>'<button type="button" class="filter '+(filter===pair[0]?'active':'')+'" data-filter="'+pair[0]+'" aria-pressed="'+(filter===pair[0])+'">'+pair[1]+'</button>').join("")+'</div></div>'+
       '<div id="resultsStatus" class="results-count" role="status" aria-live="polite">'+products.length+' '+(products.length===1?"Sorte":"Sorten")+' angezeigt</div>'+
       '<div id="collectionResults">'+collectionCards(products)+'</div>'+
-      '';
+      '<p class="smallprint">'+icon("info")+'<span>Verträglichkeit ist eine persönliche Einschätzung, keine medizinische Diagnose. Bei Beschwerden den Konsum beenden und wiederkehrende Symptome ärztlich abklären.</span></p>';
   }
   function refreshCollectionResults(){
     const results=$("collectionResults"),status=$("resultsStatus");
