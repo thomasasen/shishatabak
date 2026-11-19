@@ -977,3 +977,66 @@ body{
   .symptom-mini{width:42px;height:42px;border:1px solid var(--border-subtle)}
   .smallprint{margin-top:20px}
 }
+
+/* Visible design revision: explicit high-priority overrides after legacy mockup CSS. */
+:root[data-theme="dark"]{--journal-glass:#1b1d27;--journal-header:rgba(18,19,27,.97)}
+.content{padding-top:22px}
+.page-head{margin:0 0 7px}
+.page-head h1{font-size:clamp(28px,2.6vw,36px);line-height:1.15;letter-spacing:-.85px}
+.page-head p{font-size:14px;line-height:1.45;margin-top:5px;color:var(--text-secondary)}
+.collection-meta{margin:9px 0 17px;font-size:13px}
+.toolbar{margin-bottom:8px;gap:12px}
+.search{border-color:var(--border);background:var(--surface);box-shadow:none}
+.filters{background:var(--surface);border-color:var(--border)}
+.filter.active{background:var(--accent-soft);color:var(--accent);font-weight:730}
+.results-count{margin-bottom:10px;color:var(--text-secondary)}
+.cards{gap:8px}
+.tobacco-card{border-radius:13px;box-shadow:none;border-left-width:3px}
+.card-brand,.card-meta{color:var(--text-secondary)}
+.tobacco-card h2{color:var(--text);letter-spacing:-.2px}
+.card-edit{border-color:var(--border);background:var(--surface-soft)}
+.rating-summary-label{font-weight:730}
+.smallprint{font-size:12px;opacity:.82}
+@media(min-width:980px){
+ .topbar{min-height:68px;padding-top:7px;padding-bottom:7px;gap:14px}
+ .brand-mark{width:47px;height:47px;flex-basis:47px;border-radius:13px}
+ .brand-text{font-size:25px}
+ .brand-subtitle{font-size:11px}
+ .topbar-actions{gap:6px}
+ .topbar-actions .btn{border-radius:10px;height:44px;min-height:44px}
+ .page-head h1{font-size:32px}
+ .content{padding-top:22px}
+}
+@media(min-width:1000px){
+ .tobacco-card{padding:11px 14px}
+ .card-head{grid-template-columns:minmax(210px,1.25fr) minmax(0,2.15fr);gap:8px}
+ .card-side{grid-template-columns:minmax(160px,.85fr) minmax(210px,1.15fr) 49px}
+ .card-rating,.card-symptoms,.card-actions{min-height:60px}
+ .card-rating{border-left:1px solid var(--border)}
+ .rating-summary{min-height:56px}
+ .tobacco-card h2{font-size:21px}
+ .card-brand,.card-meta{font-size:12px}
+ .rating-summary-label{font-size:12px}
+ .rating-count{font-size:11px}
+ .shisha-mark{width:22px;height:28px;flex:0 1 22px}
+ .symptom-mini{width:43px;height:43px}
+ .symptom-mini .symptom-art{width:41px;height:41px}
+ .symptom-label{font-size:11px}
+ .card-edit{width:44px;height:44px}
+}
+@media(min-width:1000px) and (max-width:1199px){
+ .card-head{grid-template-columns:minmax(175px,1.05fr) minmax(0,2.35fr)}
+ .card-side{grid-template-columns:minmax(145px,.82fr) minmax(175px,1.18fr) 44px}
+ .shisha-mark{width:19px;height:25px;flex-basis:19px}
+ .symptom-mini{width:39px;height:39px}
+ .symptom-mini .symptom-art{width:37px;height:37px}
+}
+@media(max-width:979px){
+ .page-head h1{font-size:30px}
+ .content{padding-top:20px}
+}
+@media(max-width:680px){
+ .page-head h1{font-size:29px}
+ .tobacco-card{padding:12px}
+ .rating-summary-bottom{gap:4px}
+}
