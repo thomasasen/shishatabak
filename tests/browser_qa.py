@@ -356,7 +356,7 @@ def symptom_icons_suite(browser):
             art=tile.locator(".symptom-art--"+symbol)
             assert art.count()==1,(width,label)
             assert art.get_attribute("aria-hidden")=="true"
-            assert art.bounding_box()["width"]>=40
+            assert 36<=art.bounding_box()["width"]<=64
         dims=page.evaluate("({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth})")
         assert dims["scroll"]<=dims["client"]+1,(width,dims)
         page.locator(".card-edit").click()
