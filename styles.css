@@ -82,7 +82,21 @@ a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 svg{display:block}
 .ui-icon{height:20px;width:20px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
-.symptom-icon{display:block;width:20px;height:20px;flex:0 0 auto;color:var(--text-secondary);stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;fill:none}
+/* Original symptom artwork, cropped from the approved illustration.
+ * First row of the local sprite: light; second row: dark.
+ * Five columns preserve the original shapes and blue highlights. */
+.symptom-art{
+  display:block;flex:0 0 auto;width:44px;height:44px;
+  background-image:url("./assets/symptom-reference-sprite.png");
+  background-size:500% 200%;background-repeat:no-repeat;
+  background-position:var(--icon-x,0%) var(--icon-y,0%);
+}
+.symptom-art--dizziness{--icon-x:0%}
+.symptom-art--nausea{--icon-x:25%}
+.symptom-art--headache{--icon-x:50%}
+.symptom-art--palpitations{--icon-x:75%}
+.symptom-art--other{--icon-x:100%}
+@media(prefers-color-scheme:dark){.symptom-art{--icon-y:100%}}
 .icon-sprite{position:absolute;width:0;height:0;overflow:hidden}
 [hidden]{display:none!important}
 .skip-link{position:fixed;top:12px;left:12px;z-index:200;padding:12px 16px;background:var(--surface);color:var(--text);border:2px solid var(--focus);border-radius:12px;transform:translateY(-170%);font-weight:700}
@@ -151,12 +165,15 @@ svg{display:block}
 .filter:hover{color:var(--text)}
 .filter.active{background:var(--surface);color:var(--text);font-weight:690;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .results-count{font-size:12.5px;color:var(--text-secondary);margin:0 0 11px;font-variant-numeric:tabular-nums}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .tobacco-card{
-  min-width:0;display:flex;flex-direction:column;gap:7px;
+  min-width:0;display:flex;flex-direction:column;gap:9px;
   padding:15px 16px;background:var(--surface);border:1px solid var(--border-subtle);
   border-radius:16px;box-shadow:var(--shadow);
 }
+.tobacco-card.rate-poor{border-left:3px solid var(--danger)}
+.tobacco-card.rate-good{border-left:3px solid var(--success)}
+.tobacco-card.rate-neutral{border-left:3px solid var(--text-tertiary)}
 .card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
 .card-identity{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}
 .card-brand{
@@ -172,24 +189,34 @@ svg{display:block}
   color:var(--text-secondary);font-size:12px;line-height:1.45;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.card-side{flex:0 0 auto;display:flex;align-items:center;gap:6px}
+.card-side{flex:0 0 auto;display:flex;align-items:center;gap:8px}
 .rating-summary{
-  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;
-  width:80px;min-height:58px;padding:5px 6px;
-  background:var(--surface-subtle);border:1px solid var(--border-subtle);
-  border-radius:11px;text-align:center;
+  --rating-on:var(--text-secondary);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  width:150px;min-height:58px;padding:3px 1px;
+  background:transparent;border:0;text-align:center;
 }
-.rating-summary.good{border-left:3px solid var(--success)}
-.rating-summary.poor{border-left:3px solid var(--danger)}
-.rating-summary.neutral{border-left:3px solid var(--text-secondary)}
-.rating-summary.unrated{border-left:3px solid var(--border)}
-.rating-summary-value{
-  font-size:27px;font-weight:770;letter-spacing:-.8px;line-height:1;
-  font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text);
+.rating-summary.poor{--rating-on:var(--danger)}
+.rating-summary.good{--rating-on:var(--success)}
+.rating-summary.neutral{--rating-on:var(--warning)}
+.shisha-scale{display:flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap}
+.shisha-mark{
+  width:23px;height:29px;flex:0 0 23px;
+  fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
 }
-.rating-summary-value small{font-size:12px;letter-spacing:0;font-weight:630;color:var(--text-secondary)}
-.rating-summary-label{font-size:11.5px;font-weight:650;line-height:1.18;color:var(--text)}
+.shisha-mark.filled{color:var(--rating-on)}
+.shisha-mark.empty{color:var(--text-tertiary);opacity:.42}
+.rating-summary-bottom{display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.rating-summary-label{
+  font-size:11.5px;font-weight:720;line-height:1.25;
+  padding:3px 7px;border-radius:8px;
+  background:var(--surface-soft);color:var(--text);
+}
+.rating-summary.poor .rating-summary-label{background:var(--danger-bg);color:var(--danger)}
+.rating-summary.good .rating-summary-label{background:var(--success-bg);color:var(--success)}
+.rating-summary.neutral .rating-summary-label{background:var(--warning-bg);color:var(--warning)}
 .rating-summary.unrated .rating-summary-label{font-size:11px;font-weight:570;color:var(--text-secondary)}
+.rating-count{font-size:11px;color:var(--text-secondary);font-variant-numeric:tabular-nums}
 .card-edit{
   flex:0 0 44px;display:grid;place-items:center;width:44px;height:44px;
   padding:0;border:1px solid var(--border-subtle);border-radius:12px;
@@ -209,10 +236,10 @@ svg{display:block}
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .symptom-mini{
-  flex:0 0 26px;width:26px;height:26px;display:grid;place-items:center;
-  background:var(--surface-subtle);border:1px solid var(--border-subtle);border-radius:8px;
+  flex:0 0 49px;width:49px;height:49px;display:grid;place-items:center;
+  background:var(--surface-subtle);border:1px solid var(--border-subtle);border-radius:12px;
 }
-.symptom-mini .symptom-icon{width:18px;height:18px}
+.symptom-mini .symptom-art{width:43px;height:43px}
 .review-notes{
   color:var(--text-secondary);font-size:12.5px;line-height:1.45;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -297,7 +324,12 @@ svg{display:block}
 .rating-option:has(input:checked){border:2px solid var(--accent);background:var(--surface);color:var(--accent)}
 .rating-option input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer;margin:0}
 .rating-option:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
-.rating-score{font-size:23px;font-weight:780;line-height:1.1;font-variant-numeric:tabular-nums}
+.rating-choice-shisha{
+  width:25px;height:30px;flex:0 0 30px;
+  stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none;
+}
+.rating-option:has(input:checked){color:var(--accent)}
+.rating-score{font-size:18px;font-weight:780;line-height:1.1;font-variant-numeric:tabular-nums}
 .rating-name{font-size:12px;font-weight:610;line-height:1.25;overflow-wrap:anywhere}
 .rating-block .rating-feedback{font-size:13px;color:var(--text);font-weight:620;margin:10px 0 0;min-height:20px}
 .optional-details{border:1px solid var(--border);border-radius:14px;overflow:clip}
@@ -312,9 +344,13 @@ svg{display:block}
 .optional-details summary span{font-size:12.5px;color:var(--text-secondary);font-weight:540;margin-left:auto}
 .optional-content{display:grid;gap:18px;padding:18px 16px 20px}
 .symptom-grid{display:flex;flex-wrap:wrap;gap:8px}
-.symptom-choice{min-height:44px;display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:10px 12px;border:1px solid var(--border);background:var(--surface-subtle);font-size:13.5px;color:var(--text)}
+.symptom-choice{
+  min-height:58px;display:inline-flex;align-items:center;gap:8px;
+  border-radius:12px;padding:6px 11px;border:1px solid var(--border);
+  background:var(--surface-subtle);font-size:13.5px;color:var(--text);cursor:pointer;
+}
 .symptom-choice input{height:18px;width:18px;flex:0 0 18px}
-.symptom-choice .symptom-icon{width:21px;height:21px;margin-left:1px}
+.symptom-choice .symptom-art{width:42px;height:42px}
 .symptom-choice .symptom-text{min-width:0}
 .symptom-choice:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
 .symptom-choice:focus-within{outline:2px solid var(--focus);outline-offset:2px}
@@ -342,6 +378,9 @@ svg{display:block}
   .search-wrap{max-width:none}
   .filters{width:max-content}
 }
+@media(max-width:820px){
+  .cards{grid-template-columns:1fr}
+}
 @media(max-width:680px){
   :root{font-size:17px}
   .topbar{min-height:64px;padding:9px 16px}
@@ -362,6 +401,15 @@ svg{display:block}
   .filter{flex:0 0 auto;min-height:44px;font-size:13px}
   .cards{grid-template-columns:1fr}
   .tobacco-card{padding:14px}
+  .card-head{flex-wrap:wrap;align-items:flex-start}
+  .card-identity{flex-basis:100%}
+  .card-side{flex:1 1 100%;width:100%;justify-content:space-between}
+  .rating-summary{align-items:flex-start}
+  .rating-summary-bottom{justify-content:flex-start}
+  .rating-option{gap:3px}
+  .rating-choice-shisha{height:26px;width:23px;flex-basis:26px}
+  .symptom-choice{padding:5px 9px}
+  .symptom-choice .symptom-art{width:38px;height:38px}
   .editor-dialog{
     width:100%;max-height:calc(100dvh - 12px);inset:auto 0 0;margin:0;
     border-radius:22px 22px 0 0;border-bottom:0
