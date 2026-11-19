@@ -165,7 +165,7 @@
   }
   function shishaScale(value){
     return '<span class="shisha-scale" aria-hidden="true">'+
-      Array.from({length:5},(_,i)=>'<span class="shisha-mark '+(i<value?'filled':'empty')+'"></span>').join("")+
+      Array.from({length:5},(_,i)=>'<span class="shisha-mark '+(i<value?'is-filled':'is-muted')+'"></span>').join("")+
     '</span>';
   }
   function ratingTag(review){
