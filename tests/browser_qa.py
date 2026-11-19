@@ -392,7 +392,7 @@ def shisha_rating_suite(browser):
         assert page.locator(".shisha-scale .shisha-mark.is-muted").count()==5-score
         for i in range(5):
             mask=marks.nth(i).evaluate("(el)=>getComputedStyle(el).maskImage")
-            assert "design-shisha-rating.png" in mask,mask
+            assert mask=="none",mask
         assert page.locator(".rating-count").inner_text()==str(score)+" von 5"
         assert "Verträglichkeit: "+str(score)+" von 5" in page.locator(".rating-summary").get_attribute("aria-label")
         page.reload()
@@ -436,7 +436,7 @@ def mockup_fidelity_suite(browser):
         assert page.locator(".symptom-item").nth(1).inner_text()=="Übelkeit"
         assert page.locator(".card-edit").is_visible()
         assert page.locator(".brand-mark").evaluate("(img)=>img.complete && img.naturalWidth>0")
-        assert page.locator(".card-emblem img").evaluate("(img)=>img.complete && img.naturalWidth>0")
+        assert page.locator(".card-emblem").count()==0
         assert page.evaluate("document.documentElement.dataset.theme")=="dark"
         metrics=page.evaluate("""() => {
           const rect=q=>{const r=document.querySelector(q).getBoundingClientRect();
@@ -444,7 +444,7 @@ def mockup_fidelity_suite(browser):
           const style=q=>getComputedStyle(document.querySelector(q));
           return {
             screen:rect("#screen"),header:rect(".topbar"),title:rect(".page-head h1"),
-            card:rect(".tobacco-card"),emblem:rect(".card-emblem img"),
+            card:rect(".tobacco-card"),
             rating:rect(".rating-summary"),tile:rect(".symptom-mini"),
             edit:rect(".card-edit"),search:rect(".search"),
             dark:style("body").backgroundColor,
@@ -459,29 +459,32 @@ def mockup_fidelity_suite(browser):
         }""")
         assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
         assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
+        assert metrics["tile"]["width"]<=64,metrics
+        assert page.locator(".shisha-scale svg use").count()==5
+        assert page.locator(".shisha-scale").evaluate("(el)=>el.scrollWidth<=el.clientWidth+1")
         assert "design-symptom-artwork.png" in metrics["cardImage"]
-        assert "design-shisha-rating.png" in metrics["mask"]
+        assert metrics["mask"]=="none",metrics["mask"]
         assert max(metrics["marks"])-min(metrics["marks"])<3,(width,metrics)
         if width==1750:
             assert 116<=metrics["header"]["height"]<=138,metrics
             assert 25<=metrics["card"]["x"]<=65,metrics
             assert metrics["card"]["width"]>=1570,metrics
-            assert 180<=metrics["card"]["height"]<=290,metrics
+            assert 95<=metrics["card"]["height"]<=205,metrics
             assert metrics["titleFont"]>=57,metrics
-            assert metrics["emblem"]["width"]>=125,metrics
-            assert metrics["tile"]["width"]>=110,metrics
+            assert metrics["card"]["height"]<218,metrics
+            assert 40<=metrics["tile"]["width"]<=64,metrics
             assert 150<=metrics["title"]["y"]<=210,metrics
             assert 465<=metrics["card"]["y"]<=570,metrics
         if width==1152:
             assert metrics["card"]["width"]>=1000,metrics
-            assert metrics["tile"]["width"]>=70,metrics
-            assert metrics["emblem"]["width"]>=78,metrics
+            assert 40<=metrics["tile"]["width"]<=64,metrics
+            assert metrics["card"]["height"]<240,metrics
         if width<500:
             assert metrics["card"]["width"]>=width-45,metrics
             assert metrics["tile"]["width"]>=42,metrics
         page.screenshot(path=str(images/f"approved-layout-{width}-dark.png"),full_page=True)
         print(f"FIDELITY {width}px: "+str({
-            k:metrics[k] for k in ("header","card","emblem","tile","edit","titleFont")
+            k:metrics[k] for k in ("header","card","tile","edit","titleFont")
         }),flush=True)
         assert not errors,(width,errors)
         ctx.close()
