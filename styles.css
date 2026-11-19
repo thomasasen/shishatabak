@@ -893,3 +893,87 @@ body{
   .card-head{grid-template-columns:minmax(0,1fr);gap:6px}
   .card-side{grid-column:1;padding-top:7px}
 }
+
+/* Apple HIG-oriented density and hierarchy review, 2026-11-19.
+ * Small screens retain real 44px tap targets; do not disguise clipped content. */
+:root[data-theme="dark"]{
+  --journal-glass:linear-gradient(135deg,#20222b,#1a1c25);
+  --journal-header:rgba(19,20,29,.96);
+}
+.topbar{box-shadow:none}
+.topbar-actions .btn{box-shadow:none}
+.content{padding-top:25px}
+.page-head{margin-bottom:12px}
+.page-head h1{font-size:clamp(31px,3.1vw,43px);line-height:1.13;letter-spacing:-1.15px}
+.page-head p{font-size:clamp(14px,1.18vw,17px);line-height:1.45;margin-top:7px}
+.collection-meta{margin:12px 0 15px;font-size:14px}
+.toolbar{gap:12px;margin-bottom:10px;flex-wrap:nowrap}
+.search-wrap{flex:1 1 430px;max-width:none;min-width:0}
+.search{height:46px;min-height:46px;padding:10px 14px 10px 47px;font-size:14px;border-radius:13px;box-shadow:none}
+.search-wrap:before{height:17px;width:17px;left:17px;border-width:2px}
+.search-wrap:after{left:33px;top:calc(50% + 7px);height:2px;width:8px}
+.filters{flex:0 1 auto;min-height:46px;padding:4px;gap:2px;border-radius:13px;overflow-x:auto;max-width:100%}
+.filter{min-height:36px;padding:7px 11px;font-size:12px;white-space:nowrap;border-radius:9px}
+.filter.active{box-shadow:none}
+.results-count{font-size:12px;margin-bottom:9px}
+.cards{gap:9px}
+.tobacco-card{background:var(--journal-glass);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card-rating{justify-content:center}
+.rating-summary-label{font-weight:700}
+.card-symptoms{justify-content:center}
+.symptom-mini{background:transparent;border-color:transparent;box-shadow:none}
+.symptom-label{white-space:nowrap;font-weight:570}
+.card-edit:hover{background:var(--accent-soft)}
+.smallprint{margin-top:24px;font-size:13px;gap:12px;line-height:1.5}
+.smallprint .ui-icon{width:25px;height:25px;flex:0 0 25px}
+@media(min-width:980px){
+  .topbar{min-height:74px;flex-wrap:nowrap;gap:12px;padding:8px clamp(18px,2vw,32px)}
+  .topbar-brand{gap:10px;min-width:0}
+  .brand-mark{width:53px;height:53px;flex-basis:53px;border-radius:15px}
+  .brand-copy{min-width:0}
+  .brand-text{font-size:clamp(22px,2.15vw,30px);letter-spacing:-.65px}
+  .brand-subtitle{font-size:clamp(10px,.94vw,13px)}
+  .topbar-actions{width:auto;flex:0 0 auto;gap:7px;overflow:visible;padding:0}
+  .topbar-actions .btn{
+    height:44px;min-height:44px;gap:7px;
+    padding:8px 11px;font-size:12px;border-radius:12px;
+  }
+  .topbar-actions .btn .ui-icon{width:18px;height:18px}
+  .topbar-actions .theme-toggle{width:44px;min-width:44px;padding:8px}
+  .topbar-actions .header-add{border-width:1px}
+}
+@media(min-width:1000px){
+  .tobacco-card{padding:8px 13px}
+  .card-head{grid-template-columns:minmax(170px,1.1fr) minmax(0,2.3fr);gap:9px}
+  .card-side{grid-template-columns:minmax(151px,.9fr) minmax(200px,1.1fr) 48px}
+  .card-rating,.card-symptoms,.card-actions{min-height:61px}
+  .rating-summary{min-height:58px}
+  .symptom-mini{width:40px;height:40px}
+  .symptom-mini .symptom-art{width:38px;height:38px}
+  .review-symptoms{gap:10px}
+  .symptom-item{max-width:74px;gap:2px}
+  .symptom-label{font-size:11px}
+}
+@media(min-width:980px) and (max-width:1100px){
+  .topbar-actions .btn{padding-left:9px;padding-right:9px;font-size:11.5px}
+  .brand-subtitle{font-size:10px}
+}
+@media(max-width:979px){
+  .topbar{min-height:0}
+  .toolbar{flex-wrap:wrap}
+  .search-wrap{flex-basis:100%}
+  .filters{width:100%;justify-content:flex-start;flex:1 1 100%}
+  .filter{flex:1 0 auto}
+}
+@media(max-width:680px){
+  .content{padding-top:20px}
+  .page-head h1{font-size:32px}
+  .page-head p{font-size:14px}
+  .collection-meta{margin:10px 0 13px}
+  .toolbar{gap:8px}
+  .filters{min-height:44px}
+  .filter{min-height:36px}
+  .tobacco-card{padding:11px 12px}
+  .symptom-mini{width:42px;height:42px;border:1px solid var(--border-subtle)}
+  .smallprint{margin-top:20px}
+}
