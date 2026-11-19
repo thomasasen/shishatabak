@@ -402,7 +402,7 @@ def shisha_rating_suite(browser):
 def mockup_fidelity_suite(browser):
     """Independent design check against the approved 1750x899 visual reference.
 
-    The reference defines a 124px branded header, x≈44px full-width content,
+    The revised reference uses a single-row desktop header and compact content,
     a full-width compact product row without an emblem, five vector Shisha glyphs,
     and native-sized symptom tiles. Compare DOM geometry,
     computed styling and screenshots on desktop and mobile.
@@ -458,6 +458,10 @@ def mockup_fidelity_suite(browser):
           };
         }""")
         assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
+        if width>=980:
+            assert metrics["header"]["height"]<=90,metrics
+            assert page.locator(".topbar-brand").bounding_box()["y"]>=metrics["header"]["y"]
+            assert abs(page.locator(".topbar-brand").bounding_box()["y"]-page.locator(".topbar-actions").bounding_box()["y"])<=12
         assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
         assert metrics["tile"]["width"]<=64,metrics
         if width>=1000:
@@ -469,15 +473,15 @@ def mockup_fidelity_suite(browser):
         assert metrics["mask"]=="none",metrics["mask"]
         assert max(metrics["marks"])-min(metrics["marks"])<3,(width,metrics)
         if width==1750:
-            assert 116<=metrics["header"]["height"]<=138,metrics
+            assert 65<=metrics["header"]["height"]<=90,metrics
             assert 25<=metrics["card"]["x"]<=65,metrics
             assert metrics["card"]["width"]>=1570,metrics
             assert 65<=metrics["card"]["height"]<=110,metrics
-            assert metrics["titleFont"]>=57,metrics
+            assert 30<=metrics["titleFont"]<=46,metrics
             assert metrics["card"]["height"]<218,metrics
             assert 30<=metrics["tile"]["width"]<=42,metrics
-            assert 150<=metrics["title"]["y"]<=210,metrics
-            assert 465<=metrics["card"]["y"]<=570,metrics
+            assert 80<=metrics["title"]["y"]<=150,metrics
+            assert 220<=metrics["card"]["y"]<=430,metrics
         if width==1152:
             assert metrics["card"]["width"]>=1000,metrics
             assert 30<=metrics["tile"]["width"]<=42,metrics
