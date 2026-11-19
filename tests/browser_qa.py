@@ -403,8 +403,8 @@ def mockup_fidelity_suite(browser):
     """Independent design check against the approved 1750x899 visual reference.
 
     The reference defines a 124px branded header, x≈44px full-width content,
-    one 1640px-wide product row, a ~140px emblem, five visible Shisha glyphs,
-    >110px symptom tiles, and a dedicated edit action. Compare DOM geometry,
+    a full-width compact product row without an emblem, five vector Shisha glyphs,
+    and native-sized symptom tiles. Compare DOM geometry,
     computed styling and screenshots on desktop and mobile.
     """
     images=ROOT/"tests"/"_screenshots"
@@ -566,7 +566,7 @@ def adversarial_suite(browser):
     assert page.locator("#collectionResults script").count()==0
     assert page.locator("#collectionResults img[onerror]").count()==0
     assert page.locator("#collectionResults img[src^='x']").count()==0
-    assert page.locator("#collectionResults .card-emblem img").count()==1
+    assert page.locator("#collectionResults .card-emblem").count()==0
     assert not page.evaluate("Boolean(window.__hack)")
     page.locator('.topbar [data-action="add-tobacco"]').click()
     page.locator("#f-brand").fill("Blocked")
