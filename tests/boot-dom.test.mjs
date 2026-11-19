@@ -85,6 +85,7 @@ test("boot: existing v1 localStorage content renders saved products after the re
   };
   const app=startApp(legacy);
   assert.match(app.nodes.get("screen").innerHTML,/White Caek/);
-  assert.match(app.nodes.get("screen").innerHTML,/4<small>\/5<\/small>/);
+  assert.equal((app.nodes.get("screen").innerHTML.match(/class="shisha-mark filled"/g)||[]).length,4);
+  assert.match(app.nodes.get("screen").innerHTML,/4 von 5/);
   assert.match(app.nodes.get("screen").innerHTML,/Gut verträglich/);
 });
