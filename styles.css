@@ -148,36 +148,69 @@ svg{display:block}
 .filter:hover{color:var(--text)}
 .filter.active{background:var(--surface);color:var(--text);font-weight:690;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .results-count{font-size:12.5px;color:var(--text-secondary);margin:0 0 11px;font-variant-numeric:tabular-nums}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .tobacco-card{
-  min-width:0;display:flex;flex-direction:column;gap:12px;
-  padding:21px;background:var(--surface);border:1px solid var(--border-subtle);
-  border-radius:var(--radius-card);box-shadow:var(--shadow);
+  min-width:0;display:flex;flex-direction:column;gap:7px;
+  padding:15px 16px;background:var(--surface);border:1px solid var(--border-subtle);
+  border-radius:16px;box-shadow:var(--shadow);
 }
-.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.card-brand{color:var(--text-secondary);font-weight:680;font-size:12.5px;line-height:1.3}
-.tobacco-card h2{font-size:20px;font-weight:735;letter-spacing:-.4px;line-height:1.24;margin:0;overflow-wrap:anywhere}
-.card-meta{color:var(--text-secondary);font-size:13px;line-height:1.5;overflow-wrap:anywhere;min-height:19px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.card-identity{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}
+.card-brand{
+  color:var(--text-secondary);font-weight:670;font-size:12px;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.tobacco-card h2{
+  font-size:18px;font-weight:735;letter-spacing:-.35px;line-height:1.22;
+  margin:0;overflow:hidden;overflow-wrap:anywhere;display:-webkit-box;
+  -webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;
+}
+.card-meta{
+  color:var(--text-secondary);font-size:12px;line-height:1.45;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.card-side{flex:0 0 auto;display:flex;align-items:center;gap:6px}
 .rating-summary{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 15px;background:var(--surface-subtle);border:1px solid var(--border-subtle);
-  border-radius:14px;min-height:77px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;
+  width:80px;min-height:58px;padding:5px 6px;
+  background:var(--surface-subtle);border:1px solid var(--border-subtle);
+  border-radius:11px;text-align:center;
 }
-.rating-summary.good{border-left:4px solid var(--success)}
-.rating-summary.poor{border-left:4px solid var(--danger)}
-.rating-summary.neutral{border-left:4px solid var(--text-secondary)}
-.rating-summary.unrated{border-left:4px solid var(--border)}
-.rating-summary-value{font-size:33px;font-weight:775;letter-spacing:-1px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text)}
-.rating-summary-value small{font-size:15px;letter-spacing:0;font-weight:630;color:var(--text-secondary)}
-.rating-summary-label{font-size:14px;font-weight:650;line-height:1.35;color:var(--text)}
-.rating-summary.unrated .rating-summary-label{font-weight:550;color:var(--text-secondary)}
-.rating-secondary{font-size:14px;color:var(--text-secondary)}
+.rating-summary.good{border-left:3px solid var(--success)}
+.rating-summary.poor{border-left:3px solid var(--danger)}
+.rating-summary.neutral{border-left:3px solid var(--text-secondary)}
+.rating-summary.unrated{border-left:3px solid var(--border)}
+.rating-summary-value{
+  font-size:27px;font-weight:770;letter-spacing:-.8px;line-height:1;
+  font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text);
+}
+.rating-summary-value small{font-size:12px;letter-spacing:0;font-weight:630;color:var(--text-secondary)}
+.rating-summary-label{font-size:11.5px;font-weight:650;line-height:1.18;color:var(--text)}
+.rating-summary.unrated .rating-summary-label{font-size:11px;font-weight:570;color:var(--text-secondary)}
+.card-edit{
+  flex:0 0 44px;display:grid;place-items:center;width:44px;height:44px;
+  padding:0;border:1px solid var(--border-subtle);border-radius:12px;
+  background:var(--surface-soft);color:var(--text-secondary);
+  transition:background-color .14s ease,color .14s ease;
+}
+.card-edit .ui-icon{width:18px;height:18px}
+.card-edit:hover{background:var(--accent-soft);color:var(--accent)}
+.card-edit:active{background:var(--surface-subtle)}
+.card-extra-row{display:flex;align-items:baseline;gap:8px;min-width:0;border-top:1px solid var(--border-subtle);padding-top:7px}
+.rating-secondary{
+  flex:0 0 auto;color:var(--text-secondary);font-size:12px;line-height:1.4;white-space:nowrap;
+}
 .rating-secondary strong{color:var(--text)}
-.review-symptoms{color:var(--text-secondary);font-size:13px;line-height:1.55}
+.review-symptoms{
+  flex:1 1 auto;min-width:0;color:var(--text-secondary);font-size:12px;line-height:1.4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
 .review-symptoms strong{color:var(--text)}
-.review-notes{color:var(--text-secondary);font-size:13.5px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:8em;overflow:hidden;margin:0}
-.card-foot{margin-top:auto;padding-top:12px;border-top:1px solid var(--border-subtle)}
-.card-foot .btn{width:100%;min-height:44px}
+.review-notes{
+  color:var(--text-secondary);font-size:12.5px;line-height:1.45;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin:0;min-width:0;
+}
 .panel,.data-tile{
   min-width:0;background:var(--surface);border:1px solid var(--border-subtle);
   border-radius:var(--radius-card);box-shadow:var(--shadow);
@@ -316,7 +349,7 @@ svg{display:block}
   .filters{width:100%;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
   .filter{flex:0 0 auto;min-height:44px;font-size:13px}
   .cards{grid-template-columns:1fr}
-  .tobacco-card{padding:19px}
+  .tobacco-card{padding:14px}
   .editor-dialog{
     width:100%;max-height:calc(100dvh - 12px);inset:auto 0 0;margin:0;
     border-radius:22px 22px 0 0;border-bottom:0
