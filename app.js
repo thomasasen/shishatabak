@@ -165,7 +165,7 @@
   }
   function shishaScale(value){
     return '<span class="shisha-scale" aria-hidden="true">'+
-      Array.from({length:5},(_,i)=>'<span class="shisha-mark '+(i<value?'is-filled':'is-muted')+'"></span>').join("")+
+      Array.from({length:5},(_,i)=>'<svg class="shisha-mark '+(i<value?'is-filled':'is-muted')+'" viewBox="0 0 32 36" focusable="false"><use href="#i-shisha"></use></svg>').join("")+
     '</span>';
   }
   function ratingTag(review){
@@ -191,7 +191,7 @@
       '</div>':'<span class="no-symptoms">Keine Beschwerden erfasst</span>';
     return '<article class="tobacco-card rate-'+tone+'">'+
       '<div class="card-head">'+
-        '<div class="card-emblem" aria-hidden="true"><img src="./assets/design-shisha-logo.webp" width="132" height="132" alt=""></div>'+
+
         '<div class="card-identity">'+
           '<div class="card-brand">'+escapeHTML(p.brand)+'</div>'+
           '<h2>'+escapeHTML(p.name)+'</h2>'+
