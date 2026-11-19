@@ -70,7 +70,11 @@ test("boot: real index.html IDs can initialize the app and render the collection
 });
 test("boot: switching between collection and Backup works with the real header",()=>{
   const app=startApp();
-  assert.deepEqual(navDestinations,["collection","data"]);
+  assert.deepEqual(navDestinations,["collection","catalog","data","settings"]);
+  app.navigate("catalog");
+  assert.match(app.nodes.get("screen").innerHTML,/<h1>Katalog<\/h1>/);
+  app.navigate("settings");
+  assert.match(app.nodes.get("screen").innerHTML,/<h1>Einstellungen<\/h1>/);
   app.navigate("data");
   assert.match(app.nodes.get("screen").innerHTML,/<h1>Backup<\/h1>/);
   app.navigate("collection");
