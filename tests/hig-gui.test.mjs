@@ -110,10 +110,11 @@ test("compact tobacco cards keep rating prominent and editing accessible without
   assert.match(css,/\.card-edit\s*\{[^}]*width:44px;height:44px/s);
   assert.match(css,/\.rating-summary\s*\{[^}]*min-height:58px/s);
   for(const className of ["card-meta","review-symptoms","review-notes"]){
-    const match=css.match(new RegExp("\\."+className+"\\\\s*\\\\{([^}]*)\\\\}"));
-    assert.ok(match,"missing "+className);
-    assert.match(match[1],/text-overflow:ellipsis/,"single-line summary required: "+className);
-    assert.match(match[1],/overflow:hidden/,"untruncated layout can expand card: "+className);
+    const start=css.indexOf("."+className+"{");
+    assert.notEqual(start,-1,"missing "+className);
+    const rule=css.slice(start,css.indexOf("}",start));
+    assert.match(rule,/text-overflow:ellipsis/,"single-line summary required: "+className);
+    assert.match(rule,/overflow:hidden/,"untruncated layout can expand card: "+className);
   }
   assert.match(css,/\.tobacco-card\{padding:14px\}/);
 });
