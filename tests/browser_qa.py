@@ -278,8 +278,11 @@ def compact_card_suite(browser):
         seed(page,state([entry]))
         card=page.locator(".tobacco-card")
         assert card.count()==1
-        assert page.locator(".rating-summary-value").inner_text()=="2/5"
         assert page.locator(".rating-summary-label").inner_text()=="Schlecht"
+        assert page.locator(".rating-count").inner_text()=="2 von 5"
+        assert page.locator(".shisha-scale .shisha-mark").count()==5
+        assert page.locator(".shisha-scale .shisha-mark.filled").count()==2
+        assert page.locator(".shisha-scale .shisha-mark.empty").count()==3
         button=page.locator(".card-edit")
         bounds=button.bounding_box()
         assert bounds["width"]>=44 and bounds["height"]>=44,(width,bounds)
@@ -293,7 +296,7 @@ def compact_card_suite(browser):
                 "textOverflow:getComputedStyle(el).textOverflow})")
             assert css=={"overflow":"hidden","textOverflow":"ellipsis"},(selector,css)
         card_height=card.bounding_box()["height"]
-        assert card_height <= (225 if width<500 else 195),(width,card_height)
+        assert card_height <= (285 if width<500 else 230),(width,card_height)
         doc=page.evaluate("({scroll:document.documentElement.scrollWidth,"
                           "client:document.documentElement.clientWidth})")
         assert doc["scroll"]<=doc["client"]+1,(width,doc)
@@ -332,7 +335,11 @@ def symptom_icons_suite(browser):
         for label,symbol in values:
             item=page.locator(".symptom-choice").filter(has_text=label)
             assert item.count()==1,(width,label)
-            assert item.locator(".symptom-icon use").get_attribute("href")=="#i-symptom-"+symbol
+            art=item.locator(".symptom-art--"+symbol)
+            assert art.count()==1,(width,label)
+            assert "symptom-reference-sprite.png" in art.evaluate(
+                "(el)=>getComputedStyle(el).backgroundImage")
+            assert art.bounding_box()["width"]>=38
             item.locator('input[name="symptom"]').check()
             assert item.locator("input").is_checked()
         page.locator('#tobacco-form button[type="submit"]').click()
@@ -346,8 +353,10 @@ def symptom_icons_suite(browser):
         for label,symbol in values:
             tile=group.locator('.symptom-mini[title="'+label+'"]')
             assert tile.count()==1,(width,label)
-            assert tile.locator("use").get_attribute("href")=="#i-symptom-"+symbol
-            assert tile.locator(".symptom-icon").get_attribute("aria-hidden")=="true"
+            art=tile.locator(".symptom-art--"+symbol)
+            assert art.count()==1,(width,label)
+            assert art.get_attribute("aria-hidden")=="true"
+            assert art.bounding_box()["width"]>=40
         dims=page.evaluate("({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth})")
         assert dims["scroll"]<=dims["client"]+1,(width,dims)
         page.locator(".card-edit").click()
@@ -356,6 +365,38 @@ def symptom_icons_suite(browser):
             assert selected.is_checked(),(width,label)
         assert not failures,failures
         ctx.close()
+
+def shisha_rating_suite(browser):
+    """Five shisha silhouettes communicate scale without replacing the saved 1–5 score."""
+    ctx=browser.new_context()
+    page=ctx.new_page()
+    page.goto(BASE)
+    for score in range(1,6):
+        if score==1:
+            page.locator('.topbar [data-action="add-tobacco"]').click()
+            page.locator("#f-brand").fill("Shisha Skala")
+            page.locator("#f-name").fill("Eintrag")
+        else:
+            page.locator(".card-edit").click()
+        options=page.locator('input[name="tolerability"]')
+        assert options.count()==5
+        assert page.locator(".rating-choice-shisha use").count()==5
+        options.nth(score-1).check()
+        page.locator('#tobacco-form button[type="submit"]').click()
+        result=storage(page)
+        assert len(result["tobaccos"])==1
+        assert result["tobaccos"][0]["review"]["tolerability"]==score
+        marks=page.locator(".shisha-scale .shisha-mark")
+        assert marks.count()==5
+        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
+        assert page.locator(".shisha-scale .shisha-mark.empty").count()==5-score
+        for i in range(5):
+            assert marks.nth(i).locator("use").get_attribute("href")=="#i-shisha"
+        assert page.locator(".rating-count").inner_text()==str(score)+" von 5"
+        assert "Verträglichkeit: "+str(score)+" von 5" in page.locator(".rating-summary").get_attribute("aria-label")
+        page.reload()
+        assert page.locator(".shisha-scale .shisha-mark.filled").count()==score
+    ctx.close()
 
 def adversarial_suite(browser):
     ctx=browser.new_context()
@@ -435,6 +476,7 @@ def main():
                     ("Product: search/filter/duplicate/delete",search_filter_suite),
                     ("UI: compact rating cards at 320/390/1280 px",compact_card_suite),
                     ("UI: five symptom icons and accessible persisted choices",symptom_icons_suite),
+                    ("UI: five shisha marks persist score and support rating edits",shisha_rating_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
                     ("Data Recovery: broken localStorage raw export and backup restore",damaged_storage_suite),

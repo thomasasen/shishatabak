@@ -119,29 +119,49 @@ test("compact tobacco cards keep rating prominent and editing accessible without
   assert.match(css,/\.tobacco-card\{padding:14px\}/);
 });
 
-test("five symptom pictograms have stable labels, lightweight SVG symbols and keyboard-accessible choices",()=>{
-  const pairs={
-    "Schwindel":"dizziness",
-    "Übelkeit":"nausea",
-    "Kopfschmerzen":"headache",
-    "Herzrasen":"palpitations",
-    "Andere Beschwerden":"other"
-  };
-  for(const [label,name] of Object.entries(pairs)){
-    assert.match(html,new RegExp('<symbol id="i-symptom-'+name+'" viewBox="0 0 24 24">'));
-    assert.ok(app.includes('"'+label+'":"'+name+'"'),"missing safe static mapping for "+label);
+test("the five original approved symptom artworks are readable and persist as labels",()=>{
+  const source=readFileSync(new URL("assets/symptom-reference-sprite.png",root));
+  assert.equal(source.subarray(1,4).toString(),"PNG");
+  assert.equal(source.readUInt32BE(16),320,"sprite has five columns of 64px");
+  assert.equal(source.readUInt32BE(20),128,"sprite has light and dark rows");
+  for(const [label,name,x] of [
+    ["Schwindel","dizziness","0%"],
+    ["Übelkeit","nausea","25%"],
+    ["Kopfschmerzen","headache","50%"],
+    ["Herzrasen","palpitations","75%"],
+    ["Andere Beschwerden","other","100%"]
+  ]){
+    assert.ok(app.includes('"'+label+'":"'+name+'"'),"safe symptom label mapping for "+label);
+    assert.ok(css.includes(".symptom-art--"+name+"{--icon-x:"+x+"}"),"missing artwork column");
   }
+  assert.match(css,/symptom-reference-sprite\.png/);
+  assert.match(css,/background-size:500% 200%/);
+  assert.match(css,/@media\(prefers-color-scheme:dark\)\{\.symptom-art\{--icon-y:100%\}\}/);
   assert.match(app,/symptomIcon\(sym\)/);
   assert.match(app,/class="symptom-text"/);
   assert.match(app,/class="symptom-mini"/);
   assert.match(app,/role="group" aria-label="Beschwerden: /);
   assert.match(css,/\.symptom-choice:has\(input:checked\)/);
   assert.match(css,/\.symptom-choice:focus-within\{/);
-  assert.match(css,/\.symptom-mini\s*\{[^}]*width:26px;height:26px/s);
-  assert.match(css,/\.symptom-icon\s*\{[^}]*width:20px;height:20px/s);
-  assert.match(css,/--symptom-accent:/);
-  assert.doesNotMatch(app,/src=["']https?:\/\/.*symptom|fetch\(["'].*symptom/);
-  // Backwards compatibility: plain-text persisted values and FormData naming.
+  assert.match(css,/\.symptom-mini\s*\{[^}]*width:49px;height:49px/s);
+  assert.match(css,/\.symptom-art\s*\{[^}]*width:44px;height:44px/s);
+  assert.doesNotMatch(app,/i-symptom-/,"unapproved placeholder SVG icons must no longer be used");
   assert.match(app,/name="symptom" value="/);
   assert.match(app,/getAll\("symptom"\)/);
+});
+
+test("tolerability renders five shisha marks with muted remainder and accessible labels",()=>{
+  assert.match(html,/<symbol id="i-shisha" viewBox="0 0 32 36">/);
+  assert.match(app,/function shishaScale\(value\)/);
+  assert.match(app,/Array\.from\(\{length:5\}/);
+  assert.match(app,/class="shisha-mark /);
+  assert.match(app,/i<value\?'filled':'empty'/);
+  assert.match(app,/rating-summary-bottom/);
+  assert.match(app,/rating-count/);
+  assert.match(css,/\.shisha-mark\.filled\{color:var\(--rating-on\)\}/);
+  assert.match(css,/\.shisha-mark\.empty\{color:var\(--text-tertiary\);opacity:\.42\}/);
+  assert.match(css,/\.rating-summary\.poor\{--rating-on:var\(--danger\)\}/);
+  assert.match(css,/\.rating-summary\.good\{--rating-on:var\(--success\)\}/);
+  assert.match(app,/class="rating-choice-shisha"/);
+  assert.doesNotMatch(app,/class="rating-summary-value"/);
 });
