@@ -459,7 +459,10 @@ def mockup_fidelity_suite(browser):
         }""")
         assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
         assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
-        assert metrics["tile"]["width"]<=64,metrics\n        if width>=1000:\n            assert page.locator(".card-identity").bounding_box()["y"] >= page.locator(".card-side").bounding_box()["y"]-3\n            assert abs(page.locator(".card-identity").bounding_box()["y"] - page.locator(".card-side").bounding_box()["y"])<16
+        assert metrics["tile"]["width"]<=64,metrics
+        if width>=1000:
+            assert page.locator(".card-identity").bounding_box()["y"] >= page.locator(".card-side").bounding_box()["y"]-3
+            assert abs(page.locator(".card-identity").bounding_box()["y"] - page.locator(".card-side").bounding_box()["y"])<16
         assert page.locator(".shisha-scale svg use").count()==5
         assert page.locator(".shisha-scale").evaluate("(el)=>el.scrollWidth<=el.clientWidth+1")
         assert "design-symptom-artwork.png" in metrics["cardImage"]
