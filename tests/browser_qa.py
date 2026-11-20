@@ -399,17 +399,15 @@ def shisha_rating_suite(browser):
         assert page.locator(".shisha-scale .shisha-mark.is-filled").count()==score
     ctx.close()
 
-def mockup_fidelity_suite(browser):
-    """Independent design check against the approved 1750x899 visual reference.
+def unslop_visual_suite(browser):
+    """Visual QA for the Unslop redesign across desktop, tablet and phone.
 
-    The revised reference uses a single-row desktop header and compact content,
-    a full-width compact product row without an emblem, five vector Shisha glyphs,
-    and native-sized symptom tiles. Compare DOM geometry,
-    computed styling and screenshots on desktop and mobile.
+    Assert the new authored design, one-row desktop cards, semantic states,
+    accessible iconography and geometry rather than comparing old mockup sizes.
     """
     images=ROOT/"tests"/"_screenshots"
     images.mkdir(exist_ok=True)
-    item=product("mockup-card","Argileh","ORNG MNT",2)
+    item=product("unslop-card","Argileh","ORNG MNT",2)
     item["flavor"]="Orange, Minze"
     item["review"]["symptoms"]=["Schwindel","Übelkeit"]
     for width,height in ((1750,899),(1152,859),(390,844),(320,740)):
@@ -423,7 +421,7 @@ def mockup_fidelity_suite(browser):
         page.locator("#screen h1").wait_for()
         assert page.locator("#screen h1").inner_text()=="Meine Tabake"
         assert page.locator(".topbar .brand-text").inner_text()=="Tabakjournal"
-        assert page.locator(".brand-subtitle").inner_text()=="Bewerten · Verwalten · Verträglichkeit"
+        assert page.locator(".brand-subtitle").inner_text()=="Geschmack & Verträglichkeit"
         assert page.locator(".topbar-actions button").count()==5
         assert page.locator(".tobacco-card").count()==1
         assert page.locator(".tobacco-card h2").inner_text()=="ORNG MNT"
@@ -432,10 +430,11 @@ def mockup_fidelity_suite(browser):
         assert page.locator(".shisha-mark.is-filled").count()==2
         assert page.locator(".shisha-mark.is-muted").count()==3
         assert page.locator(".symptom-item").count()==2
-        assert page.locator(".symptom-item").nth(0).inner_text()=="Schwindel"
-        assert page.locator(".symptom-item").nth(1).inner_text()=="Übelkeit"
+        assert page.locator(".symptom-item").nth(0).get_attribute("title")=="Schwindel"
+        assert page.locator(".symptom-item").nth(1).get_attribute("title")=="Übelkeit"
+        assert page.locator(".review-symptoms").get_attribute("aria-label")=="Beschwerden: Schwindel, Übelkeit"
         assert page.locator(".card-edit").is_visible()
-        assert page.evaluate("document.querySelector('link[rel=stylesheet]').href.includes('visible2')")
+        assert page.locator('link[rel="stylesheet"][href*="design.css?v=20261120-unslop1"]').count()==1
         assert page.locator(".brand-mark").evaluate("(img)=>img.complete && img.naturalWidth>0")
         assert page.locator(".card-emblem").count()==0
         assert page.evaluate("document.documentElement.dataset.theme")=="dark"
@@ -444,13 +443,15 @@ def mockup_fidelity_suite(browser):
             return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
           const style=q=>getComputedStyle(document.querySelector(q));
           return {
-            screen:rect("#screen"),header:rect(".topbar"),title:rect(".page-head h1"),
-            card:rect(".tobacco-card"),
-            rating:rect(".rating-summary"),tile:rect(".symptom-mini"),
+            header:rect(".topbar"),title:rect(".page-head h1"),
+            card:rect(".tobacco-card"),identity:rect(".card-identity"),
+            side:rect(".card-side"),tile:rect(".symptom-mini"),
             edit:rect(".card-edit"),search:rect(".search"),
-            dark:style("body").backgroundColor,
+            background:style("body").backgroundColor,
             titleFont:parseFloat(style(".page-head h1").fontSize),
             cardColumns:style(".card-head").gridTemplateColumns,
+            cardBackground:style(".tobacco-card").backgroundImage,
+            cardShadow:style(".tobacco-card").boxShadow,
             cardImage:style(".symptom-art").backgroundImage,
             mask:style(".shisha-mark").maskImage,
             scroll:document.documentElement.scrollWidth,
@@ -459,43 +460,47 @@ def mockup_fidelity_suite(browser):
           };
         }""")
         assert metrics["scroll"]<=metrics["client"]+1,(width,metrics)
-        if width>=980:
-            assert metrics["header"]["height"]<=90,metrics
-            assert page.locator(".topbar-brand").bounding_box()["y"]>=metrics["header"]["y"]
-            assert abs(page.locator(".topbar-brand").bounding_box()["y"]-page.locator(".topbar-actions").bounding_box()["y"])<=12
-        assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44
-        assert metrics["tile"]["width"]<=64,metrics
-        if width>=1000:
-            assert page.locator(".card-identity").bounding_box()["y"] >= page.locator(".card-side").bounding_box()["y"]-3
-            assert abs(page.locator(".card-identity").bounding_box()["y"] - page.locator(".card-side").bounding_box()["y"])<16
+        assert metrics["background"]=="rgb(21, 21, 19)",metrics
+        assert metrics["cardBackground"]=="none",metrics
+        assert metrics["cardShadow"]=="none",metrics
+        assert metrics["edit"]["width"]>=44 and metrics["edit"]["height"]>=44,metrics
+        assert 36<=metrics["tile"]["width"]<=44,metrics
         assert page.locator(".shisha-scale svg use").count()==5
         assert page.locator(".shisha-scale").evaluate("(el)=>el.scrollWidth<=el.clientWidth+1")
         assert "design-symptom-artwork.png" in metrics["cardImage"]
-        assert metrics["mask"]=="none",metrics["mask"]
+        assert metrics["mask"]=="none",metrics
         assert max(metrics["marks"])-min(metrics["marks"])<3,(width,metrics)
+        if width>=1000:
+            assert 60<=metrics["header"]["height"]<=82,metrics
+            assert abs(page.locator(".topbar-brand").bounding_box()["y"]-
+                       page.locator(".topbar-actions").bounding_box()["y"])<=12,metrics
+            assert abs(metrics["identity"]["y"]-metrics["side"]["y"])<20,metrics
+            assert 24<=metrics["titleFont"]<=38,metrics
+            assert 60<=metrics["card"]["height"]<=130,metrics
         if width==1750:
-            assert 65<=metrics["header"]["height"]<=90,metrics
-            assert 25<=metrics["card"]["x"]<=65,metrics
-            assert metrics["card"]["width"]>=1570,metrics
-            assert 65<=metrics["card"]["height"]<=110,metrics
-            assert 28<=metrics["titleFont"]<=38,metrics
-            assert metrics["card"]["height"]<218,metrics
-            assert 30<=metrics["tile"]["width"]<=45,metrics
+            assert 110<=metrics["card"]["x"]<=180,metrics
+            assert 1400<=metrics["card"]["width"]<=1500,metrics
             assert 80<=metrics["title"]["y"]<=150,metrics
             assert 220<=metrics["card"]["y"]<=430,metrics
         if width==1152:
             assert metrics["card"]["width"]>=1000,metrics
-            assert 30<=metrics["tile"]["width"]<=42,metrics
-            assert metrics["card"]["height"]<=115,metrics
         if width<500:
             assert metrics["card"]["width"]>=width-45,metrics
-            assert metrics["tile"]["width"]>=42,metrics
-        page.screenshot(path=str(images/f"approved-layout-{width}-dark.png"),full_page=True)
-        print(f"FIDELITY {width}px: "+str({
+            assert metrics["identity"]["y"]<metrics["side"]["y"],metrics
+            assert metrics["card"]["height"]<=300,metrics
+        page.screenshot(path=str(images/f"unslop-layout-{width}-dark.png"),full_page=True)
+        # Both palettes must render with distinct, solid neutral backdrops.
+        page.locator(".theme-toggle").click()
+        assert page.evaluate("document.documentElement.dataset.theme")=="light"
+        light_background=page.locator("body").evaluate("(el)=>getComputedStyle(el).backgroundColor")
+        assert light_background=="rgb(245, 243, 239)",(width,light_background)
+        page.screenshot(path=str(images/f"unslop-layout-{width}-light.png"),full_page=True)
+        assert not errors,(width,errors)
+        print(f"UNSLOP VISUAL {width}px: "+str({
             k:metrics[k] for k in ("header","card","tile","edit","titleFont")
         }),flush=True)
-        assert not errors,(width,errors)
         ctx.close()
+
 
 def mockup_redteam_suite(browser):
     """Independent adversarial audit: new nav has real actions, themes persist,
@@ -643,7 +648,7 @@ def main():
                     ("UI: compact rating cards at 320/390/1280 px",compact_card_suite),
                     ("UI: five symptom icons and accessible persisted choices",symptom_icons_suite),
                     ("UI: five shisha marks persist score and support rating edits",shisha_rating_suite),
-                    ("Visual QA: approved mockup layout at 1750/1152/390/320",mockup_fidelity_suite),
+                    ("Visual QA: Unslop at 1750/1152/390/320 in dark and light",unslop_visual_suite),
                     ("Red Team: navigation, theme, storage and responsive containment",mockup_redteam_suite),
                     ("Data: export/import/merge/replace/legacy/clear",backup_suite),
                     ("Data Red Team: colliding product and session IDs",collision_suite),
