@@ -231,9 +231,9 @@
     if(!state)return '<div class="hint warning">Deine bisherigen Daten konnten nicht sicher gelesen werden. Bitte Browserdaten nicht löschen oder überschreiben und zuerst eine Sicherung der vorhandenen Daten erstellen.</div>';
     const products=matchingProducts();
     const rated=state.tobaccos.filter(p=>p.review?.tolerability!=null).length;
-    return '<header class="page-head"><div><h1>Meine Tabake</h1><p>Wie gut verträgst du deine Tabaksorten? Halte deine persönliche Bewertung fest.</p></div></header>'+
+    return '<header class="page-head"><div><h1>Meine Tabake</h1><p>Geschmack und Verträglichkeit deiner Sorten auf einen Blick.</p></div></header>'+
       '<div class="collection-meta"><strong>'+state.tobaccos.length+' Sorten</strong><span> · '+rated+' bewertet</span></div>'+
-      '<div class="toolbar"><div class="search-wrap"><input type="search" class="search" id="searchBar" value="'+escapeHTML(query)+'" placeholder="Hersteller, Sorte oder Geschmack" aria-label="Meine Tabake durchsuchen" autocomplete="off"></div>'+
+      '<div class="toolbar"><div class="search-wrap"><input type="search" class="search" id="searchBar" value="'+escapeHTML(query)+'" placeholder="Tabak suchen" aria-label="Meine Tabake durchsuchen" autocomplete="off"></div>'+
       '<div class="filters" role="group" aria-label="Bewertung filtern">'+[
         ["all","Alle"],["good","Gut verträglich"],["bad","Schlecht verträglich"],["unrated","Unbewertet"]
       ].map(pair=>'<button type="button" class="filter '+(filter===pair[0]?'active':'')+'" data-filter="'+pair[0]+'" aria-pressed="'+(filter===pair[0])+'">'+pair[1]+'</button>').join("")+'</div></div>'+
@@ -268,7 +268,7 @@
   function catalogView(){
     return '<header class="page-head"><h1>Katalog</h1><p>Lokale Tabaksorten durchsuchen und direkt zur Bewertung übernehmen.</p></header>'+
       '<div class="search-wrap catalog-search"><input type="search" class="search" id="catalogSearch" value="'+escapeHTML(catalogQuery)+'"'+
-      ' placeholder="Hersteller, Sorte oder Geschmack" aria-label="Tabakkatalog durchsuchen" autocomplete="off"></div>'+
+      ' placeholder="Tabak suchen" aria-label="Tabakkatalog durchsuchen" autocomplete="off"></div>'+
       '<div id="catalogViewResults">'+catalogResults()+'</div>';
   }
   function settingsView(){

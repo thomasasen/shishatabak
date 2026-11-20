@@ -54,7 +54,7 @@ Die Skripte unter [scripts](scripts) dienen nur der **separaten Pflege des Daten
 
 ## Oberfläche
 
-Das responsive Design orientiert sich an den Apple Human Interface Guidelines, setzt deren Grundprinzipien aber mit HTML/CSS und Browserstandards um. Hell-/Dunkelmodus, Tastaturfokus und die zugängliche Bewertungssteuerung bleiben erhalten. Die Fünferbewertung steht durchgehend in einer Reihe; Produktdaten und persönliche Zusatzangaben sind aufklappbar und die Dialogaktionen beim Scrollen sichtbar. Die Webapp verwendet keine nativen Apple-Oberflächenelemente. Den aktuellen Prüfbericht enthält das [Red-Team-Protokoll für die Bewertungsoberfläche](docs/red-team-apple-bewertungs-gui-20261118.md).
+Die Oberfläche wurde anhand von [Unslop von Damir Sokolovsky](https://github.com/heydamir/unslop) (CC BY 4.0) überarbeitet. Das ruhige, warme Graphit-/Papierdesign verwendet einheitliche Abstände, neutrale Flächen, dezente Zustandsfarben und kompakte Tabakzeilen. Die fünf Shisha-Symbole und die eigens gestalteten Beschwerdeillustrationen bleiben der visuelle Schwerpunkt. Hell-/Dunkelmodus, Tastaturfokus, die zugängliche Bewertungssteuerung und die beim Scrollen sichtbaren Dialogaktionen bleiben erhalten. Die [Unslop-Designprüfung vom 20.11.2026](docs/unslop-design-20261120.md) dokumentiert Gestaltung, Audit und Testumfang. Das frühere [Apple-HIG-Red-Team-Protokoll](docs/red-team-apple-bewertungs-gui-20261118.md) bleibt als historischer Stand erhalten.
 
 ## Lokal starten und testen
 
