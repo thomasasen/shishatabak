@@ -1,0 +1,408 @@
+/* Tabakjournal / Unslop design system · 20 Nov 2026
+ * Design adaptation based on heydamir/unslop by Damir Sokolovsky, CC BY 4.0.
+ * https://github.com/heydamir/unslop
+ *
+ * Product direction: precise, tactile, quiet.
+ * World: tobacco journal, warm graphite and natural paper.
+ * Moment: five original shisha marks and the approved symptom illustrations.
+ * Signature: compact, semantic five-mark tolerability scale.
+ * This layer supersedes the old experiment/mockup passes; behavior lives in app.js.
+ */
+
+:root {
+  --motion-ease:cubic-bezier(.22,1,.36,1);
+  --page-edge:clamp(16px,2.5vw,32px);
+  --radius-card:14px;
+  --radius-control:9px;
+  font-family:"Segoe UI Variable","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;
+  font-size:16px;
+}
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --canvas:#151513;
+  --surface:#201f1d;
+  --surface-subtle:#292824;
+  --surface-soft:#312f2a;
+  --bar:rgba(21,21,19,.94);
+  --text:#f3f0ea;
+  --text-secondary:#c5beb3;
+  --text-tertiary:#aaa397;
+  --accent:#e3b47c;
+  --accent-pressed:#d7c6ae;
+  --accent-soft:#352c23;
+  --primary-bg:#f3eee6;
+  --primary-text:#27231e;
+  --border:#46423d;
+  --border-subtle:#39352f;
+  --focus:#e3b47c;
+  --success:#a1ddba;
+  --success-bg:#24392c;
+  --warning:#edc28b;
+  --warning-bg:#3b3023;
+  --danger:#f2a39a;
+  --danger-bg:#452d2b;
+  --shadow:0 1px 2px rgba(0,0,0,.1);
+  --shadow-dialog:0 28px 80px rgba(0,0,0,.42);
+}
+:root[data-theme="light"] {
+  color-scheme:light;
+  --canvas:#f5f3ef;
+  --surface:#fffefa;
+  --surface-subtle:#f6f3ed;
+  --surface-soft:#ede9e1;
+  --bar:rgba(255,254,250,.96);
+  --text:#27241e;
+  --text-secondary:#625e55;
+  --text-tertiary:#716b61;
+  --accent:#85512d;
+  --accent-pressed:#453528;
+  --accent-soft:#f2e5d6;
+  --primary-bg:#29251f;
+  --primary-text:#fffefa;
+  --border:#d8d3ca;
+  --border-subtle:#e7e3db;
+  --focus:#85512d;
+  --success:#245f43;
+  --success-bg:#e5f1e7;
+  --warning:#795322;
+  --warning-bg:#f8edda;
+  --danger:#a3322b;
+  --danger-bg:#f9e8e6;
+  --shadow:0 1px 2px rgba(41,37,31,.035);
+  --shadow-dialog:0 24px 72px rgba(30,28,24,.17);
+}
+body{background:var(--canvas);color:var(--text)}
+button,input,select,textarea{font-family:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{
+  outline:2px solid var(--focus);outline-offset:3px
+}
+.ui-icon{width:18px;height:18px;stroke-width:1.5}
+.skip-link{font-weight:500;border-radius:var(--radius-control)}
+
+/* The header is navigation, not another oversized hero. */
+.topbar{
+  min-height:68px;padding:8px var(--page-edge);gap:16px;
+  background:var(--bar);border-bottom:1px solid var(--border-subtle);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+}
+.topbar-brand{gap:10px;font-size:16px;font-weight:500;letter-spacing:0}
+.brand-mark{
+  width:44px;height:44px;flex:0 0 44px;border-radius:10px;
+  display:block;object-fit:cover;background:transparent;box-shadow:none
+}
+.brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:left}
+.brand-text{font-size:18px;font-weight:600;line-height:1.15;letter-spacing:-.01em}
+.brand-subtitle{font-size:12px;font-weight:400;color:var(--text-secondary);line-height:1.3}
+.topbar-actions{gap:6px}
+.topbar-actions .btn{
+  min-height:40px;height:40px;min-width:40px;
+  padding:8px 12px;font-size:13px;font-weight:500;gap:8px;
+  border-radius:9px;background:transparent;box-shadow:none;
+  color:var(--text-secondary);border:1px solid transparent
+}
+.topbar-actions .btn:hover{background:var(--surface-subtle);color:var(--text)}
+.topbar-actions .btn .ui-icon{width:17px;height:17px;stroke-width:1.5}
+.topbar-actions .btn.utility-action.is-active{background:var(--surface-subtle);border-color:var(--border);color:var(--text)}
+.topbar-actions .header-add{
+  background:var(--primary-bg);color:var(--primary-text);
+  border-color:transparent;font-weight:500
+}
+.topbar-actions .header-add:hover{background:var(--accent-pressed);color:var(--primary-text)}
+:root[data-theme="light"] .topbar-actions .header-add:hover{color:#fffefa}
+.topbar-actions .theme-toggle{width:40px;min-width:40px;padding:8px}
+.topbar-actions .theme-toggle .ui-icon{color:var(--text-secondary)}
+
+/* Content and data density */
+.content{max-width:1520px;padding:32px var(--page-edge) 48px}
+.footer{max-width:1520px;padding:0 var(--page-edge) 20px}
+.footer .save-state{margin:0;font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.page-head{margin:0 0 20px}
+.page-head h1{font-size:clamp(28px,3vw,34px);font-weight:500;letter-spacing:-.015em;line-height:1.16}
+.page-head p{font-size:14px;line-height:1.5;margin:8px 0 0;max-width:700px}
+.collection-meta{margin:0 0 20px;font-size:13px;gap:8px;line-height:1.5}
+.collection-meta strong{font-weight:500}
+.toolbar{gap:16px;flex-wrap:nowrap;align-items:center;margin-bottom:12px}
+.search-wrap{flex:1 1 460px;max-width:640px;min-width:0}
+.search{
+  height:44px;min-height:44px;padding:10px 16px 10px 42px;
+  font-size:14px;border:1px solid var(--border);border-radius:9px;
+  background:var(--surface);box-shadow:none
+}
+.search-wrap:before{left:16px;width:14px;height:14px;border-width:1.5px}
+.search-wrap:after{left:28px;top:calc(50% + 5px);width:7px;height:1.5px}
+.filters{
+  min-height:44px;padding:4px;gap:2px;border-radius:10px;
+  background:var(--surface-subtle);border:1px solid var(--border-subtle)
+}
+.filter{
+  min-height:34px;padding:6px 12px;border-radius:7px;
+  font-size:13px;font-weight:400;color:var(--text-secondary);
+  transition:background-color .16s var(--motion-ease),color .16s var(--motion-ease)
+}
+.filter:hover{color:var(--text);background:var(--surface-soft)}
+.filter.active{background:var(--surface);color:var(--text);font-weight:500;box-shadow:none}
+.results-count{font-size:12px;margin-bottom:12px;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.cards{display:grid;grid-template-columns:1fr;gap:8px}
+
+/* Product rows: the product name, evaluation and symptoms all share a baseline. */
+.tobacco-card{
+  min-height:0;padding:12px 16px;gap:8px;
+  background:var(--surface);box-shadow:none;
+  border:1px solid var(--border-subtle);border-left-width:3px;border-radius:12px;
+  transition:background-color .16s var(--motion-ease),border-color .16s var(--motion-ease)
+}
+.tobacco-card:hover{background:var(--surface-subtle)}
+.tobacco-card.rate-poor{border-left-color:var(--danger)}
+.tobacco-card.rate-good{border-left-color:var(--success)}
+.tobacco-card.rate-neutral{border-left-color:var(--warning)}
+.tobacco-card.rate-unrated{border-left-color:var(--border)}
+.card-head{
+  display:grid;grid-template-columns:minmax(220px,1fr) minmax(510px,1.25fr);
+  align-items:center;gap:12px
+}
+.card-identity{gap:4px;min-width:0}
+.card-brand{font-size:12px;font-weight:500;color:var(--text-secondary);line-height:1.3}
+.tobacco-card h2{font-size:18px;font-weight:500;letter-spacing:0;line-height:1.25}
+.card-meta{font-size:12px;color:var(--text-tertiary);line-height:1.4}
+.card-side{
+  display:grid;grid-template-columns:minmax(170px,.83fr) minmax(220px,1.1fr) 48px;
+  align-items:center;gap:0;min-width:0
+}
+.card-rating,.card-symptoms,.card-actions{
+  display:flex;align-items:center;justify-content:center;min-width:0;min-height:60px;
+  padding:0 12px;border-left:1px solid var(--border-subtle)
+}
+.card-actions{padding:0 0 0 8px}
+.rating-summary{width:100%;min-height:58px;gap:4px}
+.shisha-scale{gap:4px}
+.shisha-mark{width:21px;height:27px;flex:0 1 21px;stroke-width:1.6}
+.shisha-mark.is-filled{color:var(--rating-on)}
+.shisha-mark.is-muted{color:var(--text-tertiary);opacity:.42}
+.rating-summary-bottom{gap:8px;flex-wrap:wrap}
+.rating-summary .rating-summary-label,
+.rating-summary.good .rating-summary-label,
+.rating-summary.poor .rating-summary-label,
+.rating-summary.neutral .rating-summary-label{
+  padding:0;background:transparent;color:var(--text-secondary);
+  border-radius:0;font-size:12px;line-height:1.3;font-weight:500
+}
+.rating-summary.unrated .rating-summary-label{font-size:12px;font-weight:400}
+.rating-count{
+  color:var(--text-tertiary);font-size:11px;
+  padding:0;border:0;font-variant-numeric:tabular-nums
+}
+.review-symptoms{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;flex-wrap:wrap;min-width:0;overflow:hidden;text-overflow:ellipsis
+}
+.symptom-item{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;max-width:64px}
+.symptom-mini{
+  display:grid;place-items:center;flex:0 0 auto;width:40px;height:40px;
+  background:transparent;border:0;border-radius:8px;box-shadow:none
+}
+.symptom-mini .symptom-art{
+  width:38px;height:38px;
+  background-image:url("./assets/design-symptom-artwork.png");
+  background-size:500% 200%;
+  background-position:var(--icon-x) var(--icon-y,100%)
+}
+.symptom-label{font-size:11px;font-weight:400;color:var(--text-secondary);line-height:1.2;text-align:center}
+.no-symptoms{font-size:12px;color:var(--text-tertiary);text-align:center}
+.card-edit{
+  width:44px;height:44px;flex:0 0 44px;padding:0;
+  border:1px solid var(--border);border-radius:9px;
+  background:var(--surface-subtle);color:var(--text-secondary);
+  transition:background-color .16s var(--motion-ease),color .16s var(--motion-ease)
+}
+.card-edit .ui-icon{width:18px;height:18px;stroke-width:1.5}
+.card-edit:hover{background:var(--surface-soft);color:var(--text)}
+.card-extra-row{
+  border-top:1px solid var(--border-subtle);margin-top:4px;
+  padding-top:8px;gap:16px
+}
+.rating-secondary,.review-notes{font-size:12px;color:var(--text-secondary)}
+.rating-secondary strong{font-weight:500}
+.smallprint{display:flex;align-items:flex-start;gap:8px;margin:24px 0 0;font-size:12px;line-height:1.5}
+.smallprint .ui-icon{flex:0 0 16px;width:16px;height:16px;margin-top:1px;color:var(--text-tertiary)}
+
+/* Secondary screens use the same row and panel language. */
+.panel,.data-tile{box-shadow:none;border-radius:14px;background:var(--surface)}
+.data-grid{gap:16px}
+.data-tile{padding:24px}
+.data-tile h3{font-size:18px;font-weight:500;letter-spacing:0;margin-bottom:8px}
+.data-tile p{font-size:14px;line-height:1.55;margin-bottom:20px}
+.archive-tile{margin-top:16px}
+.catalog-search{max-width:640px;margin-bottom:24px}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px}
+.catalog-entry{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px;background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px
+}
+.catalog-entry h2{font-size:16px;font-weight:500;line-height:1.35;margin:2px 0}
+.catalog-entry strong{font-size:12px;font-weight:500;color:var(--text-secondary)}
+.catalog-entry p{font-size:12px;color:var(--text-tertiary);margin:0}
+.catalog-entry .btn{flex-shrink:0}
+.btn{
+  font-size:13px;font-weight:500;border-radius:9px;
+  transition:background-color .16s var(--motion-ease),color .16s var(--motion-ease),border-color .16s var(--motion-ease),transform .16s var(--motion-ease)
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--primary-bg);color:var(--primary-text)}
+.btn-primary:hover{background:var(--accent-pressed);color:var(--primary-text)}
+:root[data-theme="light"] .btn-primary:hover{color:#fffefa}
+.btn-secondary{background:var(--surface-subtle);border-color:var(--border)}
+.btn-secondary:hover{background:var(--surface-soft)}
+.btn-danger{background:var(--danger-bg);color:var(--danger)}
+.btn-danger:hover{filter:none;background:var(--surface-soft)}
+.empty{padding:48px 24px}
+.empty-icon{background:var(--surface-subtle);border-radius:12px}
+.empty strong{font-size:17px;font-weight:500}
+.empty p{font-size:14px}
+
+/* Editing: one clear rating area, quiet optional details, sticky actions. */
+.editor-dialog{
+  width:min(640px,calc(100vw - 32px));border-radius:16px;
+  border-color:var(--border);box-shadow:var(--shadow-dialog)
+}
+.dialog-head{padding:24px 24px 16px;gap:16px}
+.dialog-head h2{font-size:24px;font-weight:500;letter-spacing:0}
+.dialog-head p{margin-top:8px}
+.close-btn{border-radius:9px;background:var(--surface-subtle);font-weight:400}
+.editor-form{padding:20px 24px 0}
+.fields{gap:16px}
+.field{gap:8px}
+.field label{font-weight:500}
+.field input,.field select,.field textarea{border-radius:9px;background:var(--surface-subtle)}
+.field-row{gap:12px}
+.field-help{font-size:12px}
+.catalog-result{border-radius:9px;background:var(--surface-subtle)}
+.catalog-result:hover{border-color:var(--border);background:var(--surface-soft)}
+.rating-block{
+  padding:16px;border:1px solid var(--border-subtle);
+  border-radius:12px;background:var(--surface-subtle)
+}
+.rating-block legend,.symptom-block legend{font-size:16px;font-weight:500}
+.rating-options{gap:8px;padding:4px 0 8px}
+.rating-option{
+  min-height:80px;border-radius:9px;background:var(--surface);gap:4px;
+  transition:background-color .16s var(--motion-ease),border-color .16s var(--motion-ease)
+}
+.rating-option:hover{border-color:var(--text-secondary)}
+.rating-option:has(input:checked){
+  border:2px solid var(--accent);background:var(--accent-soft);color:var(--text)
+}
+.rating-choice-shisha{width:25px;height:30px;stroke-width:1.6}
+.rating-score{font-size:17px;font-weight:500}
+.rating-name{font-size:12px;font-weight:400}
+.rating-block .rating-feedback{font-size:12px;font-weight:400;min-height:20px;margin-top:8px}
+.optional-details{border-color:var(--border-subtle);border-radius:12px}
+.optional-details summary{min-height:48px;padding:12px 16px;background:var(--surface-subtle);font-weight:500}
+.optional-details summary span{font-size:12px;font-weight:400}
+.optional-content{gap:16px;padding:16px}
+.symptom-choice{border-radius:9px;background:var(--surface);min-height:56px;padding:6px 10px;gap:8px}
+.symptom-choice:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.symptom-choice .symptom-art{
+  width:40px;height:40px;background-image:url("./assets/design-symptom-artwork.png");
+  background-size:500% 200%;background-position:var(--icon-x) var(--icon-y,100%)
+}
+.review-disclaimer{margin-bottom:12px}
+.hint{border-radius:10px}
+.dialog-actions{
+  position:sticky;bottom:0;margin:16px -24px 0;padding:16px 24px;
+  background:var(--surface);box-shadow:none;border-top:1px solid var(--border-subtle)
+}
+.toast{border-radius:10px;box-shadow:var(--shadow-dialog)}
+:root[data-theme="light"] .symptom-art{--icon-y:0%}
+:root[data-theme="dark"] .symptom-art{--icon-y:100%}
+
+/* Responsive: never squeeze the five selectable rating targets below 44 px. */
+@media(max-width:1100px){
+  .topbar{flex-wrap:wrap;gap:8px}
+  .topbar-actions{width:100%;justify-content:flex-start}
+  .card-head{grid-template-columns:minmax(0,1fr);gap:8px}
+  .card-side{grid-column:1;border-top:1px solid var(--border-subtle);padding-top:8px}
+  .card-rating{border-left:0}
+}
+@media(max-width:820px){
+  .data-grid{grid-template-columns:1fr}
+  .toolbar{flex-wrap:wrap}
+  .search-wrap{max-width:none;flex:1 1 100%}
+  .filters{width:100%;overflow-x:auto;scrollbar-width:thin}
+  .filter{flex:0 0 auto}
+}
+@media(max-width:680px){
+  :root{font-size:16px}
+  .topbar{padding:10px 16px;gap:8px}
+  .brand-mark{width:40px;height:40px;flex-basis:40px;border-radius:9px}
+  .brand-text{font-size:17px}
+  .brand-subtitle{font-size:11px}
+  .topbar-actions{width:100%;justify-content:space-between;gap:4px;overflow-x:auto}
+  .topbar-actions .btn{min-height:44px;height:44px;min-width:44px;width:auto;padding:8px}
+  .topbar-actions .btn .ui-icon{width:18px;height:18px}
+  .topbar-actions .action-label{display:none}
+  .topbar-actions .header-add{padding:8px 12px}
+  .topbar-actions .header-add .action-label{display:inline;font-size:12px}
+  .topbar-actions .theme-toggle{width:44px;min-width:44px}
+  .content{padding:24px 16px 40px}
+  .footer{padding:0 16px 20px}
+  .page-head{margin-bottom:16px}
+  .page-head h1{font-size:28px}
+  .page-head p{font-size:13px}
+  .collection-meta{margin-bottom:16px}
+  .toolbar{gap:8px}
+  .search{min-height:44px;height:44px}
+  .filters{min-height:44px}
+  .filter{min-height:34px}
+  .tobacco-card{padding:12px}
+  .card-head{gap:8px}
+  .card-side{grid-template-columns:minmax(118px,.95fr) minmax(90px,1.05fr) 44px}
+  .card-rating,.card-symptoms,.card-actions{min-height:66px;padding:0 4px}
+  .card-actions{padding-left:4px}
+  .rating-summary{min-height:58px;gap:4px}
+  .shisha-scale{gap:2px}
+  .shisha-mark{width:17px;height:23px;flex:0 1 17px}
+  .rating-summary-bottom{gap:4px}
+  .rating-summary .rating-summary-label,
+  .rating-summary.good .rating-summary-label,
+  .rating-summary.poor .rating-summary-label,
+  .rating-summary.neutral .rating-summary-label{font-size:11px}
+  .rating-count{font-size:10px}
+  .review-symptoms{gap:3px}
+  .symptom-item{max-width:38px}
+  .symptom-mini{width:36px;height:36px}
+  .symptom-mini .symptom-art{width:34px;height:34px}
+  .symptom-label{display:none}
+  .card-edit{width:44px;height:44px;flex-basis:44px}
+  .smallprint{margin-top:20px}
+  .editor-dialog{width:100%;max-height:calc(100dvh - 12px);border-radius:16px 16px 0 0}
+  .dialog-head{padding:20px 16px 16px}
+  .editor-form{padding:16px 16px 0}
+  .dialog-actions{margin:16px -16px 0;padding:12px 16px max(16px,env(safe-area-inset-bottom))}
+  .dialog-actions .btn{flex:1 1 120px}
+  .rating-block{padding:12px}
+  .rating-options{gap:4px}
+  .rating-option{min-height:66px;padding:8px 2px}
+  .rating-name{display:none}
+  .data-tile{padding:20px}
+}
+@media(max-width:390px){
+  .topbar-actions .header-add .action-label{display:none}
+  .topbar-actions .header-add{width:44px}
+  .field-row{grid-template-columns:1fr}
+  .card-side{grid-template-columns:minmax(114px,.95fr) minmax(76px,1fr) 44px}
+  .rating-count{display:none}
+  .symptom-item{max-width:32px}
+  .symptom-mini{width:32px;height:32px}
+  .symptom-mini .symptom-art{width:30px;height:30px}
+}
+/* Contrast, transparency and reduced-motion preferences remain functional. */
+@media(prefers-reduced-transparency:reduce){
+  .topbar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--surface)}
+}
+@media(prefers-contrast:more){
+  .tobacco-card,.catalog-entry,.data-tile,.rating-option{border-color:var(--text-secondary)}
+}
+@media(forced-colors:active){
+  .topbar-actions .header-add{background:Highlight;color:HighlightText}
+  .rating-option:has(input:checked){outline:2px solid Highlight;outline-offset:-3px}
+}
